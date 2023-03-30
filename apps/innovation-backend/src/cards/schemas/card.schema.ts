@@ -1,28 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, HydratedDocument } from 'mongoose';
+import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
 
 export type CardDocument = HydratedDocument<Card>;
-
-@Schema({ _id: false })
-export class ResourceTotals extends Document {
-  @Prop({ required: true })
-  castles: number;
-
-  @Prop({ required: true })
-  crowns: number;
-
-  @Prop({ required: true })
-  leaves: number;
-
-  @Prop({ required: true })
-  lightbulbs: number;
-
-  @Prop({ required: true })
-  factories: number;
-
-  @Prop({ required: true })
-  timepieces: number;
-}
 
 @Schema({ _id: false })
 export class ResourceSpaces extends Document {
