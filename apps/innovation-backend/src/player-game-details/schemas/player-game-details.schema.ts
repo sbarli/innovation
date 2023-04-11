@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, HydratedDocument, Schema as MongooseSchema } from 'mongoose';
-import { Card } from 'src/cards/schemas/card.schema';
+import { Card } from 'src/shared/schemas/card.schema';
 import { Game } from 'src/games/schemas/game.schema';
 import { Player } from 'src/player/player.schema';
 import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';

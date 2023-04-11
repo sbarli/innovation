@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Card, CardDocument } from 'src/shared/schemas/card.schema';
 import { CreateCardDto } from './dto/create-card.dto';
-import { Card, CardDocument } from './schemas/card.schema';
 
 @Injectable()
 export class CardsService {
   constructor(@InjectModel(Card.name) private cardModel: Model<CardDocument>) {}
+
+  async findAll() {
+    return this.cardModel.find({}).exec();
+  }
 
   async create(createCardDto: CreateCardDto): Promise<Card> {
     const createdCard = new this.cardModel(createCardDto);
