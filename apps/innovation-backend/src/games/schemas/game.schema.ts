@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
-import { Player } from 'src/player/player.schema';
+import { Player } from 'src/players/schemas/player.schema';
 import { Deck } from './deck.schema';
 import { Achievements } from './achievements.schema';
 

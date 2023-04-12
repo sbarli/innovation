@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreatePlayerDto } from './dto/create-player.dto';
-import { Player } from './player.schema';
+import { Player } from './schemas/player.schema';
 import { PlayerService } from './player.service';
 
 @Controller('player')

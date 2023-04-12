@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { Player, PlayerSchema } from './schemas/player.schema';
 import { PlayerController } from './player.controller';
-import { Player, PlayerSchema } from './player.schema';
 import { PlayerService } from './player.service';
 
 @Module({
