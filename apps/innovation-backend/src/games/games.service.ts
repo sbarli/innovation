@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateGameDto } from './dto/create-game.dto';
 import { SetWinnerDto } from './dto/set-winner.dto';
+import { UpdateDeckDto } from './dto/update-deck.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { Game, GameDocument } from './schemas/game.schema';
 
@@ -20,7 +21,7 @@ export class GamesService {
     gameUpdates,
   }: {
     id: string;
-    gameUpdates: UpdateGameDto | SetWinnerDto;
+    gameUpdates: UpdateGameDto | SetWinnerDto | UpdateDeckDto;
   }) {
     /**
      * NOTE: if this ever needs to be optimized for performance

@@ -4,6 +4,7 @@ import { Game } from './schemas/game.schema';
 import { GamesService } from './games.service';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { SetWinnerDto } from './dto/set-winner.dto';
+import { UpdateDeckDto } from './dto/update-deck.dto';
 
 @Controller('games')
 export class GamesController {
@@ -27,6 +28,17 @@ export class GamesController {
     return this.gamesService.updateById({
       id: gameId,
       gameUpdates: updateGameDto,
+    });
+  }
+
+  @Put(':gameId/deck')
+  async updateDeck(
+    @Param('gameId') gameId: string,
+    @Body() updateDeckDto: UpdateDeckDto,
+  ) {
+    return this.gamesService.updateById({
+      id: gameId,
+      gameUpdates: updateDeckDto,
     });
   }
 
