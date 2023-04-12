@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { CardsModule } from './cards/cards.module';
 import { GamesModule } from './games/games.module';
 import { PlayerGameDetailsModule } from './player-game-details/player-game-details.module';
-import { PlayerModule } from './players/player.module';
+import { PlayersModule } from './players/players.module';
 
 const MONGO_URL = process.env.MONGO_URL || '';
 console.log('MONGO_URL: ', MONGO_URL);
@@ -14,7 +14,7 @@ console.log('MONGO_URL: ', MONGO_URL);
   imports: [
     MongooseModule.forRoot(MONGO_URL),
     CardsModule,
-    PlayerModule,
+    PlayersModule,
     GamesModule,
     PlayerGameDetailsModule,
   ],
