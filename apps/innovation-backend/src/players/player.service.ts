@@ -18,4 +18,8 @@ export class PlayerService {
   async findOneById(id: string): Promise<Player | null> {
     return this.playerModel.findById(id).exec();
   }
+
+  async findByPlayerId(playerId: string) {
+    return this.playerModel.find({ playerId }).exec();
+  }
 }
