@@ -116,16 +116,16 @@ export class CardsController {
     return this.cardsService.findAll();
   }
 
-  @Post()
-  async seedCards(@Body() cards: CreateCardDto[]) {
-    await this.cardsService.deleteAll();
-    return this.cardsService.createMany(cards);
-  }
+  // @Post()
+  // async seedCards(@Body() cards: CreateCardDto[]) {
+  //   await this.cardsService.deleteAll();
+  //   return this.cardsService.createMany(cards);
+  // }
 
-  @Delete()
-  async deleteAllCards() {
-    return this.cardsService.deleteAll();
-  }
+  // @Delete()
+  // async deleteAllCards() {
+  //   return this.cardsService.deleteAll();
+  // }
 
   @Get(':id')
   async findCardById(@Param('id') id: string): Promise<Card | null> {

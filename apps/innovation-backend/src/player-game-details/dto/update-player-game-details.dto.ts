@@ -1,26 +1,11 @@
-class BoardPile {
-  readonly cardRefs: string[];
-  readonly splayed: 'LEFT' | 'RIGHT' | 'UP';
-}
+import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
+import { Board } from '../schemas/player-game-details.schema';
 
 export class UpdatePlayerGameDetailsDto {
   readonly age: number;
   readonly score: number;
-  readonly resourceTotals: {
-    readonly castles: number;
-    readonly crowns: number;
-    readonly leaves: number;
-    readonly lightbulbs: number;
-    readonly factories: number;
-    readonly timepieces: number;
-  };
-  readonly board: {
-    blue: BoardPile;
-    green: BoardPile;
-    purple: BoardPile;
-    red: BoardPile;
-    yellow: BoardPile;
-  };
+  readonly resourceTotals: ResourceTotals;
+  readonly board: Board;
   readonly achievements: string[];
   readonly hand: string[];
   readonly scoreCardRefs: string[];
