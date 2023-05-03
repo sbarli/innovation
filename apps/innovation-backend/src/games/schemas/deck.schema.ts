@@ -1,5 +1,6 @@
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
+import { AgeString } from 'src/shared/constants/cards';
 import { Card } from 'src/shared/schemas/card.schema';
 
 @Schema({ _id: false })
@@ -9,68 +10,68 @@ export class Deck extends Document {
     type: [MongooseSchema.Types.ObjectId],
     ref: 'Card',
   })
-  ONE: Card[];
+  [AgeString.ONE]: Card[];
 
   @Prop({
     required: true,
     type: [MongooseSchema.Types.ObjectId],
     ref: 'Card',
   })
-  TWO: Card[];
+  [AgeString.TWO]: Card[];
 
   @Prop({
     required: true,
     type: [MongooseSchema.Types.ObjectId],
     ref: 'Card',
   })
-  THREE: Card[];
+  [AgeString.THREE]: Card[];
 
   @Prop({
     required: true,
     type: [MongooseSchema.Types.ObjectId],
     ref: 'Card',
   })
-  FOUR: Card[];
+  [AgeString.FOUR]: Card[];
 
   @Prop({
     required: true,
     type: [MongooseSchema.Types.ObjectId],
     ref: 'Card',
   })
-  FIVE: Card[];
+  [AgeString.FIVE]: Card[];
 
   @Prop({
     required: true,
     type: [MongooseSchema.Types.ObjectId],
     ref: 'Card',
   })
-  SIX: Card[];
+  [AgeString.SIX]: Card[];
 
   @Prop({
     required: true,
     type: [MongooseSchema.Types.ObjectId],
     ref: 'Card',
   })
-  SEVEN: Card[];
+  [AgeString.SEVEN]: Card[];
 
   @Prop({
     required: true,
     type: [MongooseSchema.Types.ObjectId],
     ref: 'Card',
   })
-  EIGHT: Card[];
+  [AgeString.EIGHT]: Card[];
 
   @Prop({
     required: true,
     type: [MongooseSchema.Types.ObjectId],
     ref: 'Card',
   })
-  NINE: Card[];
+  [AgeString.NINE]: Card[];
 
   @Prop({
     required: true,
     type: [MongooseSchema.Types.ObjectId],
     ref: 'Card',
   })
-  TEN: Card[];
+  [AgeString.TEN]: Card[];
 }

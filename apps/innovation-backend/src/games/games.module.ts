@@ -10,5 +10,6 @@ import { GamesService } from './games.service';
   ],
   controllers: [GamesController],
   providers: [GamesService],
+  exports: [GamesService],
 })
 export class GamesModule {}

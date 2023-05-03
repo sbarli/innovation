@@ -15,7 +15,7 @@ export class PlayersService {
     return createdPlayer.save();
   }
 
-  async findOneById(id: string): Promise<Player | null> {
+  async findOneById(id: string): Promise<PlayerDocument | null> {
     return this.playerModel.findById(id).exec();
   }
 
