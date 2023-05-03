@@ -1,0 +1,3681 @@
+[
+  {
+    "cardId": "WRITING",
+    "name": "Writing",
+    "age": 1,
+    "color": "blue",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw a 2.",
+        "effectTypes": ["draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "CLOTHING",
+    "name": "Clothing",
+    "age": 1,
+    "color": "green",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 2,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Meld a card from your hand of a different color from any card on your board.",
+        "effectTypes": ["meld"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw and score a 1 for each color present on your board not present on any opponent's board.",
+        "effectTypes": ["draw", "score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "MASONRY",
+    "name": "Masonry",
+    "age": 1,
+    "color": "yellow",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 3,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "castles",
+      "resourceSpace2": null,
+      "resourceSpace3": "castles",
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may meld any number of cards from your hand, each with a Castle. If you melded four or more cards in this way, claim the Monument achievement.",
+        "effectTypes": ["meld", "achieve"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": "Monument"
+      }
+    ]
+  },
+  {
+    "cardId": "METALWORKING",
+    "name": "Metalworking",
+    "age": 1,
+    "color": "red",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 3,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "castles",
+      "resourceSpace2": "castles",
+      "resourceSpace3": null,
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and reveal a 1. If it has a Castle, score it and repeat this dogma effect. Otherwise, keep it.",
+        "effectTypes": ["draw", "reveal", "score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": true,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "CODE_OF_LAWS",
+    "name": "Code of Laws",
+    "age": 1,
+    "color": "purple",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 1,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may tuck a card from your hand of the same color as any card on your board. If you do, you may splay that color of your cards left.",
+        "effectTypes": ["tuck", "splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "SAILING",
+    "name": "Sailing",
+    "age": 1,
+    "color": "green",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 1,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "crowns",
+      "resourceSpace2": "crowns",
+      "resourceSpace3": null,
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and meld a 1.",
+        "effectTypes": ["draw", "meld"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "POTTERY",
+    "name": "Pottery",
+    "age": 1,
+    "color": "blue",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 3,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return up to three cards from your hand. If you returned any cards, draw and score a card of value equal to the number of cards you returned.",
+        "effectTypes": ["return", "draw", "score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw a 1.",
+        "effectTypes": ["draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "OARS",
+    "name": "Oars",
+    "age": 1,
+    "color": "red",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 2,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "castles",
+      "resourceSpace2": "crowns",
+      "resourceSpace3": null,
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a card with a Crown from your hand to my score pile! If you do, draw a 1, and repeat this dogma effect!",
+        "effectTypes": ["transfer", "score", "draw"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": true,
+        "specialAchievement": null
+      },
+      {
+        "description": "If no cards were transferred due to the demand, draw a 1.",
+        "effectTypes": ["draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ARCHERY",
+    "name": "Archery",
+    "age": 1,
+    "color": "red",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 2,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 1,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "castles",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": null,
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you draw a 1, then transfer the highest card in your hand to my hand!",
+        "effectTypes": ["draw", "transfer"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "AGRICULTURE",
+    "name": "Agriculture",
+    "age": 1,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 3,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return a card from your hand. If you do, draw and score a card of value one higher than the card you returned.",
+        "effectTypes": ["return", "draw", "score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "MYSTICISM",
+    "name": "Mysticism",
+    "age": 1,
+    "color": "purple",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 3,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "castles",
+      "resourceSpace3": "castles",
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and reveal a 1. If it is the same color as any card on your board, meld it and draw a 1.",
+        "effectTypes": ["draw", "reveal", "meld"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "CITY_STATES",
+    "name": "City States",
+    "age": 1,
+    "color": "purple",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 1,
+      "crowns": 2,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a top card with a Castle from your board to my board if you have at least four Castles on your board! If you do, draw a 1.",
+        "effectTypes": ["transfer", "draw"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "DOMESTICATION",
+    "name": "Domestication",
+    "age": 1,
+    "color": "yellow",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 2,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "castles",
+      "resourceSpace2": "crowns",
+      "resourceSpace3": null,
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Meld the lowest card in your hand. Draw a 1.",
+        "effectTypes": ["meld", "draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "TOOLS",
+    "name": "Tools",
+    "age": 1,
+    "color": "blue",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 1,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return three cards from your hand. If you do, draw and meld a 3.",
+        "effectTypes": ["return", "draw", "meld"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may return a 3 from your hand. If you do, draw three 1's.",
+        "effectTypes": ["return", "draw"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "THE_WHEEL",
+    "name": "The Wheel",
+    "age": 1,
+    "color": "green",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 3,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "castles",
+      "resourceSpace3": "castles",
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw two 1's.",
+        "effectTypes": ["draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "CURRENCY",
+    "name": "Currency",
+    "age": 2,
+    "color": "green",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 1,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "leaves",
+      "resourceSpace2": "crowns",
+      "resourceSpace3": null,
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return any number of cards from your hand. If you do, draw and score a 2 for every different value of card you returned.",
+        "effectTypes": ["return", "draw", "score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "CANAL_BUILDING",
+    "name": "Canal Building",
+    "age": 2,
+    "color": "yellow",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 1,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may exchange all the highest cards in your hand with all the highest cards in your score pile.",
+        "effectTypes": ["exchange"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "MONOTHEISM",
+    "name": "Monotheism",
+    "age": 2,
+    "color": "purple",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 3,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "castles",
+      "resourceSpace3": "castles",
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a top card on your board of a different color from any card on my board to my score pile! If you do, draw and tuck a 1!",
+        "effectTypes": ["transfer", "draw", "tuck"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw and tuck a 1.",
+        "effectTypes": ["draw", "tuck"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ROAD_BUILDING",
+    "name": "Road Building",
+    "age": 2,
+    "color": "red",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 3,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "castles",
+      "resourceSpace2": "castles",
+      "resourceSpace3": null,
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Meld one or two cards from your hand. If you melded two, you may transfer your top red card to another player's board. If you do, transfer that player's top green card to your board.",
+        "effectTypes": ["meld", "transfer"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "CONSTRUCTION",
+    "name": "Construction",
+    "age": 2,
+    "color": "red",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 3,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "castles",
+      "resourceSpace2": null,
+      "resourceSpace3": "castles",
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer two cards from your hand to my hand! Draw a 2!",
+        "effectTypes": ["transfer", "draw"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If you are the only player with five top cards, claim the Empire achievement.",
+        "effectTypes": ["achieve"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": "Empire"
+      }
+    ]
+  },
+  {
+    "cardId": "FERMENTING",
+    "name": "Fermenting",
+    "age": 2,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 1,
+      "crowns": 0,
+      "leaves": 2,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "leaves",
+      "resourceSpace2": "leaves",
+      "resourceSpace3": null,
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw a 2 for every color on your board with one or more Leaves.",
+        "effectTypes": ["draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "CALENDAR",
+    "name": "Calendar",
+    "age": 2,
+    "color": "blue",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 2,
+      "lightbulbs": 1,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "lightbulbs"
+    },
+    "dogmaEffects": [
+      {
+        "description": "If you have more cards in your score pile and in your hand, draw two 3's.",
+        "effectTypes": ["draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "PHILOSOPHY",
+    "name": "Philosophy",
+    "age": 2,
+    "color": "purple",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 3,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": "lightbulbs"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may splay left any one color of your cards.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may score a card from your hand.",
+        "effectTypes": ["score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "MATHEMATICS",
+    "name": "Mathematics",
+    "age": 2,
+    "color": "blue",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "lightbulbs"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return a card from your hand. If you do, draw and meld a card of value one higher than the card you returned.",
+        "effectTypes": ["return", "draw", "meld"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "MAPMAKING",
+    "name": "Mapmaking",
+    "age": 2,
+    "color": "green",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 1,
+      "crowns": 2,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a 1 from your score pile, if it has any, to my score pile!",
+        "effectTypes": ["transfer", "score"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If any card was transferred due to the demand, draw and score a 1.",
+        "effectTypes": ["draw", "score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "PAPER",
+    "name": "Paper",
+    "age": 3,
+    "color": "green",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may splay your green or blue cards left.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw a 4 for every color you have splayed left.",
+        "effectTypes": ["draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ENGINEERING",
+    "name": "Engineering",
+    "age": 3,
+    "color": "red",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 2,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 1,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "castles",
+      "resourceSpace2": null,
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer all top cards with a Castle from your board to my score pile!",
+        "effectTypes": ["transfer", "score"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your red cards left.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "TRANSLATION",
+    "name": "Translation",
+    "age": 3,
+    "color": "blue",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 3,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may meld all the cards in your score pile. If you meld one, you must meld them all.",
+        "effectTypes": ["meld"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If each top card on your board has a Crown, claim the World achievement.",
+        "effectTypes": ["achieve"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": "World"
+      }
+    ]
+  },
+  {
+    "cardId": "FEUDALISM",
+    "name": "Feudalism",
+    "age": 3,
+    "color": "purple",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 2,
+      "crowns": 0,
+      "leaves": 1,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "castles",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a card with a Castle from your hand to my hand! If you do, unsplay that color of your cards!",
+        "effectTypes": ["transfer", "unsplay"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your yellow or purple cards left.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "MACHINERY",
+    "name": "Machinery",
+    "age": 3,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 1,
+      "crowns": 0,
+      "leaves": 2,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "leaves",
+      "resourceSpace2": "leaves",
+      "resourceSpace3": null,
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you exchange all the cards in your hand with all the highest cards in my hand!",
+        "effectTypes": ["exchange"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Score a card from your hand with a Castle. You may splay your red cards left.",
+        "effectTypes": ["score", "splay"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "MEDICINE",
+    "name": "Medicine",
+    "age": 3,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 2,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "crowns",
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you exchange the highest card in your score pile with the lowest card in my score pile!",
+        "effectTypes": ["exchange", "score"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "OPTICS",
+    "name": "Optics",
+    "age": 3,
+    "color": "red",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 3,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "crowns",
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and meld a 3. If it has a Crown, draw and score a 4. Otherwise, transfer a card from your score pile to the score pile of an opponent with fewer points than you.",
+        "effectTypes": ["draw", "meld", "score", "transfer"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "COMPASS",
+    "name": "Compass",
+    "age": 3,
+    "color": "green",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 1,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a top non-green card with a Leaf from your board to my board, and then you transfer a top card without a Leaf from my board to your board!",
+        "effectTypes": ["transfer"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "EDUCATION",
+    "name": "Education",
+    "age": 3,
+    "color": "purple",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 3,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "lightbulbs",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return the highest card from your score pile. If you do, draw a card of value two higher than the highest card remaining in your score pile.",
+        "effectTypes": ["return", "draw"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ALCHEMY",
+    "name": "Alchemy",
+    "age": 3,
+    "color": "blue",
+    "dogmaResource": "castles",
+    "resourceTotals": {
+      "castles": 2,
+      "crowns": 0,
+      "leaves": 1,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "castles",
+      "resourceSpace4": "castles"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and reveal a 4 for every three Castles on your board. If any of the drawn cards are red, return the cards drawn and all cards in your hand.  Otherwise, keep them.",
+        "effectTypes": ["draw", "reveal", "return"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Meld a card from your hand, then score a card from your hand.",
+        "effectTypes": ["meld", "score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "GUNPOWDER",
+    "name": "Gunpowder",
+    "age": 4,
+    "color": "red",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 2,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a top card with a Castle from your board to my score pile!",
+        "effectTypes": ["transfer", "score"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If any card was transferred due to the demand, draw and score a 2.",
+        "effectTypes": ["draw", "score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "INVENTION",
+    "name": "Invention",
+    "age": 4,
+    "color": "green",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 1,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may splay right any one color of your cards currently splayed left. If you do, draw and score a 4.",
+        "effectTypes": ["splay", "draw", "score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If you have five colors, each splayed in any direction, claim the Wonder achievement",
+        "effectTypes": ["achieve"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": "Wonder"
+      }
+    ]
+  },
+  {
+    "cardId": "COLONIALISM",
+    "name": "Colonialism",
+    "age": 4,
+    "color": "red",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 1,
+      "factories": 2,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and tuck a 3. If it has a Crown, repeat this dogma effect.",
+        "effectTypes": ["draw", "tuck"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": true,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "REFORMATION",
+    "name": "Reformation",
+    "age": 4,
+    "color": "purple",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 3,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "leaves",
+      "resourceSpace2": "leaves",
+      "resourceSpace3": null,
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may tuck a card from your hand for every two Leaves on your board.",
+        "effectTypes": ["tuck"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your yellow or purple cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ANATOMY",
+    "name": "Anatomy",
+    "age": 4,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 3,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "leaves",
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you return a card from your score pile! If you do, return a top card of equal value from your board!",
+        "effectTypes": ["return"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ENTERPRISE",
+    "name": "Enterprise",
+    "age": 4,
+    "color": "purple",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 3,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a top non-purple card with a Crown from your board to my board! If you do, draw and meld a 4!",
+        "effectTypes": ["transfer", "draw", "meld"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your green cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "PERSPECTIVE",
+    "name": "Perspective",
+    "age": 4,
+    "color": "yellow",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 1,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return a card from your hand. If you do, score a card from your hand for every two Lightbulbs on your board.",
+        "effectTypes": ["return", "score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "NAVIGATION",
+    "name": "Navigation",
+    "age": 4,
+    "color": "green",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 3,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a 2 or 3 from your score pile, if it has any, to my score pile!",
+        "effectTypes": ["transfer", "score"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "PRINTING_PRESS",
+    "name": "Printing Press",
+    "age": 4,
+    "color": "blue",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return a card from your score pile. If you do, draw a card of value two higher than the top purple card on your board.",
+        "effectTypes": ["return", "draw"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your blue cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "EXPERIMENTATION",
+    "name": "Experimentation",
+    "age": 4,
+    "color": "blue",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 3,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": "lightbulbs"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and meld a 5.",
+        "effectTypes": ["draw", "meld"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ASTRONOMY",
+    "name": "Astronomy",
+    "age": 5,
+    "color": "purple",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "crowns",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and reveal a 6. If the card is green or blue, meld it and repeat this dogma effect.",
+        "effectTypes": ["draw", "reveal", "meld"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": true,
+        "specialAchievement": null
+      },
+      {
+        "description": "If all non-purple top cards on your board are value 6 or higher, claim the Universe achievement.",
+        "effectTypes": ["achieve"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": "Universe"
+      }
+    ]
+  },
+  {
+    "cardId": "MEASUREMENT",
+    "name": "Measurement",
+    "age": 5,
+    "color": "green",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 1,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "lightbulbs",
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may reveal and return a card from your hand. If you do, splay that color of your cards right, and draw a card of value equal to the number of cards of that color on your board.",
+        "effectTypes": ["reveal", "return", "splay", "draw"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "STATISTICS",
+    "name": "Statistics",
+    "age": 5,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 2,
+      "lightbulbs": 1,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "leaves",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer all the highest cards in your score pile to your hand!",
+        "effectTypes": ["transfer"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your yellow cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "CHEMISTRY",
+    "name": "Chemistry",
+    "age": 5,
+    "color": "blue",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 1,
+      "factories": 2,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "factories",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "factories",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may splay your blue cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw and score a card of value one higher than the highest top card on your board and then return a card from your score pile.",
+        "effectTypes": ["draw", "score", "return"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "COAL",
+    "name": "Coal",
+    "age": 5,
+    "color": "red",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 3,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "factories",
+      "resourceSpace2": "factories",
+      "resourceSpace3": "factories",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and tuck a 5.",
+        "effectTypes": ["draw", "tuck"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your red cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may score any one of your top cards. If you do, also score the card beneath it.",
+        "effectTypes": ["score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "THE_PIRATE_CODE",
+    "name": "The Pirate Code",
+    "age": 5,
+    "color": "red",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 1,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "crowns",
+      "resourceSpace2": "factories",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer two cards of value 4 or less from your score pile to my score pile! ",
+        "effectTypes": ["transfer", "score"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If any cards were transferred due to the demand, score the lowest top card with a Crown from your board.",
+        "effectTypes": ["score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "STEAM_ENGINE",
+    "name": "Steam Engine",
+    "age": 5,
+    "color": "yellow",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 2,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and tuck two 4's, then score your bottom yellow card.",
+        "effectTypes": ["draw", "tuck", "score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "BANKING",
+    "name": "Banking",
+    "age": 5,
+    "color": "green",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 1,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "factories",
+      "resourceSpace2": "crowns",
+      "resourceSpace3": null,
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a top non-green card with a Factory from your board to my board. If you do, draw and score a 5!",
+        "effectTypes": ["transfer", "draw", "score"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your green cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "PHYSICS",
+    "name": "Physics",
+    "age": 5,
+    "color": "blue",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 1,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "factories",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw three 6's and reveal them. If two or more of the drawn cards are the same color, return the drawn cards and all other cards in your hand. Otherwise, keep them.",
+        "effectTypes": ["draw", "reveal", "return"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "SOCIETIES",
+    "name": "Societies",
+    "age": 5,
+    "color": "purple",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 0,
+      "lightbulbs": 1,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "crowns",
+      "resourceSpace2": null,
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a top card with a Lightbulb higher than my top card of the same color from your board to my board! If you do, draw a 5!",
+        "effectTypes": ["transfer", "draw"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ATOMIC_THEORY",
+    "name": "Atomic Theory",
+    "age": 6,
+    "color": "blue",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 3,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "lightbulbs",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may splay your blue cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw and meld a 7.",
+        "effectTypes": ["draw", "meld"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "EMANCIPATION",
+    "name": "Emancipation",
+    "age": 6,
+    "color": "purple",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 1,
+      "factories": 2,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "factories",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "factories",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a card from your hand to my score pile! If you do, draw a 6!",
+        "effectTypes": ["transfer", "score", "draw"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your red or purple cards to the right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "VACCINATION",
+    "name": "Vaccination",
+    "age": 6,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 2,
+      "lightbulbs": 0,
+      "factories": 1,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "leaves",
+      "resourceSpace2": "factories",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you return all of the lowest cards in your score pile! If you returned any, draw and meld a 6!",
+        "effectTypes": ["return", "draw", "meld"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If any card was returned as a result of the demand, draw and meld a 7.",
+        "effectTypes": ["draw", "meld"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "CLASSIFICATION",
+    "name": "Classification",
+    "age": 6,
+    "color": "green",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 3,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "lightbulbs",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Reveal the color of a card from your hand. Take into your hand all the cards of that color from all opponent's hands. Then, meld all cards of that color from your hand.",
+        "effectTypes": ["reveal", "transfer", "meld"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "METRIC_SYSTEM",
+    "name": "Metric System",
+    "age": 6,
+    "color": "green",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 1,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "If your green cards are splayed right, you may splay any one color of your cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your green cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ENCYCLOPEDIA",
+    "name": "Encyclopedia",
+    "age": 6,
+    "color": "blue",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 3,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may meld all the highest cards in your score pile. If you meld one of the highest, you must meld all of the highest.",
+        "effectTypes": ["meld"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "MACHINE_TOOLS",
+    "name": "Machine Tools",
+    "age": 6,
+    "color": "red",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 3,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "factories",
+      "resourceSpace2": "factories",
+      "resourceSpace3": null,
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and score a card of value equal to the highest card in your score pile.",
+        "effectTypes": ["draw", "score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "INDUSTRIALIZATION",
+    "name": "Industrialization",
+    "age": 6,
+    "color": "red",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 2,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "crowns",
+      "resourceSpace2": "factories",
+      "resourceSpace3": "factories",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and tuck a 6 for every color on your board with one or more Factories.",
+        "effectTypes": ["draw", "tuck"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your red or purple cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "DEMOCRACY",
+    "name": "Democracy",
+    "age": 6,
+    "color": "purple",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "crowns",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return any number of cards from your hand. If you have returned more cards than any opponent due to Democracy so far during this dogma action, draw and score an 8.",
+        "effectTypes": ["return", "draw", "score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "CANNING",
+    "name": "Canning",
+    "age": 6,
+    "color": "yellow",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 1,
+      "lightbulbs": 0,
+      "factories": 2,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may draw and tuck a 6. If you do, score all your top cards without a Factory.",
+        "effectTypes": ["draw", "tuck", "score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your yellow cards right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "COMBUSTION",
+    "name": "Combustion",
+    "age": 7,
+    "color": "red",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 1,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "crowns",
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "factories",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer one card from your score pile to my score pile for every four Crowns on my board!",
+        "effectTypes": ["transfer", "score"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Return your bottom red card.",
+        "effectTypes": ["return"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "BICYCLE",
+    "name": "Bicycle",
+    "age": 7,
+    "color": "green",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 1
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "crowns",
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may exchange all cards in your hand with all the cards in your score pile. If you exchange one, you must exchange them all.",
+        "effectTypes": ["exchange"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "EVOLUTION",
+    "name": "Evolution",
+    "age": 7,
+    "color": "blue",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 3,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "lightbulbs",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may choose to either draw and score an 8 and then return a card from your score pile, or draw a card of value one higher than the highest card in your score pile.",
+        "effectTypes": ["draw", "score", "draw"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "SANITATION",
+    "name": "Sanitation",
+    "age": 7,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 3,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "leaves",
+      "resourceSpace2": "leaves",
+      "resourceSpace3": null,
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you exchange the two highest cards in your hand with the lowest card in my hand!",
+        "effectTypes": ["exchange"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "EXPLOSIVES",
+    "name": "Explosives",
+    "age": 7,
+    "color": "red",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 3,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "factories",
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer the three highest cards from your hand to my hand! If you transferred any, and then have no cards in hand, draw a 7!",
+        "effectTypes": ["transfer", "draw"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ELECTRICITY",
+    "name": "Electricity",
+    "age": 7,
+    "color": "green",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 1,
+      "factories": 2,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "lightbulbs",
+      "resourceSpace2": "factories",
+      "resourceSpace3": null,
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Return all of your top cards without a Factory, then draw an 8 for each card you returned.",
+        "effectTypes": ["return", "draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "PUBLICATIONS",
+    "name": "Publications",
+    "age": 7,
+    "color": "blue",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 1
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "lightbulbs"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may rearrange the order of one color of cards on your board.",
+        "effectTypes": ["rearrange"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your yellow or blue cards up.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "LIGHTING",
+    "name": "Lighting",
+    "age": 7,
+    "color": "purple",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 2,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 1
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may tuck up to three cards from your hand. If you do, draw and score a 7 for every different value of card you tucked.",
+        "effectTypes": ["tuck", "draw", "score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "RAILROAD",
+    "name": "Railroad",
+    "age": 7,
+    "color": "purple",
+    "dogmaResource": "timepieces",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 1,
+      "timepieces": 2
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "timepieces",
+      "resourceSpace2": "factories",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Return all cards from your hand, then draw three 6's.",
+        "effectTypes": ["return", "draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay up any one color of your cards currently splayed right.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "REFRIGERATION",
+    "name": "Refrigeration",
+    "age": 7,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 2,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you return half (rounded down) of the cards in your hand!",
+        "effectTypes": ["return"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may score a card from your hand.",
+        "effectTypes": ["score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ANTIBIOTICS",
+    "name": "Antibiotics",
+    "age": 8,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 3,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "leaves",
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return up to three cards from your hand. For every different value of card that you returned, draw two 8's.",
+        "effectTypes": ["return", "draw"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "MOBILITY",
+    "name": "Mobility",
+    "age": 8,
+    "color": "red",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 2,
+      "timepieces": 1
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer your two highest non-red top cards without a Factory from your board to my score pile! If you transferred any cards, draw an 8!",
+        "effectTypes": ["transfer", "score", "draw"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "FLIGHT",
+    "name": "Flight",
+    "age": 8,
+    "color": "red",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 1
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "crowns",
+      "resourceSpace2": null,
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "If your red cards are splayed up, you may splay any one color of your cards up.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your red cards up.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ROCKETRY",
+    "name": "Rocketry",
+    "age": 8,
+    "color": "blue",
+    "dogmaResource": "timepieces",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 3
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "timepieces",
+      "resourceSpace2": "timepieces",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Return a card in any opponent's score pile for every two Timepieces on your board.",
+        "effectTypes": ["return"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "SKYSCRAPERS",
+    "name": "Skyscrapers",
+    "age": 8,
+    "color": "yellow",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 1,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a top non-yellow card with a Timepiece from your board to my board! If you do, score the card beneath it, and return all other cards from that pile!",
+        "effectTypes": ["transfer", "score", "return"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "SOCIALISM",
+    "name": "Socialism",
+    "age": 8,
+    "color": "purple",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 3,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "leaves",
+      "resourceSpace2": null,
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may tuck all cards from your hand. If you tuck one, you must tuck them all. If you tucked at least one purple card, take all the lowest cards in each opponent's hand into your hand.",
+        "effectTypes": ["tuck", "transfer"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "CORPORATIONS",
+    "name": "Corporations",
+    "age": 8,
+    "color": "green",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 2,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "factories",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer a top non-green card with a Factory from your board to my score pile! If you do, draw and meld an 8!",
+        "effectTypes": ["transfer", "draw", "meld"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw and meld an 8.",
+        "effectTypes": ["draw", "meld"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "MASS_MEDIA",
+    "name": "Mass Media",
+    "age": 8,
+    "color": "green",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 1
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "lightbulbs",
+      "resourceSpace2": null,
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "lightbulbs"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return a card from your hand. If you do, choose a value, and return all cards of that value from all score piles.",
+        "effectTypes": ["return"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your purple cards up.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "EMPIRICISM",
+    "name": "Empiricism",
+    "age": 8,
+    "color": "purple",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 3,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "lightbulbs",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Choose two colors, then draw and reveal a 9. If it is either of the colors you chose, meld it and you may splay your cards of that color up.",
+        "effectTypes": ["draw", "reveal", "meld", "splay"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If you have twenty or more Lightbulbs on your board, you win.",
+        "effectTypes": ["end"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "QUANTUM_THEORY",
+    "name": "Quantum Theory",
+    "age": 8,
+    "color": "blue",
+    "dogmaResource": "timepieces",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 3
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "timepieces",
+      "resourceSpace2": "timepieces",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return up to two cards from your hand. If you return two, draw a 10 and then draw and score a 10.",
+        "effectTypes": ["return", "draw", "score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "COMPUTERS",
+    "name": "Computers",
+    "age": 9,
+    "color": "blue",
+    "dogmaResource": "timepieces",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 1,
+      "timepieces": 2
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "timepieces",
+      "resourceSpace2": null,
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may splay your red cards or your green cards up.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw and meld a 10, then execute each of its non-demand dogma effects. Do not share them.",
+        "effectTypes": ["draw", "meld", "execute"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "COLLABORATION",
+    "name": "Collaboration",
+    "age": 9,
+    "color": "green",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 2,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 1
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you draw two 9's and reveal them! Transfer the card of my choice to my board, and meld the other!",
+        "effectTypes": ["draw", "reveal", "transfer", "meld"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If you have ten or more green cards on your board, you win.",
+        "effectTypes": ["end"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "GENETICS",
+    "name": "Genetics",
+    "age": 9,
+    "color": "blue",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 3,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "lightbulbs",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and meld a 10. Score all cards beneath it.",
+        "effectTypes": ["draw", "meld", "score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "SERVICES",
+    "name": "Services",
+    "age": 9,
+    "color": "purple",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 3,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer all the highest cards from your score pile to my hand! If you transferred any cards, then transfer a top card from my board without a Leaf to your hand!",
+        "effectTypes": ["transfer"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "SPECIALIZATION",
+    "name": "Specialization",
+    "age": 9,
+    "color": "purple",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 1,
+      "lightbulbs": 0,
+      "factories": 2,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Reveal a card from your hand. Take into your hand the top card of that color from all opponents' boards.",
+        "effectTypes": ["reveal", "transfer"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your yellow or blue cards up.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "SUBURBIA",
+    "name": "Suburbia",
+    "age": 9,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 1,
+      "leaves": 2,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may tuck any number of cards from your hand. Draw and score a 1 for each card you tucked.",
+        "effectTypes": ["tuck", "draw", "score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ECOLOGY",
+    "name": "Ecology",
+    "age": 9,
+    "color": "yellow",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 1,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "leaves",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "lightbulbs",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return a card from your hand. If you do, score a card from your hand and draw two 10's.",
+        "effectTypes": ["return", "score", "draw"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "FISSION",
+    "name": "Fission",
+    "age": 9,
+    "color": "red",
+    "dogmaResource": "timepieces",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 3
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "timepieces",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "timepieces"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you draw a 10! If it is red, remove all hands, boards, and score piles from the game! If this occurs, the dogma action is complete.",
+        "effectTypes": ["draw", "remove"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Return a top card other than Fission from any player's board. Draw a 10.",
+        "effectTypes": ["return", "draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "SATELLITES",
+    "name": "Satellites",
+    "age": 9,
+    "color": "green",
+    "dogmaResource": "timepieces",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 3
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "timepieces",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "timepieces"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Return all cards from your hand, and draw three 8's.",
+        "effectTypes": ["return", "draw"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "You may splay your purple cards up.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Meld a card from your hand and then execute each of its non-demand dogma effects. Do not share them.",
+        "effectTypes": ["meld", "execute"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "COMPOSITES",
+    "name": "Composites",
+    "age": 9,
+    "color": "red",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 3,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "factories",
+      "resourceSpace2": "factories",
+      "resourceSpace3": null,
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you transfer all but one card from your hand to my hand! Also transfer the highest card from your score pile to my score pile!",
+        "effectTypes": ["transfer"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "ROBOTICS",
+    "name": "Robotics",
+    "age": 10,
+    "color": "red",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 2,
+      "timepieces": 1
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Score your top green card. Draw and meld a 10, then execute each of its non-demand dogma effects. Do not share them.",
+        "effectTypes": ["score", "draw", "meld", "execute"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "BIOENGINEERING",
+    "name": "Bioengineering",
+    "age": 10,
+    "color": "blue",
+    "dogmaResource": "timepieces",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 1,
+      "factories": 0,
+      "timepieces": 2
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "lightbulbs",
+      "resourceSpace2": "timepieces",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Transfer a top card with a Leaf from any opponent's board to your score pile.",
+        "effectTypes": ["transfer"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If any player has fewer than three Leaves on their board, the player with the most Leaves on their board wins.",
+        "effectTypes": ["end"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "DATABASES",
+    "name": "Databases",
+    "age": 10,
+    "color": "green",
+    "dogmaResource": "timepieces",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 3
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "timepieces",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "timepieces"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you return half (rounded up) of the cards in your score pile!",
+        "effectTypes": ["return"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "MINIATURIZATION",
+    "name": "Miniaturization",
+    "age": 10,
+    "color": "red",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 1
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "lightbulbs"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may return a card from your hand. If you returned a 10, draw a 10 for every different value of card in your score pile.",
+        "effectTypes": ["return", "draw"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "SOFTWARE",
+    "name": "Software",
+    "age": 10,
+    "color": "blue",
+    "dogmaResource": "timepieces",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 3
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "timepieces",
+      "resourceSpace2": "timepieces",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and score a 10.",
+        "effectTypes": ["draw", "score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw and meld two 10's, then execute each of the second card's non-demand dogma effects. Do not share them.",
+        "effectTypes": ["draw", "meld", "execute"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "SELF_SERVICE",
+    "name": "Self Service",
+    "age": 10,
+    "color": "green",
+    "dogmaResource": "crowns",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 3,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "crowns",
+      "resourceSpace3": "crowns",
+      "resourceSpace4": "crowns"
+    },
+    "dogmaEffects": [
+      {
+        "description": "Execute each of the non-demand dogma effects of any other top card on your board. Do not share them.",
+        "effectTypes": ["execute"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If you have more achievements than each opponent, you win.",
+        "effectTypes": ["end"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "AI",
+    "name": "A.I.",
+    "age": 10,
+    "color": "purple",
+    "dogmaResource": "lightbulbs",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 2,
+      "factories": 0,
+      "timepieces": 1
+    },
+    "resourceSpaces": {
+      "resourceSpace1": "lightbulbs",
+      "resourceSpace2": "lightbulbs",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": null
+    },
+    "dogmaEffects": [
+      {
+        "description": "Draw and score a 10.",
+        "effectTypes": ["draw", "score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "If Robotics and Software are top cards on any board, the single player with the lowest score wins.",
+        "effectTypes": ["end"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "STEM_CELLS",
+    "name": "Stem Cells",
+    "age": 10,
+    "color": "yellow",
+    "dogmaResource": "leaves",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 3,
+      "lightbulbs": 0,
+      "factories": 0,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "leaves",
+      "resourceSpace3": "leaves",
+      "resourceSpace4": "leaves"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may score all cards from your hand. If you score one, you must score them all.",
+        "effectTypes": ["score"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "GLOBALIZATION",
+    "name": "Globalization",
+    "age": 10,
+    "color": "yellow",
+    "dogmaResource": "factories",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 0,
+      "factories": 3,
+      "timepieces": 0
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "factories",
+      "resourceSpace3": "factories",
+      "resourceSpace4": "factories"
+    },
+    "dogmaEffects": [
+      {
+        "description": "I DEMAND you return a top card with a Leaf on your board!",
+        "effectTypes": ["return"],
+        "isDemand": true,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw and score a 6. If no player has more Leaves than Factories on their board, the single player with the highest score wins.",
+        "effectTypes": ["draw", "score", "end"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  },
+  {
+    "cardId": "THE_INTERNET",
+    "name": "The Internet",
+    "age": 10,
+    "color": "purple",
+    "dogmaResource": "timepieces",
+    "resourceTotals": {
+      "castles": 0,
+      "crowns": 0,
+      "leaves": 0,
+      "lightbulbs": 1,
+      "factories": 0,
+      "timepieces": 2
+    },
+    "resourceSpaces": {
+      "resourceSpace1": null,
+      "resourceSpace2": "timepieces",
+      "resourceSpace3": "timepieces",
+      "resourceSpace4": "lightbulbs"
+    },
+    "dogmaEffects": [
+      {
+        "description": "You may splay your green cards up.",
+        "effectTypes": ["splay"],
+        "isDemand": false,
+        "isOptional": true,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw and score a 10.",
+        "effectTypes": ["draw", "score"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      },
+      {
+        "description": "Draw and meld a 10 for every two Timepieces on your board.",
+        "effectTypes": ["draw", "meld"],
+        "isDemand": false,
+        "isOptional": false,
+        "repeat": false,
+        "specialAchievement": null
+      }
+    ]
+  }
+]
