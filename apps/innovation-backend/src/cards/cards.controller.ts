@@ -1,41 +1,16 @@
 import {
-  Body,
+  // Body,
   Controller,
-  Delete,
+  // Delete,
   Get,
   Param,
-  Post,
+  // Post,
   Query,
 } from '@nestjs/common';
 import { Card } from 'src/shared/schemas/card.schema';
-import { CreateCardDto } from './dto/create-card.dto';
+// import { CreateCardDto } from './dto/create-card.dto';
 import { CardsService } from './cards.service';
-
-enum AgeString {
-  ONE = 'ONE',
-  TWO = 'TWO',
-  THREE = 'THREE',
-  FOUR = 'FOUR',
-  FIVE = 'FIVE',
-  SIX = 'SIX',
-  SEVEN = 'SEVEN',
-  EIGHT = 'EIGHT',
-  NINE = 'NINE',
-  TEN = 'TEN',
-}
-
-const cardAgeToAgeStringMap: { [key: string]: AgeString } = {
-  1: AgeString.ONE,
-  2: AgeString.TWO,
-  3: AgeString.THREE,
-  4: AgeString.FOUR,
-  5: AgeString.FIVE,
-  6: AgeString.SIX,
-  7: AgeString.SEVEN,
-  8: AgeString.EIGHT,
-  9: AgeString.NINE,
-  10: AgeString.TEN,
-};
+import { AgeString, cardAgeToAgeStringMap } from 'src/shared/constants/cards';
 
 @Controller('cards')
 export class CardsController {
