@@ -3,13 +3,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Card, CardSchema } from 'src/shared/schemas/card.schema';
 import { CardsController } from './cards.controller';
 import { CardsService } from './cards.service';
+import { CardsResolver } from './cards.resolver';
+import { CardsSortingService } from './cards-sorting.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Card.name, schema: CardSchema }]),
   ],
   controllers: [CardsController],
-  providers: [CardsService],
+  providers: [CardsService, CardsSortingService, CardsResolver],
   exports: [CardsService],
 })
 export class CardsModule {}
