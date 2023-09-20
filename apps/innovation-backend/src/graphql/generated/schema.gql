@@ -1,0 +1,82 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Card {
+  _id: ID!
+  age: String!
+  cardId: String!
+  dogmaEffects: [DogmaEffect!]!
+  dogmaResource: String!
+  name: String!
+  resourceSpaces: ResourceSpaces!
+  resourceTotals: ResourceTotals!
+}
+
+type CardIdAndRef {
+  cardId: String!
+  ref: ID!
+}
+
+type CardIdAndRefByAge {
+  EIGHT: [CardIdAndRef!]!
+  FIVE: [CardIdAndRef!]!
+  FOUR: [CardIdAndRef!]!
+  NINE: [CardIdAndRef!]!
+  ONE: [CardIdAndRef!]!
+  SEVEN: [CardIdAndRef!]!
+  SIX: [CardIdAndRef!]!
+  TEN: [CardIdAndRef!]!
+  THREE: [CardIdAndRef!]!
+  TWO: [CardIdAndRef!]!
+}
+
+type CardRefsByAge {
+  EIGHT: [String!]!
+  FIVE: [String!]!
+  FOUR: [String!]!
+  NINE: [String!]!
+  ONE: [String!]!
+  SEVEN: [String!]!
+  SIX: [String!]!
+  TEN: [String!]!
+  THREE: [String!]!
+  TWO: [String!]!
+}
+
+type DogmaEffect {
+  description: String!
+  effectTypes: [String!]!
+  isDemand: Boolean!
+  isOptional: Boolean!
+  repeat: Boolean!
+  specialAchievement: String
+}
+
+input FindOneOptionsInput {
+  searchField: String!
+  searchValue: String!
+}
+
+type Query {
+  getAllCards: [Card!]!
+  getCardIdAndRefByAge: CardIdAndRefByAge!
+  getCardRefsByAge: CardRefsByAge!
+  getOneCard(options: FindOneOptionsInput!): Card
+}
+
+type ResourceSpaces {
+  resourceSpace1: String
+  resourceSpace2: String
+  resourceSpace3: String
+  resourceSpace4: String
+}
+
+type ResourceTotals {
+  castles: Float!
+  crowns: Float!
+  factories: Float!
+  leaves: Float!
+  lightbulbs: Float!
+  timepieces: Float!
+}

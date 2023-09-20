@@ -8,8 +8,8 @@ import { CreateCardDto } from './dto/create-card.dto';
 export class CardsService {
   constructor(@InjectModel(Card.name) private cardModel: Model<CardDocument>) {}
 
-  async findAll() {
-    return this.cardModel.find({}).exec();
+  async findAll(): Promise<Card[]> {
+    return this.cardModel.find({});
   }
 
   async create(createCardDto: CreateCardDto): Promise<Card> {
@@ -23,10 +23,14 @@ export class CardsService {
   }
 
   async deleteAll() {
-    return this.cardModel.deleteMany({}).exec();
+    return this.cardModel.deleteMany({});
   }
 
-  async findOneById(id: string): Promise<Card | null> {
-    return this.cardModel.findById(id).exec();
+  async findOneByRef(ref: string): Promise<Card | null | undefined> {
+    return this.cardModel.findOne({ _id: ref }).exec();
+  }
+
+  async findOneByCardId(cardId: string): Promise<Card | null | undefined> {
+    return this.cardModel.findOne({ cardId });
   }
 }
