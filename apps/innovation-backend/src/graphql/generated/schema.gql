@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Card {
-  _id: ID!
+  _id: ID
   age: String!
   cardId: String!
   dogmaEffects: [DogmaEffect!]!
@@ -44,6 +44,11 @@ type CardRefsByAge {
   TWO: [String!]!
 }
 
+input CreatePlayerDto {
+  name: String!
+  playerId: String!
+}
+
 type DogmaEffect {
   description: String!
   effectTypes: [String!]!
@@ -58,11 +63,27 @@ input FindOneOptionsInput {
   searchValue: String!
 }
 
+input GetPlayerDto {
+  searchField: String!
+  searchValue: String!
+}
+
+type Mutation {
+  createPlayer(createPlayerDto: CreatePlayerDto!): Player!
+}
+
+type Player {
+  _id: ID!
+  name: String!
+  playerId: String!
+}
+
 type Query {
   getAllCards: [Card!]!
   getCardIdAndRefByAge: CardIdAndRefByAge!
   getCardRefsByAge: CardRefsByAge!
   getOneCard(options: FindOneOptionsInput!): Card
+  getPlayer(getPlayerDto: GetPlayerDto!): Player
 }
 
 type ResourceSpaces {

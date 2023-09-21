@@ -15,7 +15,7 @@ import { Achievements } from 'src/games/schemas/achievements.schema';
 import { Card } from 'src/shared/schemas/card.schema';
 // import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
 import { GamesService } from 'src/games/games.service';
-import { PlayerDocument } from 'src/players/schemas/player.schema';
+import { Player } from 'src/players/schemas/player.schema';
 
 type NewGameDetails = {
   game: Game;
@@ -35,15 +35,15 @@ export class GameplayService {
       // verify  players exist
       const players = await Promise.all(
         newGameDto.playerIds.map((playerId) =>
-          this.playersService.findOneById(playerId),
+          this.playersService.findPlayerByPlayerId(playerId),
         ),
       );
-      const filteredPlayers = players.reduce((acutalPlayers, player) => {
+      const actualPlayers: Player[] = [];
+      players.forEach((player) => {
         if (player?._id) {
-          acutalPlayers.push(player);
+          actualPlayers.push(player);
         }
-        return acutalPlayers;
-      }, [] as PlayerDocument[]);
+      });
 
       // TODO: check if there is an existing game for these players
       // DO NOT create a new game - return error with message
@@ -52,9 +52,7 @@ export class GameplayService {
       const allCardData = await this.cardsService.findAll();
       const cardIdsByAge = allCardData.reduce(
         (acc, card) => {
-          acc[cardAgeToAgeStringMap[card.age.toString()] as AgeString].push(
-            card._id.toString(),
-          );
+          acc[cardAgeToAgeStringMap[card.age] as AgeString].push(card._id);
           return acc;
         },
         {
@@ -88,7 +86,7 @@ export class GameplayService {
         return acc;
       }, {} as Achievements);
       // select player starting hands (2 cards x n players)
-      const playerStarterHands = filteredPlayers.reduce((acc, player) => {
+      const playerStarterHands = actualPlayers.reduce((acc, player) => {
         acc[player._id.toString()] = [];
         return acc;
       }, {} as { [key: string]: Card[] });
@@ -104,8 +102,8 @@ export class GameplayService {
       // create game
       const newGameData = {
         currentActionNumber: 2,
-        currentPlayerRef: filteredPlayers[0]._id,
-        playerRefs: filteredPlayers.map((player) => player._id),
+        currentPlayerRef: actualPlayers[0]._id,
+        playerRefs: actualPlayers.map((player) => player._id),
         deck: starterDeck,
         achievements: ageAchievements,
       };
