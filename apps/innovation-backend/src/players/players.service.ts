@@ -12,14 +12,17 @@ export class PlayersService {
 
   async create(createPlayerDto: CreatePlayerDto): Promise<Player> {
     const createdPlayer = new this.playerModel(createPlayerDto);
+    console.log('createdPlayer: ', createdPlayer);
     return createdPlayer.save();
   }
 
-  async findOneById(id: string): Promise<PlayerDocument | null> {
-    return this.playerModel.findById(id).exec();
+  async findPlayerByRef(ref: string): Promise<Player | null | undefined> {
+    return this.playerModel.findOne({ _id: ref }).exec();
   }
 
-  async findByPlayerId(playerId: string) {
-    return this.playerModel.find({ playerId }).exec();
+  async findPlayerByPlayerId(
+    playerId: string,
+  ): Promise<Player | null | undefined> {
+    return this.playerModel.findOne({ playerId });
   }
 }
