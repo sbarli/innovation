@@ -12,7 +12,6 @@ import {
 import { Deck } from 'src/games/schemas/deck.schema';
 import { shuffleArray } from 'src/shared/utils/shuffle-array';
 import { Achievements } from 'src/games/schemas/achievements.schema';
-import { Card } from 'src/shared/schemas/card.schema';
 // import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
 import { GamesService } from 'src/games/games.service';
 import { Player } from 'src/players/schemas/player.schema';
@@ -89,7 +88,7 @@ export class GameplayService {
       const playerStarterHands = actualPlayers.reduce((acc, player) => {
         acc[player._id.toString()] = [];
         return acc;
-      }, {} as { [key: string]: Card[] });
+      }, {} as { [key: string]: string[] });
       for (let i = 0; i < 2; i++) {
         Object.keys(playerStarterHands).forEach((playerId) => {
           const cardId = starterDeck[AgeString.ONE].shift();

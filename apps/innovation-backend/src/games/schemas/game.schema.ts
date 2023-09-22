@@ -1,36 +1,48 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
-import { Player } from 'src/players/schemas/player.schema';
+import mongoose, { HydratedDocument } from 'mongoose';
 import { Deck } from './deck.schema';
 import { Achievements } from './achievements.schema';
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 
 export type GameDocument = HydratedDocument<Game>;
 
 @Schema()
+@ObjectType()
+@InputType('CreateGameDto')
 export class Game {
-  @Prop({ required: true })
+  @Field(() => ID, { nullable: true })
+  _id: string;
+
+  @Prop({ type: Number, required: true })
+  @Field(() => Number)
   currentActionNumber: number;
 
-  @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Player' })
-  currentPlayerRef: Player;
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Player' })
+  @Field(() => ID)
+  currentPlayerRef: string;
 
   @Prop({
     required: true,
-    type: [MongooseSchema.Types.ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     ref: 'Player',
   })
-  playerRefs: Player[];
+  @Field(() => [ID])
+  playerRefs: string[];
 
   @Prop({
-    type: MongooseSchema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Player',
+    nullable: true,
   })
-  winnerRef: Player;
+  @Field(() => ID, { nullable: true })
+  winnerRef?: string;
 
   @Prop({ required: true, type: Deck })
+  @Field(() => Deck)
   deck: Deck;
 
   @Prop({ required: true, type: Achievements })
+  @Field(() => Achievements)
   achievements: Achievements;
 
   // TODO: add once we have spec achieve data

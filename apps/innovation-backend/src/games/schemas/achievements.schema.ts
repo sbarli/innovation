@@ -1,60 +1,71 @@
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
-import { Document, Schema as MongooseSchema } from 'mongoose';
-import { Card } from 'src/shared/schemas/card.schema';
+import { Schema as MongooseSchema } from 'mongoose';
 
 @Schema({ _id: false })
-export class Achievements extends Document {
+@ObjectType()
+@InputType('AchievementsDto')
+export class Achievements {
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
-  ONE: Card;
+  @Field(() => ID)
+  ONE: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
-  TWO: Card;
+  @Field(() => ID)
+  TWO: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
-  THREE: Card;
+  @Field(() => ID)
+  THREE: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
-  FOUR: Card;
+  @Field(() => ID)
+  FOUR: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
-  FIVE: Card;
+  @Field(() => ID)
+  FIVE: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
-  SIX: Card;
+  @Field(() => ID)
+  SIX: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
-  SEVEN: Card;
+  @Field(() => ID)
+  SEVEN: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
-  EIGHT: Card;
+  @Field(() => ID)
+  EIGHT: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
-  NINE: Card;
+  @Field(() => ID)
+  NINE: string;
 }

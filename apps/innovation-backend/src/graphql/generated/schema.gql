@@ -2,6 +2,30 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Achievements {
+  EIGHT: ID!
+  FIVE: ID!
+  FOUR: ID!
+  NINE: ID!
+  ONE: ID!
+  SEVEN: ID!
+  SIX: ID!
+  THREE: ID!
+  TWO: ID!
+}
+
+input AchievementsDto {
+  EIGHT: ID!
+  FIVE: ID!
+  FOUR: ID!
+  NINE: ID!
+  ONE: ID!
+  SEVEN: ID!
+  SIX: ID!
+  THREE: ID!
+  TWO: ID!
+}
+
 type Card {
   _id: ID
   age: String!
@@ -44,9 +68,45 @@ type CardRefsByAge {
   TWO: [String!]!
 }
 
+input CreateGameDto {
+  _id: ID
+  achievements: AchievementsDto!
+  currentActionNumber: Float!
+  currentPlayerRef: ID!
+  deck: DeckDto!
+  playerRefs: [ID!]!
+  winnerRef: ID
+}
+
 input CreatePlayerDto {
   name: String!
   playerId: String!
+}
+
+type Deck {
+  EIGHT: [ID!]!
+  FIVE: [ID!]!
+  FOUR: [ID!]!
+  NINE: [ID!]!
+  ONE: [ID!]!
+  SEVEN: [ID!]!
+  SIX: [ID!]!
+  TEN: [ID!]!
+  THREE: [ID!]!
+  TWO: [ID!]!
+}
+
+input DeckDto {
+  EIGHT: [ID!]!
+  FIVE: [ID!]!
+  FOUR: [ID!]!
+  NINE: [ID!]!
+  ONE: [ID!]!
+  SEVEN: [ID!]!
+  SIX: [ID!]!
+  TEN: [ID!]!
+  THREE: [ID!]!
+  TWO: [ID!]!
 }
 
 type DogmaEffect {
@@ -63,13 +123,25 @@ input FindOneOptionsInput {
   searchValue: String!
 }
 
+type Game {
+  _id: ID
+  achievements: Achievements!
+  currentActionNumber: Float!
+  currentPlayerRef: ID!
+  deck: Deck!
+  playerRefs: [ID!]!
+  winnerRef: ID
+}
+
 input GetPlayerDto {
   searchField: String!
   searchValue: String!
 }
 
 type Mutation {
+  createNewGame(createGameDto: CreateGameDto!): Game!
   createPlayer(createPlayerDto: CreatePlayerDto!): Player!
+  updateGame(gameId: String!, updates: UpdateGameDto!): Game
 }
 
 type Player {
@@ -82,6 +154,7 @@ type Query {
   getAllCards: [Card!]!
   getCardIdAndRefByAge: CardIdAndRefByAge!
   getCardRefsByAge: CardRefsByAge!
+  getGame(gameRef: String!): Game
   getOneCard(options: FindOneOptionsInput!): Card
   getPlayer(getPlayerDto: GetPlayerDto!): Player
 }
@@ -100,4 +173,12 @@ type ResourceTotals {
   leaves: Float!
   lightbulbs: Float!
   timepieces: Float!
+}
+
+input UpdateGameDto {
+  achievements: AchievementsDto
+  currentActionNumber: Float
+  currentPlayerRef: String
+  deck: DeckDto
+  winnerRef: String
 }
