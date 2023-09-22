@@ -26,7 +26,7 @@ export class GamesResolver {
 
   @Mutation(() => Game, { nullable: true })
   async updateGame(
-    @Args('gameId', { type: () => String }) gameId: string,
+    @Args('id', { type: () => String }) id: string,
     @Args('updates', { type: () => UpdateGameDto }) updates: UpdateGameDto,
   ): Promise<Game | null | undefined> {
     const { hasErrors, errors } = validateGameUpdates(updates);
@@ -34,7 +34,7 @@ export class GamesResolver {
       throw new Error(`Unable to update game: ${errors.join(', ')}`);
     }
     return this.gamesService.updateGameByRef({
-      ref: gameId,
+      ref: id,
       gameUpdates: updates,
     });
   }
