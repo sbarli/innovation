@@ -14,5 +14,6 @@ import { PlayerGameDetailsResolver } from './player-game-details.resolver';
     ]),
   ],
   providers: [PlayerGameDetailsService, PlayerGameDetailsResolver],
+  exports: [PlayerGameDetailsService],
 })
 export class PlayerGameDetailsModule {}
