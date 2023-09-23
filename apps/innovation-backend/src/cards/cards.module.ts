@@ -12,6 +12,6 @@ import { CardsSortingService } from './cards-sorting.service';
   ],
   controllers: [CardsController],
   providers: [CardsService, CardsSortingService, CardsResolver],
-  exports: [CardsService],
+  exports: [CardsService, CardsSortingService],
 })
 export class CardsModule {}
