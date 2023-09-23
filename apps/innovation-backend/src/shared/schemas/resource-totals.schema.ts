@@ -1,10 +1,10 @@
 import { Prop, Schema } from '@nestjs/mongoose';
-import { Field, ObjectType } from '@nestjs/graphql';
-import { Document } from 'mongoose';
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
 
 @Schema({ _id: false })
 @ObjectType()
-export class ResourceTotals extends Document {
+@InputType('ResourceTotalsDto')
+export class ResourceTotals {
   @Prop({ required: true })
   @Field(() => Number)
   castles: number;
