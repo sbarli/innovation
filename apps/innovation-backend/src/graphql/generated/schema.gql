@@ -26,6 +26,32 @@ input AchievementsDto {
   TWO: ID!
 }
 
+type Board {
+  blue: BoardPile!
+  green: BoardPile!
+  purple: BoardPile!
+  red: BoardPile!
+  yellow: BoardPile!
+}
+
+input BoardDto {
+  blue: BoardPileDto!
+  green: BoardPileDto!
+  purple: BoardPileDto!
+  red: BoardPileDto!
+  yellow: BoardPileDto!
+}
+
+type BoardPile {
+  cardRefs: [ID!]!
+  splayed: SplayOption
+}
+
+input BoardPileDto {
+  cardRefs: [ID!]!
+  splayed: SplayOption
+}
+
 type Card {
   _id: ID
   age: String!
@@ -81,6 +107,19 @@ input CreateGameDto {
 input CreatePlayerDto {
   name: String!
   playerId: String!
+}
+
+input CreatePlayerGameDetailsDto {
+  _id: ID
+  achievements: [ID!]!
+  age: Float!
+  board: BoardDto!
+  gameRef: ID!
+  hand: [ID!]!
+  playerRef: ID!
+  resourceTotals: ResourceTotalsDto!
+  score: Float!
+  scoreCardRefs: [ID!]!
 }
 
 type Deck {
@@ -141,13 +180,28 @@ input GetPlayerDto {
 type Mutation {
   createNewGame(createGameDto: CreateGameDto!): Game!
   createPlayer(createPlayerDto: CreatePlayerDto!): Player!
-  updateGame(gameId: String!, updates: UpdateGameDto!): Game
+  createPlayerGameDetails(createPlayerGameDetailsDto: CreatePlayerGameDetailsDto!): PlayerGameDetails!
+  updateGame(id: String!, updates: UpdateGameDto!): Game
+  updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsDto!): PlayerGameDetails
 }
 
 type Player {
   _id: ID!
   name: String!
   playerId: String!
+}
+
+type PlayerGameDetails {
+  _id: ID
+  achievements: [ID!]!
+  age: Float!
+  board: Board!
+  gameRef: ID!
+  hand: [ID!]!
+  playerRef: ID!
+  resourceTotals: ResourceTotals!
+  score: Float!
+  scoreCardRefs: [ID!]!
 }
 
 type Query {
@@ -157,6 +211,8 @@ type Query {
   getGame(gameRef: String!): Game
   getOneCard(options: FindOneOptionsInput!): Card
   getPlayer(getPlayerDto: GetPlayerDto!): Player
+  getPlayerGameDetails(gameRef: ID!, playerRef: ID!): PlayerGameDetails
+  getPlayerGameDetailsById(id: ID!): PlayerGameDetails
 }
 
 type ResourceSpaces {
@@ -175,10 +231,35 @@ type ResourceTotals {
   timepieces: Float!
 }
 
+input ResourceTotalsDto {
+  castles: Float!
+  crowns: Float!
+  factories: Float!
+  leaves: Float!
+  lightbulbs: Float!
+  timepieces: Float!
+}
+
+enum SplayOption {
+  LEFT
+  RIGHT
+  UP
+}
+
 input UpdateGameDto {
   achievements: AchievementsDto
   currentActionNumber: Float
   currentPlayerRef: String
   deck: DeckDto
   winnerRef: String
+}
+
+input UpdatePlayerGameDetailsDto {
+  achievements: [ID!]
+  age: Float
+  board: BoardDto
+  hand: [ID!]
+  resourceTotals: ResourceTotalsDto
+  score: Float
+  scoreCardRefs: [ID!]
 }
