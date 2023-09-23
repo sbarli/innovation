@@ -1,14 +1,28 @@
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
-import { Board } from '../schemas/player-game-details.schema';
+import { Board } from '../schemas/board.schema';
 
+@ObjectType()
+@InputType('UpdatePlayerGameDetailsDto')
 export class UpdatePlayerGameDetailsDto {
-  readonly age: number;
-  readonly score: number;
-  readonly resourceTotals: ResourceTotals;
-  readonly board: Board;
-  readonly achievements: string[];
-  readonly hand: string[];
-  readonly scoreCardRefs: string[];
-  // TODO: add once we have spec achiev data
-  // readonly specialAchievements: string[];
+  @Field(() => Number, { nullable: true })
+  age?: number;
+
+  @Field(() => Number, { nullable: true })
+  score?: number;
+
+  @Field(() => ResourceTotals, { nullable: true })
+  resourceTotals?: ResourceTotals;
+
+  @Field(() => Board, { nullable: true })
+  board?: Board;
+
+  @Field(() => [ID], { nullable: true })
+  achievements?: string[];
+
+  @Field(() => [ID], { nullable: true })
+  hand?: string[];
+
+  @Field(() => [ID], { nullable: true })
+  scoreCardRefs?: string[];
 }
