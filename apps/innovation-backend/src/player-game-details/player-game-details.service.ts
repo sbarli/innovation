@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreatePlayerGameDetailsDto } from './dto/create-player-game-details.dto';
 import { UpdatePlayerGameDetailsDto } from './dto/update-player-game-details.dto';
 import {
   PlayerGameDetails,
@@ -15,32 +14,27 @@ export class PlayerGameDetailsService {
     private playerGameDetailsModel: Model<PlayerGameDetailsDocument>,
   ) {}
 
-  async findDetailsByGameAndPlayer({
-    gameId,
-    playerId,
-  }: {
-    gameId: string;
-    playerId: string;
-  }): Promise<PlayerGameDetails | null> {
-    return this.playerGameDetailsModel
-      .findOne({ playerRef: playerId, gameRef: gameId })
-      .exec();
+  async findById(id: string): Promise<PlayerGameDetails | null | undefined> {
+    return this.playerGameDetailsModel.findById(id);
   }
 
-  async create({
-    gameId,
-    playerId,
-    details,
+  async findDetailsByGameAndPlayer({
+    gameRef,
+    playerRef,
   }: {
-    gameId: string;
-    playerId: string;
-    details: CreatePlayerGameDetailsDto;
-  }): Promise<PlayerGameDetails> {
-    const createdPlayerGameDetails = new this.playerGameDetailsModel({
-      gameRef: gameId,
-      playerRef: playerId,
-      ...details,
+    gameRef: string;
+    playerRef: string;
+  }): Promise<PlayerGameDetails | null | undefined> {
+    return this.playerGameDetailsModel.findOne({
+      playerRef,
+      gameRef,
     });
+  }
+
+  async create(detailsToCreate: PlayerGameDetails): Promise<PlayerGameDetails> {
+    const createdPlayerGameDetails = new this.playerGameDetailsModel(
+      detailsToCreate,
+    );
     return createdPlayerGameDetails.save();
   }
 
@@ -59,12 +53,8 @@ export class PlayerGameDetailsService {
      * @see https://stackoverflow.com/a/30419860
      */
 
-    return this.playerGameDetailsModel
-      .findByIdAndUpdate(id, updates, { new: true })
-      .exec();
-  }
-
-  async findById(detailsId: string): Promise<PlayerGameDetails | null> {
-    return this.playerGameDetailsModel.findById(detailsId).exec();
+    return this.playerGameDetailsModel.findByIdAndUpdate(id, updates, {
+      new: true,
+    });
   }
 }
