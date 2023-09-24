@@ -118,7 +118,6 @@ export class NewGameService {
       };
       const newGameFromDb = await this.gamesService.create(newGameData);
 
-      console.log('playerStarterHands: ', playerStarterHands);
       // // create player game details
       const playerGameDetailsData: Omit<PlayerGameDetails, '_id'>[] =
         playerRefs.map((ref) => ({

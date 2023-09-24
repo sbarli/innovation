@@ -12,7 +12,6 @@ export class PlayersService {
 
   async create(createPlayerDto: CreatePlayerDto): Promise<Player> {
     const createdPlayer = new this.playerModel(createPlayerDto);
-    console.log('createdPlayer: ', createdPlayer);
     return createdPlayer.save();
   }
 
