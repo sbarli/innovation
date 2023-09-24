@@ -9,12 +9,13 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "clean": "turbo clean && rm -rf node_modules",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint-config-custom": "*",
-    "prettier": "latest",
+    "prettier": "^2.7.1",
     "turbo": "latest"
   },
   "engines": {
