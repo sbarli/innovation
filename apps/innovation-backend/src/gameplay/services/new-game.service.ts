@@ -4,7 +4,6 @@ import { PlayerGameDetails } from 'src/player-game-details/schemas/player-game-d
 import { PlayersService } from 'src/players/players.service';
 import { Deck } from 'src/games/schemas/deck.schema';
 import { Achievements } from 'src/games/schemas/achievements.schema';
-// import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
 import { GamesService } from 'src/games/games.service';
 import { Player } from 'src/players/schemas/player.schema';
 import { CardRefsByAge } from 'src/cards/dto/card-refs-by-age.dto';
@@ -15,6 +14,8 @@ import {
   shuffleDeck,
 } from '../helpers/new-game';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
+import { createBaseBoard } from '../helpers/board';
+import { baseResourceTotals } from '../constants/resource-totals';
 
 type NewGameDetails = {
   game: Game;
@@ -104,8 +105,8 @@ export class NewGameService {
     playerRefs,
     starterDeck,
     ageAchievements,
-  }: // playerStarterHands,
-  IStartGameProps): Promise<NewGameDetails> {
+    playerStarterHands,
+  }: IStartGameProps): Promise<NewGameDetails> {
     try {
       // create game
       const newGameData = {
@@ -117,34 +118,32 @@ export class NewGameService {
       };
       const newGameFromDb = await this.gamesService.create(newGameData);
 
-      // create player game details
-      // const playerGameDetailsData: Partial<PlayerGameDetails>[] =
-      //   playerRefs.map((ref) => ({
-      //     playerRef: ref,
-      //     gameRef: newGameFromDb._id,
-      //     age: 1,
-      //     score: 0,
-      //     // TODO: calculate this
-      //     // resourceTotals: {} as ResourceTotals,
-      //     // TODO: create starter board
-      //     // board: Board,
-      //     achievements: [],
-      //     hand: playerStarterHands[ref],
-      //     scoreCardRefs: [],
-      //     // TODO: add once we have spec achiev added to schema
-      //     // specialAchievements: [],
-      //   }));
-      // const allPlayerGameDetails = await Promise.all(
-      //   playerGameDetailsData.map((pgd) =>
-      //     this.playerGameDetailsService.create(pgd),
-      //   ),
-      // );
+      console.log('playerStarterHands: ', playerStarterHands);
+      // // create player game details
+      const playerGameDetailsData: Omit<PlayerGameDetails, '_id'>[] =
+        playerRefs.map((ref) => ({
+          playerRef: ref,
+          gameRef: newGameFromDb._id,
+          age: 1,
+          score: 0,
+          resourceTotals: { ...baseResourceTotals },
+          board: createBaseBoard(),
+          achievements: [],
+          hand: playerStarterHands[ref],
+          scoreCardRefs: [],
+          // TODO: add once we have spec achiev added to schema
+          // specialAchievements: [],
+        }));
+      const allPlayerGameDetails = await Promise.all(
+        playerGameDetailsData.map((pgd) =>
+          this.playerGameDetailsService.create(pgd),
+        ),
+      );
 
       // return newly created game and game details (per player)
       return {
         game: newGameFromDb,
-        playerGameDetails: [],
-        // playerGameDetails: allPlayerGameDetails,
+        playerGameDetails: allPlayerGameDetails,
       };
     } catch (error) {
       throw new Error(error?.message);

@@ -31,7 +31,9 @@ export class PlayerGameDetailsService {
     });
   }
 
-  async create(detailsToCreate: PlayerGameDetails): Promise<PlayerGameDetails> {
+  async create(
+    detailsToCreate: Omit<PlayerGameDetails, '_id'>,
+  ): Promise<PlayerGameDetails> {
     const createdPlayerGameDetails = new this.playerGameDetailsModel(
       detailsToCreate,
     );
