@@ -12,6 +12,22 @@ export class CardsService {
     return this.cardModel.find({});
   }
 
+  async findManyByRef(refs: string[]): Promise<Card[]> {
+    return this.cardModel.find({
+      _id: {
+        $in: refs,
+      },
+    });
+  }
+
+  async findOneByRef(ref: string): Promise<Card | null | undefined> {
+    return this.cardModel.findOne({ _id: ref });
+  }
+
+  async findOneByCardId(cardId: string): Promise<Card | null | undefined> {
+    return this.cardModel.findOne({ cardId });
+  }
+
   async create(createCardDto: CreateCardDto): Promise<Card> {
     const createdCard = new this.cardModel(createCardDto);
     return createdCard.save();
@@ -24,13 +40,5 @@ export class CardsService {
 
   async deleteAll() {
     return this.cardModel.deleteMany({});
-  }
-
-  async findOneByRef(ref: string): Promise<Card | null | undefined> {
-    return this.cardModel.findOne({ _id: ref }).exec();
-  }
-
-  async findOneByCardId(cardId: string): Promise<Card | null | undefined> {
-    return this.cardModel.findOne({ cardId });
   }
 }

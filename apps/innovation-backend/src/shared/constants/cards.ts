@@ -36,3 +36,12 @@ export const cardAgeToAgeStringMap: { [key: string]: AgeString } = {
   9: AgeString.NINE,
   10: AgeString.TEN,
 };
+
+export enum Resource {
+  CASTLES = 'castles',
+  CROWNS = 'crowns',
+  LEAVES = 'leaves',
+  LIGHTBULBS = 'lightbulbs',
+  FACTORIES = 'factories',
+  TIMEPIECES = 'timepieces',
+}

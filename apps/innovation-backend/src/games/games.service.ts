@@ -8,6 +8,26 @@ import { Game, GameDocument } from './schemas/game.schema';
 export class GamesService {
   constructor(@InjectModel(Game.name) private gameModel: Model<GameDocument>) {}
 
+  async findGameByRef(ref: string): Promise<Game | null | undefined> {
+    return this.gameModel.findById(ref);
+  }
+
+  async findActiveGameByPlayers(
+    playerRefs: string[],
+  ): Promise<Game | null | undefined> {
+    return this.gameModel.findOne({
+      $and: [
+        { playerRefs: { $all: [...playerRefs] } },
+        {
+          $or: [
+            { winnerRef: { $exists: false } },
+            { winnerRef: { $eq: null } },
+          ],
+        },
+      ],
+    });
+  }
+
   async create(createGameDto: Omit<Game, '_id'>): Promise<Game> {
     const createdGame = new this.gameModel(createGameDto);
     return createdGame.save();
@@ -29,9 +49,5 @@ export class GamesService {
      */
 
     return this.gameModel.findByIdAndUpdate(ref, gameUpdates, { new: true });
-  }
-
-  async findGameByRef(ref: string): Promise<Game | null | undefined> {
-    return this.gameModel.findById(ref);
   }
 }

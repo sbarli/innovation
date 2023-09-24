@@ -1,5 +1,6 @@
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Resource } from '../constants/cards';
 
 @Schema({ _id: false })
 @ObjectType()
@@ -7,25 +8,25 @@ import { Field, InputType, ObjectType } from '@nestjs/graphql';
 export class ResourceTotals {
   @Prop({ required: true })
   @Field(() => Number)
-  castles: number;
+  [Resource.CASTLES]: number;
 
   @Prop({ required: true })
   @Field(() => Number)
-  crowns: number;
+  [Resource.CROWNS]: number;
 
   @Prop({ required: true })
   @Field(() => Number)
-  leaves: number;
+  [Resource.LEAVES]: number;
 
   @Prop({ required: true })
   @Field(() => Number)
-  lightbulbs: number;
+  [Resource.LIGHTBULBS]: number;
 
   @Prop({ required: true })
   @Field(() => Number)
-  factories: number;
+  [Resource.FACTORIES]: number;
 
   @Prop({ required: true })
   @Field(() => Number)
-  timepieces: number;
+  [Resource.TIMEPIECES]: number;
 }
