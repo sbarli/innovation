@@ -11,6 +11,8 @@
       "persistent": true
     },
     "lint": {},
+    "lint:eslint": {},
+    "lint:fix": {},
     "clean": {
       "cache": false
     }
