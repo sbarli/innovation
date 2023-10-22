@@ -1,5 +1,5 @@
 {
-  "name": "native",
+  "name": "@inno/native",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,13 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "dev": "yarn start"
+    "dev": "yarn start",
+    "exp": "npx expo",
+    "lint:types": "yarn tsc",
+    "lint:eslint": "eslint \"**/*.{ts,tsx,js,jsx}\"",
+    "lint:eslint:fix": "yarn lint:eslint --fix",
+    "lint": "yarn lint:types && yarn lint:eslint",
+    "lint:fix": "yarn lint:eslint:fix"
   },
   "dependencies": {
     "expo": "^48.0.0",
@@ -23,6 +29,7 @@
     "@babel/core": "^7.20.0",
     "@types/react": "~18.0.27",
     "@types/react-native": "^0.69.15",
+    "eslint-config-custom": "*",
     "typescript": "^4.9.4"
   },
   "private": true
