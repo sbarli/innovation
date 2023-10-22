@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Card, CardDocument } from 'src/shared/schemas/card.schema';
+
 import { CreateCardDto } from './dto/create-card.dto';
 
 @Injectable()

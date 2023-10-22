@@ -1,7 +1,8 @@
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
-import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
+
 import { Board } from './board.schema';
 
 export type PlayerGameDetailsDocument = HydratedDocument<PlayerGameDetails>;
@@ -71,5 +72,4 @@ export class PlayerGameDetails {
   // specialAchievements: string[];
 }
 
-export const PlayerGameDetailsSchema =
-  SchemaFactory.createForClass(PlayerGameDetails);
+export const PlayerGameDetailsSchema = SchemaFactory.createForClass(PlayerGameDetails);

@@ -1,18 +1,17 @@
-import { PlayerGameDetails } from './schemas/player-game-details.schema';
-import { PlayerGameDetailsService } from './player-game-details.service';
 import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+
 import { UpdatePlayerGameDetailsDto } from './dto/update-player-game-details.dto';
+import { PlayerGameDetailsService } from './player-game-details.service';
+import { PlayerGameDetails } from './schemas/player-game-details.schema';
 
 @Resolver('PlayerGameDetails')
 export class PlayerGameDetailsResolver {
-  constructor(
-    private readonly playerGameDetailsService: PlayerGameDetailsService,
-  ) {}
+  constructor(private readonly playerGameDetailsService: PlayerGameDetailsService) {}
 
   @Query(() => PlayerGameDetails, { nullable: true })
   async getPlayerGameDetails(
     @Args('gameRef', { type: () => ID }) gameRef: string,
-    @Args('playerRef', { type: () => ID }) playerRef: string,
+    @Args('playerRef', { type: () => ID }) playerRef: string
   ): Promise<PlayerGameDetails | null | undefined> {
     return this.playerGameDetailsService.findDetailsByGameAndPlayer({
       gameRef,
@@ -28,7 +27,7 @@ export class PlayerGameDetailsResolver {
   @Mutation(() => PlayerGameDetails)
   async createPlayerGameDetails(
     @Args('createPlayerGameDetailsDto', { type: () => PlayerGameDetails })
-    createPlayerGameDetailsDto: PlayerGameDetails,
+    createPlayerGameDetailsDto: PlayerGameDetails
   ) {
     const existingPlayerGameDetails =
       await this.playerGameDetailsService.findDetailsByGameAndPlayer({
@@ -36,9 +35,7 @@ export class PlayerGameDetailsResolver {
         playerRef: createPlayerGameDetailsDto.playerRef,
       });
     if (existingPlayerGameDetails) {
-      throw new Error(
-        'This player already has game details. Did you mean to update?',
-      );
+      throw new Error('This player already has game details. Did you mean to update?');
     }
     return this.playerGameDetailsService.create(createPlayerGameDetailsDto);
   }
@@ -47,7 +44,7 @@ export class PlayerGameDetailsResolver {
   async updatePlayerGameDetails(
     @Args('id', { type: () => ID }) id: string,
     @Args('updates', { type: () => UpdatePlayerGameDetailsDto })
-    updates: UpdatePlayerGameDetailsDto,
+    updates: UpdatePlayerGameDetailsDto
   ) {
     // TODO: validate updates
     return this.playerGameDetailsService.updateById({

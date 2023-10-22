@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CardsService } from 'src/cards/cards.service';
 import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
+
 import { baseResourceTotals } from '../constants/resource-totals';
 
 @Injectable()
@@ -13,9 +14,7 @@ export class ResourcesService {
       const cards = await this.cardsService.findManyByRef(cardRefs);
 
       if (cards.length !== cardRefs.length) {
-        throw new Error(
-          'calculateResourceTotals failed: one or more card refs invalid',
-        );
+        throw new Error('calculateResourceTotals failed: one or more card refs invalid');
       }
 
       cards.forEach((card) => {

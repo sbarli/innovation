@@ -18,12 +18,12 @@ const cloneDeck = (baseDeck: Deck): Deck => {
 export const shuffleDeck = (cardRefsByAge: CardRefsByAge): Deck =>
   Object.keys(cardRefsByAge).reduce((acc, ageString) => {
     const age = ageString as AgeString;
-    acc[age] = shuffleArray(cardRefsByAge[age]);
+    acc[age] = shuffleArray(cardRefsByAge[age]) as string[];
     return acc;
   }, {} as Deck);
 
 export const pickAgeAchievements = (
-  currentDeck: Deck,
+  currentDeck: Deck
 ): { ageAchievements: Achievements; deckMinusAchievements: Deck } => {
   const deckMinusAchievements = cloneDeck(currentDeck);
   const ageAchievements = ages.reduce((acc, age) => {
@@ -41,7 +41,7 @@ export const pickAgeAchievements = (
 
 export const selectStarterHandsForPlayers = (
   currentDeck: Deck,
-  playerRefs: string[],
+  playerRefs: string[]
 ): { playerStarterHands: TPlayerStarterHands; deckMinusStarterHands: Deck } => {
   const deckMinusStarterHands = cloneDeck(currentDeck);
   const playerStarterHands = playerRefs.reduce((acc, ref) => {

@@ -5,9 +5,7 @@ interface IValidateGameUpdatesResponse {
   errors: string[];
 }
 
-export const validateGameUpdates = (
-  updates: UpdateGameDto,
-): IValidateGameUpdatesResponse => {
+export const validateGameUpdates = (updates: UpdateGameDto): IValidateGameUpdatesResponse => {
   const result: IValidateGameUpdatesResponse = {
     hasErrors: false,
     errors: [],

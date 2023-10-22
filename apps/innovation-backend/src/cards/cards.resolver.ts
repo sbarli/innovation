@@ -1,7 +1,8 @@
-import { Card } from 'src/shared/schemas/card.schema';
-import { CardsService } from './cards.service';
 import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Card } from 'src/shared/schemas/card.schema';
+
 import { CardsSortingService } from './cards-sorting.service';
+import { CardsService } from './cards.service';
 import { CardRefsByAge } from './dto/card-refs-by-age.dto';
 import { CardIdAndRefByAge } from './dto/cardId-and-ref-by-age.dto';
 import { FindOneOptionsInput } from './dto/find-one-options.input';
@@ -10,7 +11,7 @@ import { FindOneOptionsInput } from './dto/find-one-options.input';
 export class CardsResolver {
   constructor(
     private readonly cardsService: CardsService,
-    private readonly cardsSortingService: CardsSortingService,
+    private readonly cardsSortingService: CardsSortingService
   ) {}
 
   @Query(() => [Card])
@@ -34,7 +35,7 @@ export class CardsResolver {
   @Query(() => Card, { nullable: true })
   async getOneCard(
     @Args('options', { type: () => FindOneOptionsInput })
-    options: FindOneOptionsInput,
+    options: FindOneOptionsInput
   ): Promise<Card | null | undefined> {
     switch (options.searchField) {
       case 'cardId':

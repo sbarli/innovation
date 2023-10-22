@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+
 import { UpdateGameDto } from './dto/update-game.dto';
 import { Game, GameDocument } from './schemas/game.schema';
 
@@ -12,17 +13,12 @@ export class GamesService {
     return this.gameModel.findById(ref);
   }
 
-  async findActiveGameByPlayers(
-    playerRefs: string[],
-  ): Promise<Game | null | undefined> {
+  async findActiveGameByPlayers(playerRefs: string[]): Promise<Game | null | undefined> {
     return this.gameModel.findOne({
       $and: [
         { playerRefs: { $all: [...playerRefs] } },
         {
-          $or: [
-            { winnerRef: { $exists: false } },
-            { winnerRef: { $eq: null } },
-          ],
+          $or: [{ winnerRef: { $exists: false } }, { winnerRef: { $eq: null } }],
         },
       ],
     });

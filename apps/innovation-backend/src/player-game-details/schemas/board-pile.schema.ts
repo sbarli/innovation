@@ -1,6 +1,7 @@
 import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
+
 import { SplayOption } from '../player-game-details.types';
 
 @Schema({ _id: false })

@@ -1,4 +1,4 @@
-export const shuffleArray = (initArray: any[]) => {
+export const shuffleArray = (initArray: unknown[]) => {
   const copiedArray = [...initArray];
   let currentIndex = copiedArray.length;
   let temporaryValue;
