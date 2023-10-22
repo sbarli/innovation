@@ -1,6 +1,6 @@
 {
-  "name": "innovation-tr",
-  "version": "0.0.0",
+  "name": "@sbarli/innovation",
+  "version": "0.1.0",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -11,11 +11,13 @@
     "dev": "turbo run dev",
     "clean": "turbo clean && rm -rf node_modules",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "exp": "yarn workspace @inno/native exp",
+    "postinstall": "npx patch-package"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
-    "prettier": "^2.7.1",
+    "prettier": "^3.0.3",
     "turbo": "latest"
   },
   "engines": {
