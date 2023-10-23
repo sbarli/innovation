@@ -26,6 +26,6 @@
     "babel-plugin-react-native-web": "^0.18.4",
     "eslint-config-custom": "*",
     "tsconfig": "*",
-    "typescript": "^4.7.4"
+    "typescript": "^5.1.3"
   }
 }
