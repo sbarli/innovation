@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { AgeString } from 'src/shared/constants/cards';
+
+import { AgeString } from '@inno/constants';
 
 @ObjectType()
 export class CardRefsByAge {

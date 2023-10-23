@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { ResourceTotals } from 'src/cards/schemas/resource-totals.schema';
 import { CardsService } from 'src/cards/services/cards.service';
-import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
 
 import { getCatchErrorMessage } from '@inno/utils';
 

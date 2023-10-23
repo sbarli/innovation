@@ -1,7 +1,8 @@
 import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Schema as MongooseSchema } from 'mongoose';
-import { AgeString } from 'src/shared/constants/cards';
+
+import { AgeString } from '@inno/constants';
 
 @Schema({ _id: false })
 @ObjectType()

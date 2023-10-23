@@ -1,8 +1,8 @@
 import { CardRefsByAge } from 'src/cards/dto/card-refs-by-age.dto';
 import { Achievements } from 'src/games/schemas/achievements.schema';
 import { Deck } from 'src/games/schemas/deck.schema';
-import { AgeString, ages } from 'src/shared/constants/cards';
 
+import { AgeString, ages } from '@inno/constants';
 import { shuffleArray } from '@inno/utils';
 
 export type TPlayerStarterHands = {

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Card, CardSchema } from 'src/shared/schemas/card.schema';
 
 import { CardsController } from './cards.controller';
 import { CardsResolver } from './cards.resolver';
+import { Card, CardSchema } from './schemas/card.schema';
 import { CardsSortingService } from './services/cards-sorting.service';
 import { CardsService } from './services/cards.service';
 

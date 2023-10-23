@@ -1,0 +1,16 @@
+{
+  "name": "@inno/constants",
+  "version": "1.0.0",
+  "description": "shared constants",
+  "author": "Samantha Barli",
+  "private": true,
+  "main": "./dist/index",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "devDependencies": {
+    "tsconfig": "*",
+    "typescript": "^5.1.3"
+  }
+}

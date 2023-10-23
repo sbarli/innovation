@@ -11,7 +11,7 @@
       "persistent": true
     },
     "@inno/backend#dev": {
-      "dependsOn": ["^@inno/utils#build"]
+      "dependsOn": ["^@inno/utils#build", "^@inno/constants#build"]
     },
     "lint": {},
     "lint:eslint": {},

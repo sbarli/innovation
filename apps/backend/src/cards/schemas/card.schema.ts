@@ -1,7 +1,8 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, HydratedDocument } from 'mongoose';
-import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
+
+import { ResourceTotals } from './resource-totals.schema';
 
 export type CardDocument = HydratedDocument<Card>;
 
