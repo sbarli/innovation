@@ -10,6 +10,9 @@
       "cache": false,
       "persistent": true
     },
+    "@inno/backend#dev": {
+      "dependsOn": ["^@inno/utils#build"]
+    },
     "lint": {},
     "lint:eslint": {},
     "lint:fix": {},
