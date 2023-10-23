@@ -8,15 +8,15 @@ export type PlayerDocument = HydratedDocument<Player>;
 @ObjectType()
 export class Player {
   @Field(() => ID)
-  _id: string;
+  _id!: string;
 
   @Prop({ type: String, required: true })
   @Field(() => String)
-  name: string;
+  name!: string;
 
   @Prop({ type: String, required: true })
   @Field(() => String)
-  playerId: string;
+  playerId!: string;
 }
 
 export const PlayerSchema = SchemaFactory.createForClass(Player);

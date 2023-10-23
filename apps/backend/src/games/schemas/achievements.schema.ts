@@ -11,61 +11,61 @@ export class Achievements {
     ref: 'Card',
   })
   @Field(() => ID)
-  ONE: string;
+  ONE!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  TWO: string;
+  TWO!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  THREE: string;
+  THREE!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  FOUR: string;
+  FOUR!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  FIVE: string;
+  FIVE!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  SIX: string;
+  SIX!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  SEVEN: string;
+  SEVEN!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  EIGHT: string;
+  EIGHT!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  NINE: string;
+  NINE!: string;
 }

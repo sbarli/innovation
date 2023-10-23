@@ -10,19 +10,19 @@ export type CardDocument = HydratedDocument<Card>;
 export class ResourceSpaces extends Document {
   @Prop({ type: String, nullable: true })
   @Field(() => String, { nullable: true })
-  resourceSpace1: string;
+  resourceSpace1!: string;
 
   @Prop({ type: String, nullable: true })
   @Field(() => String, { nullable: true })
-  resourceSpace2: string;
+  resourceSpace2!: string;
 
   @Prop({ type: String, nullable: true })
   @Field(() => String, { nullable: true })
-  resourceSpace3: string;
+  resourceSpace3!: string;
 
   @Prop({ type: String, nullable: true })
   @Field(() => String, { nullable: true })
-  resourceSpace4: string;
+  resourceSpace4!: string;
 }
 
 @Schema({ _id: false })
@@ -30,62 +30,62 @@ export class ResourceSpaces extends Document {
 export class DogmaEffect extends Document {
   @Prop({ type: String, required: true })
   @Field(() => String)
-  description: string;
+  description!: string;
 
   @Prop({ type: [String], required: true })
   @Field(() => [String])
-  effectTypes: string[];
+  effectTypes!: string[];
 
   @Prop({ type: Boolean, required: true })
   @Field(() => Boolean)
-  isDemand: boolean;
+  isDemand!: boolean;
 
   @Prop({ type: Boolean, required: true })
   @Field(() => Boolean)
-  isOptional: boolean;
+  isOptional!: boolean;
 
   @Prop({ type: Boolean, required: true })
   @Field(() => Boolean)
-  repeat: boolean;
+  repeat!: boolean;
 
   @Prop({ type: String, nullable: true })
   @Field(() => String, { nullable: true })
-  specialAchievement: string;
+  specialAchievement!: string;
 }
 
 @Schema()
 @ObjectType()
 export class Card {
   @Field(() => ID, { nullable: true })
-  _id: string;
+  _id!: string;
 
   @Prop({ type: String, required: true })
   @Field(() => String)
-  cardId: string;
+  cardId!: string;
 
   @Prop({ type: String, required: true })
   @Field(() => String)
-  name: string;
+  name!: string;
 
   @Prop({ type: String, required: true })
   @Field(() => String)
-  age: number;
+  age!: number;
 
   @Prop({ type: String, required: true })
   @Field(() => String)
-  dogmaResource: string;
+  dogmaResource!: string;
 
   @Prop({ required: true, type: ResourceTotals })
   @Field(() => ResourceTotals)
-  resourceTotals: ResourceTotals;
+  resourceTotals!: ResourceTotals;
 
   @Prop({ required: true, type: ResourceSpaces })
   @Field(() => ResourceSpaces)
-  resourceSpaces: ResourceSpaces;
+  resourceSpaces!: ResourceSpaces;
 
   @Prop([DogmaEffect])
   @Field(() => [DogmaEffect])
-  dogmaEffects: DogmaEffect[];
+  dogmaEffects!: DogmaEffect[];
 }
 
 export const CardSchema = SchemaFactory.createForClass(Card);

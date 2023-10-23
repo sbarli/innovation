@@ -4,8 +4,8 @@ import { Field, InputType, ObjectType } from '@nestjs/graphql';
 @InputType('CreatePlayerDto')
 export class CreatePlayerDto {
   @Field(() => String)
-  name: string;
+  name!: string;
 
   @Field(() => String)
-  playerId: string;
+  playerId!: string;
 }

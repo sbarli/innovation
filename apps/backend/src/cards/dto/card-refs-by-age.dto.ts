@@ -4,32 +4,32 @@ import { AgeString } from 'src/shared/constants/cards';
 @ObjectType()
 export class CardRefsByAge {
   @Field(() => [String])
-  [AgeString.ONE]: string[];
+  [AgeString.ONE]!: string[]; // NOTE: need the ! due to this: https://github.com/Microsoft/TypeScript-Vue-Starter/issues/36#issuecomment-371434263
 
   @Field(() => [String])
-  [AgeString.TWO]: string[];
+  [AgeString.TWO]!: string[];
 
   @Field(() => [String])
-  [AgeString.THREE]: string[];
+  [AgeString.THREE]!: string[];
 
   @Field(() => [String])
-  [AgeString.FOUR]: string[];
+  [AgeString.FOUR]!: string[];
 
   @Field(() => [String])
-  [AgeString.FIVE]: string[];
+  [AgeString.FIVE]!: string[];
 
   @Field(() => [String])
-  [AgeString.SIX]: string[];
+  [AgeString.SIX]!: string[];
 
   @Field(() => [String])
-  [AgeString.SEVEN]: string[];
+  [AgeString.SEVEN]!: string[];
 
   @Field(() => [String])
-  [AgeString.EIGHT]: string[];
+  [AgeString.EIGHT]!: string[];
 
   @Field(() => [String])
-  [AgeString.NINE]: string[];
+  [AgeString.NINE]!: string[];
 
   @Field(() => [String])
-  [AgeString.TEN]: string[];
+  [AgeString.TEN]!: string[];
 }

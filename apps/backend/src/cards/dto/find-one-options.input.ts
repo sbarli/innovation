@@ -6,8 +6,8 @@ export type FindOneByFieldOptions = 'cardId' | 'ref';
 @InputType('FindOneOptionsInput')
 export class FindOneOptionsInput {
   @Field(() => String)
-  searchField: FindOneByFieldOptions;
+  searchField!: FindOneByFieldOptions;
 
   @Field(() => String)
-  searchValue: string;
+  searchValue!: string;
 }

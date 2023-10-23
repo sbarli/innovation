@@ -9,6 +9,8 @@ import { PlayerGameDetails } from 'src/player-game-details/schemas/player-game-d
 import { PlayersService } from 'src/players/players.service';
 import { Player } from 'src/players/schemas/player.schema';
 
+import { getCatchErrorMessage } from '@inno/utils';
+
 import { baseResourceTotals } from '../constants/resource-totals';
 import { createBaseBoard } from '../helpers/board';
 import {
@@ -60,7 +62,10 @@ export class NewGameService {
       }
       return actualPlayers;
     } catch (error) {
-      throw new Error(error?.message ?? 'gameplayService: Unable to validate players exist');
+      throw new Error(
+        getCatchErrorMessage(error) ??
+          'newGameService.validatePlayersExist: Unable to validate players exist'
+      );
     }
   }
 
@@ -72,7 +77,10 @@ export class NewGameService {
       }
       return true;
     } catch (error) {
-      throw new Error(error?.message ?? 'gameplayService: Unable to validate unique game');
+      throw new Error(
+        getCatchErrorMessage(error) ??
+          'newGameService.validateUniqueGame: Unable to validate unique game'
+      );
     }
   }
 
@@ -137,7 +145,9 @@ export class NewGameService {
         playerGameDetails: allPlayerGameDetails,
       };
     } catch (error) {
-      throw new Error(error?.message);
+      throw new Error(
+        getCatchErrorMessage(error) ?? 'newGameService.startGame: Unable to start game'
+      );
     }
   }
 }

@@ -12,31 +12,31 @@ export type PlayerGameDetailsDocument = HydratedDocument<PlayerGameDetails>;
 @InputType('CreatePlayerGameDetailsDto')
 export class PlayerGameDetails {
   @Field(() => ID, { nullable: true })
-  _id: string;
+  _id!: string;
 
   @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Game' })
   @Field(() => ID)
-  gameRef: string;
+  gameRef!: string;
 
   @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Player' })
   @Field(() => ID)
-  playerRef: string;
+  playerRef!: string;
 
   @Prop({ required: true })
   @Field(() => Number)
-  age: number;
+  age!: number;
 
   @Prop({ required: true })
   @Field(() => Number)
-  score: number;
+  score!: number;
 
   @Prop({ required: true, type: ResourceTotals })
   @Field(() => ResourceTotals)
-  resourceTotals: ResourceTotals;
+  resourceTotals!: ResourceTotals;
 
   @Prop({ required: true, type: Board })
   @Field(() => Board)
-  board: Board;
+  board!: Board;
 
   @Prop({
     required: true,
@@ -44,7 +44,7 @@ export class PlayerGameDetails {
     ref: 'Card',
   })
   @Field(() => [ID])
-  achievements: string[];
+  achievements!: string[];
 
   @Prop({
     required: true,
@@ -52,7 +52,7 @@ export class PlayerGameDetails {
     ref: 'Card',
   })
   @Field(() => [ID])
-  hand: string[];
+  hand!: string[];
 
   @Prop({
     required: true,
@@ -60,7 +60,7 @@ export class PlayerGameDetails {
     ref: 'Card',
   })
   @Field(() => [ID])
-  scoreCardRefs: string[];
+  scoreCardRefs!: string[];
 
   // TODO: add once we have special achievement data
   // @Prop({

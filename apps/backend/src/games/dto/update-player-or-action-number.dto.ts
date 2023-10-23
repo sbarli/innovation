@@ -4,15 +4,15 @@ import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 @InputType('UpdatePlayerOrActionNumberDto')
 export class UpdatePlayerOrActionNumberDto {
   @Field(() => Number)
-  currentActionNumber: number;
+  currentActionNumber!: number;
 
   @Field(() => String)
-  currentPlayerRef: string;
+  currentPlayerRef!: string;
 }
 
 @ObjectType()
 @InputType('UpdateGame2Dto')
 export class UpdateGame2Dto extends UpdatePlayerOrActionNumberDto {
   @Field(() => ID)
-  gameId: string;
+  gameId!: string;
 }

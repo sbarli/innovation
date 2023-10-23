@@ -12,15 +12,15 @@ export type GameDocument = HydratedDocument<Game>;
 @InputType('CreateGameDto')
 export class Game {
   @Field(() => ID, { nullable: true })
-  _id: string;
+  _id!: string;
 
   @Prop({ type: Number, required: true })
   @Field(() => Number)
-  currentActionNumber: number;
+  currentActionNumber!: number;
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Player' })
   @Field(() => ID)
-  currentPlayerRef: string;
+  currentPlayerRef!: string;
 
   @Prop({
     required: true,
@@ -28,7 +28,7 @@ export class Game {
     ref: 'Player',
   })
   @Field(() => [ID])
-  playerRefs: string[];
+  playerRefs!: string[];
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
@@ -40,11 +40,11 @@ export class Game {
 
   @Prop({ required: true, type: Deck })
   @Field(() => Deck)
-  deck: Deck;
+  deck!: Deck;
 
   @Prop({ required: true, type: Achievements })
   @Field(() => Achievements)
-  achievements: Achievements;
+  achievements!: Achievements;
 
   // TODO: add once we have spec achieve data
   // @Prop({ required: true, type: SpecialAchievements })

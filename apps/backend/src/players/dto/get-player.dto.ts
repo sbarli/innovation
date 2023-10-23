@@ -6,8 +6,8 @@ export type GetPlayerFieldOptions = 'playerId' | 'ref';
 @InputType('GetPlayerDto')
 export class GetPlayerDto {
   @Field(() => String)
-  searchField: GetPlayerFieldOptions;
+  searchField!: GetPlayerFieldOptions;
 
   @Field(() => String)
-  searchValue: string;
+  searchValue!: string;
 }

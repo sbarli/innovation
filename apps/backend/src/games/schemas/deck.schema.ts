@@ -13,7 +13,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.ONE]: string[];
+  [AgeString.ONE]!: string[];
 
   @Prop({
     required: true,
@@ -21,7 +21,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.TWO]: string[];
+  [AgeString.TWO]!: string[];
 
   @Prop({
     required: true,
@@ -29,7 +29,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.THREE]: string[];
+  [AgeString.THREE]!: string[];
 
   @Prop({
     required: true,
@@ -37,7 +37,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.FOUR]: string[];
+  [AgeString.FOUR]!: string[];
 
   @Prop({
     required: true,
@@ -45,7 +45,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.FIVE]: string[];
+  [AgeString.FIVE]!: string[];
 
   @Prop({
     required: true,
@@ -53,7 +53,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.SIX]: string[];
+  [AgeString.SIX]!: string[];
 
   @Prop({
     required: true,
@@ -61,7 +61,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.SEVEN]: string[];
+  [AgeString.SEVEN]!: string[];
 
   @Prop({
     required: true,
@@ -69,7 +69,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.EIGHT]: string[];
+  [AgeString.EIGHT]!: string[];
 
   @Prop({
     required: true,
@@ -77,7 +77,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.NINE]: string[];
+  [AgeString.NINE]!: string[];
 
   @Prop({
     required: true,
@@ -85,5 +85,5 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.TEN]: string[];
+  [AgeString.TEN]!: string[];
 }

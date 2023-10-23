@@ -9,25 +9,25 @@ import { Resource } from '../constants/cards';
 export class ResourceTotals {
   @Prop({ required: true })
   @Field(() => Number)
-  [Resource.CASTLES]: number;
+  [Resource.CASTLES]!: number;
 
   @Prop({ required: true })
   @Field(() => Number)
-  [Resource.CROWNS]: number;
+  [Resource.CROWNS]!: number;
 
   @Prop({ required: true })
   @Field(() => Number)
-  [Resource.LEAVES]: number;
+  [Resource.LEAVES]!: number;
 
   @Prop({ required: true })
   @Field(() => Number)
-  [Resource.LIGHTBULBS]: number;
+  [Resource.LIGHTBULBS]!: number;
 
   @Prop({ required: true })
   @Field(() => Number)
-  [Resource.FACTORIES]: number;
+  [Resource.FACTORIES]!: number;
 
   @Prop({ required: true })
   @Field(() => Number)
-  [Resource.TIMEPIECES]: number;
+  [Resource.TIMEPIECES]!: number;
 }

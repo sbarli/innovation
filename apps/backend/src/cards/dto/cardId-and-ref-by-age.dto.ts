@@ -5,32 +5,32 @@ import { CardIdAndRef } from './cardId-and-ref.dto';
 @ObjectType()
 export class CardIdAndRefByAge {
   @Field(() => [CardIdAndRef])
-  ONE: CardIdAndRef[];
+  ONE!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  TWO: CardIdAndRef[];
+  TWO!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  THREE: CardIdAndRef[];
+  THREE!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  FOUR: CardIdAndRef[];
+  FOUR!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  FIVE: CardIdAndRef[];
+  FIVE!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  SIX: CardIdAndRef[];
+  SIX!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  SEVEN: CardIdAndRef[];
+  SEVEN!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  EIGHT: CardIdAndRef[];
+  EIGHT!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  NINE: CardIdAndRef[];
+  NINE!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  TEN: CardIdAndRef[];
+  TEN!: CardIdAndRef[];
 }

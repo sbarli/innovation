@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CardsService } from 'src/cards/services/cards.service';
 import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
 
+import { getCatchErrorMessage } from '@inno/utils';
+
 import { baseResourceTotals } from '../constants/resource-totals';
 
 @Injectable()
@@ -28,7 +30,10 @@ export class ResourcesService {
 
       return resourceTotals;
     } catch (error) {
-      throw new Error(error?.message);
+      throw new Error(
+        getCatchErrorMessage(error) ??
+          'resourcesService.calculateResourceTotals: Could not calculate resource totals'
+      );
     }
   }
 }

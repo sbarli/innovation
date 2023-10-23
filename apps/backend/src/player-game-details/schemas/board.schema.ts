@@ -9,21 +9,21 @@ import { BoardPile } from './board-pile.schema';
 export class Board {
   @Prop({ required: true, type: BoardPile })
   @Field(() => BoardPile)
-  blue: BoardPile;
+  blue!: BoardPile;
 
   @Prop({ required: true, type: BoardPile })
   @Field(() => BoardPile)
-  green: BoardPile;
+  green!: BoardPile;
 
   @Prop({ required: true, type: BoardPile })
   @Field(() => BoardPile)
-  purple: BoardPile;
+  purple!: BoardPile;
 
   @Prop({ required: true, type: BoardPile })
   @Field(() => BoardPile)
-  red: BoardPile;
+  red!: BoardPile;
 
   @Prop({ required: true, type: BoardPile })
   @Field(() => BoardPile)
-  yellow: BoardPile;
+  yellow!: BoardPile;
 }

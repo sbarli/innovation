@@ -5,8 +5,8 @@ import { PlayerGameDetails } from 'src/player-game-details/schemas/player-game-d
 @ObjectType()
 export class CreateNewGameResponse {
   @Field(() => Game)
-  game: Game;
+  game!: Game;
 
   @Field(() => [PlayerGameDetails])
-  playerGameDetails: PlayerGameDetails[];
+  playerGameDetails!: PlayerGameDetails[];
 }
