@@ -1,8 +1,9 @@
-import { CreatePlayerDto } from './dto/create-player.dto';
-import { Player } from './schemas/player.schema';
-import { PlayersService } from './players.service';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+
+import { CreatePlayerDto } from './dto/create-player.dto';
 import { GetPlayerDto } from './dto/get-player.dto';
+import { PlayersService } from './players.service';
+import { Player } from './schemas/player.schema';
 
 @Resolver('players')
 export class PlayersResolver {
@@ -10,13 +11,11 @@ export class PlayersResolver {
 
   @Query(() => Player, { nullable: true })
   async getPlayer(
-    @Args('getPlayerDto') getPlayerDto: GetPlayerDto,
+    @Args('getPlayerDto') getPlayerDto: GetPlayerDto
   ): Promise<Player | null | undefined> {
     switch (getPlayerDto.searchField) {
       case 'playerId':
-        return this.playersService.findPlayerByPlayerId(
-          getPlayerDto.searchValue,
-        );
+        return this.playersService.findPlayerByPlayerId(getPlayerDto.searchValue);
       case 'ref':
         return this.playersService.findPlayerByRef(getPlayerDto.searchValue);
       default:
@@ -27,10 +26,10 @@ export class PlayersResolver {
   @Mutation(() => Player)
   async createPlayer(
     @Args('createPlayerDto', { type: () => CreatePlayerDto })
-    createPlayerDto: CreatePlayerDto,
+    createPlayerDto: CreatePlayerDto
   ): Promise<Player> {
     const existingPlayerWithId = await this.playersService.findPlayerByPlayerId(
-      createPlayerDto.playerId,
+      createPlayerDto.playerId
     );
     if (existingPlayerWithId) {
       throw new Error('Unable to create player with this playerId');

@@ -1,8 +1,9 @@
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { Deck } from './deck.schema';
+
 import { Achievements } from './achievements.schema';
-import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
+import { Deck } from './deck.schema';
 
 export type GameDocument = HydratedDocument<Game>;
 

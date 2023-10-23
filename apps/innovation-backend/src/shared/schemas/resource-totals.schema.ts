@@ -1,5 +1,6 @@
-import { Prop, Schema } from '@nestjs/mongoose';
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Prop, Schema } from '@nestjs/mongoose';
+
 import { Resource } from '../constants/cards';
 
 @Schema({ _id: false })

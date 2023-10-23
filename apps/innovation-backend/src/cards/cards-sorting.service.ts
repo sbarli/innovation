@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Card } from 'src/shared/schemas/card.schema';
 import { AgeString, cardAgeToAgeStringMap } from 'src/shared/constants/cards';
+import { Card } from 'src/shared/schemas/card.schema';
+
 import { CardRefsByAge } from './dto/card-refs-by-age.dto';
 import { CardIdAndRefByAge } from './dto/cardId-and-ref-by-age.dto';
 

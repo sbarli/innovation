@@ -1,17 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+
 import { UpdatePlayerGameDetailsDto } from './dto/update-player-game-details.dto';
-import {
-  PlayerGameDetails,
-  PlayerGameDetailsDocument,
-} from './schemas/player-game-details.schema';
+import { PlayerGameDetails, PlayerGameDetailsDocument } from './schemas/player-game-details.schema';
 
 @Injectable()
 export class PlayerGameDetailsService {
   constructor(
     @InjectModel(PlayerGameDetails.name)
-    private playerGameDetailsModel: Model<PlayerGameDetailsDocument>,
+    private playerGameDetailsModel: Model<PlayerGameDetailsDocument>
   ) {}
 
   async findById(id: string): Promise<PlayerGameDetails | null | undefined> {
@@ -31,22 +29,12 @@ export class PlayerGameDetailsService {
     });
   }
 
-  async create(
-    detailsToCreate: Omit<PlayerGameDetails, '_id'>,
-  ): Promise<PlayerGameDetails> {
-    const createdPlayerGameDetails = new this.playerGameDetailsModel(
-      detailsToCreate,
-    );
+  async create(detailsToCreate: Omit<PlayerGameDetails, '_id'>): Promise<PlayerGameDetails> {
+    const createdPlayerGameDetails = new this.playerGameDetailsModel(detailsToCreate);
     return createdPlayerGameDetails.save();
   }
 
-  async updateById({
-    id,
-    updates,
-  }: {
-    id: string;
-    updates: UpdatePlayerGameDetailsDto;
-  }) {
+  async updateById({ id, updates }: { id: string; updates: UpdatePlayerGameDetailsDto }) {
     /**
      * NOTE: if this ever needs to be optimized for performance
      *       change new to false and simply merge the updates with

@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Post } from '@nestjs/common';
-import { CreateCardDto } from './dto/create-card.dto';
+
 import { CardsService } from './cards.service';
+import { CreateCardDto } from './dto/create-card.dto';
 
 @Controller('cards')
 export class CardsController {

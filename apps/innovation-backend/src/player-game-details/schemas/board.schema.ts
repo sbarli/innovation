@@ -1,5 +1,6 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
+
 import { BoardPile } from './board-pile.schema';
 
 @Schema({ _id: false })
