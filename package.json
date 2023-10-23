@@ -9,6 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "dev:backend": "turbo run @inno/backend#dev",
     "clean": "turbo clean && rm -rf node_modules",
     "lint": "turbo run lint",
     "lint:eslint": "turbo run lint:eslint",
