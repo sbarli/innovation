@@ -1,5 +1,5 @@
 import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
-import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
+import { ResourceTotals } from 'src/cards/schemas/resource-totals.schema';
 
 import { Board } from '../schemas/board.schema';
 

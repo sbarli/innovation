@@ -1,7 +1,7 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
 
-import { Resource } from '../constants/cards';
+import { Resource } from '@inno/constants';
 
 @Schema({ _id: false })
 @ObjectType()
