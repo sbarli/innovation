@@ -1,64 +1,18 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, HydratedDocument } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
+import { DogmaEffect } from './dogma-effect.schema';
+import { ResourceSpaces } from './resource-spaces.schema';
 import { ResourceTotals } from './resource-totals.schema';
 
 export type CardDocument = HydratedDocument<Card>;
-
-@Schema({ _id: false })
-@ObjectType()
-export class ResourceSpaces extends Document {
-  @Prop({ type: String, nullable: true })
-  @Field(() => String, { nullable: true })
-  resourceSpace1!: string;
-
-  @Prop({ type: String, nullable: true })
-  @Field(() => String, { nullable: true })
-  resourceSpace2!: string;
-
-  @Prop({ type: String, nullable: true })
-  @Field(() => String, { nullable: true })
-  resourceSpace3!: string;
-
-  @Prop({ type: String, nullable: true })
-  @Field(() => String, { nullable: true })
-  resourceSpace4!: string;
-}
-
-@Schema({ _id: false })
-@ObjectType()
-export class DogmaEffect extends Document {
-  @Prop({ type: String, required: true })
-  @Field(() => String)
-  description!: string;
-
-  @Prop({ type: [String], required: true })
-  @Field(() => [String])
-  effectTypes!: string[];
-
-  @Prop({ type: Boolean, required: true })
-  @Field(() => Boolean)
-  isDemand!: boolean;
-
-  @Prop({ type: Boolean, required: true })
-  @Field(() => Boolean)
-  isOptional!: boolean;
-
-  @Prop({ type: Boolean, required: true })
-  @Field(() => Boolean)
-  repeat!: boolean;
-
-  @Prop({ type: String, nullable: true })
-  @Field(() => String, { nullable: true })
-  specialAchievement!: string;
-}
 
 @Schema()
 @ObjectType()
 export class Card {
   @Field(() => ID, { nullable: true })
-  _id!: string;
+  _id?: string;
 
   @Prop({ type: String, required: true })
   @Field(() => String)
@@ -75,6 +29,10 @@ export class Card {
   @Prop({ type: String, required: true })
   @Field(() => String)
   dogmaResource!: string;
+
+  @Prop({ type: String, required: true })
+  @Field(() => String)
+  color!: string;
 
   @Prop({ required: true, type: ResourceTotals })
   @Field(() => ResourceTotals)
