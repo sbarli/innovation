@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CardsService } from 'src/cards/cards.service';
+import { CardsService } from 'src/cards/services/cards.service';
 import { ResourceTotals } from 'src/shared/schemas/resource-totals.schema';
 
 import { baseResourceTotals } from '../constants/resource-totals';

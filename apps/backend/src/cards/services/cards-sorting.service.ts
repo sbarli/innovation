@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { AgeString, cardAgeToAgeStringMap } from 'src/shared/constants/cards';
 import { Card } from 'src/shared/schemas/card.schema';
 
-import { CardRefsByAge } from './dto/card-refs-by-age.dto';
-import { CardIdAndRefByAge } from './dto/cardId-and-ref-by-age.dto';
+import { CardRefsByAge } from '../dto/card-refs-by-age.dto';
+import { CardIdAndRefByAge } from '../dto/cardId-and-ref-by-age.dto';
 
 @Injectable()
 export class CardsSortingService {

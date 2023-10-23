@@ -1,11 +1,11 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 import { Card } from 'src/shared/schemas/card.schema';
 
-import { CardsSortingService } from './cards-sorting.service';
-import { CardsService } from './cards.service';
 import { CardRefsByAge } from './dto/card-refs-by-age.dto';
 import { CardIdAndRefByAge } from './dto/cardId-and-ref-by-age.dto';
 import { FindOneOptionsInput } from './dto/find-one-options.input';
+import { CardsSortingService } from './services/cards-sorting.service';
+import { CardsService } from './services/cards.service';
 
 @Resolver('cards-resolver')
 export class CardsResolver {

@@ -1,6 +1,6 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { CardsSortingService } from 'src/cards/cards-sorting.service';
-import { CardsService } from 'src/cards/cards.service';
+import { CardsSortingService } from 'src/cards/services/cards-sorting.service';
+import { CardsService } from 'src/cards/services/cards.service';
 
 import { CreateNewGameInput } from './dto/create-new-game.input.dto';
 import { CreateNewGameResponse } from './dto/create-new-game.output.dto';
