@@ -12,7 +12,7 @@ export type GameDocument = HydratedDocument<Game>;
 @InputType('CreateGameDto')
 export class Game {
   @Field(() => ID, { nullable: true })
-  _id!: string;
+  _id?: string;
 
   @Prop({ type: Number, required: true })
   @Field(() => Number)
