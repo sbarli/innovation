@@ -2,12 +2,29 @@
 
 ## Get Started
 
+### Repo Setup
+
+1. Install deps (from root dir)
+
+```bash
+yarn install
+```
+
+2. Install husky (if not already installed)
+
+```bash
+npx husky install
+```
+
 ### Local
 
-**Run the app**
+**Run the backend app**
 ```bash
-cd apps/innovation-backend
-yarn start:dev
+yarn dev:backend
+
+// OR
+
+cd apps/backend && yarn dev
 ```
 
 ### Mongo

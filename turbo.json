@@ -16,6 +16,7 @@
     "lint": {},
     "lint:eslint": {},
     "lint:fix": {},
+    "test": {},
     "clean": {
       "cache": false
     }
