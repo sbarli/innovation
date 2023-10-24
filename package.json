@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "build:backend": "turbo run @inno/backend#build",
     "clean": "turbo clean && rm -rf node_modules",
     "dev": "turbo run dev",
     "dev:backend": "turbo run @inno/backend#dev",
