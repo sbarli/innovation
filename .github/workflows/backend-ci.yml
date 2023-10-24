@@ -30,9 +30,10 @@ jobs:
  
       - name: Install dependencies
         run: yarn
- 
-      - name: Build
-        run: yarn workspace @inno/backend build
- 
+
       - name: Test
         run: yarn workspace @inno/backend test
+ 
+      - name: Build
+        run: turbo run build --filter='[${{ github.event.before }}...${{ github.event.after }}]'
+ 
