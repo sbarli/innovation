@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# lint the repo
+yarn turbo run lint:fix
+
+# test the repo
+yarn turbo run test --filter="[HEAD^1]"

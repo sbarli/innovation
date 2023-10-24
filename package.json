@@ -8,23 +8,32 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "clean": "turbo clean && rm -rf node_modules",
     "dev": "turbo run dev",
     "dev:backend": "turbo run @inno/backend#dev",
-    "clean": "turbo clean && rm -rf node_modules",
+    "exp": "yarn workspace @inno/native exp",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "lint:eslint": "turbo run lint:eslint",
     "lint:fix": "turbo run lint:fix",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "exp": "yarn workspace @inno/native exp",
-    "postinstall": "npx patch-package"
+    "lint:staged": "lint-staged",
+    "postinstall": "npx patch-package",
+    "test": "turbo run test"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,jsx}": [
+      "eslint --quiet --fix"
+    ]
   },
   "devDependencies": {
     "eslint-config-custom": "*",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
     "turbo": "latest"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": "18.18.2"
   },
   "dependencies": {},
   "packageManager": "yarn@1.22.19"
