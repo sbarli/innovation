@@ -1,4 +1,5 @@
-import { DogmaEffect, ResourceSpaces } from '../schemas/card.schema';
+import { DogmaEffect } from '../schemas/dogma-effect.schema';
+import { ResourceSpaces } from '../schemas/resource-spaces.schema';
 import { ResourceTotals } from '../schemas/resource-totals.schema';
 
 export class CreateCardDto {
