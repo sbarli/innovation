@@ -32,9 +32,9 @@ jobs:
         run: yarn
 
       - name: Build
-        run: yarn turbo run build --filter='[${{ github.event.before }}...${{ github.event.after }}]'
+        run: yarn turbo run @inno/backend#build
 
       - name: Test
-        run: yarn turbo run test --filter='[${{ github.event.before }}...${{ github.event.after }}]'
+        run: yarn turbo run test --filter="[HEAD^1]"
  
  
