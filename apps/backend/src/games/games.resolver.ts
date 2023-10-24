@@ -19,7 +19,7 @@ export class GamesResolver {
   @Mutation(() => Game)
   async createNewGame(
     @Args('createGameDto', { type: () => Game })
-    createGameDto: Game
+    createGameDto: Omit<Game, '_id' | 'winnerRef'>
   ): Promise<Game> {
     // TODO: validate no active game already exists for this set of players
     return await this.gamesService.create(createGameDto);

@@ -1,6 +1,6 @@
 import { UpdateGameDto } from '../dto/update-game.dto';
 
-interface IValidateGameUpdatesResponse {
+export interface IValidateGameUpdatesResponse {
   hasErrors: boolean;
   errors: string[];
 }
