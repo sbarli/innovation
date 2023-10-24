@@ -3,6 +3,3 @@
 
 # lint staged files
 yarn lint:staged
-
-# test staged files
-yarn turbo run test --filter="...[HEAD^1]"
