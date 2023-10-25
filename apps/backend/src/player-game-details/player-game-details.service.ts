@@ -34,7 +34,13 @@ export class PlayerGameDetailsService {
     return createdPlayerGameDetails.save();
   }
 
-  async updateById({ id, updates }: { id: string; updates: UpdatePlayerGameDetailsDto }) {
+  async updateById({
+    id,
+    updates,
+  }: {
+    id: string;
+    updates: UpdatePlayerGameDetailsDto;
+  }): Promise<PlayerGameDetails | null | undefined> {
     /**
      * NOTE: if this ever needs to be optimized for performance
      *       change new to false and simply merge the updates with
