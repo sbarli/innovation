@@ -12,7 +12,7 @@ export type PlayerGameDetailsDocument = HydratedDocument<PlayerGameDetails>;
 @InputType('CreatePlayerGameDetailsDto')
 export class PlayerGameDetails {
   @Field(() => ID, { nullable: true })
-  _id!: string;
+  _id?: string;
 
   @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Game' })
   @Field(() => ID)
