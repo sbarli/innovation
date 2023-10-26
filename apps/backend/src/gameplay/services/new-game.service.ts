@@ -3,7 +3,6 @@ import { CardRefsByAge } from 'src/cards/dto/card-refs-by-age.dto';
 import { GamesService } from 'src/games/games.service';
 import { Achievements } from 'src/games/schemas/achievements.schema';
 import { Deck } from 'src/games/schemas/deck.schema';
-import { Game } from 'src/games/schemas/game.schema';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
 import { PlayerGameDetails } from 'src/player-game-details/schemas/player-game-details.schema';
 import { PlayersService } from 'src/players/players.service';
@@ -12,6 +11,7 @@ import { Player } from 'src/players/schemas/player.schema';
 import { getCatchErrorMessage } from '@inno/utils';
 
 import { baseResourceTotals } from '../constants/resource-totals';
+import { CreateNewGameResponse } from '../dto/create-new-game.output.dto';
 import { createBaseBoard } from '../helpers/board';
 import {
   TPlayerStarterHands,
@@ -20,12 +20,7 @@ import {
   shuffleDeck,
 } from '../helpers/new-game';
 
-type NewGameDetails = {
-  game: Game;
-  playerGameDetails: PlayerGameDetails[];
-};
-
-type TNewGameSetup = {
+export type TNewGameSetup = {
   deck: Deck;
   achievements: Achievements;
   playerStarterHands: TPlayerStarterHands;
@@ -46,7 +41,7 @@ export class NewGameService {
     private gamesService: GamesService
   ) {}
 
-  async validatePlayersExist(playerRefs: string[]): Promise<Player[]> {
+  async validatePlayersExist(playerRefs: string[]): Promise<boolean> {
     try {
       const players = await Promise.all(
         playerRefs.map((ref) => this.playersService.findPlayerByRef(ref))
@@ -60,7 +55,7 @@ export class NewGameService {
       if (actualPlayers.length !== playerRefs.length) {
         throw new Error('One or more players not found');
       }
-      return actualPlayers;
+      return true;
     } catch (error) {
       throw new Error(
         getCatchErrorMessage(error) ??
@@ -109,7 +104,7 @@ export class NewGameService {
     starterDeck,
     ageAchievements,
     playerStarterHands,
-  }: IStartGameProps): Promise<NewGameDetails> {
+  }: IStartGameProps): Promise<CreateNewGameResponse> {
     try {
       // create game
       const newGameData = {
