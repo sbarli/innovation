@@ -27,3 +27,10 @@ export const MOCK_GET_PLAYER_BY_INVALID_INPUT: GetPlayerDto = {
   searchField: 'invalid' as GetPlayerFieldOptions,
   searchValue: MOCK_ID,
 };
+
+export const MOCK_PLAYER_REF_1 = 'mock-player-ref-1';
+export const MOCK_PLAYER_REF_2 = 'mock-player-ref-2';
+
+export const MOCK_PLAYER_1 = Object.assign({}, { ...MOCK_PLAYER, _id: MOCK_PLAYER_REF_1 });
+export const MOCK_PLAYER_2 = Object.assign({}, { ...MOCK_PLAYER, _id: MOCK_PLAYER_REF_2 });
+export const MOCK_PLAYERS = [MOCK_PLAYER_1, MOCK_PLAYER_2];
