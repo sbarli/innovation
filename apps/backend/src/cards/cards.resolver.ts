@@ -16,8 +16,7 @@ export class CardsResolver {
 
   @Query(() => [Card])
   async getAllCards(): Promise<Card[]> {
-    const allCards = await this.cardsService.findAll();
-    return allCards;
+    return this.cardsService.findAll();
   }
 
   @Query(() => CardRefsByAge)
