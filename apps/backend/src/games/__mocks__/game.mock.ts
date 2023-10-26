@@ -1,15 +1,15 @@
+import { MOCK_PLAYER_REF_1, MOCK_PLAYER_REF_2 } from 'src/players/__mocks__/player.mock';
+
 import { Game } from '../schemas/game.schema';
 
 import { MOCK_DECK } from './deck.mock';
 
 export const MOCK_ID = 'mock_id';
-export const MOCK_PLAYER_1_ID = 'mock_player_id-1';
-export const MOCK_PLAYER_2_ID = 'mock_player_id-2';
 
 export const MOCK_GAME_INPUT: Game = {
   currentActionNumber: 2,
-  currentPlayerRef: MOCK_PLAYER_1_ID,
-  playerRefs: [MOCK_PLAYER_1_ID, MOCK_PLAYER_2_ID],
+  currentPlayerRef: MOCK_PLAYER_REF_1,
+  playerRefs: [MOCK_PLAYER_REF_1, MOCK_PLAYER_REF_2],
   deck: MOCK_DECK,
   achievements: {
     ONE: '6435a7d5dd31b5790f7bc58a',
@@ -27,8 +27,8 @@ export const MOCK_GAME_INPUT: Game = {
 export const MOCK_GAME: Game = {
   _id: MOCK_ID,
   currentActionNumber: 2,
-  currentPlayerRef: MOCK_PLAYER_1_ID,
-  playerRefs: [MOCK_PLAYER_1_ID, MOCK_PLAYER_2_ID],
+  currentPlayerRef: MOCK_PLAYER_REF_1,
+  playerRefs: [MOCK_PLAYER_REF_1, MOCK_PLAYER_REF_2],
   deck: MOCK_DECK,
   achievements: {
     ONE: '6435a7d5dd31b5790f7bc58a',
@@ -45,5 +45,5 @@ export const MOCK_GAME: Game = {
 
 export const MOCK_GAME_WITH_WINNER = {
   ...MOCK_GAME,
-  winnerRef: MOCK_PLAYER_2_ID,
+  winnerRef: MOCK_PLAYER_REF_2,
 };

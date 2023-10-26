@@ -6,7 +6,6 @@ import { Deck } from 'src/games/schemas/deck.schema';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
 import { PlayerGameDetails } from 'src/player-game-details/schemas/player-game-details.schema';
 import { PlayersService } from 'src/players/players.service';
-import { Player } from 'src/players/schemas/player.schema';
 
 import { getCatchErrorMessage } from '@inno/utils';
 
@@ -43,16 +42,8 @@ export class NewGameService {
 
   async validatePlayersExist(playerRefs: string[]): Promise<boolean> {
     try {
-      const players = await Promise.all(
-        playerRefs.map((ref) => this.playersService.findPlayerByRef(ref))
-      );
-      const actualPlayers: Player[] = [];
-      players.forEach((player) => {
-        if (player?._id) {
-          actualPlayers.push(player);
-        }
-      });
-      if (actualPlayers.length !== playerRefs.length) {
+      const foundPlayers = await this.playersService.findPlayersByRef(playerRefs);
+      if (foundPlayers?.length !== playerRefs.length) {
         throw new Error('One or more players not found');
       }
       return true;
