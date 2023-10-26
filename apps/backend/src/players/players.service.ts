@@ -15,7 +15,11 @@ export class PlayersService {
   }
 
   async findPlayerByRef(ref: string): Promise<Player | null | undefined> {
-    return this.playerModel.findOne({ _id: ref }).exec();
+    return this.playerModel.findOne({ _id: ref });
+  }
+
+  async findPlayersByRef(refs: string[]): Promise<Player[] | null | undefined> {
+    return this.playerModel.find({ _id: { $in: refs } });
   }
 
   async findPlayerByPlayerId(playerId: string): Promise<Player | null | undefined> {
