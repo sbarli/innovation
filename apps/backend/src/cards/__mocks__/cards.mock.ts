@@ -9,6 +9,7 @@ export const DEFAULT_CARD_ID = 'MOCK_CARD_ID';
 export const DEFAULT_CARD_NAME = 'Mock Card';
 
 export const MOCK_CARD: Card = {
+  _id: undefined,
   cardId: DEFAULT_CARD_ID,
   name: DEFAULT_CARD_NAME,
   age: 1,
