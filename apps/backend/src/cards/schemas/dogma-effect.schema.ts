@@ -26,5 +26,5 @@ export class DogmaEffect {
 
   @Prop({ type: String, nullable: true })
   @Field(() => String, { nullable: true })
-  specialAchievement?: string;
+  specialAchievement?: string | null;
 }

@@ -6,17 +6,17 @@ import { Prop, Schema } from '@nestjs/mongoose';
 export class ResourceSpaces {
   @Prop({ type: String, nullable: true })
   @Field(() => String, { nullable: true })
-  resourceSpace1?: string;
+  resourceSpace1?: string | null;
 
   @Prop({ type: String, nullable: true })
   @Field(() => String, { nullable: true })
-  resourceSpace2?: string;
+  resourceSpace2?: string | null;
 
   @Prop({ type: String, nullable: true })
   @Field(() => String, { nullable: true })
-  resourceSpace3?: string;
+  resourceSpace3?: string | null;
 
   @Prop({ type: String, nullable: true })
   @Field(() => String, { nullable: true })
-  resourceSpace4?: string;
+  resourceSpace4?: string | null;
 }
