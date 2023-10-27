@@ -9,7 +9,7 @@ export type TPlayerStarterHands = {
   [key: string]: string[];
 };
 
-const cloneDeck = (baseDeck: Deck): Deck => {
+export const cloneDeck = (baseDeck: Deck): Deck => {
   return Object.keys(baseDeck).reduce((acc, age) => {
     acc[age as AgeString] = [...baseDeck[age as AgeString]];
     return acc;
