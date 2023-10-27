@@ -18,9 +18,30 @@ export const MOCK_CARD_REFS_BY_AGE: CardRefsByAge = Object.assign(
   {},
   {
     ...baseArrByAge,
-    ONE: ['MOCK_REF-ONE-0', 'MOCK_REF-ONE-1'],
-    TWO: ['MOCK_REF-TWO-0'],
-    EIGHT: ['MOCK_REF-EIGHT-0', 'MOCK_REF-EIGHT-1', 'MOCK_REF-EIGHT-2'],
+    ONE: [
+      'MOCK_REF-ONE-0',
+      'MOCK_REF-ONE-1',
+      'MOCK_REF-ONE-2',
+      'MOCK_REF-ONE-3',
+      'MOCK_REF-ONE-4',
+      'MOCK_REF-ONE-5',
+    ],
+    TWO: [
+      'MOCK_REF-TWO-0',
+      'MOCK_REF-TWO-1',
+      'MOCK_REF-TWO-2',
+      'MOCK_REF-TWO-3',
+      'MOCK_REF-TWO-4',
+      'MOCK_REF-TWO-5',
+    ],
+    EIGHT: [
+      'MOCK_REF-EIGHT-0',
+      'MOCK_REF-EIGHT-1',
+      'MOCK_REF-EIGHT-2',
+      'MOCK_REF-EIGHT-3',
+      'MOCK_REF-EIGHT-4',
+      'MOCK_REF-EIGHT-5',
+    ],
   }
 );
 
