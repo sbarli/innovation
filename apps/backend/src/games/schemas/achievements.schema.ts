@@ -4,7 +4,7 @@ import { Schema as MongooseSchema } from 'mongoose';
 
 @Schema({ _id: false })
 @ObjectType()
-@InputType('AchievementsDto')
+@InputType('AchievementsInput')
 export class Achievements {
   @Prop({
     type: MongooseSchema.Types.ObjectId,

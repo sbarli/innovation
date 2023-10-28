@@ -1,4 +1,4 @@
-import { CreatePlayerDto } from '../dto/create-player.dto';
+import { CreatePlayerInput } from '../dto/create-player.dto';
 import { GetPlayerDto, GetPlayerFieldOptions } from '../dto/get-player.dto';
 import { Player } from '../schemas/player.schema';
 
@@ -6,7 +6,7 @@ export const MOCK_ID = 'mock_id';
 export const MOCK_PLAYER_ID = 'mockplayer';
 export const MOCK_PLAYER_NAME = 'Mock Player';
 
-export const MOCK_PLAYER_INPUT: CreatePlayerDto = {
+export const MOCK_PLAYER_INPUT: CreatePlayerInput = {
   playerId: 'mockplayer',
   name: 'Mock Player',
 };

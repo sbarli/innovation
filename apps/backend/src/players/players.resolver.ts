@@ -1,6 +1,6 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
-import { CreatePlayerDto } from './dto/create-player.dto';
+import { CreatePlayerInput } from './dto/create-player.dto';
 import { GetPlayerDto } from './dto/get-player.dto';
 import { PlayersService } from './players.service';
 import { Player } from './schemas/player.schema';
@@ -25,15 +25,14 @@ export class PlayersResolver {
 
   @Mutation(() => Player)
   async createPlayer(
-    @Args('createPlayerDto', { type: () => CreatePlayerDto })
-    createPlayerDto: CreatePlayerDto
+    @Args('newPlayerData', { type: () => CreatePlayerInput }) newPlayerData: CreatePlayerInput
   ): Promise<Player> {
     const existingPlayerWithId = await this.playersService.findPlayerByPlayerId(
-      createPlayerDto.playerId
+      newPlayerData.playerId
     );
     if (existingPlayerWithId) {
       throw new Error('Unable to create player with this playerId');
     }
-    return this.playersService.create(createPlayerDto);
+    return this.playersService.create(newPlayerData);
   }
 }

@@ -3,7 +3,7 @@ import { Field, InputType, ObjectType } from '@nestjs/graphql';
 export type FindOneByFieldOptions = 'cardId' | 'ref';
 
 @ObjectType()
-@InputType('FindOneOptionsInput')
+@InputType()
 export class FindOneOptionsInput {
   @Field(() => String)
   searchField!: FindOneByFieldOptions;

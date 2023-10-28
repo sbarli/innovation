@@ -5,7 +5,7 @@ import { Resource } from '@inno/constants';
 
 @Schema({ _id: false })
 @ObjectType()
-@InputType('ResourceTotalsDto')
+@InputType('ResourceTotalsInput')
 export class ResourceTotals {
   @Prop({ required: true })
   @Field(() => Number)

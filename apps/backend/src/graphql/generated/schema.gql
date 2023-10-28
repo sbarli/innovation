@@ -14,7 +14,7 @@ type Achievements {
   TWO: ID!
 }
 
-input AchievementsDto {
+input AchievementsInput {
   EIGHT: ID!
   FIVE: ID!
   FOUR: ID!
@@ -34,12 +34,12 @@ type Board {
   yellow: BoardPile!
 }
 
-input BoardDto {
-  blue: BoardPileDto!
-  green: BoardPileDto!
-  purple: BoardPileDto!
-  red: BoardPileDto!
-  yellow: BoardPileDto!
+input BoardInput {
+  blue: BoardPileInput!
+  green: BoardPileInput!
+  purple: BoardPileInput!
+  red: BoardPileInput!
+  yellow: BoardPileInput!
 }
 
 type BoardPile {
@@ -47,7 +47,7 @@ type BoardPile {
   splayed: SplayOption
 }
 
-input BoardPileDto {
+input BoardPileInput {
   cardRefs: [ID!]!
   splayed: SplayOption
 }
@@ -104,21 +104,21 @@ type CreateNewGameResponse {
   playerGameDetails: [PlayerGameDetails!]!
 }
 
-input CreatePlayerDto {
-  name: String!
-  playerId: String!
-}
-
 input CreatePlayerGameDetailsInput {
   achievements: [ID!]!
   age: Float!
-  board: BoardDto!
+  board: BoardInput!
   gameRef: ID!
   hand: [ID!]!
   playerRef: ID!
-  resourceTotals: ResourceTotalsDto!
+  resourceTotals: ResourceTotalsInput!
   score: Float!
   scoreCardRefs: [ID!]!
+}
+
+input CreatePlayerInput {
+  name: String!
+  playerId: String!
 }
 
 type Deck {
@@ -134,7 +134,7 @@ type Deck {
   TWO: [ID!]!
 }
 
-input DeckDto {
+input DeckInput {
   EIGHT: [ID!]!
   FIVE: [ID!]!
   FOUR: [ID!]!
@@ -178,7 +178,7 @@ input GetPlayerDto {
 
 type Mutation {
   createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
-  createPlayer(createPlayerDto: CreatePlayerDto!): Player!
+  createPlayer(newPlayerData: CreatePlayerInput!): Player!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
   updateGame(id: String!, updates: UpdateGameInput!): Game
   updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsInput!): PlayerGameDetails
@@ -230,7 +230,7 @@ type ResourceTotals {
   timepieces: Float!
 }
 
-input ResourceTotalsDto {
+input ResourceTotalsInput {
   castles: Float!
   crowns: Float!
   factories: Float!
@@ -246,19 +246,19 @@ enum SplayOption {
 }
 
 input UpdateGameInput {
-  achievements: AchievementsDto
+  achievements: AchievementsInput
   currentActionNumber: Float
   currentPlayerRef: String
-  deck: DeckDto
+  deck: DeckInput
   winnerRef: String
 }
 
 input UpdatePlayerGameDetailsInput {
   achievements: [ID!]
   age: Float
-  board: BoardDto
+  board: BoardInput
   hand: [ID!]
-  resourceTotals: ResourceTotalsDto
+  resourceTotals: ResourceTotalsInput
   score: Float
   scoreCardRefs: [ID!]
 }

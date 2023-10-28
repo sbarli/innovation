@@ -1,8 +1,8 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-@InputType('CreatePlayerDto')
-export class CreatePlayerDto {
+@InputType()
+export class CreatePlayerInput {
   @Field(() => String)
   name!: string;
 
