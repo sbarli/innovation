@@ -1,12 +1,12 @@
 import { MOCK_PLAYER_REF_1, MOCK_PLAYER_REF_2 } from 'src/players/__mocks__/player.mock';
 
-import { Game } from '../schemas/game.schema';
+import { CreateGameInput, Game } from '../schemas/game.schema';
 
 import { MOCK_DECK } from './deck.mock';
 
 export const MOCK_ID = 'mock_id';
 
-export const MOCK_GAME_INPUT: Game = {
+export const MOCK_GAME_INPUT: CreateGameInput = {
   currentActionNumber: 2,
   currentPlayerRef: MOCK_PLAYER_REF_1,
   playerRefs: [MOCK_PLAYER_REF_1, MOCK_PLAYER_REF_2],
@@ -41,9 +41,10 @@ export const MOCK_GAME: Game = {
     EIGHT: '6435a7d5dd31b5790f7bc5d3',
     NINE: '6435a7d5dd31b5790f7bc5e4',
   },
+  winnerRef: undefined,
 };
 
-export const MOCK_GAME_WITH_WINNER = {
+export const MOCK_GAME_WITH_WINNER: Game = {
   ...MOCK_GAME,
   winnerRef: MOCK_PLAYER_REF_2,
 };

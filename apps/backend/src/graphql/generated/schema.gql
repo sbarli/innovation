@@ -95,16 +95,6 @@ type CardRefsByAge {
   TWO: [String!]!
 }
 
-input CreateGameDto {
-  _id: ID
-  achievements: AchievementsDto!
-  currentActionNumber: Float!
-  currentPlayerRef: ID!
-  deck: DeckDto!
-  playerRefs: [ID!]!
-  winnerRef: ID
-}
-
 input CreateNewGameInput {
   playerRefs: [String!]!
 }
@@ -173,7 +163,7 @@ input FindOneOptionsInput {
 }
 
 type Game {
-  _id: ID
+  _id: ID!
   achievements: Achievements!
   currentActionNumber: Float!
   currentPlayerRef: ID!
@@ -191,7 +181,7 @@ type Mutation {
   createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
   createPlayer(createPlayerDto: CreatePlayerDto!): Player!
   createPlayerGameDetails(createPlayerGameDetailsDto: CreatePlayerGameDetailsDto!): PlayerGameDetails!
-  updateGame(id: String!, updates: UpdateGameDto!): Game
+  updateGame(id: String!, updates: UpdateGameInput!): Game
   updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsDto!): PlayerGameDetails
 }
 
@@ -256,7 +246,7 @@ enum SplayOption {
   UP
 }
 
-input UpdateGameDto {
+input UpdateGameInput {
   achievements: AchievementsDto
   currentActionNumber: Float
   currentPlayerRef: String

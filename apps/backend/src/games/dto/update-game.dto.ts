@@ -4,8 +4,8 @@ import { Achievements } from '../schemas/achievements.schema';
 import { Deck } from '../schemas/deck.schema';
 
 @ObjectType()
-@InputType('UpdateGameDto')
-export class UpdateGameDto {
+@InputType()
+export class UpdateGameInput {
   @Field(() => Number, { nullable: true })
   currentActionNumber?: number;
 

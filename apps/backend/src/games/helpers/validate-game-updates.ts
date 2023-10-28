@@ -1,11 +1,11 @@
-import { UpdateGameDto } from '../dto/update-game.dto';
+import { UpdateGameInput } from '../dto/update-game.dto';
 
 export interface IValidateGameUpdatesResponse {
   hasErrors: boolean;
   errors: string[];
 }
 
-export const validateGameUpdates = (updates: UpdateGameDto): IValidateGameUpdatesResponse => {
+export const validateGameUpdates = (updates: UpdateGameInput): IValidateGameUpdatesResponse => {
   const result: IValidateGameUpdatesResponse = {
     hasErrors: false,
     errors: [],

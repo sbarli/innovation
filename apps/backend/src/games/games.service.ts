@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { UpdateGameDto } from './dto/update-game.dto';
-import { Game, GameDocument } from './schemas/game.schema';
+import { UpdateGameInput } from './dto/update-game.dto';
+import { CreateGameInput, Game, GameDocument } from './schemas/game.schema';
 
 @Injectable()
 export class GamesService {
@@ -24,8 +24,8 @@ export class GamesService {
     });
   }
 
-  async create(createGameDto: Omit<Game, '_id'>): Promise<Game> {
-    const createdGame = new this.gameModel(createGameDto);
+  async create(newGameData: CreateGameInput): Promise<Game> {
+    const createdGame = new this.gameModel(newGameData);
     return createdGame.save();
   }
 
@@ -34,7 +34,7 @@ export class GamesService {
     gameUpdates,
   }: {
     ref: string;
-    gameUpdates: UpdateGameDto;
+    gameUpdates: UpdateGameInput;
   }): Promise<Game | null | undefined> {
     /**
      * NOTE: if this ever needs to be optimized for performance

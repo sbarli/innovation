@@ -1,4 +1,4 @@
-import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, ID, InputType, ObjectType, OmitType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 
@@ -9,10 +9,9 @@ export type GameDocument = HydratedDocument<Game>;
 
 @Schema()
 @ObjectType()
-@InputType('CreateGameDto')
 export class Game {
-  @Field(() => ID, { nullable: true })
-  _id?: string;
+  @Field(() => ID)
+  _id!: string;
 
   @Prop({ type: Number, required: true })
   @Field(() => Number)
@@ -50,5 +49,8 @@ export class Game {
   // @Prop({ required: true, type: SpecialAchievements })
   // specialAchievements: SpecialAchievements;
 }
+
+@InputType()
+export class CreateGameInput extends OmitType(Game, ['_id', 'winnerRef'] as const) {}
 
 export const GameSchema = SchemaFactory.createForClass(Game);
