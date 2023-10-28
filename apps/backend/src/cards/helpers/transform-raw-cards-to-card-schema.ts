@@ -1,7 +1,7 @@
 import rawCardData from '../data/cards';
-import { Card } from '../schemas/card.schema';
+import { CreateCardInput } from '../schemas/card.schema';
 
-export const transformRawCardsToCardSchema = (): Card[] =>
+export const transformRawCardsToCardSchema = (): CreateCardInput[] =>
   rawCardData.map((rc) => ({
     cardId: rc.cardId,
     name: rc.name,

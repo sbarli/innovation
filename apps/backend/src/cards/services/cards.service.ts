@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 import { getCatchErrorMessage } from '@inno/utils';
 
 import { transformRawCardsToCardSchema } from '../helpers/transform-raw-cards-to-card-schema';
-import { Card, CardDocument } from '../schemas/card.schema';
+import { Card, CardDocument, CreateCardInput } from '../schemas/card.schema';
 
 @Injectable()
 export class CardsService {
@@ -31,12 +31,12 @@ export class CardsService {
     return this.cardModel.findOne({ cardId });
   }
 
-  async create(createCardDto: Omit<Card, '_id'>): Promise<Card> {
+  async create(createCardDto: CreateCardInput): Promise<Card> {
     const createdCard = new this.cardModel(createCardDto);
     return createdCard.save();
   }
 
-  async createMany(cardsToCreate: Omit<Card, '_id'>[]): Promise<Card[]> {
+  async createMany(cardsToCreate: CreateCardInput[]): Promise<Card[]> {
     return this.cardModel.insertMany(cardsToCreate);
   }
 

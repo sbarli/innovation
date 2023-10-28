@@ -22,9 +22,7 @@ export class CardsSortingService {
       [AgeString.TEN]: [],
     };
     return cards.reduce((acc, card) => {
-      if (card._id) {
-        acc[cardAgeToAgeStringMap[card.age]].push(card._id);
-      }
+      acc[cardAgeToAgeStringMap[card.age]].push(card._id);
       return acc;
     }, baseObject);
   }
@@ -43,13 +41,11 @@ export class CardsSortingService {
       [AgeString.TEN]: [],
     };
     return cards.reduce((acc, card) => {
-      if (card._id) {
-        const cardDataToReturn = {
-          cardId: card.cardId,
-          ref: card._id,
-        };
-        acc[cardAgeToAgeStringMap[card.age]].push(cardDataToReturn);
-      }
+      const cardDataToReturn = {
+        cardId: card.cardId,
+        ref: card._id,
+      };
+      acc[cardAgeToAgeStringMap[card.age]].push(cardDataToReturn);
       return acc;
     }, baseObject);
   }

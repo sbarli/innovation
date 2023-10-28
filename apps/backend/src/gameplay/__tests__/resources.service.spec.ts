@@ -6,7 +6,7 @@ import { CardsService } from 'src/cards/services/cards.service';
 import { ResourcesService } from '../services/resources.service';
 
 const MOCK_CARDS = createManyCards({ numCards: 2 });
-const MOCK_CARD_REFS = MOCK_CARDS.map((card) => card._id ?? 'card-ref-fallback');
+const MOCK_CARD_REFS = MOCK_CARDS.map((card) => card._id);
 
 describe('ResourcesService', () => {
   let cardsService: CardsService;

@@ -53,7 +53,7 @@ input BoardPileDto {
 }
 
 type Card {
-  _id: ID
+  _id: ID!
   age: String!
   cardId: String!
   color: String!

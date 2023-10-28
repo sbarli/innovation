@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, InputType, ObjectType, OmitType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
@@ -11,8 +11,8 @@ export type CardDocument = HydratedDocument<Card>;
 @Schema()
 @ObjectType()
 export class Card {
-  @Field(() => ID, { nullable: true })
-  _id?: string;
+  @Field(() => ID)
+  _id!: string;
 
   @Prop({ type: String, required: true })
   @Field(() => String)
@@ -46,5 +46,8 @@ export class Card {
   @Field(() => [DogmaEffect])
   dogmaEffects!: DogmaEffect[];
 }
+
+@InputType()
+export class CreateCardInput extends OmitType(Card, ['_id'] as const) {}
 
 export const CardSchema = SchemaFactory.createForClass(Card);
