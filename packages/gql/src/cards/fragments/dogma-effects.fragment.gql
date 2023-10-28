@@ -1,0 +1,10 @@
+fragment DogmaEffects on Card {
+  dogmaEffects {
+    description
+    effectTypes
+    isDemand
+    isOptional
+    repeat
+    specialAchievement
+  }
+}

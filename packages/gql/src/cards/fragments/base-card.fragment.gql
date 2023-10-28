@@ -1,0 +1,8 @@
+fragment BaseCardFragment on Card {
+  _id
+  cardId
+  name
+  age
+  color
+  dogmaResource
+}
