@@ -3,7 +3,7 @@ import { Field, InputType, ObjectType } from '@nestjs/graphql';
 export type GetPlayerFieldOptions = 'playerId' | 'ref';
 
 @ObjectType()
-@InputType('GetPlayerDto')
+@InputType()
 export class GetPlayerDto {
   @Field(() => String)
   searchField!: GetPlayerFieldOptions;

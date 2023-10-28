@@ -2,7 +2,7 @@ import { Test } from '@nestjs/testing';
 import { MOCK_CARD_REFS_BY_AGE } from 'src/cards/__mocks__/cards-sorting.mock';
 import { MOCK_STARTER_ACHIEVEMENTS } from 'src/games/__mocks__/achievements.mock';
 import { MOCK_DECK } from 'src/games/__mocks__/deck.mock';
-import { MOCK_GAME, MOCK_GAME_INPUT } from 'src/games/__mocks__/game.mock';
+import { MOCK_GAME } from 'src/games/__mocks__/game.mock';
 import { GamesService } from 'src/games/games.service';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
 import { MOCK_PLAYERS, MOCK_PLAYER_1 } from 'src/players/__mocks__/player.mock';
@@ -139,29 +139,6 @@ describe('NewGameService', () => {
   });
 
   describe('startGame', () => {
-    it('should throw error if new game _id is not returned', async () => {
-      const createGameSpy = jest
-        .spyOn(gamesService, 'create')
-        .mockResolvedValueOnce(MOCK_GAME_INPUT);
-
-      const output = async () =>
-        await newGameService.startGame({
-          playerRefs: MOCK_PLAYER_REFS,
-          starterDeck: MOCK_DECK,
-          ageAchievements: MOCK_STARTER_ACHIEVEMENTS,
-          playerStarterHands: MOCK_PLAYER_STARTER_HANDS,
-        });
-
-      expect(output).rejects.toThrow('New game created missing _id');
-      expect(createGameSpy).toHaveBeenCalledWith({
-        currentActionNumber: 2,
-        currentPlayerRef: MOCK_PLAYER_REFS[0],
-        playerRefs: MOCK_PLAYER_REFS,
-        deck: MOCK_DECK,
-        achievements: MOCK_STARTER_ACHIEVEMENTS,
-      });
-    });
-
     it('should return new game response when new game data creation successful', async () => {
       const createGameSpy = jest.spyOn(gamesService, 'create').mockResolvedValueOnce(MOCK_GAME);
       const detailsSpy = jest

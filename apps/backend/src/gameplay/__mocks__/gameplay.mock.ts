@@ -14,7 +14,7 @@ export const MOCK_NEW_GAME_INPUT: CreateNewGameInput = {
 };
 
 const MOCK_START_GAME_DETAIL_OVERRIDES = {
-  gameRef: MOCK_GAME._id ?? 'game-ref-fallback',
+  gameRef: MOCK_GAME._id,
   score: 0,
   scoreCardRefs: MOCK_EMPTY_SCORE_CARD_REFS,
 };

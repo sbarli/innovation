@@ -1,8 +1,11 @@
 import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 
-import { UpdatePlayerGameDetailsDto } from './dto/update-player-game-details.dto';
+import { UpdatePlayerGameDetailsInput } from './dto/update-player-game-details.dto';
 import { PlayerGameDetailsService } from './player-game-details.service';
-import { PlayerGameDetails } from './schemas/player-game-details.schema';
+import {
+  CreatePlayerGameDetailsInput,
+  PlayerGameDetails,
+} from './schemas/player-game-details.schema';
 
 @Resolver('PlayerGameDetails')
 export class PlayerGameDetailsResolver {
@@ -26,25 +29,25 @@ export class PlayerGameDetailsResolver {
 
   @Mutation(() => PlayerGameDetails)
   async createPlayerGameDetails(
-    @Args('createPlayerGameDetailsDto', { type: () => PlayerGameDetails })
-    createPlayerGameDetailsDto: PlayerGameDetails
+    @Args('createData', { type: () => CreatePlayerGameDetailsInput })
+    createData: CreatePlayerGameDetailsInput
   ) {
     const existingPlayerGameDetails =
       await this.playerGameDetailsService.findDetailsByGameAndPlayer({
-        gameRef: createPlayerGameDetailsDto.gameRef,
-        playerRef: createPlayerGameDetailsDto.playerRef,
+        gameRef: createData.gameRef,
+        playerRef: createData.playerRef,
       });
     if (existingPlayerGameDetails) {
       throw new Error('This player already has game details. Did you mean to update?');
     }
-    return this.playerGameDetailsService.create(createPlayerGameDetailsDto);
+    return this.playerGameDetailsService.create(createData);
   }
 
   @Mutation(() => PlayerGameDetails, { nullable: true })
   async updatePlayerGameDetails(
     @Args('id', { type: () => ID }) id: string,
-    @Args('updates', { type: () => UpdatePlayerGameDetailsDto })
-    updates: UpdatePlayerGameDetailsDto
+    @Args('updates', { type: () => UpdatePlayerGameDetailsInput })
+    updates: UpdatePlayerGameDetailsInput
   ) {
     // TODO: validate updates
     return this.playerGameDetailsService.updateById({

@@ -6,7 +6,7 @@ import { AgeString } from '@inno/constants';
 
 @Schema({ _id: false })
 @ObjectType()
-@InputType('DeckDto')
+@InputType('DeckInput')
 export class Deck {
   @Prop({
     required: true,

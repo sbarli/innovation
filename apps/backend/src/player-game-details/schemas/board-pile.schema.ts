@@ -6,7 +6,7 @@ import { SplayOption } from '../player-game-details.types';
 
 @Schema({ _id: false })
 @ObjectType()
-@InputType('BoardPileDto')
+@InputType('BoardPileInput')
 export class BoardPile {
   @Prop({
     required: true,

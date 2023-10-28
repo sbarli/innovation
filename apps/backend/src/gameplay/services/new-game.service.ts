@@ -107,14 +107,10 @@ export class NewGameService {
       };
       const newGameFromDb = await this.gamesService.create(newGameData);
 
-      if (!newGameFromDb._id) {
-        throw new Error('New game created missing _id');
-      }
-
       // // create player game details
       const playerGameDetailsData: Omit<PlayerGameDetails, '_id'>[] = playerRefs.map((ref) => ({
         playerRef: ref,
-        gameRef: newGameFromDb?._id ?? '',
+        gameRef: newGameFromDb._id,
         age: 1,
         score: 0,
         resourceTotals: { ...baseResourceTotals },

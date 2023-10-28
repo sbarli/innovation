@@ -5,7 +5,7 @@ import { BoardPile } from './board-pile.schema';
 
 @Schema({ _id: false })
 @ObjectType()
-@InputType('BoardDto')
+@InputType('BoardInput')
 export class Board {
   @Prop({ required: true, type: BoardPile })
   @Field(() => BoardPile)
