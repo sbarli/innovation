@@ -1,0 +1,22 @@
+overwrite: true
+schema: './apps/backend/src/graphql/generated/schema.gql'
+documents: 
+  - './packages/gql/src/**.gql'
+  - './packages/gql/src/**/*.gql'
+generates:
+  './packages/gql/generated/graphql.tsx':
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      skipTypename: false
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      scalars:
+        DateTime: string
+        Currency: string
+        Void: any
+        URL: string
+        IBAN: string

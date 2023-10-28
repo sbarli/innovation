@@ -19,7 +19,8 @@
     "lint:fix": "turbo run lint:fix",
     "lint:staged": "lint-staged",
     "postinstall": "npx patch-package",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
@@ -27,6 +28,10 @@
     ]
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.1.0",
+    "@parcel/watcher": "^2.3.0",
     "eslint-config-custom": "*",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",

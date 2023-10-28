@@ -1,0 +1,21 @@
+{
+  "name": "@inno/gql",
+  "version": "0.1.0",
+  "description": "graphql codegen queries & generated outputs",
+  "author": "Samantha Barli",
+  "private": true,
+  "main": "./dist/index",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.8.6",
+    "graphql": "^16.8.1"
+  }
+}

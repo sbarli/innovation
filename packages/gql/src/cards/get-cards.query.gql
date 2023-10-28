@@ -1,0 +1,8 @@
+query GetAllCards {
+  getAllCards {
+    ...BaseCardFragment
+    ...ResourceSpaces
+    ...ResourceTotals
+    ...DogmaEffects
+  }
+}
