@@ -51,6 +51,6 @@ export class Game {
 }
 
 @InputType()
-export class CreateGameInput extends OmitType(Game, ['_id', 'winnerRef'] as const) {}
+export class CreateGameInput extends OmitType(Game, ['_id', 'winnerRef'] as const, InputType) {}
 
 export const GameSchema = SchemaFactory.createForClass(Game);

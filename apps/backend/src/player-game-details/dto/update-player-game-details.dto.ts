@@ -4,8 +4,8 @@ import { ResourceTotals } from 'src/cards/schemas/resource-totals.schema';
 import { Board } from '../schemas/board.schema';
 
 @ObjectType()
-@InputType('UpdatePlayerGameDetailsDto')
-export class UpdatePlayerGameDetailsDto {
+@InputType()
+export class UpdatePlayerGameDetailsInput {
   @Field(() => Number, { nullable: true })
   age?: number;
 

@@ -109,8 +109,7 @@ input CreatePlayerDto {
   playerId: String!
 }
 
-input CreatePlayerGameDetailsDto {
-  _id: ID
+input CreatePlayerGameDetailsInput {
   achievements: [ID!]!
   age: Float!
   board: BoardDto!
@@ -180,9 +179,9 @@ input GetPlayerDto {
 type Mutation {
   createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
   createPlayer(createPlayerDto: CreatePlayerDto!): Player!
-  createPlayerGameDetails(createPlayerGameDetailsDto: CreatePlayerGameDetailsDto!): PlayerGameDetails!
+  createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
   updateGame(id: String!, updates: UpdateGameInput!): Game
-  updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsDto!): PlayerGameDetails
+  updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsInput!): PlayerGameDetails
 }
 
 type Player {
@@ -192,7 +191,7 @@ type Player {
 }
 
 type PlayerGameDetails {
-  _id: ID
+  _id: ID!
   achievements: [ID!]!
   age: Float!
   board: Board!
@@ -254,7 +253,7 @@ input UpdateGameInput {
   winnerRef: String
 }
 
-input UpdatePlayerGameDetailsDto {
+input UpdatePlayerGameDetailsInput {
   achievements: [ID!]
   age: Float
   board: BoardDto

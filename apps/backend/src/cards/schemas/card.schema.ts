@@ -48,6 +48,6 @@ export class Card {
 }
 
 @InputType()
-export class CreateCardInput extends OmitType(Card, ['_id'] as const) {}
+export class CreateCardInput extends OmitType(Card, ['_id'] as const, InputType) {}
 
 export const CardSchema = SchemaFactory.createForClass(Card);
