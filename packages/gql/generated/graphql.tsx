@@ -361,6 +361,13 @@ export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
 
+export type GetPlayerQueryVariables = Exact<{
+  input: GetPlayerDto;
+}>;
+
+
+export type GetPlayerQuery = { __typename?: 'Query', getPlayer?: { __typename?: 'Player', _id: string, name: string, playerId: string } | null };
+
 export const BaseCardFragmentFragmentDoc = gql`
     fragment BaseCardFragment on Card {
   _id
@@ -450,3 +457,45 @@ export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
 export type GetAllCardsLazyQueryHookResult = ReturnType<typeof useGetAllCardsLazyQuery>;
 export type GetAllCardsSuspenseQueryHookResult = ReturnType<typeof useGetAllCardsSuspenseQuery>;
 export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
+export const GetPlayerDocument = gql`
+    query GetPlayer($input: GetPlayerDto!) {
+  getPlayer(getPlayerDto: $input) {
+    _id
+    name
+    playerId
+  }
+}
+    `;
+
+/**
+ * __useGetPlayerQuery__
+ *
+ * To run a query within a React component, call `useGetPlayerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPlayerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPlayerQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetPlayerQuery(baseOptions: Apollo.QueryHookOptions<GetPlayerQuery, GetPlayerQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPlayerQuery, GetPlayerQueryVariables>(GetPlayerDocument, options);
+      }
+export function useGetPlayerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPlayerQuery, GetPlayerQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPlayerQuery, GetPlayerQueryVariables>(GetPlayerDocument, options);
+        }
+export function useGetPlayerSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPlayerQuery, GetPlayerQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPlayerQuery, GetPlayerQueryVariables>(GetPlayerDocument, options);
+        }
+export type GetPlayerQueryHookResult = ReturnType<typeof useGetPlayerQuery>;
+export type GetPlayerLazyQueryHookResult = ReturnType<typeof useGetPlayerLazyQuery>;
+export type GetPlayerSuspenseQueryHookResult = ReturnType<typeof useGetPlayerSuspenseQuery>;
+export type GetPlayerQueryResult = Apollo.QueryResult<GetPlayerQuery, GetPlayerQueryVariables>;
