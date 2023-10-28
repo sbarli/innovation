@@ -3,6 +3,10 @@ module.exports = {
   extends: ["custom/base"],
   ignorePatterns: [
     './generated/**',
-    './generated/*.tsx'
-  ]
+    './generated/*.ts*',
+    './generated/graphql.tsx',
+  ],
+  rules: {
+    'prettier/prettier': 0
+  }
 }
