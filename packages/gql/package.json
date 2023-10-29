@@ -1,11 +1,11 @@
 {
   "name": "@inno/gql",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "graphql codegen queries & generated outputs",
   "author": "Samantha Barli",
   "private": true,
-  "main": "./dist/index",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/graphql",
+  "types": "./dist/graphql.d.ts",
   "scripts": {
     "build": "tsc -b"
   },

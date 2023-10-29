@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "expo start",
+    "start": "doppler run -- expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
     "dev": "yarn start",
+    "predev": "cd ../../ && turbo run @inno/gql#build",
+    "eas": "eas",
     "exp": "npx expo",
     "exp:doc": "npx expo-doctor@latest",
     "lint:types": "yarn tsc",
@@ -18,9 +20,12 @@
     "lint:fix": "yarn lint:eslint:fix"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.6",
     "@expo/webpack-config": "^19.0.0",
+    "@inno/gql": "*",
     "expo": "^49.0.0",
     "expo-status-bar": "~1.6.0",
+    "graphql": "^16.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.72.6",

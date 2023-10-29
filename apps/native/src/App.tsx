@@ -2,8 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'ui';
 
-// eslint-disable-next-line import/no-default-export
-export default function Native() {
+import { AllCards } from './components/cards/AllCards';
+import { GraphQLProvider } from './graphql/ApolloProvider';
+
+const App = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Native</Text>
@@ -14,8 +16,18 @@ export default function Native() {
         }}
         text="Boop"
       />
+      <AllCards />
       <StatusBar style="auto" />
     </View>
+  );
+};
+
+// eslint-disable-next-line import/no-default-export
+export default function AppWrapper() {
+  return (
+    <GraphQLProvider>
+      <App />
+    </GraphQLProvider>
   );
 }
 

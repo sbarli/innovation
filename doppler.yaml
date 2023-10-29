@@ -1,0 +1,7 @@
+setup:
+  - project: innovation
+    config: dev_backend
+    path: ./apps/backend/
+  - project: innovation
+    config: dev_native
+    path: ./apps/native/
