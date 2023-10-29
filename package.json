@@ -12,6 +12,7 @@
     "clean": "turbo clean && rm -rf node_modules",
     "dev": "turbo run dev",
     "dev:backend": "turbo run @inno/backend#dev",
+    "dev:native": "turbo run @inno/native#dev",
     "exp": "yarn workspace @inno/native exp",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
