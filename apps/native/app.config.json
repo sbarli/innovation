@@ -1,9 +1,5 @@
 {
   "expo": {
-    "name": "Innovation",
-    "slug": "innovation",
-    "version": "1.0.0",
-    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -28,12 +24,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "ea3d151c-beca-4db0-a089-268fbbe3d3ea"
-      }
-    },
-    "owner": "sbarli"
+    }
   }
 }
