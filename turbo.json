@@ -16,6 +16,7 @@
     "@inno/backend#dev": {
       "dependsOn": ["^@inno/utils#build", "^@inno/constants#build"]
     },
+    "@inno/gql#build": {},
     "lint": {},
     "lint:eslint": {},
     "lint:fix": {},

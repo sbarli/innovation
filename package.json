@@ -20,7 +20,7 @@
     "lint:staged": "lint-staged",
     "postinstall": "npx patch-package",
     "test": "turbo run test",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml && turbo run @inno/gql#build"
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
