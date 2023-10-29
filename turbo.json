@@ -17,7 +17,9 @@
       "dependsOn": ["^@inno/utils#build", "^@inno/constants#build"]
     },
     "@inno/gql#build": {},
-    "@inno/native#dev": {},
+    "@inno/native#dev": {
+      "dependsOn": ["^@inno/gql#build"]
+    },
     "lint": {},
     "lint:eslint": {},
     "lint:fix": {},
