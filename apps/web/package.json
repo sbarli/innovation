@@ -13,11 +13,11 @@
     "lint:fix": "yarn lint:eslint:fix"
   },
   "dependencies": {
+    "@inno/ui": "*",
     "next": "^13.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-native-web": "^0.18.4",
-    "ui": "*"
+    "react-native-web": "^0.18.4"
   },
   "devDependencies": {
     "@types/node": "^18.11.5",
