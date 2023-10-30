@@ -3,6 +3,10 @@ name: BACKEND_CI
 on:
   push:
     branches: ["main"]
+    paths: 
+      - 'apps/backend/**'
+      - 'packages/constants/**'
+      - 'packages/utils/**'
   pull_request:
     types: [opened, synchronize]
  
