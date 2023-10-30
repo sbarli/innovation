@@ -1,46 +1,49 @@
+import { config } from '@gluestack-ui/config';
+import {
+  AddIcon,
+  Box,
+  Button,
+  ButtonIcon,
+  ButtonText,
+  GluestackUIProvider,
+  Text,
+} from '@gluestack-ui/themed';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button } from 'ui';
 
 import { AllCards } from './components/cards/AllCards';
 import { GraphQLProvider } from './graphql/ApolloProvider';
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Native</Text>
+    <Box flex={1} alignItems="center" justifyContent="center" backgroundColor="#ffffff">
+      <Text>Native</Text>
       <Button
-        onClick={() => {
+        onPress={() => {
           console.log('Pressed!');
           alert('Pressed!');
         }}
-        text="Boop"
-      />
+        size="md"
+        variant="solid"
+        action="primary"
+        isDisabled={false}
+        isFocusVisible={false}
+      >
+        <ButtonText>Boop</ButtonText>
+        <ButtonIcon as={AddIcon} />
+      </Button>
       <AllCards />
       <StatusBar style="auto" />
-    </View>
+    </Box>
   );
 };
 
 // eslint-disable-next-line import/no-default-export
 export default function AppWrapper() {
   return (
-    <GraphQLProvider>
-      <App />
-    </GraphQLProvider>
+    <GluestackUIProvider config={config}>
+      <GraphQLProvider>
+        <App />
+      </GraphQLProvider>
+    </GluestackUIProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  header: {
-    fontWeight: 'bold',
-    marginBottom: 20,
-    fontSize: 36,
-  },
-});
