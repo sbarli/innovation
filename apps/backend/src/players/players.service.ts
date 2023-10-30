@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { CreatePlayerInput } from './dto/create-player.dto';
+import { GetPlayersInput } from './dto/get-players.dto';
 import { Player, PlayerDocument } from './schemas/player.schema';
 
 @Injectable()
@@ -18,11 +19,11 @@ export class PlayersService {
     return this.playerModel.findOne({ _id: ref });
   }
 
-  async findPlayersByRef(refs: string[]): Promise<Player[] | null | undefined> {
-    return this.playerModel.find({ _id: { $in: refs } });
-  }
-
   async findPlayerByPlayerId(playerId: string): Promise<Player | null | undefined> {
     return this.playerModel.findOne({ playerId });
+  }
+
+  async findPlayers(searchData: GetPlayersInput): Promise<Player[]> {
+    return this.playerModel.find({ [searchData.searchField]: { $in: searchData.searchValues } });
   }
 }
