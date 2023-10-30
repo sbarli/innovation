@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Box, Text } from '@gluestack-ui/themed';
 
 import { useGetAllCardsQuery } from '@inno/gql';
 
@@ -7,15 +7,15 @@ export const AllCards = () => {
   const allCards = data?.getAllCards;
   if (loading && !allCards) {
     return (
-      <View>
+      <Box>
         <Text>Loading</Text>
-      </View>
+      </Box>
     );
   }
   return (
-    <View>
+    <Box>
       <Text>First 5 Cards</Text>
       {allCards?.slice(0, 5).map((c) => <Text key={c.cardId}>{c.name}</Text>)}
-    </View>
+    </Box>
   );
 };
