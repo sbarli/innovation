@@ -1,7 +1,5 @@
 query GetPlayer($input: GetPlayerDto!) {
   getPlayer(getPlayerDto: $input) { 
-    _id
-    name
-    playerId
+    ...PlayerFragment
   }
 }

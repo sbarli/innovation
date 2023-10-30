@@ -1,0 +1,5 @@
+fragment PlayerFragment on Player {
+  _id
+  playerId
+  name
+}
