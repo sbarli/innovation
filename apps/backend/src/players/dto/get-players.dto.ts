@@ -4,10 +4,10 @@ import { GetPlayerFieldOptions } from '../players.types';
 
 @ObjectType()
 @InputType()
-export class GetPlayerDto {
+export class GetPlayersInput {
   @Field(() => String)
   searchField!: GetPlayerFieldOptions;
 
-  @Field(() => String)
-  searchValue!: string;
+  @Field(() => [String])
+  searchValues!: string[];
 }

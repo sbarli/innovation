@@ -176,6 +176,11 @@ input GetPlayerDto {
   searchValue: String!
 }
 
+input GetPlayersInput {
+  searchField: String!
+  searchValues: [String!]!
+}
+
 type Mutation {
   createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
   createPlayer(newPlayerData: CreatePlayerInput!): Player!
@@ -212,6 +217,7 @@ type Query {
   getPlayer(getPlayerDto: GetPlayerDto!): Player
   getPlayerGameDetails(gameRef: ID!, playerRef: ID!): PlayerGameDetails
   getPlayerGameDetailsById(id: ID!): PlayerGameDetails
+  getPlayers(searchData: GetPlayersInput!): [Player!]!
 }
 
 type ResourceSpaces {
