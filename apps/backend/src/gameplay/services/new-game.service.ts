@@ -42,7 +42,10 @@ export class NewGameService {
 
   async validatePlayersExist(playerRefs: string[]): Promise<boolean> {
     try {
-      const foundPlayers = await this.playersService.findPlayersByRef(playerRefs);
+      const foundPlayers = await this.playersService.findPlayers({
+        searchField: 'ref',
+        searchValues: playerRefs,
+      });
       if (foundPlayers?.length !== playerRefs.length) {
         throw new Error('One or more players not found');
       }

@@ -30,7 +30,7 @@ describe('NewGameService', () => {
         {
           provide: PlayersService,
           useValue: {
-            findPlayersByRef: jest.fn(),
+            findPlayers: jest.fn(),
           },
         },
         {
@@ -66,23 +66,29 @@ describe('NewGameService', () => {
   describe('validatePlayersExist', () => {
     it('should throw error when one or more players is not found', async () => {
       const findCardsSpy = jest
-        .spyOn(playersService, 'findPlayersByRef')
+        .spyOn(playersService, 'findPlayers')
         .mockResolvedValueOnce([MOCK_PLAYER_1]);
 
       const output = async () => await newGameService.validatePlayersExist(MOCK_PLAYER_REFS);
 
       expect(output).rejects.toThrow('One or more players not found');
-      expect(findCardsSpy).toHaveBeenCalledWith(MOCK_PLAYER_REFS);
+      expect(findCardsSpy).toHaveBeenCalledWith({
+        searchField: 'ref',
+        searchValues: MOCK_PLAYER_REFS,
+      });
     });
 
     it('should return true when all players exist', async () => {
       const findCardsSpy = jest
-        .spyOn(playersService, 'findPlayersByRef')
+        .spyOn(playersService, 'findPlayers')
         .mockResolvedValueOnce(MOCK_PLAYERS);
 
       const output = await newGameService.validatePlayersExist(MOCK_PLAYER_REFS);
 
-      expect(findCardsSpy).toHaveBeenCalledWith(MOCK_PLAYER_REFS);
+      expect(findCardsSpy).toHaveBeenCalledWith({
+        searchField: 'ref',
+        searchValues: MOCK_PLAYER_REFS,
+      });
       expect(output).toBe(true);
     });
   });
