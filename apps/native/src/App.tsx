@@ -11,6 +11,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 
 import { AllCards } from './components/cards/AllCards';
+import { AllPlayers } from './components/players/AllPlayers';
 import { GraphQLProvider } from './graphql/ApolloProvider';
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
         <ButtonIcon as={AddIcon} />
       </Button>
       <AllCards />
+      <AllPlayers />
       <StatusBar style="auto" />
     </Box>
   );
