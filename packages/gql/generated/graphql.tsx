@@ -141,7 +141,10 @@ export type CreatePlayerGameDetailsInput = {
 
 export type CreatePlayerInput = {
   name: Scalars['String']['input'];
-  playerId: Scalars['String']['input'];
+};
+
+export type CreatePlayersInput = {
+  names: Array<Scalars['String']['input']>;
 };
 
 export type Deck = {
@@ -212,6 +215,7 @@ export type Mutation = {
   createNewGame: CreateNewGameResponse;
   createPlayer: Player;
   createPlayerGameDetails: PlayerGameDetails;
+  createPlayers: Array<Player>;
   updateGame?: Maybe<Game>;
   updatePlayerGameDetails?: Maybe<PlayerGameDetails>;
 };
@@ -229,6 +233,11 @@ export type MutationCreatePlayerArgs = {
 
 export type MutationCreatePlayerGameDetailsArgs = {
   createData: CreatePlayerGameDetailsInput;
+};
+
+
+export type MutationCreatePlayersArgs = {
+  newPlayersData: CreatePlayersInput;
 };
 
 
@@ -372,6 +381,13 @@ export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
 
+export type CreatePlayersMutationVariables = Exact<{
+  newPlayersData: CreatePlayersInput;
+}>;
+
+
+export type CreatePlayersMutation = { __typename?: 'Mutation', createPlayers: Array<{ __typename?: 'Player', _id: string, playerId: string, name: string }> };
+
 export type PlayerFragmentFragment = { __typename?: 'Player', _id: string, playerId: string, name: string };
 
 export type GetPlayerQueryVariables = Exact<{
@@ -484,6 +500,39 @@ export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
 export type GetAllCardsLazyQueryHookResult = ReturnType<typeof useGetAllCardsLazyQuery>;
 export type GetAllCardsSuspenseQueryHookResult = ReturnType<typeof useGetAllCardsSuspenseQuery>;
 export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
+export const CreatePlayersDocument = gql`
+    mutation CreatePlayers($newPlayersData: CreatePlayersInput!) {
+  createPlayers(newPlayersData: $newPlayersData) {
+    ...PlayerFragment
+  }
+}
+    ${PlayerFragmentFragmentDoc}`;
+export type CreatePlayersMutationFn = Apollo.MutationFunction<CreatePlayersMutation, CreatePlayersMutationVariables>;
+
+/**
+ * __useCreatePlayersMutation__
+ *
+ * To run a mutation, you first call `useCreatePlayersMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePlayersMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPlayersMutation, { data, loading, error }] = useCreatePlayersMutation({
+ *   variables: {
+ *      newPlayersData: // value for 'newPlayersData'
+ *   },
+ * });
+ */
+export function useCreatePlayersMutation(baseOptions?: Apollo.MutationHookOptions<CreatePlayersMutation, CreatePlayersMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePlayersMutation, CreatePlayersMutationVariables>(CreatePlayersDocument, options);
+      }
+export type CreatePlayersMutationHookResult = ReturnType<typeof useCreatePlayersMutation>;
+export type CreatePlayersMutationResult = Apollo.MutationResult<CreatePlayersMutation>;
+export type CreatePlayersMutationOptions = Apollo.BaseMutationOptions<CreatePlayersMutation, CreatePlayersMutationVariables>;
 export const GetPlayerDocument = gql`
     query GetPlayer($input: GetPlayerDto!) {
   getPlayer(getPlayerDto: $input) {
