@@ -120,6 +120,10 @@ input CreatePlayerInput {
   name: String!
 }
 
+input CreatePlayersInput {
+  names: String!
+}
+
 type Deck {
   EIGHT: [ID!]!
   FIVE: [ID!]!
@@ -184,6 +188,7 @@ type Mutation {
   createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
   createPlayer(newPlayerData: CreatePlayerInput!): Player!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
+  createPlayers(newPlayersData: CreatePlayersInput!): [Player!]!
   updateGame(id: String!, updates: UpdateGameInput!): Game
   updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsInput!): PlayerGameDetails
 }
