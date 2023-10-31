@@ -118,7 +118,6 @@ input CreatePlayerGameDetailsInput {
 
 input CreatePlayerInput {
   name: String!
-  playerId: String!
 }
 
 type Deck {
