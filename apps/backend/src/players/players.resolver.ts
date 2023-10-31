@@ -41,12 +41,11 @@ export class PlayersResolver {
   async createPlayer(
     @Args('newPlayerData', { type: () => CreatePlayerInput }) newPlayerData: CreatePlayerInput
   ): Promise<Player> {
-    const existingPlayerWithId = await this.playersService.findPlayerByPlayerId(
-      newPlayerData.playerId
-    );
+    const playerId = this.playersService.getPlayerIdFromName(newPlayerData.name);
+    const existingPlayerWithId = await this.playersService.findPlayerByPlayerId(playerId);
     if (existingPlayerWithId) {
       throw new Error('Unable to create player with this playerId');
     }
-    return this.playersService.create(newPlayerData);
+    return this.playersService.create(newPlayerData.name, playerId);
   }
 }

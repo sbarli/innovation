@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { CreatePlayerInput } from './dto/create-player.dto';
+import { VALID_PLAYER_ID_CHARACTERS } from '@inno/constants';
+
 import { GetPlayersInput } from './dto/get-players.dto';
 import { Player, PlayerDocument } from './schemas/player.schema';
 
@@ -10,8 +11,11 @@ import { Player, PlayerDocument } from './schemas/player.schema';
 export class PlayersService {
   constructor(@InjectModel(Player.name) private playerModel: Model<PlayerDocument>) {}
 
-  async create(newPlayerData: CreatePlayerInput): Promise<Player> {
-    const createdPlayer = new this.playerModel(newPlayerData);
+  async create(name: string, playerId: string): Promise<Player> {
+    const createdPlayer = new this.playerModel({
+      name,
+      playerId,
+    });
     return createdPlayer.save();
   }
 
@@ -25,5 +29,16 @@ export class PlayersService {
 
   async findPlayers(searchData: GetPlayersInput): Promise<Player[]> {
     return this.playerModel.find({ [searchData.searchField]: { $in: searchData.searchValues } });
+  }
+
+  getPlayerIdFromName(name: string): string {
+    const loweredTrimmedPlayerName = name.toLowerCase().trim();
+    const playerId = loweredTrimmedPlayerName.split('').reduce((acc, char: string) => {
+      if (VALID_PLAYER_ID_CHARACTERS[char]) {
+        acc += char;
+      }
+      return acc;
+    }, '');
+    return playerId;
   }
 }
