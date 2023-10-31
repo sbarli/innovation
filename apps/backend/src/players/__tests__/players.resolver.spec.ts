@@ -8,7 +8,9 @@ import {
   MOCK_GET_PLAYER_BY_PLAYER_ID_INPUT,
   MOCK_GET_PLAYER_BY_REF_INPUT,
   MOCK_PLAYER,
+  MOCK_PLAYER_ID,
   MOCK_PLAYER_INPUT,
+  MOCK_PLAYER_NAME,
 } from '../__mocks__/player.mock';
 import { PlayersResolver } from '../players.resolver';
 import { PlayersService } from '../players.service';
@@ -27,6 +29,7 @@ describe('PlayersResolver', () => {
             findPlayerByRef: jest.fn(() => MOCK_PLAYER),
             findPlayerByPlayerId: jest.fn(() => MOCK_PLAYER),
             findPlayers: jest.fn(() => [MOCK_PLAYER]),
+            getPlayerIdFromName: jest.fn(() => MOCK_PLAYER_ID),
           },
         },
         PlayersResolver,
@@ -98,18 +101,25 @@ describe('PlayersResolver', () => {
   describe('Mutations', () => {
     describe('createPlayer', () => {
       it('should throw error if player already exists with passed playerId', async () => {
-        const serviceSpy = jest
+        const getPlayerIdSpy = jest.spyOn(playersService, 'getPlayerIdFromName');
+        const findSpy = jest
           .spyOn(playersService, 'findPlayerByPlayerId')
           .mockResolvedValueOnce(MOCK_PLAYER);
         const output = async () => await playersResolver.createPlayer(MOCK_PLAYER_INPUT);
         expect(output).rejects.toThrow('Unable to create player with this playerId');
-        expect(serviceSpy).toHaveBeenCalledWith(MOCK_PLAYER_INPUT.playerId);
+        expect(getPlayerIdSpy).toHaveBeenCalledWith(MOCK_PLAYER_NAME);
+        expect(findSpy).toHaveBeenCalledWith(MOCK_PLAYER_ID);
       });
 
       it('should return output of calling playersService.create when playerId is unique', async () => {
-        jest.spyOn(playersService, 'findPlayerByPlayerId').mockResolvedValueOnce(undefined);
+        const getPlayerIdSpy = jest.spyOn(playersService, 'getPlayerIdFromName');
+        const findSpy = jest
+          .spyOn(playersService, 'findPlayerByPlayerId')
+          .mockResolvedValueOnce(undefined);
         const output = await playersResolver.createPlayer(MOCK_PLAYER_INPUT);
         expect(output).toEqual(MOCK_PLAYER);
+        expect(getPlayerIdSpy).toHaveBeenCalledWith(MOCK_PLAYER_NAME);
+        expect(findSpy).toHaveBeenCalledWith(MOCK_PLAYER_ID);
       });
     });
   });

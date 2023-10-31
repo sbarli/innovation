@@ -9,11 +9,10 @@ export const MOCK_PLAYER_ID = 'mockplayer';
 export const MOCK_PLAYER_NAME = 'Mock Player';
 
 export const MOCK_PLAYER_INPUT: CreatePlayerInput = {
-  playerId: 'mockplayer',
-  name: 'Mock Player',
+  name: MOCK_PLAYER_NAME,
 };
 
-export const MOCK_PLAYER: Player = { _id: MOCK_ID, ...MOCK_PLAYER_INPUT };
+export const MOCK_PLAYER: Player = { _id: MOCK_ID, playerId: MOCK_PLAYER_ID, ...MOCK_PLAYER_INPUT };
 
 export const MOCK_GET_PLAYER_BY_PLAYER_ID_INPUT: GetPlayerDto = {
   searchField: 'playerId',
