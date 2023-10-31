@@ -1,0 +1,5 @@
+mutation CreatePlayers($newPlayersData: CreatePlayersInput!) {
+  createPlayers(newPlayersData: $newPlayersData) { 
+    ...PlayerFragment
+  }
+}
