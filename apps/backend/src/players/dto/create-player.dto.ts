@@ -5,7 +5,4 @@ import { Field, InputType, ObjectType } from '@nestjs/graphql';
 export class CreatePlayerInput {
   @Field(() => String)
   name!: string;
-
-  @Field(() => String)
-  playerId!: string;
 }
