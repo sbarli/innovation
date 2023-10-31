@@ -7,16 +7,22 @@ import { VALID_PLAYER_ID_CHARACTERS } from '@inno/constants';
 import { GetPlayersInput } from './dto/get-players.dto';
 import { Player, PlayerDocument } from './schemas/player.schema';
 
+export interface ICreatePlayer {
+  name: string;
+  playerId: string;
+}
+
 @Injectable()
 export class PlayersService {
   constructor(@InjectModel(Player.name) private playerModel: Model<PlayerDocument>) {}
 
-  async create(name: string, playerId: string): Promise<Player> {
-    const createdPlayer = new this.playerModel({
-      name,
-      playerId,
-    });
+  async create(playerData: ICreatePlayer): Promise<Player> {
+    const createdPlayer = new this.playerModel(playerData);
     return createdPlayer.save();
+  }
+
+  async createPlayers(newPlayersData: ICreatePlayer[]): Promise<Player[]> {
+    return this.playerModel.insertMany(newPlayersData);
   }
 
   async findPlayerByRef(ref: string): Promise<Player | null | undefined> {
