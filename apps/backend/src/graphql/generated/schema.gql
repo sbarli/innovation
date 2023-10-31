@@ -121,7 +121,7 @@ input CreatePlayerInput {
 }
 
 input CreatePlayersInput {
-  names: String!
+  names: [String!]!
 }
 
 type Deck {
