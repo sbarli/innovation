@@ -34,6 +34,8 @@ export const MOCK_PLAYER_GAME_DETAILS_INPUT: CreatePlayerGameDetailsInput = {
 
 export const MOCK_PLAYER_GAME_DETAILS: PlayerGameDetails = {
   _id: MOCK_PLAYER_GAME_DETAILS_ID,
+  createdAt: undefined,
+  updatedAt: undefined,
   gameRef: MOCK_GAME_REF,
   playerRef: MOCK_PLAYER_REF,
   age: MOCK_AGE,

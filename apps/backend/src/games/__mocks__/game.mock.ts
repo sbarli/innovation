@@ -26,6 +26,8 @@ export const MOCK_GAME_INPUT: CreateGameInput = {
 
 export const MOCK_GAME: Game = {
   _id: MOCK_ID,
+  createdAt: undefined,
+  updatedAt: undefined,
   currentActionNumber: 2,
   currentPlayerRef: MOCK_PLAYER_REF_1,
   playerRefs: [MOCK_PLAYER_REF_1, MOCK_PLAYER_REF_2],

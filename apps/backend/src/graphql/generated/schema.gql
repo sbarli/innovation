@@ -124,6 +124,11 @@ input CreatePlayersInput {
   names: [String!]!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Deck {
   EIGHT: [ID!]!
   FIVE: [ID!]!
@@ -167,10 +172,12 @@ input FindOneOptionsInput {
 type Game {
   _id: ID!
   achievements: Achievements!
+  createdAt: DateTime
   currentActionNumber: Float!
   currentPlayerRef: ID!
   deck: Deck!
   playerRefs: [ID!]!
+  updatedAt: DateTime
   winnerRef: ID
 }
 
@@ -195,8 +202,10 @@ type Mutation {
 
 type Player {
   _id: ID!
+  createdAt: DateTime
   name: String!
   playerId: String!
+  updatedAt: DateTime
 }
 
 type PlayerGameDetails {
@@ -204,12 +213,14 @@ type PlayerGameDetails {
   achievements: [ID!]!
   age: Float!
   board: Board!
+  createdAt: DateTime
   gameRef: ID!
   hand: [ID!]!
   playerRef: ID!
   resourceTotals: ResourceTotals!
   score: Float!
   scoreCardRefs: [ID!]!
+  updatedAt: DateTime
 }
 
 type Query {

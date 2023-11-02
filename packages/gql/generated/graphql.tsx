@@ -15,6 +15,8 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: { input: string; output: string; }
 };
 
 export type Achievements = {
@@ -193,10 +195,12 @@ export type Game = {
   __typename?: 'Game';
   _id: Scalars['ID']['output'];
   achievements: Achievements;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
   currentActionNumber: Scalars['Float']['output'];
   currentPlayerRef: Scalars['ID']['output'];
   deck: Deck;
   playerRefs: Array<Scalars['ID']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
   winnerRef?: Maybe<Scalars['ID']['output']>;
 };
 
@@ -255,8 +259,10 @@ export type MutationUpdatePlayerGameDetailsArgs = {
 export type Player = {
   __typename?: 'Player';
   _id: Scalars['ID']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
   name: Scalars['String']['output'];
   playerId: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type PlayerGameDetails = {
@@ -265,12 +271,14 @@ export type PlayerGameDetails = {
   achievements: Array<Scalars['ID']['output']>;
   age: Scalars['Float']['output'];
   board: Board;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
   gameRef: Scalars['ID']['output'];
   hand: Array<Scalars['ID']['output']>;
   playerRef: Scalars['ID']['output'];
   resourceTotals: ResourceTotals;
   score: Scalars['Float']['output'];
   scoreCardRefs: Array<Scalars['ID']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type Query = {

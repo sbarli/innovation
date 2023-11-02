@@ -7,11 +7,19 @@ import { Deck } from './deck.schema';
 
 export type GameDocument = HydratedDocument<Game>;
 
-@Schema()
+@Schema({ timestamps: true })
 @ObjectType()
 export class Game {
   @Field(() => ID)
   _id!: string;
+
+  @Prop()
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date;
+
+  @Prop()
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date;
 
   @Prop({ type: Number, required: true })
   @Field(() => Number)
@@ -51,6 +59,10 @@ export class Game {
 }
 
 @InputType()
-export class CreateGameInput extends OmitType(Game, ['_id', 'winnerRef'] as const, InputType) {}
+export class CreateGameInput extends OmitType(
+  Game,
+  ['_id', 'createdAt', 'updatedAt', 'winnerRef'] as const,
+  InputType
+) {}
 
 export const GameSchema = SchemaFactory.createForClass(Game);
