@@ -15,6 +15,8 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: { input: string; output: string; }
 };
 
 export type Achievements = {
@@ -255,8 +257,10 @@ export type MutationUpdatePlayerGameDetailsArgs = {
 export type Player = {
   __typename?: 'Player';
   _id: Scalars['ID']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
   name: Scalars['String']['output'];
   playerId: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type PlayerGameDetails = {

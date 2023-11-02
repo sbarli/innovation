@@ -21,7 +21,13 @@ export const MOCK_PLAYERS_INPUT: CreatePlayersInput = {
   names: [MOCK_PLAYER_NAME, MOCK_PLAYER_NAME_2],
 };
 
-export const MOCK_PLAYER: Player = { _id: MOCK_ID, playerId: MOCK_PLAYER_ID, ...MOCK_PLAYER_INPUT };
+export const MOCK_PLAYER: Player = {
+  ...MOCK_PLAYER_INPUT,
+  _id: MOCK_ID,
+  playerId: MOCK_PLAYER_ID,
+  createdAt: undefined,
+  updatedAt: undefined,
+};
 
 export const MOCK_GET_PLAYER_BY_PLAYER_ID_INPUT: GetPlayerDto = {
   searchField: 'playerId',
