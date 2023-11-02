@@ -172,10 +172,12 @@ input FindOneOptionsInput {
 type Game {
   _id: ID!
   achievements: Achievements!
+  createdAt: DateTime
   currentActionNumber: Float!
   currentPlayerRef: ID!
   deck: Deck!
   playerRefs: [ID!]!
+  updatedAt: DateTime
   winnerRef: ID
 }
 
