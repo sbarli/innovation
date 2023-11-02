@@ -195,10 +195,12 @@ export type Game = {
   __typename?: 'Game';
   _id: Scalars['ID']['output'];
   achievements: Achievements;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
   currentActionNumber: Scalars['Float']['output'];
   currentPlayerRef: Scalars['ID']['output'];
   deck: Deck;
   playerRefs: Array<Scalars['ID']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
   winnerRef?: Maybe<Scalars['ID']['output']>;
 };
 
@@ -269,12 +271,14 @@ export type PlayerGameDetails = {
   achievements: Array<Scalars['ID']['output']>;
   age: Scalars['Float']['output'];
   board: Board;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
   gameRef: Scalars['ID']['output'];
   hand: Array<Scalars['ID']['output']>;
   playerRef: Scalars['ID']['output'];
   resourceTotals: ResourceTotals;
   score: Scalars['Float']['output'];
   scoreCardRefs: Array<Scalars['ID']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type Query = {
