@@ -211,12 +211,14 @@ type PlayerGameDetails {
   achievements: [ID!]!
   age: Float!
   board: Board!
+  createdAt: DateTime
   gameRef: ID!
   hand: [ID!]!
   playerRef: ID!
   resourceTotals: ResourceTotals!
   score: Float!
   scoreCardRefs: [ID!]!
+  updatedAt: DateTime
 }
 
 type Query {

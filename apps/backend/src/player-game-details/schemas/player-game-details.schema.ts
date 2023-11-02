@@ -7,11 +7,19 @@ import { Board } from './board.schema';
 
 export type PlayerGameDetailsDocument = HydratedDocument<PlayerGameDetails>;
 
-@Schema()
+@Schema({ timestamps: true })
 @ObjectType()
 export class PlayerGameDetails {
   @Field(() => ID)
   _id!: string;
+
+  @Prop()
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date;
+
+  @Prop()
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date;
 
   @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Game' })
   @Field(() => ID)
@@ -74,7 +82,7 @@ export class PlayerGameDetails {
 @InputType()
 export class CreatePlayerGameDetailsInput extends OmitType(
   PlayerGameDetails,
-  ['_id'] as const,
+  ['_id', 'createdAt', 'updatedAt'] as const,
   InputType
 ) {}
 
