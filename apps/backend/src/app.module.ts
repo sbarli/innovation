@@ -11,6 +11,7 @@ import { GamesModule } from './games/games.module';
 import { GqlConfigService } from './graphql/gql-config-service';
 import { PlayerGameDetailsModule } from './player-game-details/player-game-details.module';
 import { PlayersModule } from './players/players.module';
+import { SocketModule } from './socket/socket.module';
 
 const MONGO_URL = process.env['MONGO_URL'] || '';
 console.log('MONGO_URL: ', MONGO_URL);
@@ -27,6 +28,7 @@ console.log('MONGO_URL: ', MONGO_URL);
     GamesModule,
     PlayerGameDetailsModule,
     GameplayModule,
+    SocketModule,
   ],
   controllers: [AppController],
   providers: [AppService],
