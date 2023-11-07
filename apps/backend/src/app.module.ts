@@ -1,10 +1,13 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { mongoConfig } from './app.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 import { CardsModule } from './cards/cards.module';
 import { GameplayModule } from './gameplay/gameplay.module';
 import { GamesModule } from './games/games.module';
@@ -12,23 +15,33 @@ import { GqlConfigService } from './graphql/gql-config-service';
 import { PlayerGameDetailsModule } from './player-game-details/player-game-details.module';
 import { PlayersModule } from './players/players.module';
 import { SocketModule } from './socket/socket.module';
-
-const MONGO_URL = process.env['MONGO_URL'] || '';
-console.log('MONGO_URL: ', MONGO_URL);
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(MONGO_URL),
+    ConfigModule.forRoot({
+      envFilePath: ['.env'],
+      isGlobal: true,
+    }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule.forFeature(mongoConfig)],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGO_URL'),
+      }),
+    }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       useClass: GqlConfigService,
     }),
+    AuthModule,
+    UsersModule,
+    SocketModule,
     CardsModule,
     PlayersModule,
     GamesModule,
     PlayerGameDetailsModule,
     GameplayModule,
-    SocketModule,
   ],
   controllers: [AppController],
   providers: [AppService],
