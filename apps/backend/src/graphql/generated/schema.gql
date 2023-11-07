@@ -124,6 +124,12 @@ input CreatePlayersInput {
   names: [String!]!
 }
 
+input CreateUserInput {
+  displayName: String!
+  email: String!
+  password: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -191,11 +197,17 @@ input GetPlayersInput {
   searchValues: [String!]!
 }
 
+input GetUserInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
   createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
   createPlayer(newPlayerData: CreatePlayerInput!): Player!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
   createPlayers(newPlayersData: CreatePlayersInput!): [Player!]!
+  signup(newUserData: CreateUserInput!): UserWithoutPassword!
   updateGame(id: String!, updates: UpdateGameInput!): Game
   updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsInput!): PlayerGameDetails
 }
@@ -233,6 +245,7 @@ type Query {
   getPlayerGameDetails(gameRef: ID!, playerRef: ID!): PlayerGameDetails
   getPlayerGameDetailsById(id: ID!): PlayerGameDetails
   getPlayers(searchData: GetPlayersInput!): [Player!]!
+  login(loginUserInput: GetUserInput!): UserWithoutPassword!
 }
 
 type ResourceSpaces {
@@ -282,4 +295,12 @@ input UpdatePlayerGameDetailsInput {
   resourceTotals: ResourceTotalsInput
   score: Float
   scoreCardRefs: [ID!]
+}
+
+type UserWithoutPassword {
+  _id: ID!
+  createdAt: DateTime
+  displayName: String!
+  email: String!
+  updatedAt: DateTime
 }

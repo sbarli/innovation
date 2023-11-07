@@ -149,6 +149,12 @@ export type CreatePlayersInput = {
   names: Array<Scalars['String']['input']>;
 };
 
+export type CreateUserInput = {
+  displayName: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
 export type Deck = {
   __typename?: 'Deck';
   EIGHT: Array<Scalars['ID']['output']>;
@@ -214,12 +220,18 @@ export type GetPlayersInput = {
   searchValues: Array<Scalars['String']['input']>;
 };
 
+export type GetUserInput = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createNewGame: CreateNewGameResponse;
   createPlayer: Player;
   createPlayerGameDetails: PlayerGameDetails;
   createPlayers: Array<Player>;
+  signup: UserWithoutPassword;
   updateGame?: Maybe<Game>;
   updatePlayerGameDetails?: Maybe<PlayerGameDetails>;
 };
@@ -242,6 +254,11 @@ export type MutationCreatePlayerGameDetailsArgs = {
 
 export type MutationCreatePlayersArgs = {
   newPlayersData: CreatePlayersInput;
+};
+
+
+export type MutationSignupArgs = {
+  newUserData: CreateUserInput;
 };
 
 
@@ -292,6 +309,7 @@ export type Query = {
   getPlayerGameDetails?: Maybe<PlayerGameDetails>;
   getPlayerGameDetailsById?: Maybe<PlayerGameDetails>;
   getPlayers: Array<Player>;
+  login: UserWithoutPassword;
 };
 
 
@@ -323,6 +341,11 @@ export type QueryGetPlayerGameDetailsByIdArgs = {
 
 export type QueryGetPlayersArgs = {
   searchData: GetPlayersInput;
+};
+
+
+export type QueryLoginArgs = {
+  loginUserInput: GetUserInput;
 };
 
 export type ResourceSpaces = {
@@ -374,6 +397,15 @@ export type UpdatePlayerGameDetailsInput = {
   resourceTotals?: InputMaybe<ResourceTotalsInput>;
   score?: InputMaybe<Scalars['Float']['input']>;
   scoreCardRefs?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+export type UserWithoutPassword = {
+  __typename?: 'UserWithoutPassword';
+  _id: Scalars['ID']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  displayName: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type BaseCardFragmentFragment = { __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string };
