@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
+import { getCatchErrorMessage } from '@inno/utils';
+
 import { UpdateGameInput } from './dto/update-game.dto';
 import { CreateGameInput, Game, GameDocument } from './schemas/game.schema';
 
@@ -10,7 +12,13 @@ export class GamesService {
   constructor(@InjectModel(Game.name) private gameModel: Model<GameDocument>) {}
 
   async findGameByRef(ref: string): Promise<Game | null | undefined> {
-    return this.gameModel.findById(ref);
+    try {
+      return this.gameModel.findById(ref);
+    } catch (error) {
+      throw new Error(
+        getCatchErrorMessage(error, 'GamesService.findGameByRef -> Error finding game')
+      );
+    }
   }
 
   async findActiveGameByPlayers(playerRefs: string[]): Promise<Game | null | undefined> {

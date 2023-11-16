@@ -1,4 +1,7 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+
+import { getCatchErrorMessage } from '@inno/utils';
 
 import { UpdateGameInput } from './dto/update-game.dto';
 import { GamesService } from './games.service';
@@ -13,7 +16,14 @@ export class GamesResolver {
   async getGame(
     @Args('gameRef', { type: () => String }) gameRef: string
   ): Promise<Game | null | undefined> {
-    return this.gamesService.findGameByRef(gameRef);
+    try {
+      return this.gamesService.findGameByRef(gameRef);
+    } catch (error) {
+      throw new HttpException(
+        getCatchErrorMessage(error, `GetGame Query -> Could not find game with id ${gameRef}`),
+        HttpStatus.BAD_REQUEST
+      );
+    }
   }
 
   @Mutation(() => Game)

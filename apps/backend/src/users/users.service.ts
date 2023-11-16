@@ -12,6 +12,10 @@ import { User, UserDocument } from './schemas/user.schema';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
+  async findUserByRef(ref: string): Promise<User | undefined | null> {
+    return this.userModel.findById(ref);
+  }
+
   async findUserByEmail(email: string): Promise<User | undefined | null> {
     return this.userModel.findOne({ email });
   }

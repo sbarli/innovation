@@ -10,8 +10,15 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super({ usernameField: 'email' });
   }
 
+  /**
+   * @name validate
+   * @description validates that the user's password matches the unhashed version in the DB
+   *              when passwords match, returns user
+   *              when passwords don't match, throws UnauthorizedException
+   * @see https://docs.nestjs.com/recipes/passport#implementing-passport-local
+   */
   async validate(email: string, password: string) {
-    const user = await this.authService.validateUser({ email, password });
+    const user = await this.authService.validatePassword({ email, password });
     if (!user) {
       throw new UnauthorizedException();
     }

@@ -26,6 +26,11 @@ input AchievementsInput {
   TWO: ID!
 }
 
+type AuthResponse {
+  access_token: String!
+  user: ClientUserData!
+}
+
 type Board {
   blue: BoardPile!
   green: BoardPile!
@@ -93,6 +98,12 @@ type CardRefsByAge {
   TEN: [String!]!
   THREE: [String!]!
   TWO: [String!]!
+}
+
+type ClientUserData {
+  _id: ID!
+  displayName: String!
+  email: String!
 }
 
 input CreateNewGameInput {
@@ -207,7 +218,7 @@ type Mutation {
   createPlayer(newPlayerData: CreatePlayerInput!): Player!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
   createPlayers(newPlayersData: CreatePlayersInput!): [Player!]!
-  signup(newUserData: CreateUserInput!): UserWithoutPassword!
+  signup(newUserData: CreateUserInput!): AuthResponse!
   updateGame(id: String!, updates: UpdateGameInput!): Game
   updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsInput!): PlayerGameDetails
 }
@@ -245,7 +256,7 @@ type Query {
   getPlayerGameDetails(gameRef: ID!, playerRef: ID!): PlayerGameDetails
   getPlayerGameDetailsById(id: ID!): PlayerGameDetails
   getPlayers(searchData: GetPlayersInput!): [Player!]!
-  login(loginUserInput: GetUserInput!): UserWithoutPassword!
+  login(loginUserInput: GetUserInput!): AuthResponse!
 }
 
 type ResourceSpaces {
@@ -295,12 +306,4 @@ input UpdatePlayerGameDetailsInput {
   resourceTotals: ResourceTotalsInput
   score: Float
   scoreCardRefs: [ID!]
-}
-
-type UserWithoutPassword {
-  _id: ID!
-  createdAt: DateTime
-  displayName: String!
-  email: String!
-  updatedAt: DateTime
 }
