@@ -1,18 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Cache } from 'cache-manager';
 import { Model } from 'mongoose';
 
 import { getCatchErrorMessage } from '@inno/utils';
 
+import { CARDS_CACHE_TTL, CardCacheKey } from '../cards.constants';
 import { transformRawCardsToCardSchema } from '../helpers/transform-raw-cards-to-card-schema';
 import { Card, CardDocument, CreateCardInput } from '../schemas/card.schema';
 
 @Injectable()
 export class CardsService {
-  constructor(@InjectModel(Card.name) private cardModel: Model<CardDocument>) {}
+  constructor(
+    @InjectModel(Card.name) private cardModel: Model<CardDocument>,
+    @Inject(CACHE_MANAGER) protected cacheManager: Cache
+  ) {}
 
   async findAll(): Promise<Card[]> {
-    return this.cardModel.find({});
+    const cardsCache: Card[] | undefined = await this.cacheManager.get(CardCacheKey.ALL_CARDS);
+    if (cardsCache) {
+      return cardsCache;
+    }
+    const allCards = await this.cardModel.find({});
+    await this.cacheManager.set(CardCacheKey.ALL_CARDS, allCards, CARDS_CACHE_TTL);
+    return allCards;
   }
 
   async findManyByRef(refs: string[]): Promise<Card[]> {
@@ -24,16 +36,27 @@ export class CardsService {
   }
 
   async findOneByRef(ref: string): Promise<Card | null | undefined> {
-    return this.cardModel.findOne({ _id: ref });
+    const cacheValue: Card | undefined = await this.cacheManager.get(
+      `${CardCacheKey.CARD_REF}-${ref}`
+    );
+    if (cacheValue) {
+      return cacheValue;
+    }
+    const card = await this.cardModel.findOne({ _id: ref });
+    await this.cacheManager.set(`${CardCacheKey.CARD_REF}-${ref}`, card, CARDS_CACHE_TTL);
+    return card;
   }
 
   async findOneByCardId(cardId: string): Promise<Card | null | undefined> {
-    return this.cardModel.findOne({ cardId });
-  }
-
-  async create(createCardDto: CreateCardInput): Promise<Card> {
-    const createdCard = new this.cardModel(createCardDto);
-    return createdCard.save();
+    const cacheValue: Card | undefined = await this.cacheManager.get(
+      `${CardCacheKey.CARD_ID}-${cardId}`
+    );
+    if (cacheValue) {
+      return cacheValue;
+    }
+    const card = this.cardModel.findOne({ cardId });
+    await this.cacheManager.set(`${CardCacheKey.CARD_ID}-${cardId}`, card, CARDS_CACHE_TTL);
+    return card;
   }
 
   async createMany(cardsToCreate: CreateCardInput[]): Promise<Card[]> {
@@ -61,6 +84,8 @@ export class CardsService {
       );
     } finally {
       await session.endSession();
+      // clear cards cache
+      await this.cacheManager.del(CardCacheKey.ALL_CARDS);
     }
   }
 }
