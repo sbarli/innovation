@@ -1,4 +1,5 @@
 import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from 'src/users/users.service';
 
@@ -28,6 +29,10 @@ describe('AuthService', () => {
             findUserByEmail: jest.fn(),
             createUser: jest.fn(),
           },
+        },
+        {
+          provide: JwtService,
+          useValue: {},
         },
         AuthService,
       ],
