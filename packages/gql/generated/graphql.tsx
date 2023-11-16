@@ -44,6 +44,12 @@ export type AchievementsInput = {
   TWO: Scalars['ID']['input'];
 };
 
+export type AuthResponse = {
+  __typename?: 'AuthResponse';
+  access_token: Scalars['String']['output'];
+  user: ClientUserData;
+};
+
 export type Board = {
   __typename?: 'Board';
   blue: BoardPile;
@@ -117,6 +123,13 @@ export type CardRefsByAge = {
   TEN: Array<Scalars['String']['output']>;
   THREE: Array<Scalars['String']['output']>;
   TWO: Array<Scalars['String']['output']>;
+};
+
+export type ClientUserData = {
+  __typename?: 'ClientUserData';
+  _id: Scalars['ID']['output'];
+  displayName: Scalars['String']['output'];
+  email: Scalars['String']['output'];
 };
 
 export type CreateNewGameInput = {
@@ -231,7 +244,7 @@ export type Mutation = {
   createPlayer: Player;
   createPlayerGameDetails: PlayerGameDetails;
   createPlayers: Array<Player>;
-  signup: UserWithoutPassword;
+  signup: AuthResponse;
   updateGame?: Maybe<Game>;
   updatePlayerGameDetails?: Maybe<PlayerGameDetails>;
 };
@@ -309,7 +322,7 @@ export type Query = {
   getPlayerGameDetails?: Maybe<PlayerGameDetails>;
   getPlayerGameDetailsById?: Maybe<PlayerGameDetails>;
   getPlayers: Array<Player>;
-  login: UserWithoutPassword;
+  login: AuthResponse;
 };
 
 
@@ -397,15 +410,6 @@ export type UpdatePlayerGameDetailsInput = {
   resourceTotals?: InputMaybe<ResourceTotalsInput>;
   score?: InputMaybe<Scalars['Float']['input']>;
   scoreCardRefs?: InputMaybe<Array<Scalars['ID']['input']>>;
-};
-
-export type UserWithoutPassword = {
-  __typename?: 'UserWithoutPassword';
-  _id: Scalars['ID']['output'];
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  displayName: Scalars['String']['output'];
-  email: Scalars['String']['output'];
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type BaseCardFragmentFragment = { __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string };
