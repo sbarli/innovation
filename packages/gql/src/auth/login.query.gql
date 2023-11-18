@@ -1,0 +1,5 @@
+query Login($loginUserInput: GetUserInput!) {
+  login(loginUserInput: $loginUserInput) { 
+    ...AuthResponseFragment
+  }
+}
