@@ -15,7 +15,6 @@ import { GameplayModule } from './gameplay/gameplay.module';
 import { GamesModule } from './games/games.module';
 import { GqlConfigService } from './graphql/gql-config.service';
 import { PlayerGameDetailsModule } from './player-game-details/player-game-details.module';
-import { PlayersModule } from './players/players.module';
 import { SocketModule } from './socket/socket.module';
 import { UsersModule } from './users/users.module';
 
@@ -44,7 +43,6 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     SocketModule,
     CardsModule,
-    PlayersModule,
     GamesModule,
     PlayerGameDetailsModule,
     GameplayModule,
