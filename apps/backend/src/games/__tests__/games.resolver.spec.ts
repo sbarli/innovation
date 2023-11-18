@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { MOCK_PLAYER_REF_2 } from 'src/players/__mocks__/player.mock';
+import { MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
 
 import {
   MOCK_GAME_UPDATE_VALIDATION_ERROR,
@@ -74,7 +74,7 @@ describe('GamesResolver', () => {
       });
 
       it('should should return output of calling gamesService.updateGameByRef when input is invalid', async () => {
-        const GAME_UPDATES = { winnerRef: MOCK_PLAYER_REF_2 };
+        const GAME_UPDATES = { winnerRef: MOCK_USER_ID_2 };
         jest
           .spyOn(helpers, 'validateGameUpdates')
           .mockReturnValueOnce(MOCK_GAME_UPDATE_VALIDATION_PASS);

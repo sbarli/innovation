@@ -1,6 +1,6 @@
 import { MOCK_STARTER_ACHIEVEMENTS } from 'src/games/__mocks__/achievements.mock';
 import { MOCK_DECK } from 'src/games/__mocks__/deck.mock';
-import { MOCK_PLAYER_REF_1, MOCK_PLAYER_REF_2 } from 'src/players/__mocks__/player.mock';
+import { MOCK_USER_ID, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
 
 import { TPlayerStarterHands } from '../helpers/new-game';
 import { TNewGameSetup } from '../services/new-game.service';
@@ -8,8 +8,8 @@ import { TNewGameSetup } from '../services/new-game.service';
 const MOCK_CARD_REF = 'mock-card-ref';
 
 export const MOCK_PLAYER_STARTER_HANDS: TPlayerStarterHands = {
-  [MOCK_PLAYER_REF_1]: [MOCK_CARD_REF, MOCK_CARD_REF],
-  [MOCK_PLAYER_REF_2]: [MOCK_CARD_REF, MOCK_CARD_REF],
+  [MOCK_USER_ID]: [MOCK_CARD_REF, MOCK_CARD_REF],
+  [MOCK_USER_ID_2]: [MOCK_CARD_REF, MOCK_CARD_REF],
 };
 
 export const MOCK_NEW_GAME_SETUP: TNewGameSetup = {

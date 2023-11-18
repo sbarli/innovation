@@ -5,8 +5,8 @@ import { MOCK_DECK } from 'src/games/__mocks__/deck.mock';
 import { MOCK_GAME } from 'src/games/__mocks__/game.mock';
 import { GamesService } from 'src/games/games.service';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
-import { MOCK_PLAYERS, MOCK_PLAYER_1 } from 'src/players/__mocks__/player.mock';
-import { PlayersService } from 'src/players/players.service';
+import { MOCK_USER, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
+import { UsersService } from 'src/users/users.service';
 
 import {
   MOCK_NEW_GAME_RESPONSE,
@@ -19,7 +19,7 @@ import * as helpers from '../helpers/new-game';
 import { NewGameService } from '../services/new-game.service';
 
 describe('NewGameService', () => {
-  let playersService: PlayersService;
+  let usersService: UsersService;
   let playerGameDetailsService: PlayerGameDetailsService;
   let gamesService: GamesService;
   let newGameService: NewGameService;
@@ -28,9 +28,9 @@ describe('NewGameService', () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         {
-          provide: PlayersService,
+          provide: UsersService,
           useValue: {
-            findPlayers: jest.fn(),
+            findUsers: jest.fn(),
           },
         },
         {
@@ -50,7 +50,7 @@ describe('NewGameService', () => {
       ],
     }).compile();
 
-    playersService = moduleRef.get<PlayersService>(PlayersService);
+    usersService = moduleRef.get<UsersService>(UsersService);
     playerGameDetailsService = moduleRef.get<PlayerGameDetailsService>(PlayerGameDetailsService);
     gamesService = moduleRef.get<GamesService>(GamesService);
     newGameService = moduleRef.get<NewGameService>(NewGameService);
@@ -58,16 +58,14 @@ describe('NewGameService', () => {
 
   it('should be defined', () => {
     expect(newGameService).toBeDefined();
-    expect(playersService).toBeDefined();
+    expect(usersService).toBeDefined();
     expect(playerGameDetailsService).toBeDefined();
     expect(gamesService).toBeDefined();
   });
 
   describe('validatePlayersExist', () => {
     it('should throw error when one or more players is not found', async () => {
-      const findCardsSpy = jest
-        .spyOn(playersService, 'findPlayers')
-        .mockResolvedValueOnce([MOCK_PLAYER_1]);
+      const findCardsSpy = jest.spyOn(usersService, 'findUsers').mockResolvedValueOnce([MOCK_USER]);
 
       const output = async () => await newGameService.validatePlayersExist(MOCK_PLAYER_REFS);
 
@@ -80,8 +78,8 @@ describe('NewGameService', () => {
 
     it('should return true when all players exist', async () => {
       const findCardsSpy = jest
-        .spyOn(playersService, 'findPlayers')
-        .mockResolvedValueOnce(MOCK_PLAYERS);
+        .spyOn(usersService, 'findUsers')
+        .mockResolvedValueOnce([MOCK_USER, { ...MOCK_USER, _id: MOCK_USER_ID_2 }]);
 
       const output = await newGameService.validatePlayersExist(MOCK_PLAYER_REFS);
 
