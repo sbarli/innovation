@@ -1,5 +1,0 @@
-query GetPlayers($searchData: GetPlayersInput!) {
-  getPlayers(searchData: $searchData) { 
-    ...PlayerFragment
-  }
-}
