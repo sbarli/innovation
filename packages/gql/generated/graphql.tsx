@@ -154,14 +154,6 @@ export type CreatePlayerGameDetailsInput = {
   scoreCardRefs: Array<Scalars['ID']['input']>;
 };
 
-export type CreatePlayerInput = {
-  name: Scalars['String']['input'];
-};
-
-export type CreatePlayersInput = {
-  names: Array<Scalars['String']['input']>;
-};
-
 export type CreateUserInput = {
   displayName: Scalars['String']['input'];
   email: Scalars['String']['input'];
@@ -223,16 +215,6 @@ export type Game = {
   winnerRef?: Maybe<Scalars['ID']['output']>;
 };
 
-export type GetPlayerDto = {
-  searchField: Scalars['String']['input'];
-  searchValue: Scalars['String']['input'];
-};
-
-export type GetPlayersInput = {
-  searchField: Scalars['String']['input'];
-  searchValues: Array<Scalars['String']['input']>;
-};
-
 export type GetUserInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -241,9 +223,7 @@ export type GetUserInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createNewGame: CreateNewGameResponse;
-  createPlayer: Player;
   createPlayerGameDetails: PlayerGameDetails;
-  createPlayers: Array<Player>;
   signup: AuthResponse;
   updateGame?: Maybe<Game>;
   updatePlayerGameDetails?: Maybe<PlayerGameDetails>;
@@ -255,18 +235,8 @@ export type MutationCreateNewGameArgs = {
 };
 
 
-export type MutationCreatePlayerArgs = {
-  newPlayerData: CreatePlayerInput;
-};
-
-
 export type MutationCreatePlayerGameDetailsArgs = {
   createData: CreatePlayerGameDetailsInput;
-};
-
-
-export type MutationCreatePlayersArgs = {
-  newPlayersData: CreatePlayersInput;
 };
 
 
@@ -284,15 +254,6 @@ export type MutationUpdateGameArgs = {
 export type MutationUpdatePlayerGameDetailsArgs = {
   id: Scalars['ID']['input'];
   updates: UpdatePlayerGameDetailsInput;
-};
-
-export type Player = {
-  __typename?: 'Player';
-  _id: Scalars['ID']['output'];
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  name: Scalars['String']['output'];
-  playerId: Scalars['String']['output'];
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type PlayerGameDetails = {
@@ -318,10 +279,8 @@ export type Query = {
   getCardRefsByAge: CardRefsByAge;
   getGame?: Maybe<Game>;
   getOneCard?: Maybe<Card>;
-  getPlayer?: Maybe<Player>;
   getPlayerGameDetails?: Maybe<PlayerGameDetails>;
   getPlayerGameDetailsById?: Maybe<PlayerGameDetails>;
-  getPlayers: Array<Player>;
   login: AuthResponse;
 };
 
@@ -336,11 +295,6 @@ export type QueryGetOneCardArgs = {
 };
 
 
-export type QueryGetPlayerArgs = {
-  getPlayerDto: GetPlayerDto;
-};
-
-
 export type QueryGetPlayerGameDetailsArgs = {
   gameRef: Scalars['ID']['input'];
   playerRef: Scalars['ID']['input'];
@@ -349,11 +303,6 @@ export type QueryGetPlayerGameDetailsArgs = {
 
 export type QueryGetPlayerGameDetailsByIdArgs = {
   id: Scalars['ID']['input'];
-};
-
-
-export type QueryGetPlayersArgs = {
-  searchData: GetPlayersInput;
 };
 
 
@@ -412,6 +361,22 @@ export type UpdatePlayerGameDetailsInput = {
   scoreCardRefs?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
+export type AuthResponseFragmentFragment = { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'ClientUserData', _id: string, displayName: string, email: string } };
+
+export type LoginQueryVariables = Exact<{
+  loginUserInput: GetUserInput;
+}>;
+
+
+export type LoginQuery = { __typename?: 'Query', login: { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'ClientUserData', _id: string, displayName: string, email: string } } };
+
+export type SignupMutationVariables = Exact<{
+  newUserData: CreateUserInput;
+}>;
+
+
+export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'ClientUserData', _id: string, displayName: string, email: string } } };
+
 export type BaseCardFragmentFragment = { __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string };
 
 export type DogmaEffectsFragment = { __typename?: 'Card', dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> };
@@ -425,29 +390,23 @@ export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
 
-export type CreatePlayersMutationVariables = Exact<{
-  newPlayersData: CreatePlayersInput;
-}>;
+export type UserFragmentFragment = { __typename?: 'ClientUserData', _id: string, displayName: string, email: string };
 
-
-export type CreatePlayersMutation = { __typename?: 'Mutation', createPlayers: Array<{ __typename?: 'Player', _id: string, playerId: string, name: string }> };
-
-export type PlayerFragmentFragment = { __typename?: 'Player', _id: string, playerId: string, name: string };
-
-export type GetPlayerQueryVariables = Exact<{
-  input: GetPlayerDto;
-}>;
-
-
-export type GetPlayerQuery = { __typename?: 'Query', getPlayer?: { __typename?: 'Player', _id: string, playerId: string, name: string } | null };
-
-export type GetPlayersQueryVariables = Exact<{
-  searchData: GetPlayersInput;
-}>;
-
-
-export type GetPlayersQuery = { __typename?: 'Query', getPlayers: Array<{ __typename?: 'Player', _id: string, playerId: string, name: string }> };
-
+export const UserFragmentFragmentDoc = gql`
+    fragment UserFragment on ClientUserData {
+  _id
+  displayName
+  email
+}
+    `;
+export const AuthResponseFragmentFragmentDoc = gql`
+    fragment AuthResponseFragment on AuthResponse {
+  access_token
+  user {
+    ...UserFragment
+  }
+}
+    ${UserFragmentFragmentDoc}`;
 export const BaseCardFragmentFragmentDoc = gql`
     fragment BaseCardFragment on Card {
   _id
@@ -492,13 +451,79 @@ export const ResourceTotalsFragmentDoc = gql`
   }
 }
     `;
-export const PlayerFragmentFragmentDoc = gql`
-    fragment PlayerFragment on Player {
-  _id
-  playerId
-  name
+export const LoginDocument = gql`
+    query Login($loginUserInput: GetUserInput!) {
+  login(loginUserInput: $loginUserInput) {
+    ...AuthResponseFragment
+  }
 }
-    `;
+    ${AuthResponseFragmentFragmentDoc}`;
+
+/**
+ * __useLoginQuery__
+ *
+ * To run a query within a React component, call `useLoginQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLoginQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLoginQuery({
+ *   variables: {
+ *      loginUserInput: // value for 'loginUserInput'
+ *   },
+ * });
+ */
+export function useLoginQuery(baseOptions: Apollo.QueryHookOptions<LoginQuery, LoginQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
+      }
+export function useLoginLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LoginQuery, LoginQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
+        }
+export function useLoginSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<LoginQuery, LoginQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
+        }
+export type LoginQueryHookResult = ReturnType<typeof useLoginQuery>;
+export type LoginLazyQueryHookResult = ReturnType<typeof useLoginLazyQuery>;
+export type LoginSuspenseQueryHookResult = ReturnType<typeof useLoginSuspenseQuery>;
+export type LoginQueryResult = Apollo.QueryResult<LoginQuery, LoginQueryVariables>;
+export const SignupDocument = gql`
+    mutation Signup($newUserData: CreateUserInput!) {
+  signup(newUserData: $newUserData) {
+    ...AuthResponseFragment
+  }
+}
+    ${AuthResponseFragmentFragmentDoc}`;
+export type SignupMutationFn = Apollo.MutationFunction<SignupMutation, SignupMutationVariables>;
+
+/**
+ * __useSignupMutation__
+ *
+ * To run a mutation, you first call `useSignupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signupMutation, { data, loading, error }] = useSignupMutation({
+ *   variables: {
+ *      newUserData: // value for 'newUserData'
+ *   },
+ * });
+ */
+export function useSignupMutation(baseOptions?: Apollo.MutationHookOptions<SignupMutation, SignupMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignupMutation, SignupMutationVariables>(SignupDocument, options);
+      }
+export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
+export type SignupMutationResult = Apollo.MutationResult<SignupMutation>;
+export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
 export const GetAllCardsDocument = gql`
     query GetAllCards {
   getAllCards {
@@ -544,116 +569,3 @@ export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
 export type GetAllCardsLazyQueryHookResult = ReturnType<typeof useGetAllCardsLazyQuery>;
 export type GetAllCardsSuspenseQueryHookResult = ReturnType<typeof useGetAllCardsSuspenseQuery>;
 export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
-export const CreatePlayersDocument = gql`
-    mutation CreatePlayers($newPlayersData: CreatePlayersInput!) {
-  createPlayers(newPlayersData: $newPlayersData) {
-    ...PlayerFragment
-  }
-}
-    ${PlayerFragmentFragmentDoc}`;
-export type CreatePlayersMutationFn = Apollo.MutationFunction<CreatePlayersMutation, CreatePlayersMutationVariables>;
-
-/**
- * __useCreatePlayersMutation__
- *
- * To run a mutation, you first call `useCreatePlayersMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatePlayersMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createPlayersMutation, { data, loading, error }] = useCreatePlayersMutation({
- *   variables: {
- *      newPlayersData: // value for 'newPlayersData'
- *   },
- * });
- */
-export function useCreatePlayersMutation(baseOptions?: Apollo.MutationHookOptions<CreatePlayersMutation, CreatePlayersMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreatePlayersMutation, CreatePlayersMutationVariables>(CreatePlayersDocument, options);
-      }
-export type CreatePlayersMutationHookResult = ReturnType<typeof useCreatePlayersMutation>;
-export type CreatePlayersMutationResult = Apollo.MutationResult<CreatePlayersMutation>;
-export type CreatePlayersMutationOptions = Apollo.BaseMutationOptions<CreatePlayersMutation, CreatePlayersMutationVariables>;
-export const GetPlayerDocument = gql`
-    query GetPlayer($input: GetPlayerDto!) {
-  getPlayer(getPlayerDto: $input) {
-    ...PlayerFragment
-  }
-}
-    ${PlayerFragmentFragmentDoc}`;
-
-/**
- * __useGetPlayerQuery__
- *
- * To run a query within a React component, call `useGetPlayerQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPlayerQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPlayerQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetPlayerQuery(baseOptions: Apollo.QueryHookOptions<GetPlayerQuery, GetPlayerQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPlayerQuery, GetPlayerQueryVariables>(GetPlayerDocument, options);
-      }
-export function useGetPlayerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPlayerQuery, GetPlayerQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPlayerQuery, GetPlayerQueryVariables>(GetPlayerDocument, options);
-        }
-export function useGetPlayerSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPlayerQuery, GetPlayerQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetPlayerQuery, GetPlayerQueryVariables>(GetPlayerDocument, options);
-        }
-export type GetPlayerQueryHookResult = ReturnType<typeof useGetPlayerQuery>;
-export type GetPlayerLazyQueryHookResult = ReturnType<typeof useGetPlayerLazyQuery>;
-export type GetPlayerSuspenseQueryHookResult = ReturnType<typeof useGetPlayerSuspenseQuery>;
-export type GetPlayerQueryResult = Apollo.QueryResult<GetPlayerQuery, GetPlayerQueryVariables>;
-export const GetPlayersDocument = gql`
-    query GetPlayers($searchData: GetPlayersInput!) {
-  getPlayers(searchData: $searchData) {
-    ...PlayerFragment
-  }
-}
-    ${PlayerFragmentFragmentDoc}`;
-
-/**
- * __useGetPlayersQuery__
- *
- * To run a query within a React component, call `useGetPlayersQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPlayersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPlayersQuery({
- *   variables: {
- *      searchData: // value for 'searchData'
- *   },
- * });
- */
-export function useGetPlayersQuery(baseOptions: Apollo.QueryHookOptions<GetPlayersQuery, GetPlayersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPlayersQuery, GetPlayersQueryVariables>(GetPlayersDocument, options);
-      }
-export function useGetPlayersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPlayersQuery, GetPlayersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPlayersQuery, GetPlayersQueryVariables>(GetPlayersDocument, options);
-        }
-export function useGetPlayersSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPlayersQuery, GetPlayersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetPlayersQuery, GetPlayersQueryVariables>(GetPlayersDocument, options);
-        }
-export type GetPlayersQueryHookResult = ReturnType<typeof useGetPlayersQuery>;
-export type GetPlayersLazyQueryHookResult = ReturnType<typeof useGetPlayersLazyQuery>;
-export type GetPlayersSuspenseQueryHookResult = ReturnType<typeof useGetPlayersSuspenseQuery>;
-export type GetPlayersQueryResult = Apollo.QueryResult<GetPlayersQuery, GetPlayersQueryVariables>;

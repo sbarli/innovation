@@ -1,5 +1,0 @@
-query GetPlayer($input: GetPlayerDto!) {
-  getPlayer(getPlayerDto: $input) { 
-    ...PlayerFragment
-  }
-}

@@ -5,7 +5,7 @@ import { Achievements } from 'src/games/schemas/achievements.schema';
 import { Deck } from 'src/games/schemas/deck.schema';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
 import { PlayerGameDetails } from 'src/player-game-details/schemas/player-game-details.schema';
-import { PlayersService } from 'src/players/players.service';
+import { UsersService } from 'src/users/users.service';
 
 import { getCatchErrorMessage } from '@inno/utils';
 
@@ -35,14 +35,14 @@ interface IStartGameProps {
 @Injectable()
 export class NewGameService {
   constructor(
-    private playersService: PlayersService,
+    private usersService: UsersService,
     private playerGameDetailsService: PlayerGameDetailsService,
     private gamesService: GamesService
   ) {}
 
   async validatePlayersExist(playerRefs: string[]): Promise<boolean> {
     try {
-      const foundPlayers = await this.playersService.findPlayers({
+      const foundPlayers = await this.usersService.findUsers({
         searchField: 'ref',
         searchValues: playerRefs,
       });

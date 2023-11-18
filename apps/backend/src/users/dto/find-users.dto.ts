@@ -1,12 +1,12 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 
-import { GetPlayerFieldOptions } from '../players.types';
+import { FindUsersFieldOptions } from '../users.types';
 
 @ObjectType()
 @InputType()
-export class GetPlayersInput {
+export class FindUsersInput {
   @Field(() => String)
-  searchField!: GetPlayerFieldOptions;
+  searchField!: FindUsersFieldOptions;
 
   @Field(() => [String])
   searchValues!: string[];

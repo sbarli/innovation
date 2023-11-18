@@ -1,0 +1,6 @@
+fragment AuthResponseFragment on AuthResponse { 
+  access_token
+  user {
+    ...UserFragment
+  }
+}

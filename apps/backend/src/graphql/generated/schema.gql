@@ -127,14 +127,6 @@ input CreatePlayerGameDetailsInput {
   scoreCardRefs: [ID!]!
 }
 
-input CreatePlayerInput {
-  name: String!
-}
-
-input CreatePlayersInput {
-  names: [String!]!
-}
-
 input CreateUserInput {
   displayName: String!
   email: String!
@@ -198,16 +190,6 @@ type Game {
   winnerRef: ID
 }
 
-input GetPlayerDto {
-  searchField: String!
-  searchValue: String!
-}
-
-input GetPlayersInput {
-  searchField: String!
-  searchValues: [String!]!
-}
-
 input GetUserInput {
   email: String!
   password: String!
@@ -215,20 +197,10 @@ input GetUserInput {
 
 type Mutation {
   createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
-  createPlayer(newPlayerData: CreatePlayerInput!): Player!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
-  createPlayers(newPlayersData: CreatePlayersInput!): [Player!]!
   signup(newUserData: CreateUserInput!): AuthResponse!
   updateGame(id: String!, updates: UpdateGameInput!): Game
   updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsInput!): PlayerGameDetails
-}
-
-type Player {
-  _id: ID!
-  createdAt: DateTime
-  name: String!
-  playerId: String!
-  updatedAt: DateTime
 }
 
 type PlayerGameDetails {
@@ -252,10 +224,8 @@ type Query {
   getCardRefsByAge: CardRefsByAge!
   getGame(gameRef: String!): Game
   getOneCard(options: FindOneOptionsInput!): Card
-  getPlayer(getPlayerDto: GetPlayerDto!): Player
   getPlayerGameDetails(gameRef: ID!, playerRef: ID!): PlayerGameDetails
   getPlayerGameDetailsById(id: ID!): PlayerGameDetails
-  getPlayers(searchData: GetPlayersInput!): [Player!]!
   login(loginUserInput: GetUserInput!): AuthResponse!
 }
 

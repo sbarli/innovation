@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { getCatchErrorMessage } from '@inno/utils';
 
 import { CreateUserInput } from './dto/create-user.dto';
+import { FindUsersInput } from './dto/find-users.dto';
 import { isMongoDuplicateKeyError } from './helpers/mongo-validation';
 import { User, UserDocument } from './schemas/user.schema';
 
@@ -18,6 +19,18 @@ export class UsersService {
 
   async findUserByEmail(email: string): Promise<User | undefined | null> {
     return this.userModel.findOne({ email });
+  }
+
+  async findUsers(searchData: FindUsersInput): Promise<User[]> {
+    try {
+      return this.userModel.find({
+        [searchData.searchField]: { $in: searchData.searchValues },
+      });
+    } catch (error) {
+      throw new Error(
+        getCatchErrorMessage(error ?? 'usersService.findUsers -> Failed to find users')
+      );
+    }
   }
 
   async createUser(newUserData: CreateUserInput): Promise<User> {
