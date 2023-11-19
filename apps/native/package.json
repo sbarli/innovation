@@ -25,6 +25,7 @@
     "@gluestack-style/react": "^1.0.8",
     "@gluestack-ui/config": "^1.0.3",
     "@gluestack-ui/themed": "^1.0.8",
+    "@hookform/resolvers": "^3.3.2",
     "@inno/gql": "*",
     "@inno/ui": "*",
     "@inno/utils": "*",
@@ -37,12 +38,14 @@
     "graphql": "^16.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.48.2",
     "react-native": "0.72.6",
     "react-native-gesture-handler": "~2.12.0",
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
     "react-native-svg": "13.9.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
