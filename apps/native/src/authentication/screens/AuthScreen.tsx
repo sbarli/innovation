@@ -6,7 +6,7 @@ import { useIsAuthenticatedQuery } from '@inno/gql';
 
 import { AuthRouteParams } from '../../app-core/constants/navigation';
 import { Login } from '../components/Login';
-import { SignupForm } from '../components/SignupForm';
+import { Signup } from '../components/Signup';
 
 export const AuthScreen = () => {
   const params = useLocalSearchParams<{ type?: AuthRouteParams }>();
@@ -20,7 +20,7 @@ export const AuthScreen = () => {
   }
 
   if (!data?.isAuthenticated._id) {
-    return <Box>{params.type === AuthRouteParams.SIGNUP ? <SignupForm /> : <Login />}</Box>;
+    return <Box>{params.type === AuthRouteParams.SIGNUP ? <Signup /> : <Login />}</Box>;
   }
 
   return (
