@@ -67,6 +67,7 @@ export const LoginForm = () => {
                 placeholder="Password"
                 onBlur={onBlur}
                 onChangeText={onChange}
+                type="password"
                 value={value}
               />
             </Input>
