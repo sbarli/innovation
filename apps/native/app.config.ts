@@ -26,4 +26,5 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
   },
   owner: EXPO_OWNER_HANDLE,
+  plugins: ['expo-router'],
 });
