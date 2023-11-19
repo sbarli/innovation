@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useIsAuthenticatedQuery } from '@inno/gql';
 
 import { AuthRouteParams } from '../../app-core/constants/navigation';
-import { LoginForm } from '../components/LoginForm';
+import { Login } from '../components/Login';
 import { SignupForm } from '../components/SignupForm';
 
 export const AuthScreen = () => {
@@ -20,7 +20,7 @@ export const AuthScreen = () => {
   }
 
   if (!data?.isAuthenticated._id) {
-    return <Box>{params.type === AuthRouteParams.SIGNUP ? <SignupForm /> : <LoginForm />}</Box>;
+    return <Box>{params.type === AuthRouteParams.SIGNUP ? <SignupForm /> : <Login />}</Box>;
   }
 
   return (
