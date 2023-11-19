@@ -2,11 +2,14 @@ import { Box, Button, ButtonText, Text } from '@gluestack-ui/themed';
 import { Link } from 'expo-router';
 
 import { AuthRouteParams, Routes } from '../../app-core/constants/navigation';
+import { SignupForm } from '../forms/SignupForm';
 
 export const Signup = () => {
   return (
     <Box>
-      <Text> Signup Form Goes Here</Text>
+      <Box alignItems="center">
+        <SignupForm />
+      </Box>
       <Box flexDirection="row" alignItems="center" justifyContent="center">
         <Text>Already have an account? </Text>
         <Link
