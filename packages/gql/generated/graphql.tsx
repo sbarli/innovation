@@ -281,6 +281,7 @@ export type Query = {
   getOneCard?: Maybe<Card>;
   getPlayerGameDetails?: Maybe<PlayerGameDetails>;
   getPlayerGameDetailsById?: Maybe<PlayerGameDetails>;
+  isAuthenticated: ClientUserData;
   login: AuthResponse;
 };
 
