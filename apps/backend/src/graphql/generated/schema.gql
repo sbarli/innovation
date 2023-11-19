@@ -226,6 +226,7 @@ type Query {
   getOneCard(options: FindOneOptionsInput!): Card
   getPlayerGameDetails(gameRef: ID!, playerRef: ID!): PlayerGameDetails
   getPlayerGameDetailsById(id: ID!): PlayerGameDetails
+  isAuthenticated: ClientUserData!
   login(loginUserInput: GetUserInput!): AuthResponse!
 }
 

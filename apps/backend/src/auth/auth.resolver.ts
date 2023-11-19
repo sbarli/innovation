@@ -2,11 +2,14 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateUserInput } from 'src/users/dto/create-user.dto';
 import { GetUserInput } from 'src/users/dto/get-user.dto';
+import { ClientUserData } from 'src/users/schemas/user.schema';
 
 import { AuthService } from './auth.service';
 import { GqlCtx } from './auth.types';
 import { AuthResponse } from './dto/auth.response.dto';
+import { JwtGqlAuthGuard } from './guards/jwt-gql-auth.guard';
 import { LocalGqlAuthGuard } from './guards/local-gql-auth.guard';
+import { transformUserToClientUser } from './helpers/transform-user-to-client-user';
 
 @Resolver('auth')
 export class AuthResolver {
@@ -24,5 +27,11 @@ export class AuthResolver {
     @Context() context: GqlCtx
   ): Promise<AuthResponse> {
     return this.authService.login(context.req.user);
+  }
+
+  @Query(() => ClientUserData)
+  @UseGuards(JwtGqlAuthGuard)
+  async isAuthenticated(@Context() context: GqlCtx): Promise<ClientUserData> {
+    return transformUserToClientUser(context.req.user);
   }
 }
