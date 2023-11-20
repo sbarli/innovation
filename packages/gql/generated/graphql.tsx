@@ -364,6 +364,11 @@ export type UpdatePlayerGameDetailsInput = {
 
 export type AuthResponseFragmentFragment = { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'ClientUserData', _id: string, displayName: string, email: string } };
 
+export type IsAuthenticatedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type IsAuthenticatedQuery = { __typename?: 'Query', isAuthenticated: { __typename?: 'ClientUserData', _id: string } };
+
 export type LoginQueryVariables = Exact<{
   loginUserInput: GetUserInput;
 }>;
@@ -452,6 +457,45 @@ export const ResourceTotalsFragmentDoc = gql`
   }
 }
     `;
+export const IsAuthenticatedDocument = gql`
+    query IsAuthenticated {
+  isAuthenticated {
+    _id
+  }
+}
+    `;
+
+/**
+ * __useIsAuthenticatedQuery__
+ *
+ * To run a query within a React component, call `useIsAuthenticatedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIsAuthenticatedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useIsAuthenticatedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useIsAuthenticatedQuery(baseOptions?: Apollo.QueryHookOptions<IsAuthenticatedQuery, IsAuthenticatedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<IsAuthenticatedQuery, IsAuthenticatedQueryVariables>(IsAuthenticatedDocument, options);
+      }
+export function useIsAuthenticatedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<IsAuthenticatedQuery, IsAuthenticatedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<IsAuthenticatedQuery, IsAuthenticatedQueryVariables>(IsAuthenticatedDocument, options);
+        }
+export function useIsAuthenticatedSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<IsAuthenticatedQuery, IsAuthenticatedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<IsAuthenticatedQuery, IsAuthenticatedQueryVariables>(IsAuthenticatedDocument, options);
+        }
+export type IsAuthenticatedQueryHookResult = ReturnType<typeof useIsAuthenticatedQuery>;
+export type IsAuthenticatedLazyQueryHookResult = ReturnType<typeof useIsAuthenticatedLazyQuery>;
+export type IsAuthenticatedSuspenseQueryHookResult = ReturnType<typeof useIsAuthenticatedSuspenseQuery>;
+export type IsAuthenticatedQueryResult = Apollo.QueryResult<IsAuthenticatedQuery, IsAuthenticatedQueryVariables>;
 export const LoginDocument = gql`
     query Login($loginUserInput: GetUserInput!) {
   login(loginUserInput: $loginUserInput) {

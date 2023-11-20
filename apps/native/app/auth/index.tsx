@@ -1,4 +1,4 @@
-import { AuthScreen } from '../../src/screens/AuthScreen';
+import { AuthScreen } from '../../src/authentication/screens/AuthScreen';
 
 // eslint-disable-next-line import/no-default-export
 export default function Auth() {

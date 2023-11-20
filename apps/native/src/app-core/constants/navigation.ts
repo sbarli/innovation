@@ -3,3 +3,8 @@ export enum Routes {
   EXAMPLES = '/examples',
   HOME = '/',
 }
+
+export enum AuthRouteParams {
+  LOGIN = 'login',
+  SIGNUP = 'signup',
+}

@@ -1,0 +1,5 @@
+query IsAuthenticated {
+  isAuthenticated { 
+    _id
+  }
+}
