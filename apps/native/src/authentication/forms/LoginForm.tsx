@@ -4,9 +4,11 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { FormError } from '../../app-core/forms/FormError';
 import { LoginFormData } from '../auth.types';
+import { useAuthContext } from '../state/AuthProvider';
 import { loginFormSchema } from '../validation/login-schema';
 
 export const LoginForm = () => {
+  const { login } = useAuthContext();
   const {
     control,
     handleSubmit,
@@ -18,7 +20,9 @@ export const LoginForm = () => {
     },
     resolver: zodResolver(loginFormSchema),
   });
-  const onSubmit = (data: LoginFormData) => console.log(JSON.stringify(data, null, 2));
+  const onSubmit = (data: LoginFormData) => {
+    login(data);
+  };
   return (
     <Box w="$1/2">
       <Box marginBottom="$5">
