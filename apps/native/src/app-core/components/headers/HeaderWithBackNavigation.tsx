@@ -1,12 +1,9 @@
 import { ArrowLeftIcon, Box, Button, ButtonIcon, HStack, Heading } from '@gluestack-ui/themed';
 
-import { useNavigateBack } from '../hooks/navigation/useNavigateBack';
+import { useNavigateBack } from '../../hooks/navigation/useNavigateBack';
+import { IHeaderProps } from '../../types/header.types';
 
-export interface INavigationHeaderProps {
-  title: string;
-}
-
-export const HeaderWithBackNavigation = ({ title }: INavigationHeaderProps) => {
+export const HeaderWithBackNavigation = ({ title }: IHeaderProps) => {
   const { navigateBack } = useNavigateBack();
   return (
     <HStack backgroundColor="$primary500" marginBottom="$5" paddingVertical="$2">

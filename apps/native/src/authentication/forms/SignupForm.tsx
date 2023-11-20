@@ -4,9 +4,11 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { FormError } from '../../app-core/forms/FormError';
 import { SignupFormData } from '../auth.types';
+import { useAuthContext } from '../state/AuthProvider';
 import { signupFormSchema } from '../validation/signup-schema';
 
 export const SignupForm = () => {
+  const { signup } = useAuthContext();
   const {
     control,
     handleSubmit,
@@ -20,7 +22,13 @@ export const SignupForm = () => {
     },
     resolver: zodResolver(signupFormSchema),
   });
-  const onSubmit = (data: SignupFormData) => console.log(JSON.stringify(data, null, 2));
+  const onSubmit = (data: SignupFormData) => {
+    signup({
+      displayName: data.displayName,
+      email: data.email,
+      password: data.password,
+    });
+  };
   return (
     <Box w="$1/2">
       <Box marginBottom="$5">
