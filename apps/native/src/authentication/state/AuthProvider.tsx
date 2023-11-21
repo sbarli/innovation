@@ -6,6 +6,7 @@ import { ClientUserData, useIsAuthenticatedQuery } from '@inno/gql';
 
 import { StorageKeys } from '../../app-core/constants/storage.constants';
 import { TAuthContext, IAuthCallback } from '../auth.types';
+import { getGraphQLErrorMessage } from '../helpers/get-graphql-error-message';
 import { useLogin } from '../hooks/useLogin';
 import { useSignup } from '../hooks/useSIgnup';
 
@@ -58,8 +59,11 @@ export function AuthProvider(props: PropsWithChildren) {
     return true;
   }, []);
 
-  const { loading: loginLoading, login } = useLogin(authCallback);
-  const { loading: signupLoading, signup } = useSignup(authCallback);
+  const { error: loginError, loading: loginLoading, login } = useLogin(authCallback);
+  const { error: signupError, loading: signupLoading, signup } = useSignup(authCallback);
+
+  const signupErrorMessage = signupError ? getGraphQLErrorMessage(signupError) : undefined;
+  const loginErrorMessage = loginError ? getGraphQLErrorMessage(loginError) : undefined;
 
   return (
     <AuthContext.Provider
@@ -68,7 +72,9 @@ export function AuthProvider(props: PropsWithChildren) {
         isLoading:
           isAuthenticated === null || isAuthenticatedLoading || loginLoading || signupLoading,
         login,
+        loginError: loginErrorMessage,
         signup,
+        signupError: signupErrorMessage,
         user,
       }}
     >
