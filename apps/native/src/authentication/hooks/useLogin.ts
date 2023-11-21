@@ -6,7 +6,7 @@ import { Routes } from '../../app-core/constants/navigation';
 import { AuthCallbackFn } from '../auth.types';
 
 export const useLogin = (authCallback: AuthCallbackFn) => {
-  const [loginQuery, { loading }] = useLoginLazyQuery();
+  const [loginQuery, { loading, error }] = useLoginLazyQuery();
 
   const login = async (loginData: GetUserInput) => {
     await loginQuery({
@@ -29,8 +29,7 @@ export const useLogin = (authCallback: AuthCallbackFn) => {
           });
         }
       },
-      onError(error) {
-        console.error('Login Error: ', error);
+      onError() {
         authCallback({
           success: false,
         });
@@ -39,6 +38,7 @@ export const useLogin = (authCallback: AuthCallbackFn) => {
   };
 
   return {
+    error,
     loading,
     login,
   };

@@ -11,6 +11,7 @@ import { getCatchErrorMessage } from '@inno/utils';
 import { AccessTokenPayload } from './dto/access-token-payload.dto';
 import { AuthResponse } from './dto/auth.response.dto';
 import { ValidateUserInput } from './dto/validate-user.dto';
+import { isDuplicateKeyError } from './helpers/check-if-duplicate-key-mongo-error';
 import { stripPasswordFromUser } from './helpers/strip-password-from-user';
 import { transformUserToClientUser } from './helpers/transform-user-to-client-user';
 
@@ -73,9 +74,13 @@ export class AuthService {
       };
       return signupResponse;
     } catch (error) {
-      throw new Error(
-        getCatchErrorMessage(error) ?? 'authService.signup -> Unable to signup new user'
+      const failedDueToExistingUser = isDuplicateKeyError(getCatchErrorMessage(error, ''));
+      console.error(
+        failedDueToExistingUser
+          ? `authService.signup -> Unable to signup new user because user already exists with email ${data.email}`
+          : getCatchErrorMessage(error ?? 'authService.signup -> Unable to signup new user')
       );
+      throw new Error('Unable to signup new user');
     }
   }
 
@@ -92,9 +97,8 @@ export class AuthService {
       };
       return loginResponse;
     } catch (error) {
-      throw new Error(
-        getCatchErrorMessage(error) ?? 'authService.signup -> Unable to signup new user'
-      );
+      console.error(getCatchErrorMessage(error ?? 'authService.login -> Unable to login new user'));
+      throw new Error('Unable to login.');
     }
   }
 }

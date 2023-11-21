@@ -38,9 +38,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       }
       return stripPasswordFromUser(user);
     } catch (error) {
-      throw new UnauthorizedException(
+      console.error(
         getCatchErrorMessage(error) ?? 'JwtStrategy.validate -> Unable to validate user'
       );
+      throw new UnauthorizedException();
     }
   }
 }

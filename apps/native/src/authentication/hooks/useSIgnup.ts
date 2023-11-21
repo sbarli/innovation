@@ -6,7 +6,7 @@ import { Routes } from '../../app-core/constants/navigation';
 import { AuthCallbackFn } from '../auth.types';
 
 export const useSignup = (authCallback: AuthCallbackFn) => {
-  const [signupMutation, { loading }] = useSignupMutation();
+  const [signupMutation, { loading, error }] = useSignupMutation();
 
   const signup = async (signupData: CreateUserInput) => {
     signupMutation({
@@ -29,8 +29,7 @@ export const useSignup = (authCallback: AuthCallbackFn) => {
           });
         }
       },
-      onError(error) {
-        console.error('Signup Error: ', error);
+      onError() {
         authCallback({
           success: false,
         });
@@ -39,6 +38,7 @@ export const useSignup = (authCallback: AuthCallbackFn) => {
   };
 
   return {
+    error,
     loading,
     signup,
   };

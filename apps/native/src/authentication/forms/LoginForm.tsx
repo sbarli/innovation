@@ -8,7 +8,7 @@ import { useAuthContext } from '../state/AuthProvider';
 import { loginFormSchema } from '../validation/login-schema';
 
 export const LoginForm = () => {
-  const { login } = useAuthContext();
+  const { login, loginError } = useAuthContext();
   const {
     control,
     handleSubmit,
@@ -90,6 +90,7 @@ export const LoginForm = () => {
       >
         <ButtonText>Submit</ButtonText>
       </Button>
+      <FormError errorMsg={loginError} />
     </Box>
   );
 };
