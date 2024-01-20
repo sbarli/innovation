@@ -11,6 +11,8 @@ import {
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
 
+import { SocketEvent } from '@inno/constants';
+
 import { SocketService } from './socket.service';
 
 @WebSocketGateway({
@@ -39,17 +41,17 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     return this.socketService.handleConnection(socket);
   }
 
-  @SubscribeMessage('createRoom')
+  @SubscribeMessage(SocketEvent.CREATE_ROOM)
   createRoom(@MessageBody('roomId') roomId: string, @ConnectedSocket() socket: Socket) {
     return this.socketService.handleCreateRoom(socket, roomId);
   }
 
-  @SubscribeMessage('joinRoom')
+  @SubscribeMessage(SocketEvent.JOIN_ROOM)
   joinRoom(@MessageBody('roomId') roomId: string, @ConnectedSocket() socket: Socket) {
     return this.socketService.handleJoinRoom(socket, roomId);
   }
 
-  @SubscribeMessage('leaveRoom')
+  @SubscribeMessage(SocketEvent.LEAVE_ROOM)
   leaveRoom(@MessageBody('roomId') roomId: string, @ConnectedSocket() socket: Socket) {
     return this.socketService.handleLeaveRoom(socket, roomId);
   }
