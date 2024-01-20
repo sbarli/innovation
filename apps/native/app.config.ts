@@ -4,12 +4,10 @@ const APP_NAME = 'Innovation';
 const APP_ORIENTATION = 'landscape';
 const APP_SLUG = 'innovation';
 const APP_VERSION = {
-  major: 1,
-  minor: 0,
+  major: 0,
+  minor: 1,
   fix: 0,
 };
-const EXPO_PROJECT_ID = 'ea3d151c-beca-4db0-a089-268fbbe3d3ea';
-const EXPO_OWNER_HANDLE = 'sbarli';
 
 const getAppVersion = () => `${APP_VERSION.major}.${APP_VERSION.minor}.${APP_VERSION.fix}`;
 
@@ -22,9 +20,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   orientation: APP_ORIENTATION,
   extra: {
     eas: {
-      projectId: EXPO_PROJECT_ID,
+      projectId: process.env['EXPO_PUBLIC_PROJECT_ID'] ?? '',
     },
   },
-  owner: EXPO_OWNER_HANDLE,
+  owner: process.env['EXPO_PUBLIC_OWNER_HANDLE'] ?? '',
   plugins: ['expo-router'],
 });

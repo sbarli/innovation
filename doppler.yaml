@@ -1,7 +1,8 @@
 setup:
-  - project: innovation
-    config: dev_backend
-    path: ./apps/backend/
-  - project: innovation
-    config: dev_native
+  - project: native
+    config: dev
     path: ./apps/native/
+  - project: backend
+    config: dev
+    path: ./apps/backend/
+  
