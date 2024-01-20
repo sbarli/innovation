@@ -1,6 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Socket } from 'socket.io';
 
+import { SocketEvent, SocketEventError, SocketEventErrorCode } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
 
 export type Room = {
@@ -8,7 +9,6 @@ export type Room = {
   host: string;
   clientsInRoom: string[];
 };
-
 @Injectable()
 export class SocketService {
   private logger: Logger = new Logger('SocketService');
@@ -36,7 +36,7 @@ export class SocketService {
         host: remainingClientsInRoom[0],
         clientsInRoom: remainingClientsInRoom,
       });
-      socket.to(roomId).emit('hostLeftRoomNewHostAssigned', {
+      socket.to(roomId).emit(SocketEvent.HOST_LEFT_ROOM_NEW_HOST_ASSIGNED, {
         oldHost: socket.id,
         newHost: remainingClientsInRoom[0],
       });
@@ -63,7 +63,7 @@ export class SocketService {
       ...roomData,
       clientsInRoom: remainingClientsInRoom,
     });
-    socket.to(roomId).emit('userLeftRoom', {
+    socket.to(roomId).emit(SocketEvent.USER_LEFT_ROOM, {
       clientId: socket.id,
     });
     return;
@@ -110,10 +110,16 @@ export class SocketService {
     try {
       if (this.rooms.has(roomId)) {
         this.logger.error(`could not create room with id ${roomId}: Room already exists`);
-        throw new Error(`could not create room with id ${roomId}: Room already exists`);
+        const errorData: SocketEventError = {
+          errorCode: SocketEventErrorCode.DUPE,
+          message: 'Room already exists',
+        };
+        socket.emit('createRoomError', errorData);
+        return;
       }
       this.rooms.set(roomId, { roomId, host: socket.id, clientsInRoom: [] });
-      return this.handleJoinRoom(socket, roomId, true);
+      socket.emit(SocketEvent.CREATE_ROOM_SUCCESS, roomId);
+      return this.handleJoinRoom(socket, roomId);
     } catch (error) {
       const errorMessage =
         getCatchErrorMessage(error) ??
@@ -127,7 +133,7 @@ export class SocketService {
    * @name handleJoinRoom
    * @description handles adding socket to existing room and notifying existing clients of the new member
    */
-  handleJoinRoom(socket: Socket, roomId: string, newRoom: boolean = false) {
+  handleJoinRoom(socket: Socket, roomId: string) {
     try {
       const roomData = this.rooms.get(roomId);
       if (!roomData) {
@@ -136,18 +142,17 @@ export class SocketService {
       }
       if (socket.rooms.has(roomId)) {
         this.logger.warn(`${socket.id} already in room ${roomId}`);
-        return { event: 'socketInRoom', roomId };
+        socket.emit(SocketEvent.ALREADY_IN_ROOM, roomId);
+        return;
       }
       this.rooms.set(roomId, {
         ...roomData,
         clientsInRoom: [...roomData.clientsInRoom, socket.id],
       });
       socket.join(roomId);
-      if (newRoom) {
-        socket.to(roomId).emit('roomCreated');
-      }
-      socket.to(roomId).emit('userJoinedRoom', { clientId: socket.id });
-      return { event: 'roomJoined', roomId };
+      socket.to(roomId).emit(SocketEvent.USER_JOINED_ROOM, { clientId: socket.id });
+      socket.emit(SocketEvent.ROOM_JOINED, roomId);
+      return;
     } catch (error) {
       const errorMessage =
         getCatchErrorMessage(error) ?? `Unable to join room for socket user ${socket.id}`;
@@ -176,7 +181,8 @@ export class SocketService {
         return this.handleDisconnectedRoomHost(socket, roomId, roomData);
       }
       this.handleDisconnectedRoomGuest(socket, roomId, roomData);
-      return { event: 'leftRoom', roomId };
+      socket.emit(SocketEvent.LEFT_ROOM, roomId);
+      return;
     } catch (error) {
       const errorMessage =
         getCatchErrorMessage(error) ?? `Unable to leave room for socket user ${socket.id}`;
