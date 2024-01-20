@@ -34,6 +34,22 @@ cd apps/backend && yarn dev
 yarn workspace @inno/backend dev
 ```
 
+**Run the native app**
+```bash
+# REOMMENDED
+yarn dev:native
+
+# OR
+
+# NOT RECOMMENDED
+cd apps/native && yarn dev
+
+# OR
+
+# NOT RECOMMENDED
+yarn workspace @inno/native dev
+```
+
 ### Mongo
 
 **!!Important**: If facing errors starting the backend due to Mongoose not connecting, make sure your IP is allow-listed in MongoDb.
