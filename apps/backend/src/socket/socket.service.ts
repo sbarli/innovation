@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Socket } from 'socket.io';
 
 import { SocketEvent, SocketEventError, SocketEventErrorCode } from '@inno/constants';
@@ -110,11 +110,12 @@ export class SocketService {
     try {
       if (this.rooms.has(roomId)) {
         this.logger.error(`could not create room with id ${roomId}: Room already exists`);
-        const errorData: SocketEventError = {
-          errorCode: SocketEventErrorCode.DUPE,
-          message: 'Room already exists',
-        };
-        socket.emit('createRoomError', errorData);
+        const errorData = new SocketEventError(
+          SocketEventErrorCode.DUPE,
+          'A room with this name already exits. Please try another name!',
+          { roomId }
+        );
+        socket.emit(SocketEvent.CREATE_ROOM_ERROR, errorData);
         return;
       }
       this.rooms.set(roomId, { roomId, host: socket.id, clientsInRoom: [] });
@@ -125,6 +126,11 @@ export class SocketService {
         getCatchErrorMessage(error) ??
         `handleCreateRoom: Unable to create room ${roomId} for socket user ${socket.id}`;
       this.logger.error(errorMessage);
+      const errorData = new SocketEventError(
+        SocketEventErrorCode.UNKNOWN,
+        'An error occurred. Please try again!'
+      );
+      socket.emit(SocketEvent.CREATE_ROOM_ERROR, errorData);
       throw new Error(errorMessage);
     }
   }
@@ -138,11 +144,22 @@ export class SocketService {
       const roomData = this.rooms.get(roomId);
       if (!roomData) {
         this.logger.error(`${socket.id} could not join room with id ${roomId}: Room not found`);
-        throw new NotFoundException(`Room ${roomId} not found`);
+        const errorData = new SocketEventError(
+          SocketEventErrorCode.NOT_FOUND,
+          'Room not found. Check the room name and try again!',
+          { roomId }
+        );
+        socket.emit(SocketEvent.JOIN_ROOM_ERROR, errorData);
+        return;
       }
       if (socket.rooms.has(roomId)) {
         this.logger.warn(`${socket.id} already in room ${roomId}`);
-        socket.emit(SocketEvent.ALREADY_IN_ROOM, roomId);
+        const errorData = new SocketEventError(
+          SocketEventErrorCode.DUPE,
+          'You are already in this room!',
+          { roomId }
+        );
+        socket.emit(SocketEvent.JOIN_ROOM_ERROR, errorData);
         return;
       }
       this.rooms.set(roomId, {
@@ -151,12 +168,17 @@ export class SocketService {
       });
       socket.join(roomId);
       socket.to(roomId).emit(SocketEvent.USER_JOINED_ROOM, { clientId: socket.id });
-      socket.emit(SocketEvent.ROOM_JOINED, roomId);
+      socket.emit(SocketEvent.JOIN_ROOM_SUCCESS, roomId);
       return;
     } catch (error) {
       const errorMessage =
-        getCatchErrorMessage(error) ?? `Unable to join room for socket user ${socket.id}`;
+        getCatchErrorMessage(error) ?? `Unable to join room ${roomId} for socket user ${socket.id}`;
       this.logger.error(errorMessage);
+      const errorData = new SocketEventError(
+        SocketEventErrorCode.UNKNOWN,
+        'An error occurred. Please try again!'
+      );
+      socket.emit(SocketEvent.JOIN_ROOM_ERROR, errorData);
       throw new Error(errorMessage);
     }
   }
@@ -170,23 +192,35 @@ export class SocketService {
       const roomData = this.rooms.get(roomId);
       if (!roomData) {
         this.logger.error(`${roomId}: Room not found`);
-        throw new NotFoundException(`Room ${roomId} not found`);
+        const errorData = new SocketEventError(
+          SocketEventErrorCode.NOT_FOUND,
+          'Unable to leave room.',
+          { roomId }
+        );
+        socket.emit(SocketEvent.LEAVE_ROOM_ERROR, errorData);
+        return;
       }
       if (!socket.rooms.has(roomId)) {
-        this.logger.error(`${socket.id} is not in room ${roomId}`);
-        throw new Error(`${socket.id} is already not in room ${roomId}`);
+        this.logger.warn(`${socket.id} tried to leave ${roomId}: user already not in room`);
+        return;
       }
       socket.leave(roomId);
       if (roomData.host == socket.id) {
         return this.handleDisconnectedRoomHost(socket, roomId, roomData);
       }
       this.handleDisconnectedRoomGuest(socket, roomId, roomData);
-      socket.emit(SocketEvent.LEFT_ROOM, roomId);
+      socket.emit(SocketEvent.LEAVE_ROOM_SUCCESS, roomId);
       return;
     } catch (error) {
       const errorMessage =
-        getCatchErrorMessage(error) ?? `Unable to leave room for socket user ${socket.id}`;
+        getCatchErrorMessage(error) ??
+        `Unable to leave room ${roomId} for socket user ${socket.id}`;
       this.logger.error(errorMessage);
+      const errorData = new SocketEventError(
+        SocketEventErrorCode.UNKNOWN,
+        'An error occurred. Please try again!'
+      );
+      socket.emit(SocketEvent.LEAVE_ROOM_ERROR, errorData);
       throw new Error(errorMessage);
     }
   }
