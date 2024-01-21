@@ -1,12 +1,12 @@
 import { Slot } from 'expo-router';
 
-import { HeaderWithBackNavigation } from '../../../src/app-core/components/headers/HeaderWithBackNavigation';
+import { HeaderNoNav } from '../../../src/app-core/components/headers/HeaderNoNav';
 
 // eslint-disable-next-line import/no-default-export
 export default function HomeLayout() {
   return (
     <>
-      <HeaderWithBackNavigation title="Home" />
+      <HeaderNoNav title="Home" />
       <Slot />
     </>
   );
