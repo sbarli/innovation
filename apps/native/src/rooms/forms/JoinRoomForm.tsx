@@ -4,7 +4,7 @@ import { Box, Button, ButtonText, Input, InputField } from '@gluestack-ui/themed
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 
-import { SocketEvent } from '@inno/constants';
+import { SocketEvent, SocketEventError } from '@inno/constants';
 
 import { FormError } from '../../app-core/forms/FormError';
 import { socket } from '../../websockets/socket';
@@ -34,13 +34,13 @@ export const JoinRoomForm = ({ onJoinSuccess }: IJoinRoomFormProps) => {
   };
 
   useEffect(() => {
-    socket.on(SocketEvent.ALREADY_IN_ROOM, () => {
+    socket.on(SocketEvent.JOIN_ROOM_ERROR, (error: SocketEventError) => {
       setError('roomId', {
         type: 'custom',
-        message: 'You are already in this room!',
+        message: error.message,
       });
     });
-    socket.on(SocketEvent.ROOM_JOINED, (roomId: string) => {
+    socket.on(SocketEvent.JOIN_ROOM_SUCCESS, (roomId: string) => {
       onJoinSuccess(roomId);
     });
   }, [socket]);

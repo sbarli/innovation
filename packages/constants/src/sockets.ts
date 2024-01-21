@@ -1,20 +1,25 @@
 export enum SocketEventErrorCode {
   DUPE = 50,
+  NOT_FOUND = 75,
   UNKNOWN = 100,
 }
 
-export type SocketEventError = {
-  errorCode: SocketEventErrorCode;
-  message: string;
-};
+export class SocketEventError {
+  constructor(
+    public errorCode: SocketEventErrorCode,
+    public message: string,
+    public data?: unknown
+  ) {}
+}
 
 export enum SocketEvent {
   // server-emitted events
-  ALREADY_IN_ROOM = 'alreadyInRoom',
   CREATE_ROOM_ERROR = 'createRoomError',
   CREATE_ROOM_SUCCESS = 'createRoomSuccess',
-  LEFT_ROOM = 'leftRoom',
-  ROOM_JOINED = 'roomJoined',
+  JOIN_ROOM_ERROR = 'joinRoomError',
+  JOIN_ROOM_SUCCESS = 'joinRoomSuccess',
+  LEAVE_ROOM_SUCCESS = 'leaveRoomSuccess',
+  LEAVE_ROOM_ERROR = 'leaveRoomError',
 
   // client-Emitted Events
   CREATE_ROOM = 'createRoom',
