@@ -16,9 +16,14 @@
     "@inno/backend#dev": {
       "dependsOn": ["^@inno/utils#build", "^@inno/constants#build"]
     },
+    "@inno/constants#build": {},
     "@inno/gql#build": {},
     "@inno/native#dev": {
-      "dependsOn": ["^@inno/gql#build", "^@inno/utils#build"]
+      "dependsOn": [
+        "^@inno/constants#build",
+        "^@inno/gql#build",
+        "^@inno/utils#build"
+      ]
     },
     "@inno/utils#build": {},
     "lint": {},
