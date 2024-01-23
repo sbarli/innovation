@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import {
   WebSocketGateway,
   OnGatewayConnection,
@@ -10,6 +10,7 @@ import {
   MessageBody,
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
+import { JwtWsAuthGuard } from 'src/auth/guards/jwt-ws-auth.guard';
 
 import { SocketEvent } from '@inno/constants';
 
@@ -41,16 +42,19 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     return this.socketService.handleConnection(socket);
   }
 
+  @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.CREATE_ROOM)
   createRoom(@MessageBody('roomId') roomId: string, @ConnectedSocket() socket: Socket) {
     return this.socketService.handleCreateRoom(socket, roomId);
   }
 
+  @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.JOIN_ROOM)
   joinRoom(@MessageBody('roomId') roomId: string, @ConnectedSocket() socket: Socket) {
     return this.socketService.handleJoinRoom(socket, roomId);
   }
 
+  @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.LEAVE_ROOM)
   leaveRoom(@MessageBody('roomId') roomId: string, @ConnectedSocket() socket: Socket) {
     return this.socketService.handleLeaveRoom(socket, roomId);
