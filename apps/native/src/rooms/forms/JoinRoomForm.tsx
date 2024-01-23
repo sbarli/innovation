@@ -3,20 +3,21 @@ import { useEffect } from 'react';
 import { Box, Button, ButtonText, Input, InputField } from '@gluestack-ui/themed';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
+import { Socket } from 'socket.io-client';
 
 import { SocketEvent, SocketEventError } from '@inno/constants';
 
 import { FormError } from '../../app-core/forms/FormError';
-import { socket } from '../../websockets/socket';
 import { JoinRoomFormData } from '../room.types';
 
 import { joinRoomFormSchema } from './validation/join-room-schema';
 
 export interface IJoinRoomFormProps {
   onJoinSuccess: (roomId: string) => void;
+  socket?: Socket;
 }
 
-export const JoinRoomForm = ({ onJoinSuccess }: IJoinRoomFormProps) => {
+export const JoinRoomForm = ({ onJoinSuccess, socket }: IJoinRoomFormProps) => {
   const {
     control,
     formState: { errors },
@@ -30,19 +31,30 @@ export const JoinRoomForm = ({ onJoinSuccess }: IJoinRoomFormProps) => {
   });
 
   const onSubmit = async (data: JoinRoomFormData) => {
-    socket.emit(SocketEvent.JOIN_ROOM, data);
+    if (!socket || !socket?.connected) {
+      setError('roomId', {
+        type: 'custom',
+        message: 'Unexpected error occurred. Please refresh and try again!',
+      });
+    }
+    socket?.emit(SocketEvent.JOIN_ROOM, data);
   };
 
   useEffect(() => {
-    socket.on(SocketEvent.JOIN_ROOM_ERROR, (error: SocketEventError) => {
+    socket?.on(SocketEvent.JOIN_ROOM_ERROR, (error: SocketEventError) => {
       setError('roomId', {
         type: 'custom',
         message: error.message,
       });
     });
-    socket.on(SocketEvent.JOIN_ROOM_SUCCESS, (roomId: string) => {
+    socket?.on(SocketEvent.JOIN_ROOM_SUCCESS, (roomId: string) => {
       onJoinSuccess(roomId);
     });
+
+    return () => {
+      socket?.removeListener(SocketEvent.JOIN_ROOM_ERROR);
+      socket?.removeListener(SocketEvent.JOIN_ROOM_SUCCESS);
+    };
   }, [socket]);
 
   return (

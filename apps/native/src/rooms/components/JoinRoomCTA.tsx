@@ -2,12 +2,17 @@ import { useCallback, useState } from 'react';
 
 import { Button, ButtonText, Center } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
+import { Socket } from 'socket.io-client';
 
 import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
 import { Routes } from '../../app-core/constants/navigation';
 import { JoinRoomForm } from '../forms/JoinRoomForm';
 
-export const JoinRoomCTA = () => {
+export interface IJoinRoomCTAProps {
+  socket?: Socket;
+}
+
+export const JoinRoomCTA = ({ socket }: IJoinRoomCTAProps) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = useCallback(() => {
@@ -33,7 +38,7 @@ export const JoinRoomCTA = () => {
         onClose={handleClose}
         showModal={showModal}
       >
-        <JoinRoomForm onJoinSuccess={handleJoinedRoom} />
+        <JoinRoomForm onJoinSuccess={handleJoinedRoom} socket={socket} />
       </InteractiveModal>
     </Center>
   );
