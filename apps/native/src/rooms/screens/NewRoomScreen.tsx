@@ -1,26 +1,13 @@
-import { useEffect } from 'react';
-
 import { Box } from '@gluestack-ui/themed';
-import { router } from 'expo-router';
 
-import { SocketEvent } from '@inno/constants';
-
-import { Routes } from '../../app-core/constants/navigation';
-import { socket } from '../../websockets/socket';
+import { useSocketContext } from '../../websockets/SocketProvider';
 import { NewRoomForm } from '../forms/NewRoomForm';
 
 export const NewRoomScreen = () => {
-  useEffect(() => {
-    socket.on(SocketEvent.ROOM_JOINED, (roomId: string) => {
-      router.push({
-        pathname: Routes.ROOM,
-        params: { roomId },
-      });
-    });
-  }, [socket]);
+  const { socket } = useSocketContext();
   return (
     <Box alignItems="center">
-      <NewRoomForm />
+      <NewRoomForm socket={socket} />
     </Box>
   );
 };

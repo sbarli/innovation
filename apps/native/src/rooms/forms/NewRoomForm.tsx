@@ -2,17 +2,23 @@ import { useEffect } from 'react';
 
 import { Box, Button, ButtonText, Input, InputField } from '@gluestack-ui/themed';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { router } from 'expo-router';
 import { Controller, useForm } from 'react-hook-form';
+import { Socket } from 'socket.io-client';
 
 import { SocketEvent, SocketEventError, SocketEventErrorCode } from '@inno/constants';
 
+import { Routes } from '../../app-core/constants/navigation';
 import { FormError } from '../../app-core/forms/FormError';
-import { socket } from '../../websockets/socket';
 import { NewRoomFormData } from '../room.types';
 
 import { newRoomFormSchema } from './validation/new-room-schema';
 
-export const NewRoomForm = () => {
+export interface INewRoomFormProps {
+  socket?: Socket;
+}
+
+export const NewRoomForm = ({ socket }: INewRoomFormProps) => {
   const {
     control,
     formState: { errors },
@@ -26,11 +32,17 @@ export const NewRoomForm = () => {
   });
 
   const onSubmit = async (data: NewRoomFormData) => {
-    socket.emit(SocketEvent.CREATE_ROOM, data);
+    if (!socket || !socket?.connected) {
+      setError('roomId', {
+        type: 'custom',
+        message: 'Unexpected error occurred. Please refresh and try again!',
+      });
+    }
+    socket?.emit(SocketEvent.CREATE_ROOM, data);
   };
 
   useEffect(() => {
-    socket.on(SocketEvent.CREATE_ROOM_ERROR, (error: SocketEventError) => {
+    socket?.on(SocketEvent.CREATE_ROOM_ERROR, (error: SocketEventError) => {
       if (error.errorCode === SocketEventErrorCode.DUPE) {
         setError('roomId', {
           type: 'unique',
@@ -38,6 +50,16 @@ export const NewRoomForm = () => {
         });
       }
     });
+    socket?.on(SocketEvent.JOIN_ROOM_SUCCESS, (roomId: string) => {
+      router.push({
+        pathname: Routes.ROOM,
+        params: { roomId },
+      });
+    });
+    return () => {
+      socket?.removeListener(SocketEvent.CREATE_ROOM_ERROR);
+      socket?.removeListener(SocketEvent.CREATE_ROOM_SUCCESS);
+    };
   }, [socket]);
 
   return (
