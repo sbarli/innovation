@@ -5,6 +5,7 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { ClientUserData, useIsAuthenticatedQuery } from '@inno/gql';
 
 import { StorageKeys } from '../../app-core/constants/storage.constants';
+import { useSocketContext } from '../../websockets/SocketProvider';
 import { TAuthContext, IAuthCallback } from '../auth.types';
 import { getGraphQLErrorMessage } from '../helpers/get-graphql-error-message';
 import { useLogin } from '../hooks/useLogin';
@@ -22,6 +23,7 @@ export function useAuthContext() {
 }
 
 export function AuthProvider(props: PropsWithChildren) {
+  const { connectUserToSocket, disconnectUserFromSocket } = useSocketContext();
   const { setItem: setAuthToken, removeItem: clearAuthToken } = useAsyncStorage(
     StorageKeys.AUTH_TOKEN
   );
@@ -34,11 +36,13 @@ export function AuthProvider(props: PropsWithChildren) {
       if (data?.isAuthenticated?._id) {
         return setIsAuthenticated(true);
       }
+      clearAuthToken();
       setIsAuthenticated(false);
     },
     onError() {
       clearAuthToken();
       setIsAuthenticated(false);
+      disconnectUserFromSocket();
     },
   });
 
@@ -47,10 +51,12 @@ export function AuthProvider(props: PropsWithChildren) {
       await clearAuthToken();
       setUser(undefined);
       setIsAuthenticated(false);
+      disconnectUserFromSocket();
       return false;
     }
     if (authToken) {
       await setAuthToken(authToken);
+      connectUserToSocket(authToken, true);
     }
     if (user) {
       setUser(user);
