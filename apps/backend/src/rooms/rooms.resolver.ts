@@ -14,6 +14,7 @@ export class RoomsResolver {
   constructor(private readonly roomsService: RoomsService) {}
 
   @Query(() => Room, { nullable: true })
+  @UseGuards(JwtGqlAuthGuard)
   async getRoom(@Args('roomRef', { type: () => String }) roomRef: string): Promise<NullishRoom> {
     try {
       return this.roomsService.findRoomByRef(roomRef);
@@ -45,9 +46,14 @@ export class RoomsResolver {
   }
 
   @Mutation(() => Room)
-  async createNewRoom(
+  @UseGuards(JwtGqlAuthGuard)
+  async createRoom(
+    @CurrentUser() user: UserWithoutPassword,
     @Args('newRoomData', { type: () => CreateRoomInput }) newRoomData: CreateRoomInput
   ): Promise<Room> {
-    return await this.roomsService.createRoom(newRoomData);
+    return await this.roomsService.createRoom({
+      newRoomData,
+      user,
+    });
   }
 }

@@ -1,6 +1,6 @@
-fragment AuthResponseFragment on AuthResponse { 
+fragment AuthResponseData on AuthResponse { 
   access_token
   user {
-    ...UserFragment
+    ...UserDetails
   }
 }

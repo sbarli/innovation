@@ -1,0 +1,7 @@
+fragment RoomData on Room {
+  _id
+  roomName
+  hostRef
+  connectedPlayerRefs
+  availableToJoin
+}

@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 import { UsersService } from 'src/users/users.service';
 
 import { getCatchErrorMessage } from '@inno/utils';
 
 import { PlayerRoomType } from './rooms.types';
 import { CreateRoomInput, NullishRoom, Room, RoomDocument } from './schemas/room.schema';
+
+export interface ICreateRoomProps {
+  newRoomData: CreateRoomInput;
+  user: UserWithoutPassword;
+}
 
 @Injectable()
 export class RoomsService {
@@ -59,10 +65,11 @@ export class RoomsService {
     }
   }
 
-  async createRoom(newRoomData: CreateRoomInput): Promise<Room> {
+  async createRoom({ newRoomData, user }: ICreateRoomProps): Promise<Room> {
     try {
       const createdRoom = new this.roomModel({
         ...newRoomData,
+        hostRef: user._id,
         connectedPlayerRefs: [],
         availableToJoin: true,
       });

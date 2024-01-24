@@ -1,4 +1,4 @@
-fragment BaseCardFragment on Card {
+fragment BaseCard on Card {
   _id
   cardId
   name

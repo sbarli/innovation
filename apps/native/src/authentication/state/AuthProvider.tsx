@@ -34,24 +34,27 @@ export function AuthProvider(props: PropsWithChildren) {
     fetchPolicy: 'no-cache',
     onCompleted(data) {
       if (data?.isAuthenticated?._id) {
-        return setIsAuthenticated(true);
+        setIsAuthenticated(true);
+        setUser(data.isAuthenticated);
+        return true;
       }
-      clearAuthToken();
-      setIsAuthenticated(false);
+      logout();
     },
     onError() {
-      clearAuthToken();
-      setIsAuthenticated(false);
-      disconnectUserFromSocket();
+      logout();
     },
   });
 
+  const logout = useCallback(async () => {
+    await clearAuthToken();
+    setUser(undefined);
+    setIsAuthenticated(false);
+    disconnectUserFromSocket();
+  }, []);
+
   const authCallback = useCallback(async ({ authToken, success, user }: IAuthCallback) => {
     if (!success) {
-      await clearAuthToken();
-      setUser(undefined);
-      setIsAuthenticated(false);
-      disconnectUserFromSocket();
+      await logout();
       return false;
     }
     if (authToken) {

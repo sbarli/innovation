@@ -6,7 +6,6 @@ export const MOCK_ID = 'mock_id';
 export const MOCK_ROOM_NAME = 'mock room name';
 
 export const MOCK_ROOM_INPUT: CreateRoomInput = {
-  hostRef: MOCK_USER_ID,
   roomName: MOCK_ROOM_NAME,
 };
 

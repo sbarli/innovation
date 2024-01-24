@@ -1,5 +1,5 @@
-export type NewRoomFormData = {
-  roomId: string;
+export type CreateRoomFormData = {
+  roomName: string;
 };
 
 export type JoinRoomFormData = {

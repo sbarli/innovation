@@ -1,6 +1,6 @@
 query GetAllCards {
   getAllCards {
-    ...BaseCardFragment
+    ...BaseCard
     ...ResourceSpaces
     ...ResourceTotals
     ...DogmaEffects
