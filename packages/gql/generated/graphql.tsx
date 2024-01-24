@@ -155,7 +155,6 @@ export type CreatePlayerGameDetailsInput = {
 };
 
 export type CreateRoomInput = {
-  hostRef: Scalars['ID']['input'];
   roomName: Scalars['String']['input'];
 };
 
@@ -228,8 +227,8 @@ export type GetUserInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createNewGame: CreateNewGameResponse;
-  createNewRoom: Room;
   createPlayerGameDetails: PlayerGameDetails;
+  createRoom: Room;
   signup: AuthResponse;
   updateGame?: Maybe<Game>;
   updatePlayerGameDetails?: Maybe<PlayerGameDetails>;
@@ -241,13 +240,13 @@ export type MutationCreateNewGameArgs = {
 };
 
 
-export type MutationCreateNewRoomArgs = {
-  newRoomData: CreateRoomInput;
+export type MutationCreatePlayerGameDetailsArgs = {
+  createData: CreatePlayerGameDetailsInput;
 };
 
 
-export type MutationCreatePlayerGameDetailsArgs = {
-  createData: CreatePlayerGameDetailsInput;
+export type MutationCreateRoomArgs = {
+  newRoomData: CreateRoomInput;
 };
 
 
@@ -391,12 +390,12 @@ export type UpdatePlayerGameDetailsInput = {
   scoreCardRefs?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
-export type AuthResponseFragmentFragment = { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'ClientUserData', _id: string, displayName: string, email: string } };
+export type AuthResponseDataFragment = { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'ClientUserData', _id: string, displayName: string, email: string } };
 
 export type IsAuthenticatedQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type IsAuthenticatedQuery = { __typename?: 'Query', isAuthenticated: { __typename?: 'ClientUserData', _id: string } };
+export type IsAuthenticatedQuery = { __typename?: 'Query', isAuthenticated: { __typename?: 'ClientUserData', _id: string, displayName: string, email: string } };
 
 export type LoginQueryVariables = Exact<{
   loginUserInput: GetUserInput;
@@ -412,7 +411,7 @@ export type SignupMutationVariables = Exact<{
 
 export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'ClientUserData', _id: string, displayName: string, email: string } } };
 
-export type BaseCardFragmentFragment = { __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string };
+export type BaseCardFragment = { __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string };
 
 export type DogmaEffectsFragment = { __typename?: 'Card', dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> };
 
@@ -425,25 +424,39 @@ export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
 
-export type UserFragmentFragment = { __typename?: 'ClientUserData', _id: string, displayName: string, email: string };
+export type CreateRoomMutationVariables = Exact<{
+  newRoomData: CreateRoomInput;
+}>;
 
-export const UserFragmentFragmentDoc = gql`
-    fragment UserFragment on ClientUserData {
+
+export type CreateRoomMutation = { __typename?: 'Mutation', createRoom: { __typename?: 'Room', _id: string, roomName: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean } };
+
+export type RoomDataFragment = { __typename?: 'Room', _id: string, roomName: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean };
+
+export type GetRoomsForPlayerQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetRoomsForPlayerQuery = { __typename?: 'Query', getRoomsForPlayer?: Array<{ __typename?: 'Room', _id: string, roomName: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean }> | null };
+
+export type UserDetailsFragment = { __typename?: 'ClientUserData', _id: string, displayName: string, email: string };
+
+export const UserDetailsFragmentDoc = gql`
+    fragment UserDetails on ClientUserData {
   _id
   displayName
   email
 }
     `;
-export const AuthResponseFragmentFragmentDoc = gql`
-    fragment AuthResponseFragment on AuthResponse {
+export const AuthResponseDataFragmentDoc = gql`
+    fragment AuthResponseData on AuthResponse {
   access_token
   user {
-    ...UserFragment
+    ...UserDetails
   }
 }
-    ${UserFragmentFragmentDoc}`;
-export const BaseCardFragmentFragmentDoc = gql`
-    fragment BaseCardFragment on Card {
+    ${UserDetailsFragmentDoc}`;
+export const BaseCardFragmentDoc = gql`
+    fragment BaseCard on Card {
   _id
   cardId
   name
@@ -486,13 +499,22 @@ export const ResourceTotalsFragmentDoc = gql`
   }
 }
     `;
+export const RoomDataFragmentDoc = gql`
+    fragment RoomData on Room {
+  _id
+  roomName
+  hostRef
+  connectedPlayerRefs
+  availableToJoin
+}
+    `;
 export const IsAuthenticatedDocument = gql`
     query IsAuthenticated {
   isAuthenticated {
-    _id
+    ...UserDetails
   }
 }
-    `;
+    ${UserDetailsFragmentDoc}`;
 
 /**
  * __useIsAuthenticatedQuery__
@@ -528,10 +550,10 @@ export type IsAuthenticatedQueryResult = Apollo.QueryResult<IsAuthenticatedQuery
 export const LoginDocument = gql`
     query Login($loginUserInput: GetUserInput!) {
   login(loginUserInput: $loginUserInput) {
-    ...AuthResponseFragment
+    ...AuthResponseData
   }
 }
-    ${AuthResponseFragmentFragmentDoc}`;
+    ${AuthResponseDataFragmentDoc}`;
 
 /**
  * __useLoginQuery__
@@ -568,10 +590,10 @@ export type LoginQueryResult = Apollo.QueryResult<LoginQuery, LoginQueryVariable
 export const SignupDocument = gql`
     mutation Signup($newUserData: CreateUserInput!) {
   signup(newUserData: $newUserData) {
-    ...AuthResponseFragment
+    ...AuthResponseData
   }
 }
-    ${AuthResponseFragmentFragmentDoc}`;
+    ${AuthResponseDataFragmentDoc}`;
 export type SignupMutationFn = Apollo.MutationFunction<SignupMutation, SignupMutationVariables>;
 
 /**
@@ -601,13 +623,13 @@ export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, S
 export const GetAllCardsDocument = gql`
     query GetAllCards {
   getAllCards {
-    ...BaseCardFragment
+    ...BaseCard
     ...ResourceSpaces
     ...ResourceTotals
     ...DogmaEffects
   }
 }
-    ${BaseCardFragmentFragmentDoc}
+    ${BaseCardFragmentDoc}
 ${ResourceSpacesFragmentDoc}
 ${ResourceTotalsFragmentDoc}
 ${DogmaEffectsFragmentDoc}`;
@@ -643,3 +665,75 @@ export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
 export type GetAllCardsLazyQueryHookResult = ReturnType<typeof useGetAllCardsLazyQuery>;
 export type GetAllCardsSuspenseQueryHookResult = ReturnType<typeof useGetAllCardsSuspenseQuery>;
 export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
+export const CreateRoomDocument = gql`
+    mutation CreateRoom($newRoomData: CreateRoomInput!) {
+  createRoom(newRoomData: $newRoomData) {
+    ...RoomData
+  }
+}
+    ${RoomDataFragmentDoc}`;
+export type CreateRoomMutationFn = Apollo.MutationFunction<CreateRoomMutation, CreateRoomMutationVariables>;
+
+/**
+ * __useCreateRoomMutation__
+ *
+ * To run a mutation, you first call `useCreateRoomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateRoomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createRoomMutation, { data, loading, error }] = useCreateRoomMutation({
+ *   variables: {
+ *      newRoomData: // value for 'newRoomData'
+ *   },
+ * });
+ */
+export function useCreateRoomMutation(baseOptions?: Apollo.MutationHookOptions<CreateRoomMutation, CreateRoomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateRoomMutation, CreateRoomMutationVariables>(CreateRoomDocument, options);
+      }
+export type CreateRoomMutationHookResult = ReturnType<typeof useCreateRoomMutation>;
+export type CreateRoomMutationResult = Apollo.MutationResult<CreateRoomMutation>;
+export type CreateRoomMutationOptions = Apollo.BaseMutationOptions<CreateRoomMutation, CreateRoomMutationVariables>;
+export const GetRoomsForPlayerDocument = gql`
+    query GetRoomsForPlayer {
+  getRoomsForPlayer {
+    ...RoomData
+  }
+}
+    ${RoomDataFragmentDoc}`;
+
+/**
+ * __useGetRoomsForPlayerQuery__
+ *
+ * To run a query within a React component, call `useGetRoomsForPlayerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRoomsForPlayerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRoomsForPlayerQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetRoomsForPlayerQuery(baseOptions?: Apollo.QueryHookOptions<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>(GetRoomsForPlayerDocument, options);
+      }
+export function useGetRoomsForPlayerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>(GetRoomsForPlayerDocument, options);
+        }
+export function useGetRoomsForPlayerSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>(GetRoomsForPlayerDocument, options);
+        }
+export type GetRoomsForPlayerQueryHookResult = ReturnType<typeof useGetRoomsForPlayerQuery>;
+export type GetRoomsForPlayerLazyQueryHookResult = ReturnType<typeof useGetRoomsForPlayerLazyQuery>;
+export type GetRoomsForPlayerSuspenseQueryHookResult = ReturnType<typeof useGetRoomsForPlayerSuspenseQuery>;
+export type GetRoomsForPlayerQueryResult = Apollo.QueryResult<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>;
