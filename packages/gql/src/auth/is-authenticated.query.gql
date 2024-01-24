@@ -1,5 +1,5 @@
 query IsAuthenticated {
   isAuthenticated { 
-    _id
+    ...UserDetails
   }
 }
