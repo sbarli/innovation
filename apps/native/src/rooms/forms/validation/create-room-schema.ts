@@ -1,9 +1,9 @@
 import { ZodType, z } from 'zod';
 
-import { NewRoomFormData } from '../../room.types';
+import { CreateRoomFormData } from '../../room.types';
 
-export const newRoomFormSchema: ZodType<NewRoomFormData> = z.object({
-  roomId: z
+export const createRoomFormSchema: ZodType<CreateRoomFormData> = z.object({
+  roomName: z
     .string()
     .min(5, 'Room name must be at least 5 characters long')
     .max(100, 'Room name may not be more than 100 characters long')
