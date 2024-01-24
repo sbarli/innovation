@@ -66,10 +66,10 @@ describe('RoomsResolver', () => {
   });
 
   describe('mutations', () => {
-    describe('createNewRoom', () => {
+    describe('createRoom', () => {
       it('should return output of calling roomsService.createRoom', async () => {
         jest.spyOn(roomsService, 'createRoom');
-        const output = await roomsResolver.createNewRoom(MOCK_ROOM_INPUT);
+        const output = await roomsResolver.createRoom(MOCK_USER, MOCK_ROOM_INPUT);
         expect(output).toEqual(MOCK_NEW_ROOM);
       });
     });

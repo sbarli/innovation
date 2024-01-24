@@ -1,4 +1,4 @@
-import { Field, ID, InputType, ObjectType, OmitType } from '@nestjs/graphql';
+import { Field, ID, InputType, ObjectType, PickType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 
@@ -40,11 +40,7 @@ export class Room {
 }
 
 @InputType()
-export class CreateRoomInput extends OmitType(
-  Room,
-  ['_id', 'createdAt', 'updatedAt', 'connectedPlayerRefs', 'availableToJoin'] as const,
-  InputType
-) {}
+export class CreateRoomInput extends PickType(Room, ['roomName'] as const, InputType) {}
 
 export type NullishRoom = Room | null | undefined;
 
