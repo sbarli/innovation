@@ -128,7 +128,6 @@ input CreatePlayerGameDetailsInput {
 }
 
 input CreateRoomInput {
-  hostRef: ID!
   roomName: String!
 }
 
@@ -202,8 +201,8 @@ input GetUserInput {
 
 type Mutation {
   createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
-  createNewRoom(newRoomData: CreateRoomInput!): Room!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
+  createRoom(newRoomData: CreateRoomInput!): Room!
   signup(newUserData: CreateUserInput!): AuthResponse!
   updateGame(id: String!, updates: UpdateGameInput!): Game
   updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsInput!): PlayerGameDetails
