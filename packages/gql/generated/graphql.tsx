@@ -154,6 +154,11 @@ export type CreatePlayerGameDetailsInput = {
   scoreCardRefs: Array<Scalars['ID']['input']>;
 };
 
+export type CreateRoomInput = {
+  hostRef: Scalars['ID']['input'];
+  roomName: Scalars['String']['input'];
+};
+
 export type CreateUserInput = {
   displayName: Scalars['String']['input'];
   email: Scalars['String']['input'];
@@ -223,6 +228,7 @@ export type GetUserInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createNewGame: CreateNewGameResponse;
+  createNewRoom: Room;
   createPlayerGameDetails: PlayerGameDetails;
   signup: AuthResponse;
   updateGame?: Maybe<Game>;
@@ -232,6 +238,11 @@ export type Mutation = {
 
 export type MutationCreateNewGameArgs = {
   newGameDto: CreateNewGameInput;
+};
+
+
+export type MutationCreateNewRoomArgs = {
+  newRoomData: CreateRoomInput;
 };
 
 
@@ -281,6 +292,8 @@ export type Query = {
   getOneCard?: Maybe<Card>;
   getPlayerGameDetails?: Maybe<PlayerGameDetails>;
   getPlayerGameDetailsById?: Maybe<PlayerGameDetails>;
+  getRoom?: Maybe<Room>;
+  getRoomsForPlayer?: Maybe<Array<Room>>;
   isAuthenticated: ClientUserData;
   login: AuthResponse;
 };
@@ -304,6 +317,11 @@ export type QueryGetPlayerGameDetailsArgs = {
 
 export type QueryGetPlayerGameDetailsByIdArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryGetRoomArgs = {
+  roomRef: Scalars['String']['input'];
 };
 
 
@@ -336,6 +354,17 @@ export type ResourceTotalsInput = {
   leaves: Scalars['Float']['input'];
   lightbulbs: Scalars['Float']['input'];
   timepieces: Scalars['Float']['input'];
+};
+
+export type Room = {
+  __typename?: 'Room';
+  _id: Scalars['ID']['output'];
+  availableToJoin: Scalars['Boolean']['output'];
+  connectedPlayerRefs: Array<Scalars['ID']['output']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  hostRef: Scalars['ID']['output'];
+  roomName: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export enum SplayOption {

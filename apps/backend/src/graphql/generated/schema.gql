@@ -127,6 +127,11 @@ input CreatePlayerGameDetailsInput {
   scoreCardRefs: [ID!]!
 }
 
+input CreateRoomInput {
+  hostRef: ID!
+  roomName: String!
+}
+
 input CreateUserInput {
   displayName: String!
   email: String!
@@ -197,6 +202,7 @@ input GetUserInput {
 
 type Mutation {
   createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
+  createNewRoom(newRoomData: CreateRoomInput!): Room!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
   signup(newUserData: CreateUserInput!): AuthResponse!
   updateGame(id: String!, updates: UpdateGameInput!): Game
@@ -226,6 +232,8 @@ type Query {
   getOneCard(options: FindOneOptionsInput!): Card
   getPlayerGameDetails(gameRef: ID!, playerRef: ID!): PlayerGameDetails
   getPlayerGameDetailsById(id: ID!): PlayerGameDetails
+  getRoom(roomRef: String!): Room
+  getRoomsForPlayer: [Room!]
   isAuthenticated: ClientUserData!
   login(loginUserInput: GetUserInput!): AuthResponse!
 }
@@ -253,6 +261,16 @@ input ResourceTotalsInput {
   leaves: Float!
   lightbulbs: Float!
   timepieces: Float!
+}
+
+type Room {
+  _id: ID!
+  availableToJoin: Boolean!
+  connectedPlayerRefs: [ID!]!
+  createdAt: DateTime
+  hostRef: ID!
+  roomName: String!
+  updatedAt: DateTime
 }
 
 enum SplayOption {
