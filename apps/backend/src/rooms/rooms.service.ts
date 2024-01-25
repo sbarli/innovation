@@ -7,10 +7,10 @@ import { UsersService } from 'src/users/users.service';
 import { getCatchErrorMessage } from '@inno/utils';
 
 import { PlayerRoomType } from './rooms.types';
-import { CreateRoomInput, NullishRoom, Room, RoomDocument } from './schemas/room.schema';
+import { NullishRoom, Room, RoomDocument } from './schemas/room.schema';
 
 export interface ICreateRoomProps {
-  newRoomData: CreateRoomInput;
+  roomName: string;
   user: UserWithoutPassword;
 }
 
@@ -65,10 +65,17 @@ export class RoomsService {
     }
   }
 
-  async createRoom({ newRoomData, user }: ICreateRoomProps): Promise<Room> {
+  async createRoom({ roomName, user }: ICreateRoomProps): Promise<Room> {
     try {
+      const duplicateRoom = await this.roomModel.findOne({
+        hostRef: user._id,
+        roomName,
+      });
+      if (duplicateRoom) {
+        throw new Error('Room with this name already exists for this user');
+      }
       const createdRoom = new this.roomModel({
-        ...newRoomData,
+        roomName,
         hostRef: user._id,
         connectedPlayerRefs: [],
         availableToJoin: true,
@@ -112,6 +119,54 @@ export class RoomsService {
     } catch (error) {
       throw new Error(
         getCatchErrorMessage(error, 'RoomsService.addPlayerToRoom -> Error adding player to room')
+      );
+    }
+  }
+
+  async removePlayerFromRoom(roomRef: string, playerRef: string): Promise<NullishRoom> {
+    try {
+      const room = await this.findRoomByRef(roomRef);
+      if (!room) {
+        throw new Error('RoomsService.removePlayerFromRoom -> Room does not exist');
+      }
+      // validate player exists
+      const userExists = await this.usersService.findUserByRef(playerRef);
+      if (!userExists) {
+        throw new Error('RoomsService.removePlayerFromRoom -> Player does not exist');
+      }
+      // Check if player is in room. If not, just return the room.
+      const playerIsHost = room.hostRef === playerRef;
+      const playerIsParticipant = room.connectedPlayerRefs.includes(playerRef);
+      if (!playerIsHost && !playerIsParticipant) {
+        return room;
+      }
+      // If host is leaving and there are no other players, remove host
+      if (playerIsHost && !room.connectedPlayerRefs.length) {
+        return this.roomModel.findByIdAndUpdate(roomRef, { host: undefined }, { new: true });
+      }
+      // If host is leaving and there are other players, make someone else host
+      if (playerIsHost && room.connectedPlayerRefs.length) {
+        return this.roomModel.findByIdAndUpdate(
+          roomRef,
+          {
+            hostRef: room.connectedPlayerRefs[0],
+            connectedPlayerRefs: [...room.connectedPlayerRefs.slice(1)],
+          },
+          { new: true }
+        );
+      }
+      // Player is participant, remove them from the list
+      return this.roomModel.findByIdAndUpdate(
+        roomRef,
+        { connectedPlayerRefs: [...room.connectedPlayerRefs.filter((ref) => ref === playerRef)] },
+        { new: true }
+      );
+    } catch (error) {
+      throw new Error(
+        getCatchErrorMessage(
+          error,
+          'RoomsService.removePlayerFromRoom -> Error adding player to room'
+        )
       );
     }
   }

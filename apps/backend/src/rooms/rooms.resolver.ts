@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { CurrentUserFromGqlCtx } from 'src/auth/decorators/current-user.decorator';
 import { JwtGqlAuthGuard } from 'src/auth/guards/jwt-gql-auth.guard';
 import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
@@ -29,7 +29,7 @@ export class RoomsResolver {
   @Query(() => [Room], { nullable: true })
   @UseGuards(JwtGqlAuthGuard)
   async getRoomsForPlayer(
-    @CurrentUser() user: UserWithoutPassword
+    @CurrentUserFromGqlCtx() user: UserWithoutPassword
     // @Args('playerRef', { type: () => String }) playerRef: string
   ): Promise<Room[]> {
     try {
@@ -48,11 +48,11 @@ export class RoomsResolver {
   @Mutation(() => Room)
   @UseGuards(JwtGqlAuthGuard)
   async createRoom(
-    @CurrentUser() user: UserWithoutPassword,
+    @CurrentUserFromGqlCtx() user: UserWithoutPassword,
     @Args('newRoomData', { type: () => CreateRoomInput }) newRoomData: CreateRoomInput
   ): Promise<Room> {
     return await this.roomsService.createRoom({
-      newRoomData,
+      roomName: newRoomData.roomName,
       user,
     });
   }

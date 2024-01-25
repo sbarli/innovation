@@ -22,9 +22,9 @@ export class Room {
   @Field(() => String)
   roomName!: string;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   @Field(() => ID)
-  hostRef!: string;
+  hostRef?: string;
 
   @Prop({
     required: true,

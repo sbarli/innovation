@@ -1,5 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { WsException } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
+import { RoomsService } from 'src/rooms/rooms.service';
+import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 import { SocketEvent, SocketEventError, SocketEventErrorCode } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
@@ -9,82 +12,28 @@ export type Room = {
   host: string;
   clientsInRoom: string[];
 };
+
+export interface IHandleCreateRoomParams {
+  roomName: string;
+  user: UserWithoutPassword;
+}
+
+export interface IHandleJoinRoomParams {
+  roomId: string;
+  user: UserWithoutPassword;
+}
+
+export interface IHandleLeaveRoomParams {
+  roomId: string;
+  user: UserWithoutPassword;
+}
+
 @Injectable()
 export class SocketService {
   private logger: Logger = new Logger('SocketService');
   private readonly connectedClients: Map<string, Socket> = new Map();
-  private readonly rooms: Map<string, Room> = new Map();
 
-  /**
-   * @name handleDisconnectedRoomHost
-   * @description handles room where the disconnected user was the host
-   *  if user was the only remaining client in the room, delete the room
-   *  otherwise, make next client in room the host
-   */
-  handleDisconnectedRoomHost(socket: Socket, roomId: string, room?: Room) {
-    const roomData = room ?? this.rooms.get(roomId);
-    if (!roomData) {
-      this.logger.warn(`could not remove ${socket.id} as host of room ${roomId}: room not found`);
-      return;
-    }
-    const remainingClientsInRoom = roomData.clientsInRoom.filter(
-      (clientId) => clientId !== socket.id
-    );
-    if (remainingClientsInRoom.length) {
-      this.rooms.set(roomId, {
-        ...roomData,
-        host: remainingClientsInRoom[0],
-        clientsInRoom: remainingClientsInRoom,
-      });
-      socket.to(roomId).emit(SocketEvent.HOST_LEFT_ROOM_NEW_HOST_ASSIGNED, {
-        oldHost: socket.id,
-        newHost: remainingClientsInRoom[0],
-      });
-      return;
-    }
-    this.rooms.delete(roomId);
-    return;
-  }
-
-  /**
-   * @name handleDisconnectedRoomGuest
-   * @description handles removing user as a client in a room
-   */
-  handleDisconnectedRoomGuest(socket: Socket, roomId: string, room?: Room) {
-    const roomData = room ?? this.rooms.get(roomId);
-    if (!roomData) {
-      this.logger.warn(`could not remove ${socket.id} from room ${roomId}: room not found`);
-      return;
-    }
-    const remainingClientsInRoom = roomData.clientsInRoom.filter(
-      (clientId) => clientId !== socket.id
-    );
-    this.rooms.set(roomId, {
-      ...roomData,
-      clientsInRoom: remainingClientsInRoom,
-    });
-    socket.to(roomId).emit(SocketEvent.USER_LEFT_ROOM, {
-      clientId: socket.id,
-    });
-    return;
-  }
-
-  /**
-   * @name handleRemoveDisconnectedUserFromAllRooms
-   * @description handles removing disconnected users from all rooms they are connected to
-   *  if they are host, calls @handleDisconnectedRoomHost to handlee new host logic
-   *  otherwise, simply removes the user from the room client list
-   */
-  handleRemoveDisconnectedUserFromAllRooms(socket: Socket) {
-    this.rooms.forEach((room, roomId) => {
-      if (room.host === socket.id) {
-        return this.handleDisconnectedRoomHost(socket, roomId, room);
-      }
-      if (room.clientsInRoom.includes(socket.id)) {
-        return this.handleDisconnectedRoomGuest(socket, roomId, room);
-      }
-    });
-  }
+  constructor(private readonly roomsService: RoomsService) {}
 
   /**
    * @name handleConnection
@@ -97,7 +46,6 @@ export class SocketService {
 
     socket.on('disconnect', () => {
       this.logger.log(`handling disconnect for ${clientId}`);
-      this.handleRemoveDisconnectedUserFromAllRooms(socket);
       this.connectedClients.delete(clientId);
     });
   }
@@ -106,32 +54,24 @@ export class SocketService {
    * @name handleCreateRoom
    * @description creats a new room if room does not currently exist
    */
-  handleCreateRoom(socket: Socket, roomId: string) {
+  async handleCreateRoom(socket: Socket, { roomName, user }: IHandleCreateRoomParams) {
     try {
-      if (this.rooms.has(roomId)) {
-        this.logger.error(`could not create room with id ${roomId}: Room already exists`);
-        const errorData = new SocketEventError(
-          SocketEventErrorCode.DUPE,
-          'A room with this name already exits. Please try another name!',
-          { roomId }
-        );
-        socket.emit(SocketEvent.CREATE_ROOM_ERROR, errorData);
-        return;
+      const newRoom = await this.roomsService.createRoom({ roomName, user });
+      if (!newRoom) {
+        throw new Error('Room not created');
       }
-      this.rooms.set(roomId, { roomId, host: socket.id, clientsInRoom: [] });
-      socket.emit(SocketEvent.CREATE_ROOM_SUCCESS, roomId);
-      return this.handleJoinRoom(socket, roomId);
+      socket.join(newRoom._id);
+      socket.emit(SocketEvent.CREATE_ROOM_SUCCESS, newRoom);
+      socket.emit(SocketEvent.JOIN_ROOM_SUCCESS, newRoom);
+      return;
     } catch (error) {
       const errorMessage =
         getCatchErrorMessage(error) ??
-        `handleCreateRoom: Unable to create room ${roomId} for socket user ${socket.id}`;
+        `handleCreateRoom: Unable to create room ${roomName} for user ${user._id}`;
       this.logger.error(errorMessage);
-      const errorData = new SocketEventError(
-        SocketEventErrorCode.UNKNOWN,
-        'An error occurred. Please try again!'
-      );
+      const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
       socket.emit(SocketEvent.CREATE_ROOM_ERROR, errorData);
-      throw new Error(errorMessage);
+      throw new WsException(errorMessage);
     }
   }
 
@@ -139,10 +79,10 @@ export class SocketService {
    * @name handleJoinRoom
    * @description handles adding socket to existing room and notifying existing clients of the new member
    */
-  handleJoinRoom(socket: Socket, roomId: string) {
+  async handleJoinRoom(socket: Socket, { roomId, user }: IHandleJoinRoomParams) {
     try {
-      const roomData = this.rooms.get(roomId);
-      if (!roomData) {
+      const joinedRoomData = await this.roomsService.addPlayerToRoom(roomId, user._id);
+      if (!joinedRoomData) {
         this.logger.error(`${socket.id} could not join room with id ${roomId}: Room not found`);
         const errorData = new SocketEventError(
           SocketEventErrorCode.NOT_FOUND,
@@ -162,24 +102,17 @@ export class SocketService {
         socket.emit(SocketEvent.JOIN_ROOM_ERROR, errorData);
         return;
       }
-      this.rooms.set(roomId, {
-        ...roomData,
-        clientsInRoom: [...roomData.clientsInRoom, socket.id],
-      });
       socket.join(roomId);
-      socket.to(roomId).emit(SocketEvent.USER_JOINED_ROOM, { clientId: socket.id });
-      socket.emit(SocketEvent.JOIN_ROOM_SUCCESS, roomId);
+      socket.to(roomId).emit(SocketEvent.USER_JOINED_ROOM, { username: user.displayName });
+      socket.emit(SocketEvent.JOIN_ROOM_SUCCESS, joinedRoomData);
       return;
     } catch (error) {
       const errorMessage =
         getCatchErrorMessage(error) ?? `Unable to join room ${roomId} for socket user ${socket.id}`;
       this.logger.error(errorMessage);
-      const errorData = new SocketEventError(
-        SocketEventErrorCode.UNKNOWN,
-        'An error occurred. Please try again!'
-      );
+      const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
       socket.emit(SocketEvent.JOIN_ROOM_ERROR, errorData);
-      throw new Error(errorMessage);
+      throw new WsException(errorMessage);
     }
   }
 
@@ -187,10 +120,10 @@ export class SocketService {
    * @name handleLeaveRoom
    * @description removes socket from room and handles calling proper helper to update local room storage data
    */
-  handleLeaveRoom(socket: Socket, roomId: string) {
+  async handleLeaveRoom(socket: Socket, { roomId, user }: IHandleLeaveRoomParams) {
     try {
-      const roomData = this.rooms.get(roomId);
-      if (!roomData) {
+      const roomLeftData = await this.roomsService.removePlayerFromRoom(roomId, user._id);
+      if (!roomLeftData) {
         this.logger.error(`${roomId}: Room not found`);
         const errorData = new SocketEventError(
           SocketEventErrorCode.NOT_FOUND,
@@ -205,23 +138,16 @@ export class SocketService {
         return;
       }
       socket.leave(roomId);
-      if (roomData.host == socket.id) {
-        return this.handleDisconnectedRoomHost(socket, roomId, roomData);
-      }
-      this.handleDisconnectedRoomGuest(socket, roomId, roomData);
-      socket.emit(SocketEvent.LEAVE_ROOM_SUCCESS, roomId);
+      socket.emit(SocketEvent.LEAVE_ROOM_SUCCESS, roomLeftData);
       return;
     } catch (error) {
       const errorMessage =
         getCatchErrorMessage(error) ??
         `Unable to leave room ${roomId} for socket user ${socket.id}`;
       this.logger.error(errorMessage);
-      const errorData = new SocketEventError(
-        SocketEventErrorCode.UNKNOWN,
-        'An error occurred. Please try again!'
-      );
+      const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
       socket.emit(SocketEvent.LEAVE_ROOM_ERROR, errorData);
-      throw new Error(errorMessage);
+      throw new WsException(errorMessage);
     }
   }
 

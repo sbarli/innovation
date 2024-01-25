@@ -10,7 +10,9 @@ import {
   MessageBody,
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
+import { CurrentUserFromRequest } from 'src/auth/decorators/current-user.decorator';
 import { JwtWsAuthGuard } from 'src/auth/guards/jwt-ws-auth.guard';
+import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 import { SocketEvent } from '@inno/constants';
 
@@ -44,20 +46,32 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
 
   @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.CREATE_ROOM)
-  createRoom(@MessageBody('roomId') roomId: string, @ConnectedSocket() socket: Socket) {
-    return this.socketService.handleCreateRoom(socket, roomId);
+  createRoom(
+    @CurrentUserFromRequest() user: UserWithoutPassword,
+    @MessageBody('roomName') roomName: string,
+    @ConnectedSocket() socket: Socket
+  ) {
+    return this.socketService.handleCreateRoom(socket, { roomName, user });
   }
 
   @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.JOIN_ROOM)
-  joinRoom(@MessageBody('roomId') roomId: string, @ConnectedSocket() socket: Socket) {
-    return this.socketService.handleJoinRoom(socket, roomId);
+  joinRoom(
+    @CurrentUserFromRequest() user: UserWithoutPassword,
+    @MessageBody('roomId') roomId: string,
+    @ConnectedSocket() socket: Socket
+  ) {
+    return this.socketService.handleJoinRoom(socket, { roomId, user });
   }
 
   @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.LEAVE_ROOM)
-  leaveRoom(@MessageBody('roomId') roomId: string, @ConnectedSocket() socket: Socket) {
-    return this.socketService.handleLeaveRoom(socket, roomId);
+  leaveRoom(
+    @CurrentUserFromRequest() user: UserWithoutPassword,
+    @MessageBody('roomId') roomId: string,
+    @ConnectedSocket() socket: Socket
+  ) {
+    return this.socketService.handleLeaveRoom(socket, { roomId, user });
   }
 
   // Implement other Socket.IO event handlers and message handlers
