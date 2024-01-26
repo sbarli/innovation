@@ -108,7 +108,7 @@ export class SocketService {
       return;
     } catch (error) {
       const errorMessage =
-        getCatchErrorMessage(error) ?? `Unable to join room ${roomId} for socket user ${socket.id}`;
+        getCatchErrorMessage(error) ?? `Unable to join room ${roomId} for user ${user._id}`;
       this.logger.error(errorMessage);
       const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
       socket.emit(SocketEvent.JOIN_ROOM_ERROR, errorData);
@@ -134,7 +134,7 @@ export class SocketService {
         return;
       }
       if (!socket.rooms.has(roomId)) {
-        this.logger.warn(`${socket.id} tried to leave ${roomId}: user already not in room`);
+        this.logger.warn(`${user._id} tried to leave ${roomId}: user already not in room`);
         return;
       }
       socket.leave(roomId);
@@ -142,8 +142,7 @@ export class SocketService {
       return;
     } catch (error) {
       const errorMessage =
-        getCatchErrorMessage(error) ??
-        `Unable to leave room ${roomId} for socket user ${socket.id}`;
+        getCatchErrorMessage(error) ?? `Unable to leave room ${roomId} for user ${user._id}`;
       this.logger.error(errorMessage);
       const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
       socket.emit(SocketEvent.LEAVE_ROOM_ERROR, errorData);

@@ -433,6 +433,13 @@ export type CreateRoomMutation = { __typename?: 'Mutation', createRoom: { __type
 
 export type RoomDataFragment = { __typename?: 'Room', _id: string, roomName: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean };
 
+export type GetRoomQueryVariables = Exact<{
+  roomId: Scalars['String']['input'];
+}>;
+
+
+export type GetRoomQuery = { __typename?: 'Query', getRoom?: { __typename?: 'Room', _id: string, roomName: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean } | null };
+
 export type GetRoomsForPlayerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -698,6 +705,46 @@ export function useCreateRoomMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateRoomMutationHookResult = ReturnType<typeof useCreateRoomMutation>;
 export type CreateRoomMutationResult = Apollo.MutationResult<CreateRoomMutation>;
 export type CreateRoomMutationOptions = Apollo.BaseMutationOptions<CreateRoomMutation, CreateRoomMutationVariables>;
+export const GetRoomDocument = gql`
+    query GetRoom($roomId: String!) {
+  getRoom(roomRef: $roomId) {
+    ...RoomData
+  }
+}
+    ${RoomDataFragmentDoc}`;
+
+/**
+ * __useGetRoomQuery__
+ *
+ * To run a query within a React component, call `useGetRoomQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRoomQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRoomQuery({
+ *   variables: {
+ *      roomId: // value for 'roomId'
+ *   },
+ * });
+ */
+export function useGetRoomQuery(baseOptions: Apollo.QueryHookOptions<GetRoomQuery, GetRoomQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRoomQuery, GetRoomQueryVariables>(GetRoomDocument, options);
+      }
+export function useGetRoomLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoomQuery, GetRoomQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRoomQuery, GetRoomQueryVariables>(GetRoomDocument, options);
+        }
+export function useGetRoomSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRoomQuery, GetRoomQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetRoomQuery, GetRoomQueryVariables>(GetRoomDocument, options);
+        }
+export type GetRoomQueryHookResult = ReturnType<typeof useGetRoomQuery>;
+export type GetRoomLazyQueryHookResult = ReturnType<typeof useGetRoomLazyQuery>;
+export type GetRoomSuspenseQueryHookResult = ReturnType<typeof useGetRoomSuspenseQuery>;
+export type GetRoomQueryResult = Apollo.QueryResult<GetRoomQuery, GetRoomQueryVariables>;
 export const GetRoomsForPlayerDocument = gql`
     query GetRoomsForPlayer {
   getRoomsForPlayer {

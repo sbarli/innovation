@@ -1,0 +1,5 @@
+query GetRoom($roomId: String!) {
+  getRoom(roomRef: $roomId) {
+    ...RoomData
+  }
+}
