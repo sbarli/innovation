@@ -5,8 +5,9 @@ import { router } from 'expo-router';
 import { Socket } from 'socket.io-client';
 
 import { SocketEvent, SocketEventError } from '@inno/constants';
-import { GetRoomsForPlayerDocument, useCreateRoomMutation } from '@inno/gql';
+import { GetRoomsForPlayerDocument, Room, useCreateRoomMutation } from '@inno/gql';
 
+import { getCatchErrorMessage } from '../../../../../packages/utils/dist';
 import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
 import { Routes } from '../../app-core/constants/navigation';
 import { CreateRoomForm } from '../forms/CreateRoomForm';
@@ -34,23 +35,24 @@ export const CreateRoomCTA = ({ socket }: ICreateRoomCTAProps) => {
         newRoomData: data,
       },
       onCompleted(data) {
-        if (data?.createRoom._id) {
-          socket?.emit(SocketEvent.JOIN_ROOM, { roomId: data.createRoom._id });
+        if (!data?.createRoom._id) {
+          setErrorMsg('An error occurred. Please try again!');
+          return;
         }
-        setErrorMsg('An error occurred. Please try again!');
+        socket?.emit(SocketEvent.JOIN_ROOM, { roomId: data.createRoom._id });
       },
-      onError() {
-        setErrorMsg('An error occurred. Please try again!');
+      onError(error) {
+        setErrorMsg(getCatchErrorMessage(error, 'An error occurred. Please try again!'));
       },
     });
   };
 
   useEffect(() => {
-    socket?.on(SocketEvent.JOIN_ROOM_SUCCESS, (roomId: string) => {
+    socket?.on(SocketEvent.JOIN_ROOM_SUCCESS, (room: Room) => {
       setShowModal(false);
       router.push({
         pathname: Routes.ROOM,
-        params: { roomId },
+        params: { roomId: room._id },
       });
     });
     socket?.on(SocketEvent.JOIN_ROOM_ERROR, (error: SocketEventError) => {
