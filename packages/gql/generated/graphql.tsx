@@ -232,6 +232,7 @@ export type Mutation = {
   signup: AuthResponse;
   updateGame?: Maybe<Game>;
   updatePlayerGameDetails?: Maybe<PlayerGameDetails>;
+  updateRoomAvailability?: Maybe<Room>;
 };
 
 
@@ -264,6 +265,11 @@ export type MutationUpdateGameArgs = {
 export type MutationUpdatePlayerGameDetailsArgs = {
   id: Scalars['ID']['input'];
   updates: UpdatePlayerGameDetailsInput;
+};
+
+
+export type MutationUpdateRoomAvailabilityArgs = {
+  data: UpdateRoomAvailabilityInput;
 };
 
 export type PlayerGameDetails = {
@@ -320,7 +326,7 @@ export type QueryGetPlayerGameDetailsByIdArgs = {
 
 
 export type QueryGetRoomArgs = {
-  roomRef: Scalars['String']['input'];
+  roomId: Scalars['String']['input'];
 };
 
 
@@ -390,6 +396,11 @@ export type UpdatePlayerGameDetailsInput = {
   scoreCardRefs?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
+export type UpdateRoomAvailabilityInput = {
+  availableToJoin: Scalars['Boolean']['input'];
+  roomId: Scalars['String']['input'];
+};
+
 export type AuthResponseDataFragment = { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'ClientUserData', _id: string, displayName: string, email: string } };
 
 export type IsAuthenticatedQueryVariables = Exact<{ [key: string]: never; }>;
@@ -444,6 +455,13 @@ export type GetRoomsForPlayerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetRoomsForPlayerQuery = { __typename?: 'Query', getRoomsForPlayer?: Array<{ __typename?: 'Room', _id: string, name: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean }> | null };
+
+export type UpdateRoomAvailabilityMutationVariables = Exact<{
+  data: UpdateRoomAvailabilityInput;
+}>;
+
+
+export type UpdateRoomAvailabilityMutation = { __typename?: 'Mutation', updateRoomAvailability?: { __typename?: 'Room', _id: string, name: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean } | null };
 
 export type UserDetailsFragment = { __typename?: 'ClientUserData', _id: string, displayName: string, email: string };
 
@@ -707,7 +725,7 @@ export type CreateRoomMutationResult = Apollo.MutationResult<CreateRoomMutation>
 export type CreateRoomMutationOptions = Apollo.BaseMutationOptions<CreateRoomMutation, CreateRoomMutationVariables>;
 export const GetRoomDocument = gql`
     query GetRoom($roomId: String!) {
-  getRoom(roomRef: $roomId) {
+  getRoom(roomId: $roomId) {
     ...RoomData
   }
 }
@@ -784,3 +802,36 @@ export type GetRoomsForPlayerQueryHookResult = ReturnType<typeof useGetRoomsForP
 export type GetRoomsForPlayerLazyQueryHookResult = ReturnType<typeof useGetRoomsForPlayerLazyQuery>;
 export type GetRoomsForPlayerSuspenseQueryHookResult = ReturnType<typeof useGetRoomsForPlayerSuspenseQuery>;
 export type GetRoomsForPlayerQueryResult = Apollo.QueryResult<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>;
+export const UpdateRoomAvailabilityDocument = gql`
+    mutation UpdateRoomAvailability($data: UpdateRoomAvailabilityInput!) {
+  updateRoomAvailability(data: $data) {
+    ...RoomData
+  }
+}
+    ${RoomDataFragmentDoc}`;
+export type UpdateRoomAvailabilityMutationFn = Apollo.MutationFunction<UpdateRoomAvailabilityMutation, UpdateRoomAvailabilityMutationVariables>;
+
+/**
+ * __useUpdateRoomAvailabilityMutation__
+ *
+ * To run a mutation, you first call `useUpdateRoomAvailabilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateRoomAvailabilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateRoomAvailabilityMutation, { data, loading, error }] = useUpdateRoomAvailabilityMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateRoomAvailabilityMutation(baseOptions?: Apollo.MutationHookOptions<UpdateRoomAvailabilityMutation, UpdateRoomAvailabilityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateRoomAvailabilityMutation, UpdateRoomAvailabilityMutationVariables>(UpdateRoomAvailabilityDocument, options);
+      }
+export type UpdateRoomAvailabilityMutationHookResult = ReturnType<typeof useUpdateRoomAvailabilityMutation>;
+export type UpdateRoomAvailabilityMutationResult = Apollo.MutationResult<UpdateRoomAvailabilityMutation>;
+export type UpdateRoomAvailabilityMutationOptions = Apollo.BaseMutationOptions<UpdateRoomAvailabilityMutation, UpdateRoomAvailabilityMutationVariables>;
