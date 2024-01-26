@@ -45,16 +45,6 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
   }
 
   @UseGuards(JwtWsAuthGuard)
-  @SubscribeMessage(SocketEvent.CREATE_ROOM)
-  createRoom(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @MessageBody('roomName') roomName: string,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketService.handleCreateRoom(socket, { roomName, user });
-  }
-
-  @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.JOIN_ROOM)
   joinRoom(
     @CurrentUserFromRequest() user: UserWithoutPassword,
