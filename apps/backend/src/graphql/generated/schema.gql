@@ -268,7 +268,7 @@ type Room {
   connectedPlayerRefs: [ID!]!
   createdAt: DateTime
   hostRef: ID!
-  roomName: String!
+  name: String!
   updatedAt: DateTime
 }
 

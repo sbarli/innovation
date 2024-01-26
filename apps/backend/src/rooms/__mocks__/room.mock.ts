@@ -13,7 +13,7 @@ export const MOCK_NEW_ROOM: Room = {
   _id: MOCK_ID,
   createdAt: undefined,
   updatedAt: undefined,
-  roomName: MOCK_ROOM_NAME,
+  name: MOCK_ROOM_NAME,
   hostRef: MOCK_USER_ID,
   connectedPlayerRefs: [],
   availableToJoin: true,

@@ -69,13 +69,13 @@ export class RoomsService {
     try {
       const duplicateRoom = await this.roomModel.findOne({
         hostRef: user._id,
-        roomName,
+        name: roomName,
       });
       if (duplicateRoom) {
         throw new Error('Room with this name already exists for this user');
       }
       const createdRoom = new this.roomModel({
-        roomName,
+        name: roomName,
         hostRef: user._id,
         connectedPlayerRefs: [],
         availableToJoin: true,

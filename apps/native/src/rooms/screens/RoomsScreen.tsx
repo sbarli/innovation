@@ -28,7 +28,7 @@ export const RoomsScreen = () => {
           <Box flexDirection="row" justifyContent="space-between">
             {data?.getRoomsForPlayer.map((room) => (
               <Box key={`room-${room._id}`}>
-                <Heading>{room.roomName}</Heading>
+                <Heading>{room.name}</Heading>
                 <Text>{room.availableToJoin ? 'Open' : 'Closed'}</Text>
                 {room.hostRef === user._id ? (
                   <Text color="$green700">You are the host!</Text>

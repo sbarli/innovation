@@ -52,7 +52,7 @@ export const RoomScreen = ({ error, loading, roomData }: IRoomScreenProps) => {
   }
   return (
     <Box alignItems="center">
-      <Text>Welcome to the {roomData.roomName} room!</Text>
+      <Text>Welcome to the {roomData.name} room!</Text>
     </Box>
   );
 };

@@ -362,7 +362,7 @@ export type Room = {
   connectedPlayerRefs: Array<Scalars['ID']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   hostRef: Scalars['ID']['output'];
-  roomName: Scalars['String']['output'];
+  name: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -429,21 +429,21 @@ export type CreateRoomMutationVariables = Exact<{
 }>;
 
 
-export type CreateRoomMutation = { __typename?: 'Mutation', createRoom: { __typename?: 'Room', _id: string, roomName: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean } };
+export type CreateRoomMutation = { __typename?: 'Mutation', createRoom: { __typename?: 'Room', _id: string, name: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean } };
 
-export type RoomDataFragment = { __typename?: 'Room', _id: string, roomName: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean };
+export type RoomDataFragment = { __typename?: 'Room', _id: string, name: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean };
 
 export type GetRoomQueryVariables = Exact<{
   roomId: Scalars['String']['input'];
 }>;
 
 
-export type GetRoomQuery = { __typename?: 'Query', getRoom?: { __typename?: 'Room', _id: string, roomName: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean } | null };
+export type GetRoomQuery = { __typename?: 'Query', getRoom?: { __typename?: 'Room', _id: string, name: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean } | null };
 
 export type GetRoomsForPlayerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetRoomsForPlayerQuery = { __typename?: 'Query', getRoomsForPlayer?: Array<{ __typename?: 'Room', _id: string, roomName: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean }> | null };
+export type GetRoomsForPlayerQuery = { __typename?: 'Query', getRoomsForPlayer?: Array<{ __typename?: 'Room', _id: string, name: string, hostRef: string, connectedPlayerRefs: Array<string>, availableToJoin: boolean }> | null };
 
 export type UserDetailsFragment = { __typename?: 'ClientUserData', _id: string, displayName: string, email: string };
 
@@ -509,7 +509,7 @@ export const ResourceTotalsFragmentDoc = gql`
 export const RoomDataFragmentDoc = gql`
     fragment RoomData on Room {
   _id
-  roomName
+  name
   hostRef
   connectedPlayerRefs
   availableToJoin
