@@ -6,6 +6,7 @@ import { UsersService } from 'src/users/users.service';
 
 import { getCatchErrorMessage } from '@inno/utils';
 
+import { UpdateRoomAvailabilityInput } from './dto/update-room-availability.dto';
 import { PlayerRoomType } from './rooms.types';
 import { NullishRoom, Room, RoomDocument } from './schemas/room.schema';
 
@@ -88,9 +89,9 @@ export class RoomsService {
     }
   }
 
-  async addPlayerToRoom(roomRef: string, playerRef: string): Promise<NullishRoom> {
+  async addPlayerToRoom(roomId: string, playerRef: string): Promise<NullishRoom> {
     try {
-      const room = await this.findRoomByRef(roomRef);
+      const room = await this.findRoomByRef(roomId);
       if (!room) {
         throw new Error('RoomsService.addPlayerToRoom -> Room does not exist');
       }
@@ -112,7 +113,7 @@ export class RoomsService {
 
       // otherwise, update room with new player
       return this.roomModel.findByIdAndUpdate(
-        roomRef,
+        roomId,
         { connectedPlayerRefs: [...room.connectedPlayerRefs, playerRef] },
         { new: true }
       );
@@ -123,9 +124,9 @@ export class RoomsService {
     }
   }
 
-  async removePlayerFromRoom(roomRef: string, playerRef: string): Promise<NullishRoom> {
+  async removePlayerFromRoom(roomId: string, playerRef: string): Promise<NullishRoom> {
     try {
-      const room = await this.findRoomByRef(roomRef);
+      const room = await this.findRoomByRef(roomId);
       if (!room) {
         throw new Error('RoomsService.removePlayerFromRoom -> Room does not exist');
       }
@@ -142,12 +143,12 @@ export class RoomsService {
       }
       // If host is leaving and there are no other players, remove host
       if (playerIsHost && !room.connectedPlayerRefs.length) {
-        return this.roomModel.findByIdAndUpdate(roomRef, { host: undefined }, { new: true });
+        return this.roomModel.findByIdAndUpdate(roomId, { host: undefined }, { new: true });
       }
       // If host is leaving and there are other players, make someone else host
       if (playerIsHost && room.connectedPlayerRefs.length) {
         return this.roomModel.findByIdAndUpdate(
-          roomRef,
+          roomId,
           {
             hostRef: room.connectedPlayerRefs[0],
             connectedPlayerRefs: [...room.connectedPlayerRefs.slice(1)],
@@ -157,7 +158,7 @@ export class RoomsService {
       }
       // Player is participant, remove them from the list
       return this.roomModel.findByIdAndUpdate(
-        roomRef,
+        roomId,
         { connectedPlayerRefs: [...room.connectedPlayerRefs.filter((ref) => ref === playerRef)] },
         { new: true }
       );
@@ -166,6 +167,39 @@ export class RoomsService {
         getCatchErrorMessage(
           error,
           'RoomsService.removePlayerFromRoom -> Error adding player to room'
+        )
+      );
+    }
+  }
+
+  async updateRoomAvailability({
+    roomId,
+    availableToJoin,
+  }: UpdateRoomAvailabilityInput): Promise<NullishRoom> {
+    try {
+      return this.roomModel.findByIdAndUpdate(roomId, { availableToJoin }, { new: true });
+    } catch (error) {
+      throw new Error(
+        getCatchErrorMessage(
+          error,
+          'RoomsService.updateRoomAvailability -> Error updating room availability'
+        )
+      );
+    }
+  }
+
+  async validateUserIsRoomHost(roomId: string, userRef: string): Promise<boolean> {
+    try {
+      const foundRoom = await this.roomModel.find({ _id: roomId, hostRef: userRef });
+      if (!foundRoom) {
+        return false;
+      }
+      return true;
+    } catch (error) {
+      throw new Error(
+        getCatchErrorMessage(
+          error,
+          'RoomsService.validateUserIsRoomHost -> Error checking if user is host of room'
         )
       );
     }

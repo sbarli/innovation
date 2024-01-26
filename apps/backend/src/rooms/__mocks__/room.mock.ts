@@ -1,6 +1,7 @@
 import { MOCK_USER_ID, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
 
-import { CreateRoomInput, Room } from '../schemas/room.schema';
+import { CreateRoomInput } from '../dto/create-room.dto';
+import { Room } from '../schemas/room.schema';
 
 export const MOCK_ID = 'mock_id';
 export const MOCK_ROOM_NAME = 'mock room name';

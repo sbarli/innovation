@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { ForbiddenException, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CurrentUserFromGqlCtx } from 'src/auth/decorators/current-user.decorator';
 import { JwtGqlAuthGuard } from 'src/auth/guards/jwt-gql-auth.guard';
@@ -6,8 +6,10 @@ import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 import { getCatchErrorMessage } from '@inno/utils';
 
+import { CreateRoomInput } from './dto/create-room.dto';
+import { UpdateRoomAvailabilityInput } from './dto/update-room-availability.dto';
 import { RoomsService } from './rooms.service';
-import { CreateRoomInput, NullishRoom, Room } from './schemas/room.schema';
+import { NullishRoom, Room } from './schemas/room.schema';
 
 @Resolver('rooms')
 export class RoomsResolver {
@@ -15,12 +17,12 @@ export class RoomsResolver {
 
   @Query(() => Room, { nullable: true })
   @UseGuards(JwtGqlAuthGuard)
-  async getRoom(@Args('roomRef', { type: () => String }) roomRef: string): Promise<NullishRoom> {
+  async getRoom(@Args('roomId', { type: () => String }) roomId: string): Promise<NullishRoom> {
     try {
-      return this.roomsService.findRoomByRef(roomRef);
+      return this.roomsService.findRoomByRef(roomId);
     } catch (error) {
       throw new HttpException(
-        getCatchErrorMessage(error, `GetRoom Query -> Could not find room with id ${roomRef}`),
+        getCatchErrorMessage(error, `GetRoom Query -> Could not find room with id ${roomId}`),
         HttpStatus.BAD_REQUEST
       );
     }
@@ -55,5 +57,28 @@ export class RoomsResolver {
       roomName: newRoomData.roomName,
       user,
     });
+  }
+
+  @Mutation(() => Room, { nullable: true })
+  @UseGuards(JwtGqlAuthGuard)
+  async updateRoomAvailability(
+    @CurrentUserFromGqlCtx() user: UserWithoutPassword,
+    @Args('data', { type: () => UpdateRoomAvailabilityInput }) data: UpdateRoomAvailabilityInput
+  ): Promise<NullishRoom> {
+    try {
+      const allowedToUpdate = await this.roomsService.validateUserIsRoomHost(data.roomId, user._id);
+      if (!allowedToUpdate) {
+        throw new ForbiddenException();
+      }
+      return this.roomsService.updateRoomAvailability(data);
+    } catch (error) {
+      throw new HttpException(
+        getCatchErrorMessage(
+          error,
+          `updateRoomAvailability Mutation -> Could not update availabilty for room ${data.roomId}`
+        ),
+        HttpStatus.BAD_REQUEST
+      );
+    }
   }
 }

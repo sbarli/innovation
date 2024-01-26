@@ -1,4 +1,4 @@
-import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 
@@ -37,12 +37,6 @@ export class Room {
   @Prop({ required: true, default: true, type: Boolean })
   @Field(() => Boolean)
   availableToJoin!: boolean;
-}
-
-@InputType()
-export class CreateRoomInput {
-  @Field(() => String)
-  roomName!: string;
 }
 
 export type NullishRoom = Room | null | undefined;
