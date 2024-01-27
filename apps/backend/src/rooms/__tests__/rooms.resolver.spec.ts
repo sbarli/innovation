@@ -21,6 +21,8 @@ describe('RoomsResolver', () => {
             findRoomByRef: jest.fn(() => MOCK_CLOSED_ROOM),
             findRoomsByPlayerRef: jest.fn(),
             addPlayerToRoom: jest.fn(),
+            updateRoomAvailability: jest.fn(() => MOCK_CLOSED_ROOM),
+            validateUserIsRoomHost: jest.fn(() => true),
           },
         },
         RoomsResolver,
@@ -71,6 +73,20 @@ describe('RoomsResolver', () => {
         jest.spyOn(roomsService, 'createRoom');
         const output = await roomsResolver.createRoom(MOCK_USER, MOCK_ROOM_INPUT);
         expect(output).toEqual(MOCK_NEW_ROOM);
+      });
+    });
+
+    describe('updateRoomAvailability', () => {
+      it('should return output of calling roomsService.updateRoomAvailability', async () => {
+        const updateServiceSpy = jest.spyOn(roomsService, 'updateRoomAvailability');
+        const validateServiceSpy = jest.spyOn(roomsService, 'validateUserIsRoomHost');
+        const output = await roomsResolver.updateRoomAvailability(MOCK_USER, {
+          roomId: MOCK_ID,
+          availableToJoin: false,
+        });
+        expect(validateServiceSpy).toHaveBeenCalledTimes(1);
+        expect(updateServiceSpy).toHaveBeenCalledTimes(1);
+        expect(output).toEqual(MOCK_CLOSED_ROOM);
       });
     });
   });

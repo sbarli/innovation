@@ -51,31 +51,6 @@ export class SocketService {
   }
 
   /**
-   * @name handleCreateRoom
-   * @description creats a new room if room does not currently exist
-   */
-  async handleCreateRoom(socket: Socket, { roomName, user }: IHandleCreateRoomParams) {
-    try {
-      const newRoom = await this.roomsService.createRoom({ roomName, user });
-      if (!newRoom) {
-        throw new Error('Room not created');
-      }
-      socket.join(newRoom._id);
-      socket.emit(SocketEvent.CREATE_ROOM_SUCCESS, newRoom);
-      socket.emit(SocketEvent.JOIN_ROOM_SUCCESS, newRoom);
-      return;
-    } catch (error) {
-      const errorMessage =
-        getCatchErrorMessage(error) ??
-        `handleCreateRoom: Unable to create room ${roomName} for user ${user._id}`;
-      this.logger.error(errorMessage);
-      const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
-      socket.emit(SocketEvent.CREATE_ROOM_ERROR, errorData);
-      throw new WsException(errorMessage);
-    }
-  }
-
-  /**
    * @name handleJoinRoom
    * @description handles adding socket to existing room and notifying existing clients of the new member
    */
@@ -94,15 +69,9 @@ export class SocketService {
       }
       if (socket.rooms.has(roomId)) {
         this.logger.warn(`${socket.id} already in room ${roomId}`);
-        const errorData = new SocketEventError(
-          SocketEventErrorCode.DUPE,
-          'You are already in this room!',
-          { roomId }
-        );
-        socket.emit(SocketEvent.JOIN_ROOM_ERROR, errorData);
-        return;
+      } else {
+        socket.join(roomId);
       }
-      socket.join(roomId);
       socket.to(roomId).emit(SocketEvent.USER_JOINED_ROOM, { username: user.displayName });
       socket.emit(SocketEvent.JOIN_ROOM_SUCCESS, joinedRoomData);
       return;

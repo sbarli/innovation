@@ -18,7 +18,7 @@ export default function Room() {
   });
   return (
     <>
-      <HeaderWithBackNavigation title={data?.getRoom?.roomName ?? '...'} />
+      <HeaderWithBackNavigation title={data?.getRoom?.name ?? '...'} />
       <RoomScreen roomData={data?.getRoom} loading={loading} error={error} />
     </>
   );

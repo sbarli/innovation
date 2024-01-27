@@ -22,7 +22,6 @@ export enum SocketEvent {
   LEAVE_ROOM_ERROR = 'leaveRoomError',
 
   // client-Emitted Events
-  CREATE_ROOM = 'createRoom',
   JOIN_ROOM = 'joinRoom',
   LEAVE_ROOM = 'leaveRoom',
 

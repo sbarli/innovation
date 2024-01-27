@@ -1,0 +1,5 @@
+mutation UpdateRoomAvailability($data: UpdateRoomAvailabilityInput!) {
+  updateRoomAvailability(data: $data) {
+    ...RoomData
+  }
+}

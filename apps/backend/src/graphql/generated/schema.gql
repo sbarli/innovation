@@ -206,6 +206,7 @@ type Mutation {
   signup(newUserData: CreateUserInput!): AuthResponse!
   updateGame(id: String!, updates: UpdateGameInput!): Game
   updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsInput!): PlayerGameDetails
+  updateRoomAvailability(data: UpdateRoomAvailabilityInput!): Room
 }
 
 type PlayerGameDetails {
@@ -231,7 +232,7 @@ type Query {
   getOneCard(options: FindOneOptionsInput!): Card
   getPlayerGameDetails(gameRef: ID!, playerRef: ID!): PlayerGameDetails
   getPlayerGameDetailsById(id: ID!): PlayerGameDetails
-  getRoom(roomRef: String!): Room
+  getRoom(roomId: String!): Room
   getRoomsForPlayer: [Room!]
   isAuthenticated: ClientUserData!
   login(loginUserInput: GetUserInput!): AuthResponse!
@@ -268,7 +269,7 @@ type Room {
   connectedPlayerRefs: [ID!]!
   createdAt: DateTime
   hostRef: ID!
-  roomName: String!
+  name: String!
   updatedAt: DateTime
 }
 
@@ -294,4 +295,9 @@ input UpdatePlayerGameDetailsInput {
   resourceTotals: ResourceTotalsInput
   score: Float
   scoreCardRefs: [ID!]
+}
+
+input UpdateRoomAvailabilityInput {
+  availableToJoin: Boolean!
+  roomId: String!
 }
