@@ -1,15 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { Button, ButtonText, Center } from '@gluestack-ui/themed';
-import { router } from 'expo-router';
+import { Box, Button, ButtonText, Text } from '@gluestack-ui/themed';
 import { Socket } from 'socket.io-client';
 
 import { SocketEvent, SocketEventError } from '@inno/constants';
-import { GetRoomsForPlayerDocument, Room, useCreateRoomMutation } from '@inno/gql';
+import { GetRoomsForPlayerDocument, useCreateRoomMutation } from '@inno/gql';
 
 import { getCatchErrorMessage } from '../../../../../packages/utils/dist';
 import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
-import { Routes } from '../../app-core/constants/navigation';
 import { CreateRoomForm } from '../forms/CreateRoomForm';
 import { CreateRoomFormData } from '../room.types';
 
@@ -48,12 +46,8 @@ export const CreateRoomCTA = ({ socket }: ICreateRoomCTAProps) => {
   };
 
   useEffect(() => {
-    socket?.on(SocketEvent.JOIN_ROOM_SUCCESS, (room: Room) => {
+    socket?.on(SocketEvent.JOIN_ROOM_SUCCESS, () => {
       setShowModal(false);
-      router.push({
-        pathname: Routes.ROOM,
-        params: { roomId: room._id },
-      });
     });
     socket?.on(SocketEvent.JOIN_ROOM_ERROR, (error: SocketEventError) => {
       setErrorMsg(error.message);
@@ -65,22 +59,20 @@ export const CreateRoomCTA = ({ socket }: ICreateRoomCTAProps) => {
   }, [socket]);
 
   return (
-    <Center h={300}>
+    <Box>
       <Button onPress={() => setShowModal(true)}>
         <ButtonText>Create Room</ButtonText>
       </Button>
-      <InteractiveModal
-        cancelText="Cancel"
-        headerText="Create a Room"
-        onClose={handleClose}
-        showModal={showModal}
-      >
-        <CreateRoomForm
-          error={errorMsg}
-          loading={createRoomMutationLoading}
-          onSubmit={handleSubmit}
-        />
+      <InteractiveModal headerText="Create a Room" onClose={handleClose} showModal={showModal}>
+        <>
+          <Text>Give your new room a name</Text>
+          <CreateRoomForm
+            error={errorMsg}
+            loading={createRoomMutationLoading}
+            onSubmit={handleSubmit}
+          />
+        </>
       </InteractiveModal>
-    </Center>
+    </Box>
   );
 };
