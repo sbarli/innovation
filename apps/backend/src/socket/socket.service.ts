@@ -69,15 +69,9 @@ export class SocketService {
       }
       if (socket.rooms.has(roomId)) {
         this.logger.warn(`${socket.id} already in room ${roomId}`);
-        const errorData = new SocketEventError(
-          SocketEventErrorCode.DUPE,
-          'You are already in this room!',
-          { roomId }
-        );
-        socket.emit(SocketEvent.JOIN_ROOM_ERROR, errorData);
-        return;
+      } else {
+        socket.join(roomId);
       }
-      socket.join(roomId);
       socket.to(roomId).emit(SocketEvent.USER_JOINED_ROOM, { username: user.displayName });
       socket.emit(SocketEvent.JOIN_ROOM_SUCCESS, joinedRoomData);
       return;
