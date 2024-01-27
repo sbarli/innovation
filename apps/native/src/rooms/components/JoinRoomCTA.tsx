@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 
-import { Button, ButtonText, Center } from '@gluestack-ui/themed';
+import { Box, Button, ButtonText } from '@gluestack-ui/themed';
+import { Text } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
 import { Socket } from 'socket.io-client';
 
@@ -28,18 +29,17 @@ export const JoinRoomCTA = ({ socket }: IJoinRoomCTAProps) => {
   }, []);
 
   return (
-    <Center h={300}>
+    <Box>
       <Button onPress={() => setShowModal(true)}>
         <ButtonText>Join Room</ButtonText>
       </Button>
-      <InteractiveModal
-        cancelText="Cancel"
-        headerText="Join a Room"
-        onClose={handleClose}
-        showModal={showModal}
-      >
-        <JoinRoomForm onJoinSuccess={handleJoinedRoom} socket={socket} />
+      <InteractiveModal headerText="Join a Room" onClose={handleClose} showModal={showModal}>
+        <>
+          <Text>Already know the id for the room you want to join?</Text>
+          <Text>Enter it here to get playing faster!</Text>
+          <JoinRoomForm onJoinSuccess={handleJoinedRoom} socket={socket} />
+        </>
       </InteractiveModal>
-    </Center>
+    </Box>
   );
 };

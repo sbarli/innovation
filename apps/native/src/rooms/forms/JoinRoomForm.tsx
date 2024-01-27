@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 
-import { Box, Button, ButtonText, Input, InputField } from '@gluestack-ui/themed';
+import { Box, Button, ButtonText, HStack, Input, InputField, VStack } from '@gluestack-ui/themed';
+import { Text } from '@gluestack-ui/themed';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { Socket } from 'socket.io-client';
 
 import { SocketEvent, SocketEventError } from '@inno/constants';
+import { Room } from '@inno/gql';
 
 import { FormError } from '../../app-core/forms/FormError';
 import { JoinRoomFormData } from '../room.types';
@@ -47,8 +49,8 @@ export const JoinRoomForm = ({ onJoinSuccess, socket }: IJoinRoomFormProps) => {
         message: error.message,
       });
     });
-    socket?.on(SocketEvent.JOIN_ROOM_SUCCESS, (roomId: string) => {
-      onJoinSuccess(roomId);
+    socket?.on(SocketEvent.JOIN_ROOM_SUCCESS, (roomData: Room) => {
+      onJoinSuccess(roomData._id);
     });
 
     return () => {
@@ -58,7 +60,7 @@ export const JoinRoomForm = ({ onJoinSuccess, socket }: IJoinRoomFormProps) => {
   }, [socket]);
 
   return (
-    <Box w="$1/2">
+    <Box>
       <Box marginBottom="$5">
         <Controller
           control={control}
@@ -67,35 +69,42 @@ export const JoinRoomForm = ({ onJoinSuccess, socket }: IJoinRoomFormProps) => {
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              variant="outline"
-              size="md"
-              isDisabled={false}
-              isInvalid={!!errors.roomId}
-              isReadOnly={false}
-            >
-              <InputField
-                placeholder="Room Name"
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            </Input>
+            <VStack mt="$2" space="sm">
+              <Input
+                variant="outline"
+                size="md"
+                isDisabled={false}
+                isInvalid={!!errors.roomId}
+                isReadOnly={false}
+              >
+                <InputField
+                  placeholder="Room ID"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                />
+              </Input>
+              <Text size="sm">
+                Note: Room ID is different from the room name. Ask host for the ID.
+              </Text>
+            </VStack>
           )}
         />
         <FormError errorMsg={errors.roomId?.message as string} />
       </Box>
 
-      <Button
-        onPress={handleSubmit(onSubmit)}
-        size="md"
-        variant="solid"
-        action="positive"
-        isDisabled={false}
-        isFocusVisible={false}
-      >
-        <ButtonText>Join Room</ButtonText>
-      </Button>
+      <HStack justifyContent="flex-end">
+        <Button
+          onPress={handleSubmit(onSubmit)}
+          size="md"
+          variant="solid"
+          action="positive"
+          isDisabled={false}
+          isFocusVisible={false}
+        >
+          <ButtonText>Join</ButtonText>
+        </Button>
+      </HStack>
       <FormError errorMsg={''} />
     </Box>
   );
