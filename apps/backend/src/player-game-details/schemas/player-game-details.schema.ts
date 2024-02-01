@@ -25,7 +25,7 @@ export class PlayerGameDetails {
   @Field(() => ID)
   gameRef!: string;
 
-  @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Player' })
+  @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'User' })
   @Field(() => ID)
   playerRef!: string;
 

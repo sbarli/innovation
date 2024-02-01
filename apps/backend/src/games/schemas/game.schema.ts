@@ -25,21 +25,21 @@ export class Game {
   @Field(() => Number)
   currentActionNumber!: number;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Player' })
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   @Field(() => ID)
   currentPlayerRef!: string;
 
   @Prop({
     required: true,
     type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Player',
+    ref: 'User',
   })
   @Field(() => [ID])
   playerRefs!: string[];
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Player',
+    ref: 'User',
     nullable: true,
   })
   @Field(() => ID, { nullable: true })
