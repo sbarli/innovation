@@ -33,11 +33,4 @@ export class User {
 @ObjectType()
 export class UserWithoutPassword extends OmitType(User, ['password'] as const, ObjectType) {}
 
-@ObjectType()
-export class ClientUserData extends OmitType(
-  User,
-  ['password', 'createdAt', 'updatedAt'] as const,
-  ObjectType
-) {}
-
 export const UserSchema = SchemaFactory.createForClass(User);

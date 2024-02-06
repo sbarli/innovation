@@ -2,7 +2,7 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateUserInput } from 'src/users/dto/create-user.dto';
 import { GetUserInput } from 'src/users/dto/get-user.dto';
-import { ClientUserData } from 'src/users/schemas/user.schema';
+import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 import { AuthService } from './auth.service';
 import { GqlCtx } from './auth.types';
@@ -29,9 +29,9 @@ export class AuthResolver {
     return this.authService.login(context.req.user);
   }
 
-  @Query(() => ClientUserData)
+  @Query(() => UserWithoutPassword)
   @UseGuards(JwtGqlAuthGuard)
-  async isAuthenticated(@Context() context: GqlCtx): Promise<ClientUserData> {
+  async isAuthenticated(@Context() context: GqlCtx): Promise<UserWithoutPassword> {
     return transformUserToClientUser(context.req.user);
   }
 }

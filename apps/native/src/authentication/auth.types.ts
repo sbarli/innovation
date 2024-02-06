@@ -1,4 +1,4 @@
-import { ClientUserData, CreateUserInput, GetUserInput } from '@inno/gql';
+import { CreateUserInput, GetUserInput, UserWithoutPassword } from '@inno/gql';
 
 export type LoginFormData = {
   email: string;
@@ -19,13 +19,13 @@ export type TAuthContext = {
   loginError?: string;
   signup: (signupData: CreateUserInput) => void;
   signupError?: string;
-  user?: ClientUserData;
+  user?: UserWithoutPassword;
 };
 
 export interface IAuthCallback {
   authToken?: string;
   success: boolean;
-  user?: ClientUserData;
+  user?: UserWithoutPassword;
 }
 
 export type AuthCallbackFn = ({ authToken, success, user }: IAuthCallback) => Promise<boolean>;

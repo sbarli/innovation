@@ -47,7 +47,7 @@ export type AchievementsInput = {
 export type AuthResponse = {
   __typename?: 'AuthResponse';
   access_token: Scalars['String']['output'];
-  user: ClientUserData;
+  user: UserWithoutPassword;
 };
 
 export type Board = {
@@ -123,13 +123,6 @@ export type CardRefsByAge = {
   TEN: Array<Scalars['String']['output']>;
   THREE: Array<Scalars['String']['output']>;
   TWO: Array<Scalars['String']['output']>;
-};
-
-export type ClientUserData = {
-  __typename?: 'ClientUserData';
-  _id: Scalars['ID']['output'];
-  email: Scalars['String']['output'];
-  username: Scalars['String']['output'];
 };
 
 export type CreateNewGameInput = {
@@ -299,7 +292,7 @@ export type Query = {
   getPlayerGameDetailsById?: Maybe<PlayerGameDetails>;
   getRoom?: Maybe<Room>;
   getRoomsForPlayer?: Maybe<Array<Room>>;
-  isAuthenticated: ClientUserData;
+  isAuthenticated: UserWithoutPassword;
   login: AuthResponse;
 };
 
@@ -401,26 +394,35 @@ export type UpdateRoomAvailabilityInput = {
   roomId: Scalars['String']['input'];
 };
 
-export type AuthResponseDataFragment = { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'ClientUserData', _id: string, username: string, email: string } };
+export type UserWithoutPassword = {
+  __typename?: 'UserWithoutPassword';
+  _id: Scalars['ID']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  email: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  username: Scalars['String']['output'];
+};
+
+export type AuthResponseDataFragment = { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'UserWithoutPassword', _id: string, username: string, email: string } };
 
 export type IsAuthenticatedQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type IsAuthenticatedQuery = { __typename?: 'Query', isAuthenticated: { __typename?: 'ClientUserData', _id: string, username: string, email: string } };
+export type IsAuthenticatedQuery = { __typename?: 'Query', isAuthenticated: { __typename?: 'UserWithoutPassword', _id: string, username: string, email: string } };
 
 export type LoginQueryVariables = Exact<{
   loginUserInput: GetUserInput;
 }>;
 
 
-export type LoginQuery = { __typename?: 'Query', login: { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'ClientUserData', _id: string, username: string, email: string } } };
+export type LoginQuery = { __typename?: 'Query', login: { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'UserWithoutPassword', _id: string, username: string, email: string } } };
 
 export type SignupMutationVariables = Exact<{
   newUserData: CreateUserInput;
 }>;
 
 
-export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'ClientUserData', _id: string, username: string, email: string } } };
+export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'AuthResponse', access_token: string, user: { __typename?: 'UserWithoutPassword', _id: string, username: string, email: string } } };
 
 export type BaseCardFragment = { __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string };
 
@@ -463,10 +465,10 @@ export type UpdateRoomAvailabilityMutationVariables = Exact<{
 
 export type UpdateRoomAvailabilityMutation = { __typename?: 'Mutation', updateRoomAvailability?: { __typename?: 'Room', _id: string, name: string, hostRef: string, playerRefs: Array<string>, availableToJoin: boolean } | null };
 
-export type UserDetailsFragment = { __typename?: 'ClientUserData', _id: string, username: string, email: string };
+export type UserDetailsFragment = { __typename?: 'UserWithoutPassword', _id: string, username: string, email: string };
 
 export const UserDetailsFragmentDoc = gql`
-    fragment UserDetails on ClientUserData {
+    fragment UserDetails on UserWithoutPassword {
   _id
   username
   email

@@ -1,6 +1,6 @@
 import { CreateUserInput } from '../dto/create-user.dto';
 import { GetUserInput } from '../dto/get-user.dto';
-import { ClientUserData, User, UserWithoutPassword } from '../schemas/user.schema';
+import { User, UserWithoutPassword } from '../schemas/user.schema';
 
 export const MOCK_USER_ID = 'mock_user_id';
 export const MOCK_USER_ID_2 = 'mock_user_id_2';
@@ -34,7 +34,7 @@ export const MOCK_USER_WITHOUT_PASSWORD: UserWithoutPassword = {
   updatedAt: undefined,
 };
 
-export const MOCK_USER_CLIENT_DATA: ClientUserData = {
+export const MOCK_USER_CLIENT_DATA: UserWithoutPassword = {
   _id: MOCK_USER_ID,
   email: MOCK_USER_EMAIL,
   username: MOCK_USER_DISPLAY_NAME,
