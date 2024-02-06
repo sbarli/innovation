@@ -2,7 +2,7 @@ import { useLocalSearchParams } from 'expo-router';
 
 import { useGetRoomQuery } from '@inno/gql';
 
-import { HeaderWithBackNavigation } from '../../../../src/app-core/components/headers/HeaderWithBackNavigation';
+import { HeaderNoNav } from '../../../../src/app-core/components/headers/HeaderNoNav';
 import { RoomScreen } from '../../../../src/rooms/screens/RoomScreen';
 
 // eslint-disable-next-line import/no-default-export
@@ -18,7 +18,7 @@ export default function Room() {
   });
   return (
     <>
-      <HeaderWithBackNavigation title={data?.getRoom?.name ?? '...'} />
+      <HeaderNoNav title={data?.getRoom?.name ?? '...'} />
       <RoomScreen roomData={data?.getRoom} loading={loading} error={error} />
     </>
   );

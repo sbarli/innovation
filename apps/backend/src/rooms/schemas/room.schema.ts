@@ -32,7 +32,7 @@ export class Room {
     ref: 'User',
   })
   @Field(() => [ID])
-  connectedPlayerRefs!: string[];
+  playerRefs!: string[];
 
   @Prop({ required: true, default: true, type: Boolean })
   @Field(() => Boolean)

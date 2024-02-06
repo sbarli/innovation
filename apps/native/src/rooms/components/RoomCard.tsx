@@ -20,6 +20,7 @@ import { RoomDataFragment } from '@inno/gql';
 
 export interface IRoomMetadata {
   userIsHost: boolean;
+  playersInRoom?: number;
 }
 
 export interface IRoomCardProps {
@@ -67,7 +68,9 @@ export const RoomCard = ({ metadata, room, socket }: IRoomCardProps) => {
         {metadata.userIsHost ? <Text>Room ID: {room._id}</Text> : null}
         {/* TODO: make this host username */}
         <Text>Host: {room.hostRef}</Text>
-        <Text>Players in room: {room.connectedPlayerRefs.length + 1}</Text>
+        {metadata.playersInRoom !== undefined ? (
+          <Text>Players in room: {metadata.playersInRoom}</Text>
+        ) : null}
         <HStack space="md" justifyContent="flex-end">
           {metadata.userIsHost ? (
             // TODO: add close room logic

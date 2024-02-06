@@ -16,12 +16,12 @@ export const MOCK_NEW_ROOM: Room = {
   updatedAt: undefined,
   name: MOCK_ROOM_NAME,
   hostRef: MOCK_USER_ID,
-  connectedPlayerRefs: [],
+  playerRefs: [],
   availableToJoin: true,
 };
 
 export const MOCK_CLOSED_ROOM: Room = {
   ...MOCK_NEW_ROOM,
-  connectedPlayerRefs: [MOCK_USER_ID_2],
+  playerRefs: [MOCK_USER_ID_2],
   availableToJoin: false,
 };

@@ -10,7 +10,7 @@ const passwordValidation = z
 
 export const signupFormSchema: ZodType<SignupFormData> = z
   .object({
-    displayName: z
+    username: z
       .string()
       .min(3)
       .max(20)

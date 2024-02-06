@@ -2,6 +2,6 @@ import { ClientUserData, User, UserWithoutPassword } from 'src/users/schemas/use
 
 export const transformUserToClientUser = (user: User | UserWithoutPassword): ClientUserData => ({
   _id: user._id,
-  displayName: user.displayName,
+  username: user.username,
   email: user.email,
 });

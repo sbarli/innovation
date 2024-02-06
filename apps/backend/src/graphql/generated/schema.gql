@@ -102,8 +102,8 @@ type CardRefsByAge {
 
 type ClientUserData {
   _id: ID!
-  displayName: String!
   email: String!
+  username: String!
 }
 
 input CreateNewGameInput {
@@ -132,9 +132,9 @@ input CreateRoomInput {
 }
 
 input CreateUserInput {
-  displayName: String!
   email: String!
   password: String!
+  username: String!
 }
 
 """
@@ -266,10 +266,10 @@ input ResourceTotalsInput {
 type Room {
   _id: ID!
   availableToJoin: Boolean!
-  connectedPlayerRefs: [ID!]!
   createdAt: DateTime
   hostRef: ID!
   name: String!
+  playerRefs: [ID!]!
   updatedAt: DateTime
 }
 

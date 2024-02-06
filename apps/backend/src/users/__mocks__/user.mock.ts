@@ -11,7 +11,7 @@ export const MOCK_USER_PASSWORD = 'mock@userpass1';
 export const MOCK_CREATE_USER_INPUT: CreateUserInput = {
   email: MOCK_USER_EMAIL,
   password: MOCK_USER_PASSWORD,
-  displayName: MOCK_USER_DISPLAY_NAME,
+  username: MOCK_USER_DISPLAY_NAME,
 };
 
 export const MOCK_GET_USER_INPUT: GetUserInput = {
@@ -29,7 +29,7 @@ export const MOCK_USER: User = {
 export const MOCK_USER_WITHOUT_PASSWORD: UserWithoutPassword = {
   _id: MOCK_USER_ID,
   email: MOCK_USER_EMAIL,
-  displayName: MOCK_USER_DISPLAY_NAME,
+  username: MOCK_USER_DISPLAY_NAME,
   createdAt: undefined,
   updatedAt: undefined,
 };
@@ -37,5 +37,5 @@ export const MOCK_USER_WITHOUT_PASSWORD: UserWithoutPassword = {
 export const MOCK_USER_CLIENT_DATA: ClientUserData = {
   _id: MOCK_USER_ID,
   email: MOCK_USER_EMAIL,
-  displayName: MOCK_USER_DISPLAY_NAME,
+  username: MOCK_USER_DISPLAY_NAME,
 };
