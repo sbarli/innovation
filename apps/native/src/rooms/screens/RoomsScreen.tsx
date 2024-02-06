@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Box, FlatList, HStack, Heading, Text, VStack } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
@@ -12,11 +12,25 @@ import { useSocketContext } from '../../websockets/SocketProvider';
 import { CreateRoomCTA } from '../components/CreateRoomCTA';
 import { JoinRoomCTA } from '../components/JoinRoomCTA';
 import { RoomCard } from '../components/RoomCard';
+import { IPlayersInRoom } from '../room.types';
 
 export const RoomsScreen = () => {
   const { user } = useAuthContext();
-  const { data, loading } = useGetRoomsForPlayerQuery();
+  const { data, loading } = useGetRoomsForPlayerQuery({
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-and-network',
+  });
   const { socket } = useSocketContext();
+
+  const [roomParticipants, setRoomParticipants] = useState<IPlayersInRoom[] | undefined>();
+  const [loadingParticipants, setLoadingParticipants] = useState(true);
+
+  useEffect(() => {
+    socket?.emit(SocketEvent.GET_PLAYER_ROOMS_OVERVIEW, (roomData: IPlayersInRoom[]) => {
+      setRoomParticipants(roomData);
+      setLoadingParticipants(false);
+    });
+  }, []);
 
   useEffect(() => {
     socket?.on(SocketEvent.JOIN_ROOM_SUCCESS, (roomData: Room) => {
@@ -30,8 +44,8 @@ export const RoomsScreen = () => {
     };
   }, [socket]);
 
-  if ((!data && loading) || !user) {
-    return <Text>Loading Rooms</Text>;
+  if ((!data && loading) || (!roomParticipants && loadingParticipants) || !user) {
+    return <Text>Loading Rooms Info...</Text>;
   }
 
   return (
@@ -54,7 +68,17 @@ export const RoomsScreen = () => {
             renderItem={({ item }) => {
               const room = item as RoomDataFragment;
               const userIsHost = room.hostRef === user._id;
-              return <RoomCard room={room} metadata={{ userIsHost }} socket={socket} />;
+              return (
+                <RoomCard
+                  room={room}
+                  metadata={{
+                    userIsHost,
+                    playersInRoom: roomParticipants?.find((data) => data.roomId === room._id)
+                      ?.playersInRoom,
+                  }}
+                  socket={socket}
+                />
+              );
             }}
           />
         </Box>
