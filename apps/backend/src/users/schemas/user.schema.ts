@@ -20,7 +20,7 @@ export class User {
 
   @Prop({ type: String, required: true })
   @Field(() => String)
-  displayName!: string;
+  username!: string;
 
   @Prop({ type: String, required: true, unique: true, index: true })
   @Field(() => String)

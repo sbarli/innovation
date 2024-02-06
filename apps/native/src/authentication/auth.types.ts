@@ -6,7 +6,7 @@ export type LoginFormData = {
 };
 
 export type SignupFormData = {
-  displayName: string;
+  username: string;
   email: string;
   password: string;
   passwordConfirm: string;

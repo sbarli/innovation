@@ -1,5 +1,5 @@
 fragment UserDetails on ClientUserData {
   _id
-  displayName
+  username
   email
 }

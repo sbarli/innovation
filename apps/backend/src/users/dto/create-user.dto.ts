@@ -10,5 +10,5 @@ export class CreateUserInput {
   password!: string;
 
   @Field(() => String)
-  displayName!: string;
+  username!: string;
 }

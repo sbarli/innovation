@@ -15,7 +15,7 @@ export const SignupForm = () => {
     formState: { errors },
   } = useForm<SignupFormData>({
     defaultValues: {
-      displayName: '',
+      username: '',
       email: '',
       password: '',
       passwordConfirm: '',
@@ -24,7 +24,7 @@ export const SignupForm = () => {
   });
   const onSubmit = (data: SignupFormData) => {
     signup({
-      displayName: data.displayName,
+      username: data.username,
       email: data.email,
       password: data.password,
     });
@@ -34,7 +34,7 @@ export const SignupForm = () => {
       <Box marginBottom="$5">
         <Controller
           control={control}
-          name="displayName"
+          name="username"
           rules={{
             required: true,
           }}
@@ -43,7 +43,7 @@ export const SignupForm = () => {
               variant="outline"
               size="md"
               isDisabled={false}
-              isInvalid={!!errors.displayName}
+              isInvalid={!!errors.username}
               isReadOnly={false}
             >
               <InputField
@@ -55,7 +55,7 @@ export const SignupForm = () => {
             </Input>
           )}
         />
-        <FormError errorMsg={errors.displayName?.message} />
+        <FormError errorMsg={errors.username?.message} />
       </Box>
 
       <Box marginBottom="$5">
