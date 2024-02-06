@@ -2,6 +2,6 @@ fragment RoomData on Room {
   _id
   name
   hostRef
-  connectedPlayerRefs
+  playerRefs
   availableToJoin
 }
