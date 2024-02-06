@@ -55,13 +55,35 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
   }
 
   @UseGuards(JwtWsAuthGuard)
+  @SubscribeMessage(SocketEvent.GET_PLAYER_ROOMS_OVERVIEW)
+  async getPlayerRoomsOverview(
+    @CurrentUserFromRequest() user: UserWithoutPassword,
+    @ConnectedSocket() socket: Socket
+  ) {
+    return this.socketService.handleGetPlayerRoomsOverview(socket, {
+      socketServer: this.server,
+      user,
+    });
+  }
+
+  @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.LEAVE_ROOM)
   leaveRoom(
     @CurrentUserFromRequest() user: UserWithoutPassword,
     @MessageBody('roomId') roomId: string,
     @ConnectedSocket() socket: Socket
   ) {
-    return this.socketService.handleLeaveRoom(socket, { roomId, user });
+    return this.socketService.handleLeaveRoom(socket, { roomId, socketServer: this.server, user });
+  }
+
+  @UseGuards(JwtWsAuthGuard)
+  @SubscribeMessage(SocketEvent.CLOSE_ROOM)
+  closeRoom(
+    @CurrentUserFromRequest() user: UserWithoutPassword,
+    @MessageBody('roomId') roomId: string,
+    @ConnectedSocket() socket: Socket
+  ) {
+    return this.socketService.handleCloseRoom(socket, { roomId, socketServer: this.server, user });
   }
 
   // Implement other Socket.IO event handlers and message handlers

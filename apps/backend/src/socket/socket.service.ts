@@ -7,11 +7,10 @@ import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 import { SocketEvent, SocketEventError, SocketEventErrorCode } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
 
-export type Room = {
-  roomId: string;
-  host: string;
-  clientsInRoom: string[];
-};
+export interface IHandleGetPlayerRoomsOverviewParams {
+  socketServer: Socket;
+  user: UserWithoutPassword;
+}
 
 export interface IHandleCreateRoomParams {
   roomName: string;
@@ -26,6 +25,13 @@ export interface IHandleJoinRoomParams {
 export interface IHandleLeaveRoomParams {
   roomId: string;
   user: UserWithoutPassword;
+  socketServer: Socket;
+}
+
+export interface IHandleCloseRoomParams {
+  roomId: string;
+  user: UserWithoutPassword;
+  socketServer: Socket;
 }
 
 @Injectable()
@@ -51,12 +57,51 @@ export class SocketService {
   }
 
   /**
+   * @name handleGetPlayerRoomsOverview
+   * @description gets connected players data for all rooms player is a part of
+   */
+  async handleGetPlayerRoomsOverview(
+    socket: Socket,
+    { socketServer, user }: IHandleGetPlayerRoomsOverviewParams
+  ) {
+    try {
+      const playerRooms = await this.roomsService.findRoomsByPlayerRef(user._id);
+      if (!playerRooms || !playerRooms.length) {
+        return [];
+      }
+
+      const connectedPlayersData = await Promise.all(
+        playerRooms.map(async (room) => {
+          const connectedSockets = await socketServer.in(room._id.toString()).fetchSockets();
+          return {
+            roomId: room._id.toString(),
+            playersInRoom: connectedSockets.length,
+          };
+        })
+      );
+
+      console.log('connectedPlayersData: ', connectedPlayersData);
+      return connectedPlayersData;
+    } catch (error) {
+      const errorMessage =
+        getCatchErrorMessage(error) ?? `Unable to get rooms overview for user ${user._id}`;
+      this.logger.error(errorMessage);
+      const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
+      socket.emit(SocketEvent.GET_PLAYER_ROOMS_OVERVIEW_ERROR, errorData);
+      throw new WsException(errorMessage);
+    }
+  }
+
+  /**
    * @name handleJoinRoom
    * @description handles adding socket to existing room and notifying existing clients of the new member
    */
   async handleJoinRoom(socket: Socket, { roomId, user }: IHandleJoinRoomParams) {
     try {
-      const joinedRoomData = await this.roomsService.addPlayerToRoom(roomId, user._id);
+      const joinedRoomData = await this.roomsService.addPlayerToRoom({
+        roomId,
+        playerRef: user._id,
+      });
       if (!joinedRoomData) {
         this.logger.error(`${socket.id} could not join room with id ${roomId}: Room not found`);
         const errorData = new SocketEventError(
@@ -72,7 +117,7 @@ export class SocketService {
       } else {
         socket.join(roomId);
       }
-      socket.to(roomId).emit(SocketEvent.USER_JOINED_ROOM, { username: user.displayName });
+      socket.to(roomId).emit(SocketEvent.USER_JOINED_ROOM, { username: user.username });
       socket.emit(SocketEvent.JOIN_ROOM_SUCCESS, joinedRoomData);
       return;
     } catch (error) {
@@ -89,10 +134,10 @@ export class SocketService {
    * @name handleLeaveRoom
    * @description removes socket from room and handles calling proper helper to update local room storage data
    */
-  async handleLeaveRoom(socket: Socket, { roomId, user }: IHandleLeaveRoomParams) {
+  async handleLeaveRoom(socket: Socket, { roomId, socketServer, user }: IHandleLeaveRoomParams) {
     try {
-      const roomLeftData = await this.roomsService.removePlayerFromRoom(roomId, user._id);
-      if (!roomLeftData) {
+      const roomData = await this.roomsService.findRoomByRef(roomId);
+      if (!roomData) {
         this.logger.error(`${roomId}: Room not found`);
         const errorData = new SocketEventError(
           SocketEventErrorCode.NOT_FOUND,
@@ -106,8 +151,13 @@ export class SocketService {
         this.logger.warn(`${user._id} tried to leave ${roomId}: user already not in room`);
         return;
       }
-      socket.leave(roomId);
-      socket.emit(SocketEvent.LEAVE_ROOM_SUCCESS, roomLeftData);
+      if (roomData.hostRef === user._id) {
+        socketServer.in(roomId).socketsLeave(roomId);
+      } else {
+        socket.to(roomId).emit(SocketEvent.USER_LEFT_ROOM, { username: user.username });
+        socket.leave(roomId);
+      }
+      socket.emit(SocketEvent.LEAVE_ROOM_SUCCESS, roomData);
       return;
     } catch (error) {
       const errorMessage =
@@ -115,6 +165,35 @@ export class SocketService {
       this.logger.error(errorMessage);
       const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
       socket.emit(SocketEvent.LEAVE_ROOM_ERROR, errorData);
+      throw new WsException(errorMessage);
+    }
+  }
+
+  /**
+   * @name handleCloseRoom
+   * @description only host can close a room. closes all socket connections to room and anonymizes room data
+   */
+  async handleCloseRoom(socket: Socket, { roomId, socketServer, user }: IHandleCloseRoomParams) {
+    try {
+      const closedRoomData = await this.roomsService.closeRoom({ roomId, playerRef: user._id });
+      if (!closedRoomData) {
+        this.logger.error(`${roomId}: Room not found`);
+        const errorData = new SocketEventError(
+          SocketEventErrorCode.NOT_FOUND,
+          'Unable to close room.',
+          { roomId }
+        );
+        socket.emit(SocketEvent.CLOSE_ROOM_ERROR, errorData);
+        return;
+      }
+      socketServer.in(roomId).socketsLeave(roomId);
+      socket.emit(SocketEvent.CLOSE_ROOM_SUCCESS, { roomId });
+      return;
+    } catch (error) {
+      const errorMessage = getCatchErrorMessage(error) ?? `Unable to close room ${roomId}`;
+      this.logger.error(errorMessage);
+      const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
+      socket.emit(SocketEvent.CLOSE_ROOM_ERROR, errorData);
       throw new WsException(errorMessage);
     }
   }
