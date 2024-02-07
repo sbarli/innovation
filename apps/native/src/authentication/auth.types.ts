@@ -17,6 +17,7 @@ export type TAuthContext = {
   isLoading: boolean;
   login: (loginData: GetUserInput) => void;
   loginError?: string;
+  logout: () => void;
   signup: (signupData: CreateUserInput) => void;
   signupError?: string;
   user?: UserWithoutPassword;
