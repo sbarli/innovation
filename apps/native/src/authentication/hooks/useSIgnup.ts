@@ -15,7 +15,7 @@ export const useSignup = (authCallback: AuthCallbackFn) => {
       },
       fetchPolicy: 'no-cache',
       onCompleted(data) {
-        if (data.signup?.authToken && data.signup?.user) {
+        if (data?.signup?.authToken && data?.signup?.user) {
           authCallback({
             authToken: data.signup?.authToken,
             refreshToken: data.signup?.refreshToken,
