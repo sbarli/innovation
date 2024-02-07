@@ -6,7 +6,7 @@ import { HeaderNoNav } from '../../src/app-core/components/headers/HeaderNoNav';
 export default function AuthLayout() {
   return (
     <>
-      <HeaderNoNav title="Auth" />
+      <HeaderNoNav showLogout={false} title="Auth" />
       <Slot />
     </>
   );
