@@ -24,6 +24,7 @@ export type TAuthContext = {
 
 export interface IAuthCallback {
   authToken?: string;
+  refreshToken?: string;
   success: boolean;
   user?: UserWithoutPassword;
 }
