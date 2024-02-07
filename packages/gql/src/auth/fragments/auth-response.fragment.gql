@@ -1,5 +1,6 @@
 fragment AuthResponseData on AuthResponse { 
-  access_token
+  authToken
+  refreshToken
   user {
     ...UserDetails
   }
