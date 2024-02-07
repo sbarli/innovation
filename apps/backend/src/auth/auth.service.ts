@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -10,6 +10,7 @@ import { getCatchErrorMessage } from '@inno/utils';
 
 import { AccessTokenPayload } from './dto/access-token-payload.dto';
 import { AuthResponse } from './dto/auth.response.dto';
+import { RefreshTokenPayload } from './dto/refresh-token-payload.dto';
 import { ValidateUserInput } from './dto/validate-user.dto';
 import { isDuplicateKeyError } from './helpers/check-if-duplicate-key-mongo-error';
 import { stripPasswordFromUser } from './helpers/strip-password-from-user';
@@ -51,7 +52,21 @@ export class AuthService {
   async setAccessToken(userId: string): Promise<AccessTokenPayload> {
     const payload = { sub: userId };
     return {
-      access_token: this.jwtService.sign(payload),
+      authToken: this.jwtService.sign(payload),
+    };
+  }
+
+  /**
+   * @name setRefreshToken
+   * @description creates a signed jwt with userId and responds with this as refresh token
+   */
+  async setRefreshToken(userId: string): Promise<RefreshTokenPayload> {
+    const payload = { sub: userId };
+    return {
+      refreshToken: this.jwtService.sign(payload, {
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+        expiresIn: '7d',
+      }),
     };
   }
 
@@ -67,12 +82,7 @@ export class AuthService {
         ...data,
         password: hashedPassword,
       });
-      const accessToken = await this.setAccessToken(newUser._id);
-      const signupResponse: AuthResponse = {
-        ...accessToken,
-        user: transformUserToClientUser(newUser),
-      };
-      return signupResponse;
+      return await this.login(transformUserToClientUser(newUser));
     } catch (error) {
       const failedDueToExistingUser = isDuplicateKeyError(getCatchErrorMessage(error, ''));
       console.error(
@@ -91,14 +101,32 @@ export class AuthService {
   async login(user: UserWithoutPassword): Promise<AuthResponse> {
     try {
       const accessToken = await this.setAccessToken(user._id);
+      const refreshToken = await this.setRefreshToken(user._id);
       const loginResponse: AuthResponse = {
         ...accessToken,
-        user: transformUserToClientUser(user),
+        ...refreshToken,
+        user,
       };
       return loginResponse;
     } catch (error) {
       console.error(getCatchErrorMessage(error ?? 'authService.login -> Unable to login new user'));
       throw new Error('Unable to login.');
+    }
+  }
+
+  /**
+   * @name refreshToken
+   * @description gets an access token for the newly logged in user
+   */
+  async refreshToken(user: UserWithoutPassword): Promise<AccessTokenPayload> {
+    try {
+      const refreshResponse = await this.setAccessToken(user._id);
+      return refreshResponse;
+    } catch (error) {
+      console.error(
+        getCatchErrorMessage(error ?? 'authService.refreshToken -> Unable to refresh access token')
+      );
+      throw new UnauthorizedException();
     }
   }
 }

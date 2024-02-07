@@ -6,14 +6,22 @@ import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 import { AuthService } from './auth.service';
 import { GqlCtx } from './auth.types';
+import { AccessTokenPayload } from './dto/access-token-payload.dto';
 import { AuthResponse } from './dto/auth.response.dto';
 import { JwtGqlAuthGuard } from './guards/jwt-gql-auth.guard';
 import { LocalGqlAuthGuard } from './guards/local-gql-auth.guard';
+import { RefreshJwtGqlAuthGuard } from './guards/refresh-jwt-gql-auth.guard';
 import { transformUserToClientUser } from './helpers/transform-user-to-client-user';
 
 @Resolver('auth')
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
+
+  @Mutation(() => AccessTokenPayload)
+  @UseGuards(RefreshJwtGqlAuthGuard)
+  async refreshToken(@Context() context: GqlCtx): Promise<AccessTokenPayload> {
+    return this.authService.refreshToken(context.req.user);
+  }
 
   @Mutation(() => AuthResponse)
   async signup(@Args('newUserData') newUserData: CreateUserInput): Promise<AuthResponse> {
