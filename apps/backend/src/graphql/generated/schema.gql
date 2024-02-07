@@ -28,7 +28,7 @@ input AchievementsInput {
 
 type AuthResponse {
   access_token: String!
-  user: ClientUserData!
+  user: UserWithoutPassword!
 }
 
 type Board {
@@ -98,12 +98,6 @@ type CardRefsByAge {
   TEN: [String!]!
   THREE: [String!]!
   TWO: [String!]!
-}
-
-type ClientUserData {
-  _id: ID!
-  email: String!
-  username: String!
 }
 
 input CreateNewGameInput {
@@ -234,7 +228,7 @@ type Query {
   getPlayerGameDetailsById(id: ID!): PlayerGameDetails
   getRoom(roomId: String!): Room
   getRoomsForPlayer: [Room!]
-  isAuthenticated: ClientUserData!
+  isAuthenticated: UserWithoutPassword!
   login(loginUserInput: GetUserInput!): AuthResponse!
 }
 
@@ -300,4 +294,12 @@ input UpdatePlayerGameDetailsInput {
 input UpdateRoomAvailabilityInput {
   availableToJoin: Boolean!
   roomId: String!
+}
+
+type UserWithoutPassword {
+  _id: ID!
+  createdAt: DateTime
+  email: String!
+  updatedAt: DateTime
+  username: String!
 }

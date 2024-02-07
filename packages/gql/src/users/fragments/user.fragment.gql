@@ -1,4 +1,4 @@
-fragment UserDetails on ClientUserData {
+fragment UserDetails on UserWithoutPassword {
   _id
   username
   email

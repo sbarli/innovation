@@ -2,7 +2,7 @@ import { PropsWithChildren, createContext, useCallback, useContext, useState } f
 
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
-import { ClientUserData, useIsAuthenticatedQuery } from '@inno/gql';
+import { UserWithoutPassword, useIsAuthenticatedQuery } from '@inno/gql';
 
 import { StorageKeys } from '../../app-core/constants/storage.constants';
 import { useSocketContext } from '../../websockets/SocketProvider';
@@ -27,7 +27,7 @@ export function AuthProvider(props: PropsWithChildren) {
   const { setItem: setAuthToken, removeItem: clearAuthToken } = useAsyncStorage(
     StorageKeys.AUTH_TOKEN
   );
-  const [user, setUser] = useState<ClientUserData>();
+  const [user, setUser] = useState<UserWithoutPassword>();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   const { loading: isAuthenticatedLoading } = useIsAuthenticatedQuery({
