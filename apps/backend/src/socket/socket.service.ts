@@ -80,7 +80,6 @@ export class SocketService {
         })
       );
 
-      console.log('connectedPlayersData: ', connectedPlayersData);
       return connectedPlayersData;
     } catch (error) {
       const errorMessage =
