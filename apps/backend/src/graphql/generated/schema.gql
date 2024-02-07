@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AccessTokenPayload {
+  authToken: String!
+}
+
 type Achievements {
   EIGHT: ID!
   FIVE: ID!
@@ -27,7 +31,8 @@ input AchievementsInput {
 }
 
 type AuthResponse {
-  access_token: String!
+  authToken: String!
+  refreshToken: String!
   user: UserWithoutPassword!
 }
 
@@ -197,6 +202,7 @@ type Mutation {
   createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
   createRoom(newRoomData: CreateRoomInput!): Room!
+  refreshToken: AccessTokenPayload!
   signup(newUserData: CreateUserInput!): AuthResponse!
   updateGame(id: String!, updates: UpdateGameInput!): Game
   updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsInput!): PlayerGameDetails

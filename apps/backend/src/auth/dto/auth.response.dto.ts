@@ -4,7 +4,10 @@ import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 @ObjectType()
 export class AuthResponse {
   @Field(() => String)
-  access_token!: string;
+  authToken!: string;
+
+  @Field(() => String)
+  refreshToken!: string;
 
   @Field(() => UserWithoutPassword)
   user!: UserWithoutPassword;

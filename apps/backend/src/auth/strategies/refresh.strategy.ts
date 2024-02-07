@@ -11,7 +11,7 @@ import { JwtPayload } from '../dto/jwt-payload.dto';
 import { stripPasswordFromUser } from '../helpers/strip-password-from-user';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class RefreshJwtStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
   constructor(
     protected configService: ConfigService,
     private usersService: UsersService
@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>('JWT_SECRET'),
+      secretOrKey: configService.get<string>('JWT_REFRESH_SECRET'),
     });
   }
 
@@ -39,7 +39,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       return stripPasswordFromUser(user);
     } catch (error) {
       console.error(
-        getCatchErrorMessage(error) ?? 'JwtStrategy.validate -> Unable to validate user'
+        getCatchErrorMessage(error) ?? 'RefreshJwtStrategy.validate -> Unable to validate user'
       );
       throw new UnauthorizedException();
     }
