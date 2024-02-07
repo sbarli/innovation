@@ -11,7 +11,7 @@ import { JwtPayload } from '../dto/jwt-payload.dto';
 import { stripPasswordFromUser } from '../helpers/strip-password-from-user';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
     protected configService: ConfigService,
     private usersService: UsersService
