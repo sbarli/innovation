@@ -1,9 +1,11 @@
 import { PropsWithChildren, createContext, useCallback, useContext, useState } from 'react';
 
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
 
 import { UserWithoutPassword, useIsAuthenticatedQuery } from '@inno/gql';
 
+import { Routes } from '../../app-core/constants/navigation';
 import { StorageKeys } from '../../app-core/constants/storage.constants';
 import { useSocketContext } from '../../websockets/SocketProvider';
 import { TAuthContext, IAuthCallback } from '../auth.types';
@@ -31,7 +33,7 @@ export function AuthProvider(props: PropsWithChildren) {
     StorageKeys.REFRESH_TOKEN
   );
   const [user, setUser] = useState<UserWithoutPassword>();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const { loading: isAuthenticatedLoading } = useIsAuthenticatedQuery({
     fetchPolicy: 'no-cache',
@@ -54,6 +56,7 @@ export function AuthProvider(props: PropsWithChildren) {
     setUser(undefined);
     setIsAuthenticated(false);
     disconnectUserFromSocket();
+    router.push(Routes.AUTH);
   }, []);
 
   const authCallback = useCallback(
@@ -84,14 +87,16 @@ export function AuthProvider(props: PropsWithChildren) {
   const signupErrorMessage = signupError ? getGraphQLErrorMessage(signupError) : undefined;
   const loginErrorMessage = loginError ? getGraphQLErrorMessage(loginError) : undefined;
 
+  const authLoading = (!isAuthenticated && isAuthenticatedLoading) || loginLoading || signupLoading;
+
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated: !!isAuthenticated,
-        isLoading:
-          isAuthenticated === null || isAuthenticatedLoading || loginLoading || signupLoading,
+        isLoading: authLoading,
         login,
         loginError: loginErrorMessage,
+        logout,
         signup,
         signupError: signupErrorMessage,
         user,

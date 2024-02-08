@@ -15,7 +15,7 @@ export const useLogin = (authCallback: AuthCallbackFn) => {
       },
       fetchPolicy: 'no-cache',
       onCompleted(data) {
-        if (data.login?.authToken && data.login?.user) {
+        if (data?.login?.authToken && data?.login?.user) {
           authCallback({
             authToken: data.login?.authToken,
             refreshToken: data.login?.refreshToken,

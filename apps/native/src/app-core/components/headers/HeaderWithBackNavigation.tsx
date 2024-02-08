@@ -1,13 +1,22 @@
-import { ArrowLeftIcon, Box, Button, ButtonIcon, HStack, Heading } from '@gluestack-ui/themed';
+import { ArrowLeftIcon, Button, ButtonIcon, HStack, Heading } from '@gluestack-ui/themed';
 
+import { Logout } from '../../../authentication/components/Logout';
 import { useNavigateBack } from '../../hooks/navigation/useNavigateBack';
 import { IHeaderProps } from '../../types/header.types';
 
-export const HeaderWithBackNavigation = ({ title }: IHeaderProps) => {
+export const HeaderWithBackNavigation = ({ showLogout = true, title }: IHeaderProps) => {
   const { navigateBack } = useNavigateBack();
   return (
-    <HStack backgroundColor="$primary500" marginBottom="$5" paddingVertical="$2">
-      <Box paddingHorizontal="$5">
+    <HStack
+      backgroundColor="$primary500"
+      marginBottom="$5"
+      paddingVertical="$2"
+      paddingLeft="$8"
+      paddingRight="$6"
+      justifyContent="space-between"
+      alignItems="center"
+    >
+      <HStack alignItems="center" space="sm">
         <Button onPress={navigateBack} variant="link" size="xl">
           <ButtonIcon
             color="$textLight100"
@@ -19,8 +28,6 @@ export const HeaderWithBackNavigation = ({ title }: IHeaderProps) => {
             as={ArrowLeftIcon}
           />
         </Button>
-      </Box>
-      <Box w="$full" justifyContent="center">
         <Heading
           margin={0}
           size="xl"
@@ -33,7 +40,8 @@ export const HeaderWithBackNavigation = ({ title }: IHeaderProps) => {
         >
           {title}
         </Heading>
-      </Box>
+      </HStack>
+      {!!showLogout && <Logout />}
     </HStack>
   );
 };
