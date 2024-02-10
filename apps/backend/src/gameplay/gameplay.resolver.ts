@@ -19,6 +19,7 @@ export class GameplayResolver {
     @Args('newGameDto', { type: () => CreateNewGameInput })
     newGameDto: CreateNewGameInput
   ) {
+    await this.newGameService.validateRoomExists(newGameDto.roomRef);
     await this.newGameService.validatePlayersExist(newGameDto.playerRefs);
     await this.newGameService.validateUniqueGame(newGameDto.playerRefs);
     const cards = await this.cardsService.findAll();
@@ -28,6 +29,7 @@ export class GameplayResolver {
       newGameDto.playerRefs
     );
     return this.newGameService.startGame({
+      roomRef: newGameDto.roomRef,
       playerRefs: newGameDto.playerRefs,
       starterDeck: deck,
       ageAchievements: achievements,

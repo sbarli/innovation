@@ -22,9 +22,10 @@ export class UsersService {
   }
 
   async findUsers(searchData: FindUsersInput): Promise<User[]> {
+    const fieldName = searchData.searchField === 'ref' ? '_id' : searchData.searchField;
     try {
       return this.userModel.find({
-        [searchData.searchField]: { $in: searchData.searchValues },
+        [fieldName]: { $in: searchData.searchValues },
       });
     } catch (error) {
       throw new Error(

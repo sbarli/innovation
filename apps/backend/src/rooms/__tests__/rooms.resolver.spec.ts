@@ -3,7 +3,12 @@ import { Test } from '@nestjs/testing';
 import { JwtGqlAuthGuard } from 'src/auth/guards/jwt-gql-auth.guard';
 import { MOCK_USER } from 'src/users/__mocks__/user.mock';
 
-import { MOCK_NEW_ROOM, MOCK_CLOSED_ROOM, MOCK_ROOM_INPUT, MOCK_ID } from '../__mocks__/room.mock';
+import {
+  MOCK_NEW_ROOM,
+  MOCK_CLOSED_ROOM,
+  MOCK_ROOM_INPUT,
+  MOCK_ROOM_ID,
+} from '../__mocks__/room.mock';
 import { RoomsResolver } from '../rooms.resolver';
 import { RoomsService } from '../rooms.service';
 
@@ -50,7 +55,7 @@ describe('RoomsResolver', () => {
     describe('getRoom', () => {
       it('should return output of calling roomsService.findRoomByRef', async () => {
         jest.spyOn(roomsService, 'findRoomByRef');
-        const output = await roomsResolver.getRoom(MOCK_ID);
+        const output = await roomsResolver.getRoom(MOCK_ROOM_ID);
         expect(output).toEqual(MOCK_CLOSED_ROOM);
       });
     });
@@ -81,7 +86,7 @@ describe('RoomsResolver', () => {
         const updateServiceSpy = jest.spyOn(roomsService, 'updateRoomAvailability');
         const validateServiceSpy = jest.spyOn(roomsService, 'validateUserIsRoomHost');
         const output = await roomsResolver.updateRoomAvailability(MOCK_USER, {
-          roomId: MOCK_ID,
+          roomId: MOCK_ROOM_ID,
           availableToJoin: false,
         });
         expect(validateServiceSpy).toHaveBeenCalledTimes(1);
