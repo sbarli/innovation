@@ -21,7 +21,7 @@ export class Game {
   @Field(() => Date, { nullable: true })
   updatedAt?: Date;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Room' })
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Room', unique: true })
   @Field(() => ID)
   roomRef!: string;
 

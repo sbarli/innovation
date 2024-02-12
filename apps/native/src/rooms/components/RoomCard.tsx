@@ -15,16 +15,15 @@ import {
 } from '@gluestack-ui/themed';
 import { Socket } from 'socket.io-client';
 
-import { SocketEvent } from '@inno/constants';
+import { IRoomMetadata, SocketEvent } from '@inno/constants';
 import { RoomDataFragment } from '@inno/gql';
 
-export interface IRoomMetadata {
+export interface IExtendedRoomMetadata extends IRoomMetadata {
   userIsHost: boolean;
-  playersInRoom?: number;
 }
 
 export interface IRoomCardProps {
-  metadata: IRoomMetadata;
+  metadata: IExtendedRoomMetadata;
   room: RoomDataFragment;
   socket?: Socket;
 }

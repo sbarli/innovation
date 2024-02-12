@@ -8,7 +8,7 @@ import { RoomScreen } from '../../../../src/rooms/screens/RoomScreen';
 // eslint-disable-next-line import/no-default-export
 export default function Room() {
   const { roomId } = useLocalSearchParams();
-  const { data, loading, error } = useGetRoomQuery({
+  const { data, loading, error, refetch } = useGetRoomQuery({
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-and-network',
     variables: {
@@ -19,7 +19,12 @@ export default function Room() {
   return (
     <>
       <HeaderNoNav title={data?.getRoom?.name ?? '...'} />
-      <RoomScreen roomData={data?.getRoom} loading={loading} error={error} />
+      <RoomScreen
+        roomData={data?.getRoom}
+        loading={loading}
+        error={error}
+        refetchRoomData={refetch}
+      />
     </>
   );
 }

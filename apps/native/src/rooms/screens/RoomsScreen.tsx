@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Box, FlatList, HStack, Heading, Text, VStack } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
 
-import { SocketEvent } from '@inno/constants';
+import { IRoomMetadata, SocketEvent } from '@inno/constants';
 import { Room, RoomDataFragment, useGetRoomsForPlayerQuery } from '@inno/gql';
 
 import { Routes } from '../../app-core/constants/navigation';
@@ -12,7 +12,6 @@ import { useSocketContext } from '../../websockets/SocketProvider';
 import { CreateRoomCTA } from '../components/CreateRoomCTA';
 import { JoinRoomCTA } from '../components/JoinRoomCTA';
 import { RoomCard } from '../components/RoomCard';
-import { IPlayersInRoom } from '../room.types';
 
 export const RoomsScreen = () => {
   const { user } = useAuthContext();
@@ -22,11 +21,11 @@ export const RoomsScreen = () => {
   });
   const { socket } = useSocketContext();
 
-  const [roomParticipants, setRoomParticipants] = useState<IPlayersInRoom[] | undefined>();
+  const [roomParticipants, setRoomParticipants] = useState<IRoomMetadata[] | undefined>();
   const [loadingParticipants, setLoadingParticipants] = useState(true);
 
   useEffect(() => {
-    socket?.emit(SocketEvent.GET_PLAYER_ROOMS_OVERVIEW, (roomData: IPlayersInRoom[]) => {
+    socket?.emit(SocketEvent.GET_PLAYER_ROOMS_OVERVIEW, (roomData: IRoomMetadata[]) => {
       setRoomParticipants(roomData);
       setLoadingParticipants(false);
     });
@@ -73,8 +72,10 @@ export const RoomsScreen = () => {
                   room={room}
                   metadata={{
                     userIsHost,
-                    playersInRoom: roomParticipants?.find((data) => data.roomId === room._id)
-                      ?.playersInRoom,
+                    ...(roomParticipants?.find((data) => data.roomId === room._id) ?? {
+                      playersInRoom: 0,
+                      roomId: room._id,
+                    }),
                   }}
                   socket={socket}
                 />
