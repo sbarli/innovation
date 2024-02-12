@@ -28,29 +28,13 @@ export interface IHandleCreateRoomParams {
 }
 
 @Injectable()
-export class SocketService {
-  private logger: Logger = new Logger('SocketService');
-  private readonly connectedClients: Map<string, Socket> = new Map();
+export class SocketRoomService {
+  private logger: Logger = new Logger('SocketRoomService');
 
   constructor(
     private readonly gamesService: GamesService,
     private readonly roomsService: RoomsService
   ) {}
-
-  /**
-   * @name handleConnection
-   * @description handles storing connected clients and diconnect logic
-   */
-  handleConnection(socket: Socket): void {
-    const socketId = socket.id;
-    this.logger.log(`Client connected: ${socketId}`);
-    this.connectedClients.set(socketId, socket);
-
-    socket.on('disconnect', () => {
-      this.logger.log(`handling disconnect for ${socketId}`);
-      this.connectedClients.delete(socketId);
-    });
-  }
 
   /**
    * @name handleGetRoomMetadata
