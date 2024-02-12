@@ -21,6 +21,10 @@ export class Game {
   @Field(() => Date, { nullable: true })
   updatedAt?: Date;
 
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Room', unique: true })
+  @Field(() => ID)
+  roomRef!: string;
+
   @Prop({ type: Number, required: true })
   @Field(() => Number)
   currentActionNumber!: number;

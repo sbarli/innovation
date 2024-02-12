@@ -107,6 +107,7 @@ type CardRefsByAge {
 
 input CreateNewGameInput {
   playerRefs: [String!]!
+  roomRef: String!
 }
 
 type CreateNewGameResponse {
@@ -189,6 +190,7 @@ type Game {
   currentPlayerRef: ID!
   deck: Deck!
   playerRefs: [ID!]!
+  roomRef: ID!
   updatedAt: DateTime
   winnerRef: ID
 }

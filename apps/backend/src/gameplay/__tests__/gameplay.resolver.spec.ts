@@ -35,6 +35,7 @@ describe('GameplayResolver', () => {
         {
           provide: NewGameService,
           useValue: {
+            validateRoomExists: jest.fn(),
             validatePlayersExist: jest.fn(),
             validateUniqueGame: jest.fn(),
             getGameSetup: jest.fn(),
@@ -59,6 +60,9 @@ describe('GameplayResolver', () => {
     describe('createNewGame', () => {
       it('should return output of creating a new game when all validations pass', async () => {
         const MOCK_FIND_ALL_CARDS_RESPONSE = [MOCK_CARD];
+        const validateRoomSpy = jest
+          .spyOn(newGameService, 'validateRoomExists')
+          .mockResolvedValueOnce(true);
         const validatePlayersSpy = jest
           .spyOn(newGameService, 'validatePlayersExist')
           .mockResolvedValueOnce(true);
@@ -80,6 +84,7 @@ describe('GameplayResolver', () => {
 
         const output = await gameplayResolver.createNewGame(MOCK_NEW_GAME_INPUT);
 
+        expect(validateRoomSpy).toHaveBeenCalledWith(MOCK_NEW_GAME_INPUT.roomRef);
         expect(validatePlayersSpy).toHaveBeenCalledWith(MOCK_NEW_GAME_INPUT.playerRefs);
         expect(validateGameSpy).toHaveBeenCalledWith(MOCK_NEW_GAME_INPUT.playerRefs);
         expect(findCardsSpy).toHaveBeenCalledTimes(1);
@@ -89,6 +94,7 @@ describe('GameplayResolver', () => {
           MOCK_NEW_GAME_INPUT.playerRefs
         );
         expect(startGameSpy).toHaveBeenCalledWith({
+          roomRef: MOCK_NEW_GAME_INPUT.roomRef,
           playerRefs: MOCK_NEW_GAME_INPUT.playerRefs,
           starterDeck: MOCK_DECK,
           ageAchievements: MOCK_STARTER_ACHIEVEMENTS,

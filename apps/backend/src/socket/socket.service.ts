@@ -1,15 +1,25 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { WsException } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
+import { GamesService } from 'src/games/games.service';
 import { RoomsService } from 'src/rooms/rooms.service';
 import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
-import { SocketEvent, SocketEventError, SocketEventErrorCode } from '@inno/constants';
+import {
+  IRoomMetadata,
+  SocketEvent,
+  SocketEventError,
+  SocketEventErrorCode,
+} from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
 
-export interface IHandleGetPlayerRoomsOverviewParams {
-  socketServer: Socket;
+export interface IBaseSocketServiceParams {
   user: UserWithoutPassword;
+  socketServer: Socket;
+}
+
+export interface ISocketServiceMethodParamsWithRoomId extends IBaseSocketServiceParams {
+  roomId: string;
 }
 
 export interface IHandleCreateRoomParams {
@@ -17,43 +27,64 @@ export interface IHandleCreateRoomParams {
   user: UserWithoutPassword;
 }
 
-export interface IHandleJoinRoomParams {
-  roomId: string;
-  user: UserWithoutPassword;
-}
-
-export interface IHandleLeaveRoomParams {
-  roomId: string;
-  user: UserWithoutPassword;
-  socketServer: Socket;
-}
-
-export interface IHandleCloseRoomParams {
-  roomId: string;
-  user: UserWithoutPassword;
-  socketServer: Socket;
-}
-
 @Injectable()
 export class SocketService {
   private logger: Logger = new Logger('SocketService');
   private readonly connectedClients: Map<string, Socket> = new Map();
 
-  constructor(private readonly roomsService: RoomsService) {}
+  constructor(
+    private readonly gamesService: GamesService,
+    private readonly roomsService: RoomsService
+  ) {}
 
   /**
    * @name handleConnection
    * @description handles storing connected clients and diconnect logic
    */
   handleConnection(socket: Socket): void {
-    const clientId = socket.id;
-    this.logger.log(`Client connected: ${clientId}`);
-    this.connectedClients.set(clientId, socket);
+    const socketId = socket.id;
+    this.logger.log(`Client connected: ${socketId}`);
+    this.connectedClients.set(socketId, socket);
 
     socket.on('disconnect', () => {
-      this.logger.log(`handling disconnect for ${clientId}`);
-      this.connectedClients.delete(clientId);
+      this.logger.log(`handling disconnect for ${socketId}`);
+      this.connectedClients.delete(socketId);
     });
+  }
+
+  /**
+   * @name handleGetRoomMetadata
+   * @description gets metadata for specified room
+   */
+  async handleGetRoomMetadata(
+    { roomId, socketServer, user }: ISocketServiceMethodParamsWithRoomId,
+    byPassRoomValidation = false
+  ) {
+    try {
+      if (!byPassRoomValidation) {
+        const room = await this.roomsService.findRoomByRef(roomId);
+        if (!room) {
+          throw new Error(`Room ${roomId} not found. Check the room id and try again!`);
+        }
+      }
+
+      const game = await this.gamesService.findGameByRoomRef(roomId);
+
+      const connectedSockets = await socketServer.in(roomId).fetchSockets();
+
+      const connectedPlayersData: IRoomMetadata = {
+        gameId: game?._id,
+        playersInRoom: connectedSockets.length,
+        roomId: roomId.toString(),
+      };
+
+      return connectedPlayersData;
+    } catch (error) {
+      const errorMessage =
+        getCatchErrorMessage(error) ?? `Unable to get rooms overview for user ${user._id}`;
+      this.logger.error(errorMessage);
+      throw new WsException(errorMessage);
+    }
   }
 
   /**
@@ -62,7 +93,7 @@ export class SocketService {
    */
   async handleGetPlayerRoomsOverview(
     socket: Socket,
-    { socketServer, user }: IHandleGetPlayerRoomsOverviewParams
+    { socketServer, user }: IBaseSocketServiceParams
   ) {
     try {
       const playerRooms = await this.roomsService.findRoomsByPlayerRef(user._id);
@@ -70,14 +101,19 @@ export class SocketService {
         return [];
       }
 
-      const connectedPlayersData = await Promise.all(
-        playerRooms.map(async (room) => {
-          const connectedSockets = await socketServer.in(room._id.toString()).fetchSockets();
-          return {
-            roomId: room._id.toString(),
-            playersInRoom: connectedSockets.length,
-          };
-        })
+      const connectedPlayersData: IRoomMetadata[] = await Promise.all(
+        playerRooms
+          .map(async (room) => {
+            return await this.handleGetRoomMetadata(
+              {
+                roomId: room._id,
+                socketServer,
+                user,
+              },
+              true
+            );
+          })
+          .filter(Boolean)
       );
 
       return connectedPlayersData;
@@ -95,7 +131,10 @@ export class SocketService {
    * @name handleJoinRoom
    * @description handles adding socket to existing room and notifying existing clients of the new member
    */
-  async handleJoinRoom(socket: Socket, { roomId, user }: IHandleJoinRoomParams) {
+  async handleJoinRoom(
+    socket: Socket,
+    { roomId, socketServer, user }: ISocketServiceMethodParamsWithRoomId
+  ) {
     try {
       const joinedRoomData = await this.roomsService.addPlayerToRoom({
         roomId,
@@ -116,8 +155,15 @@ export class SocketService {
       } else {
         socket.join(roomId);
       }
-      socket.to(roomId).emit(SocketEvent.USER_JOINED_ROOM, { username: user.username });
-      socket.emit(SocketEvent.JOIN_ROOM_SUCCESS, joinedRoomData);
+      const roomMetadata = await this.handleGetRoomMetadata({ roomId, socketServer, user }, true);
+      socket.to(roomId).emit(SocketEvent.USER_JOINED_ROOM, {
+        username: user.username,
+        metadata: roomMetadata,
+      });
+      socket.emit(SocketEvent.JOIN_ROOM_SUCCESS, {
+        room: joinedRoomData,
+        metadata: roomMetadata,
+      });
       return;
     } catch (error) {
       const errorMessage =
@@ -133,7 +179,10 @@ export class SocketService {
    * @name handleLeaveRoom
    * @description removes socket from room and handles calling proper helper to update local room storage data
    */
-  async handleLeaveRoom(socket: Socket, { roomId, socketServer, user }: IHandleLeaveRoomParams) {
+  async handleLeaveRoom(
+    socket: Socket,
+    { roomId, socketServer, user }: ISocketServiceMethodParamsWithRoomId
+  ) {
     try {
       const roomData = await this.roomsService.findRoomByRef(roomId);
       if (!roomData) {
@@ -150,13 +199,21 @@ export class SocketService {
         this.logger.warn(`${user._id} tried to leave ${roomId}: user already not in room`);
         return;
       }
+      let roomMetadata: IRoomMetadata;
       if (roomData.hostRef === user._id) {
         socketServer.in(roomId).socketsLeave(roomId);
+        roomMetadata = await this.handleGetRoomMetadata({ roomId, socketServer, user }, true);
       } else {
-        socket.to(roomId).emit(SocketEvent.USER_LEFT_ROOM, { username: user.username });
         socket.leave(roomId);
+        roomMetadata = await this.handleGetRoomMetadata({ roomId, socketServer, user }, true);
+        socket
+          .to(roomId)
+          .emit(SocketEvent.USER_LEFT_ROOM, { username: user.username, metadata: roomMetadata });
       }
-      socket.emit(SocketEvent.LEAVE_ROOM_SUCCESS, roomData);
+      socket.emit(SocketEvent.LEAVE_ROOM_SUCCESS, {
+        room: roomData,
+        metadata: roomMetadata,
+      });
       return;
     } catch (error) {
       const errorMessage =
@@ -172,7 +229,10 @@ export class SocketService {
    * @name handleCloseRoom
    * @description only host can close a room. closes all socket connections to room and anonymizes room data
    */
-  async handleCloseRoom(socket: Socket, { roomId, socketServer, user }: IHandleCloseRoomParams) {
+  async handleCloseRoom(
+    socket: Socket,
+    { roomId, socketServer, user }: ISocketServiceMethodParamsWithRoomId
+  ) {
     try {
       const closedRoomData = await this.roomsService.closeRoom({ roomId, playerRef: user._id });
       if (!closedRoomData) {

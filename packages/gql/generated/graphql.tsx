@@ -133,6 +133,7 @@ export type CardRefsByAge = {
 
 export type CreateNewGameInput = {
   playerRefs: Array<Scalars['String']['input']>;
+  roomRef: Scalars['String']['input'];
 };
 
 export type CreateNewGameResponse = {
@@ -214,6 +215,7 @@ export type Game = {
   currentPlayerRef: Scalars['ID']['output'];
   deck: Deck;
   playerRefs: Array<Scalars['ID']['output']>;
+  roomRef: Scalars['ID']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   winnerRef?: Maybe<Scalars['ID']['output']>;
 };

@@ -51,7 +51,7 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     @MessageBody('roomId') roomId: string,
     @ConnectedSocket() socket: Socket
   ) {
-    return this.socketService.handleJoinRoom(socket, { roomId, user });
+    return this.socketService.handleJoinRoom(socket, { roomId, socketServer: this.server, user });
   }
 
   @UseGuards(JwtWsAuthGuard)

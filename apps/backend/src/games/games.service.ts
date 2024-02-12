@@ -21,6 +21,16 @@ export class GamesService {
     }
   }
 
+  async findGameByRoomRef(roomRef: string): Promise<Game | null | undefined> {
+    try {
+      return this.gameModel.findOne({ roomRef });
+    } catch (error) {
+      throw new Error(
+        getCatchErrorMessage(error, 'GamesService.findGameByRoomRef -> Error finding game')
+      );
+    }
+  }
+
   async findActiveGameByPlayers(playerRefs: string[]): Promise<Game | null | undefined> {
     return this.gameModel.findOne({
       $and: [

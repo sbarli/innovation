@@ -3,7 +3,7 @@ import { MOCK_USER_ID, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
 import { CreateRoomInput } from '../dto/create-room.dto';
 import { Room } from '../schemas/room.schema';
 
-export const MOCK_ID = 'mock_id';
+export const MOCK_ROOM_ID = 'mock_id';
 export const MOCK_ROOM_NAME = 'mock room name';
 
 export const MOCK_ROOM_INPUT: CreateRoomInput = {
@@ -11,7 +11,7 @@ export const MOCK_ROOM_INPUT: CreateRoomInput = {
 };
 
 export const MOCK_NEW_ROOM: Room = {
-  _id: MOCK_ID,
+  _id: MOCK_ROOM_ID,
   createdAt: undefined,
   updatedAt: undefined,
   name: MOCK_ROOM_NAME,

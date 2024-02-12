@@ -1,3 +1,4 @@
+import { MOCK_ROOM_ID } from 'src/rooms/__mocks__/room.mock';
 import { MOCK_USER_ID, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
 
 import { CreateGameInput, Game } from '../schemas/game.schema';
@@ -7,6 +8,7 @@ import { MOCK_DECK } from './deck.mock';
 export const MOCK_ID = 'mock_id';
 
 export const MOCK_GAME_INPUT: CreateGameInput = {
+  roomRef: MOCK_ROOM_ID,
   currentActionNumber: 2,
   currentPlayerRef: MOCK_USER_ID,
   playerRefs: [MOCK_USER_ID, MOCK_USER_ID_2],
@@ -26,6 +28,7 @@ export const MOCK_GAME_INPUT: CreateGameInput = {
 
 export const MOCK_GAME: Game = {
   _id: MOCK_ID,
+  roomRef: MOCK_ROOM_ID,
   createdAt: undefined,
   updatedAt: undefined,
   currentActionNumber: 2,

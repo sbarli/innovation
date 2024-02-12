@@ -5,6 +5,7 @@ import { Achievements } from 'src/games/schemas/achievements.schema';
 import { Deck } from 'src/games/schemas/deck.schema';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
 import { PlayerGameDetails } from 'src/player-game-details/schemas/player-game-details.schema';
+import { RoomsService } from 'src/rooms/rooms.service';
 import { UsersService } from 'src/users/users.service';
 
 import { getCatchErrorMessage } from '@inno/utils';
@@ -26,6 +27,7 @@ export type TNewGameSetup = {
 };
 
 interface IStartGameProps {
+  roomRef: string;
   playerRefs: string[];
   starterDeck: Deck;
   ageAchievements: Achievements;
@@ -37,8 +39,24 @@ export class NewGameService {
   constructor(
     private usersService: UsersService,
     private playerGameDetailsService: PlayerGameDetailsService,
-    private gamesService: GamesService
+    private gamesService: GamesService,
+    private roomsService: RoomsService
   ) {}
+
+  async validateRoomExists(roomRef: string): Promise<boolean> {
+    try {
+      const foundRoom = await this.roomsService.findRoomByRef(roomRef);
+      if (!foundRoom) {
+        throw new Error('Room not found');
+      }
+      return true;
+    } catch (error) {
+      throw new Error(
+        getCatchErrorMessage(error) ??
+          'newGameService.validateRoomExists: Unable to validate room exists'
+      );
+    }
+  }
 
   async validatePlayersExist(playerRefs: string[]): Promise<boolean> {
     try {
@@ -94,6 +112,7 @@ export class NewGameService {
   }
 
   async startGame({
+    roomRef,
     playerRefs,
     starterDeck,
     ageAchievements,
@@ -102,9 +121,10 @@ export class NewGameService {
     try {
       // create game
       const newGameData = {
+        roomRef,
         currentActionNumber: 2,
         currentPlayerRef: playerRefs[0],
-        playerRefs: playerRefs,
+        playerRefs,
         deck: starterDeck,
         achievements: ageAchievements,
       };

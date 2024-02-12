@@ -27,30 +27,37 @@ import { useSocketContext } from '../../websockets/SocketProvider';
 export interface IRoomScreenProps {
   error?: ApolloError;
   loading: boolean;
+  refetchRoomData: () => void;
   roomData?: RoomDataFragment | null;
 }
 
-export const RoomScreen = ({ error, loading, roomData }: IRoomScreenProps) => {
+export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomScreenProps) => {
   const { user } = useAuthContext();
   const { socket } = useSocketContext();
   const toast = useToast();
 
   const [showModal, setShowModal] = useState(false);
   const [leaveRoomError, setLeaveRoomError] = useState('');
+  const [usersInRoom, setUsersInRoom] = useState(0);
 
   useEffect(() => {
-    socket?.on(SocketEvent.USER_JOINED_ROOM, ({ username }: { username: string }) => {
-      toast.show({
-        placement: 'top',
-        render: ({ id }) => (
-          <CustomToast
-            id={id}
-            title="User Join Room"
-            description={`${username} has entered the room`}
-          />
-        ),
-      });
-    });
+    socket?.on(
+      SocketEvent.USER_JOINED_ROOM,
+      ({ username, usersInRoom }: { username: string; usersInRoom: number }) => {
+        refetchRoomData();
+        setUsersInRoom(usersInRoom);
+        toast.show({
+          placement: 'top',
+          render: ({ id }) => (
+            <CustomToast
+              id={id}
+              title="User Join Room"
+              description={`${username} has entered the room`}
+            />
+          ),
+        });
+      }
+    );
     socket?.on(SocketEvent.USER_LEFT_ROOM, ({ username }: { username: string }) => {
       if (username !== user?.username) {
         toast.show({
@@ -120,6 +127,8 @@ export const RoomScreen = ({ error, loading, roomData }: IRoomScreenProps) => {
         </HStack>
         <Box alignItems="center">
           <Text>Welcome to the {roomData.name} room!</Text>
+          <Text>There are currently {usersInRoom} players in the room.</Text>
+          <Text>There are {roomData.playerRefs.length + 1} players currently allowed in room.</Text>
         </Box>
       </VStack>
       <InteractiveModal
