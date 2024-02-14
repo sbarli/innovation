@@ -40,7 +40,7 @@ export function AuthProvider(props: PropsWithChildren) {
     onCompleted(data) {
       if (data?.isAuthenticated?._id) {
         setIsAuthenticated(true);
-        setUser(data.isAuthenticated);
+        setUser(data?.isAuthenticated);
         return true;
       }
       logout();
