@@ -131,6 +131,11 @@ export type CardRefsByAge = {
   TWO: Array<Scalars['String']['output']>;
 };
 
+export type CloseRoomResponse = {
+  __typename?: 'CloseRoomResponse';
+  success: Scalars['Boolean']['output'];
+};
+
 export type CreateNewGameInput = {
   playerRefs: Array<Scalars['String']['input']>;
   roomRef: Scalars['String']['input'];
@@ -227,6 +232,8 @@ export type GetUserInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addPlayerToRoom?: Maybe<Room>;
+  closeRoom: CloseRoomResponse;
   createNewGame: CreateNewGameResponse;
   createPlayerGameDetails: PlayerGameDetails;
   createRoom: Room;
@@ -235,6 +242,16 @@ export type Mutation = {
   updateGame?: Maybe<Game>;
   updatePlayerGameDetails?: Maybe<PlayerGameDetails>;
   updateRoomAvailability?: Maybe<Room>;
+};
+
+
+export type MutationAddPlayerToRoomArgs = {
+  roomId: Scalars['String']['input'];
+};
+
+
+export type MutationCloseRoomArgs = {
+  roomId: Scalars['String']['input'];
 };
 
 
@@ -450,6 +467,20 @@ export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
+
+export type AddPlayerToRoomMutationVariables = Exact<{
+  roomId: Scalars['String']['input'];
+}>;
+
+
+export type AddPlayerToRoomMutation = { __typename?: 'Mutation', addPlayerToRoom?: { __typename?: 'Room', _id: string, name: string, hostRef: string, playerRefs: Array<string>, availableToJoin: boolean } | null };
+
+export type CloseRoomMutationVariables = Exact<{
+  roomId: Scalars['String']['input'];
+}>;
+
+
+export type CloseRoomMutation = { __typename?: 'Mutation', closeRoom: { __typename?: 'CloseRoomResponse', success: boolean } };
 
 export type CreateRoomMutationVariables = Exact<{
   newRoomData: CreateRoomInput;
@@ -739,6 +770,72 @@ export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
 export type GetAllCardsLazyQueryHookResult = ReturnType<typeof useGetAllCardsLazyQuery>;
 export type GetAllCardsSuspenseQueryHookResult = ReturnType<typeof useGetAllCardsSuspenseQuery>;
 export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
+export const AddPlayerToRoomDocument = gql`
+    mutation AddPlayerToRoom($roomId: String!) {
+  addPlayerToRoom(roomId: $roomId) {
+    ...RoomData
+  }
+}
+    ${RoomDataFragmentDoc}`;
+export type AddPlayerToRoomMutationFn = Apollo.MutationFunction<AddPlayerToRoomMutation, AddPlayerToRoomMutationVariables>;
+
+/**
+ * __useAddPlayerToRoomMutation__
+ *
+ * To run a mutation, you first call `useAddPlayerToRoomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddPlayerToRoomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addPlayerToRoomMutation, { data, loading, error }] = useAddPlayerToRoomMutation({
+ *   variables: {
+ *      roomId: // value for 'roomId'
+ *   },
+ * });
+ */
+export function useAddPlayerToRoomMutation(baseOptions?: Apollo.MutationHookOptions<AddPlayerToRoomMutation, AddPlayerToRoomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddPlayerToRoomMutation, AddPlayerToRoomMutationVariables>(AddPlayerToRoomDocument, options);
+      }
+export type AddPlayerToRoomMutationHookResult = ReturnType<typeof useAddPlayerToRoomMutation>;
+export type AddPlayerToRoomMutationResult = Apollo.MutationResult<AddPlayerToRoomMutation>;
+export type AddPlayerToRoomMutationOptions = Apollo.BaseMutationOptions<AddPlayerToRoomMutation, AddPlayerToRoomMutationVariables>;
+export const CloseRoomDocument = gql`
+    mutation CloseRoom($roomId: String!) {
+  closeRoom(roomId: $roomId) {
+    success
+  }
+}
+    `;
+export type CloseRoomMutationFn = Apollo.MutationFunction<CloseRoomMutation, CloseRoomMutationVariables>;
+
+/**
+ * __useCloseRoomMutation__
+ *
+ * To run a mutation, you first call `useCloseRoomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCloseRoomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [closeRoomMutation, { data, loading, error }] = useCloseRoomMutation({
+ *   variables: {
+ *      roomId: // value for 'roomId'
+ *   },
+ * });
+ */
+export function useCloseRoomMutation(baseOptions?: Apollo.MutationHookOptions<CloseRoomMutation, CloseRoomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CloseRoomMutation, CloseRoomMutationVariables>(CloseRoomDocument, options);
+      }
+export type CloseRoomMutationHookResult = ReturnType<typeof useCloseRoomMutation>;
+export type CloseRoomMutationResult = Apollo.MutationResult<CloseRoomMutation>;
+export type CloseRoomMutationOptions = Apollo.BaseMutationOptions<CloseRoomMutation, CloseRoomMutationVariables>;
 export const CreateRoomDocument = gql`
     mutation CreateRoom($newRoomData: CreateRoomInput!) {
   createRoom(newRoomData: $newRoomData) {

@@ -16,7 +16,8 @@ import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 import { SocketEvent } from '@inno/constants';
 
-import { SocketService } from './socket.service';
+import { SocketBaseService } from './services/socket-base.service';
+import { SocketRoomService } from './services/socket-room.service';
 
 @WebSocketGateway({
   cors: {
@@ -30,7 +31,10 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
   @WebSocketServer() private server!: Socket;
   private logger: Logger = new Logger('SocketGateway');
 
-  constructor(private readonly socketService: SocketService) {}
+  constructor(
+    private readonly socketBaseService: SocketBaseService,
+    private readonly socketRoomService: SocketRoomService
+  ) {}
 
   afterInit() {
     this.logger.log('initialized');
@@ -41,7 +45,7 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
   }
 
   handleConnection(@ConnectedSocket() socket: Socket) {
-    return this.socketService.handleConnection(socket);
+    return this.socketBaseService.handleConnection(socket, { socketServer: this.server });
   }
 
   @UseGuards(JwtWsAuthGuard)
@@ -51,29 +55,11 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     @MessageBody('roomId') roomId: string,
     @ConnectedSocket() socket: Socket
   ) {
-    return this.socketService.handleJoinRoom(socket, { roomId, socketServer: this.server, user });
-  }
-
-  @UseGuards(JwtWsAuthGuard)
-  @SubscribeMessage(SocketEvent.GET_PLAYER_ROOMS_OVERVIEW)
-  async getPlayerRoomsOverview(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketService.handleGetPlayerRoomsOverview(socket, {
+    return this.socketRoomService.handleJoinRoom(socket, {
+      roomId,
       socketServer: this.server,
       user,
     });
-  }
-
-  @UseGuards(JwtWsAuthGuard)
-  @SubscribeMessage(SocketEvent.LEAVE_ROOM)
-  leaveRoom(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @MessageBody('roomId') roomId: string,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketService.handleLeaveRoom(socket, { roomId, socketServer: this.server, user });
   }
 
   @UseGuards(JwtWsAuthGuard)
@@ -83,7 +69,11 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     @MessageBody('roomId') roomId: string,
     @ConnectedSocket() socket: Socket
   ) {
-    return this.socketService.handleCloseRoom(socket, { roomId, socketServer: this.server, user });
+    return this.socketRoomService.handleCloseRoom(socket, {
+      roomId,
+      socketServer: this.server,
+      user,
+    });
   }
 
   // Implement other Socket.IO event handlers and message handlers

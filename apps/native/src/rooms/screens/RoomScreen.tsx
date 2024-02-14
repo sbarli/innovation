@@ -14,8 +14,9 @@ import {
 } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
 
-import { SocketEvent, SocketEventError } from '@inno/constants';
-import { RoomDataFragment } from '@inno/gql';
+import { IRoomMetadata, SocketEvent, SocketEventError, SocketEventResponse } from '@inno/constants';
+import { RoomDataFragment, useCloseRoomMutation } from '@inno/gql';
+import { getCatchErrorMessage } from '@inno/utils';
 
 import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
 import { CustomToast } from '../../app-core/components/toasts/CustomToast';
@@ -36,6 +37,10 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
   const { socket } = useSocketContext();
   const toast = useToast();
 
+  const [closeRoomMutation] = useCloseRoomMutation({
+    fetchPolicy: 'no-cache',
+  });
+
   const [showModal, setShowModal] = useState(false);
   const [leaveRoomError, setLeaveRoomError] = useState('');
   const [usersInRoom, setUsersInRoom] = useState(0);
@@ -43,9 +48,9 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
   useEffect(() => {
     socket?.on(
       SocketEvent.USER_JOINED_ROOM,
-      ({ username, usersInRoom }: { username: string; usersInRoom: number }) => {
+      ({ username, metadata }: { username: string; metadata: IRoomMetadata }) => {
         refetchRoomData();
-        setUsersInRoom(usersInRoom);
+        setUsersInRoom(metadata.playersInRoom);
         toast.show({
           placement: 'top',
           render: ({ id }) => (
@@ -58,31 +63,34 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
         });
       }
     );
-    socket?.on(SocketEvent.USER_LEFT_ROOM, ({ username }: { username: string }) => {
-      if (username !== user?.username) {
-        toast.show({
-          placement: 'top',
-          render: ({ id }) => (
-            <CustomToast
-              id={id}
-              title="User Left Room"
-              description={`${username} has left the room`}
-            />
-          ),
-        });
+    socket?.on(
+      SocketEvent.CLOSE_ROOM_IN_PROGRESS,
+      ({ roomId, initiatedBy }: { roomId: string; initiatedBy: string }) => {
+        if (initiatedBy !== user?.username && roomId === roomData?._id) {
+          toast.show({
+            placement: 'top',
+            render: ({ id }) => (
+              <CustomToast
+                id={id}
+                title="User Leaving Room"
+                description={`${initiatedBy} is leaving the room. Room is being closed. Game is over.`}
+              />
+            ),
+          });
+        }
       }
-    });
-    socket?.on(SocketEvent.LEAVE_ROOM_SUCCESS, () => {
+    );
+    socket?.on(SocketEvent.CLOSE_ROOM_SUCCESS, () => {
       setLeaveRoomError('');
-      router.push(Routes.ROOMS);
+      router.push(Routes.HOME);
     });
-    socket?.on(SocketEvent.LEAVE_ROOM_ERROR, (error: SocketEventError) => {
+    socket?.on(SocketEvent.CLOSE_ROOM_ERROR, (error: SocketEventError) => {
       setLeaveRoomError(error.message);
     });
     return () => {
-      socket?.removeListener(SocketEvent.LEAVE_ROOM_ERROR);
-      socket?.removeListener(SocketEvent.LEAVE_ROOM_SUCCESS);
-      socket?.removeListener(SocketEvent.USER_LEFT_ROOM);
+      socket?.removeListener(SocketEvent.CLOSE_ROOM_ERROR);
+      socket?.removeListener(SocketEvent.CLOSE_ROOM_SUCCESS);
+      socket?.removeListener(SocketEvent.CLOSE_ROOM_IN_PROGRESS);
       socket?.removeListener(SocketEvent.USER_JOINED_ROOM);
     };
   }, [socket]);
@@ -95,8 +103,41 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
     setShowModal(false);
   }, []);
 
+  const handleCloseRoom = async (roomId: string) => {
+    await socket?.emit(
+      SocketEvent.CLOSE_ROOM,
+      { roomId: roomId },
+      (response: SocketEventResponse) => {
+        if (!response.success) {
+          setLeaveRoomError(response.error?.message || 'Error leaving room');
+          return;
+        }
+        setShowModal(false);
+        router.push(Routes.HOME);
+      }
+    );
+  };
+
   const handleConfirmLeaveRoom = async () => {
-    socket?.emit(SocketEvent.LEAVE_ROOM, { roomId: roomData?._id });
+    if (!roomData?._id) {
+      setLeaveRoomError('Error leaving room');
+      return;
+    }
+    closeRoomMutation({
+      variables: {
+        roomId: roomData._id,
+      },
+      onCompleted(data) {
+        if (!data?.closeRoom.success) {
+          setLeaveRoomError('An error occurred. Please try again!');
+          return;
+        }
+        handleCloseRoom(roomData._id);
+      },
+      onError(error) {
+        setLeaveRoomError(getCatchErrorMessage(error, 'An error occurred. Please try again!'));
+      },
+    });
   };
 
   if (!roomData && loading) {

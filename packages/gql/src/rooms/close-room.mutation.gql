@@ -1,0 +1,5 @@
+mutation CloseRoom($roomId: String!) {
+  closeRoom(roomId: $roomId) {
+    success
+  }
+}

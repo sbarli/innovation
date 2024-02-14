@@ -105,6 +105,10 @@ type CardRefsByAge {
   TWO: [String!]!
 }
 
+type CloseRoomResponse {
+  success: Boolean!
+}
+
 input CreateNewGameInput {
   playerRefs: [String!]!
   roomRef: String!
@@ -201,6 +205,8 @@ input GetUserInput {
 }
 
 type Mutation {
+  addPlayerToRoom(roomId: String!): Room
+  closeRoom(roomId: String!): CloseRoomResponse!
   createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
   createRoom(newRoomData: CreateRoomInput!): Room!

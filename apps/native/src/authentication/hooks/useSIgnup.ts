@@ -15,12 +15,12 @@ export const useSignup = (authCallback: AuthCallbackFn) => {
       },
       fetchPolicy: 'no-cache',
       onCompleted(data) {
-        if (data?.signup?.authToken && data?.signup?.user) {
+        if (data?.signup?.authToken && data?.signup?.user && data?.signup?.refreshToken) {
           authCallback({
-            authToken: data.signup?.authToken,
-            refreshToken: data.signup?.refreshToken,
+            authToken: data?.signup?.authToken,
+            refreshToken: data?.signup?.refreshToken,
             success: true,
-            user: data.signup?.user,
+            user: data?.signup?.user,
           }).then(() => {
             router.replace(Routes.HOME);
           });

@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { SocketBaseService } from '../services/socket-base.service';
+import { SocketRoomService } from '../services/socket-room.service';
 import { SocketGateway } from '../socket.gateway';
-import { SocketService } from '../socket.service';
 
 describe('SocketGateway', () => {
   let gateway: SocketGateway;
@@ -10,10 +11,17 @@ describe('SocketGateway', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: SocketService,
+          provide: SocketBaseService,
           useValue: {
             handleConnection: jest.fn(),
+          },
+        },
+        {
+          provide: SocketRoomService,
+          useValue: {
             handleJoinRoom: jest.fn(),
+            handleCloseRoom: jest.fn(),
+            handleGetRoomMetadata: jest.fn(),
           },
         },
         SocketGateway,

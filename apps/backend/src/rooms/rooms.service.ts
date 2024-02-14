@@ -71,6 +71,23 @@ export class RoomsService {
     }
   }
 
+  async validateRoomOpen(roomId: string): Promise<boolean> {
+    try {
+      const room = await this.findRoomByRef(roomId);
+      if (!room) {
+        throw new Error('RoomsService.validateRoomOpen -> Room not found');
+      }
+      return !!room.availableToJoin;
+    } catch (error) {
+      throw new Error(
+        getCatchErrorMessage(
+          error,
+          'RoomsService.validateRoomOpen -> Error validating room is open'
+        )
+      );
+    }
+  }
+
   async createRoom({ roomName, user }: ICreateRoomProps): Promise<Room> {
     try {
       const duplicateRoom = await this.roomModel.findOne({
@@ -137,10 +154,12 @@ export class RoomsService {
       if (!userExists) {
         throw new Error('RoomsService.closeRoom -> Player does not exist');
       }
-      // Make sure player is room host
-      const playerIsHost = room.hostRef?.toString() === playerRef.toString();
-      if (!playerIsHost) {
-        throw new Error('RoomsService.closeRoom -> Only the host can close the room');
+      // Make sure player is room member
+      const playerIsRoomMember =
+        room.hostRef?.toString() === playerRef.toString() ||
+        room.playerRefs.includes(playerRef.toString());
+      if (!playerIsRoomMember) {
+        throw new Error('RoomsService.closeRoom -> Only room members can close the room');
       }
       // Preserve the room record itself, but remove the references to players and sockets
       // Returns the original document for reference of players/host

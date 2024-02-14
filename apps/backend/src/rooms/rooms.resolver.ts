@@ -6,6 +6,7 @@ import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 import { getCatchErrorMessage } from '@inno/utils';
 
+import { CloseRoomResponse } from './dto/close-room.reponse.dto';
 import { CreateRoomInput } from './dto/create-room.dto';
 import { UpdateRoomAvailabilityInput } from './dto/update-room-availability.dto';
 import { RoomsService } from './rooms.service';
@@ -61,6 +62,18 @@ export class RoomsResolver {
 
   @Mutation(() => Room, { nullable: true })
   @UseGuards(JwtGqlAuthGuard)
+  async addPlayerToRoom(
+    @CurrentUserFromGqlCtx() user: UserWithoutPassword,
+    @Args('roomId', { type: () => String }) roomId: string
+  ): Promise<NullishRoom> {
+    return await this.roomsService.addPlayerToRoom({
+      roomId,
+      playerRef: user._id,
+    });
+  }
+
+  @Mutation(() => Room, { nullable: true })
+  @UseGuards(JwtGqlAuthGuard)
   async updateRoomAvailability(
     @CurrentUserFromGqlCtx() user: UserWithoutPassword,
     @Args('data', { type: () => UpdateRoomAvailabilityInput }) data: UpdateRoomAvailabilityInput
@@ -79,6 +92,23 @@ export class RoomsResolver {
         ),
         HttpStatus.BAD_REQUEST
       );
+    }
+  }
+
+  @Mutation(() => CloseRoomResponse)
+  @UseGuards(JwtGqlAuthGuard)
+  async closeRoom(
+    @CurrentUserFromGqlCtx() user: UserWithoutPassword,
+    @Args('roomId', { type: () => String }) roomId: string
+  ): Promise<CloseRoomResponse> {
+    try {
+      await this.roomsService.closeRoom({
+        roomId,
+        playerRef: user._id,
+      });
+      return { success: true };
+    } catch (_e) {
+      return { success: false };
     }
   }
 }
