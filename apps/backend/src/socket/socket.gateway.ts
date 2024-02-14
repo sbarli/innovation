@@ -45,7 +45,7 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
   }
 
   handleConnection(@ConnectedSocket() socket: Socket) {
-    return this.socketBaseService.handleConnection(socket);
+    return this.socketBaseService.handleConnection(socket, { socketServer: this.server });
   }
 
   @UseGuards(JwtWsAuthGuard)
@@ -56,32 +56,6 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     @ConnectedSocket() socket: Socket
   ) {
     return this.socketRoomService.handleJoinRoom(socket, {
-      roomId,
-      socketServer: this.server,
-      user,
-    });
-  }
-
-  @UseGuards(JwtWsAuthGuard)
-  @SubscribeMessage(SocketEvent.GET_PLAYER_ROOMS_OVERVIEW)
-  async getPlayerRoomsOverview(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketRoomService.handleGetPlayerRoomsOverview(socket, {
-      socketServer: this.server,
-      user,
-    });
-  }
-
-  @UseGuards(JwtWsAuthGuard)
-  @SubscribeMessage(SocketEvent.LEAVE_ROOM)
-  leaveRoom(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @MessageBody('roomId') roomId: string,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketRoomService.handleLeaveRoom(socket, {
       roomId,
       socketServer: this.server,
       user,
