@@ -13,7 +13,7 @@ export type SignupFormData = {
 };
 
 export type TAuthContext = {
-  isAuthenticated: boolean;
+  isAuthenticated?: boolean;
   isLoading: boolean;
   login: (loginData: GetUserInput) => void;
   loginError?: string;

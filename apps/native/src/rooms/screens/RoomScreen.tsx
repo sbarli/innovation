@@ -8,6 +8,7 @@ import {
   ButtonText,
   CloseIcon,
   HStack,
+  Heading,
   Text,
   VStack,
   useToast,
@@ -44,7 +45,7 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
 
   const [showModal, setShowModal] = useState(false);
   const [leaveRoomError, setLeaveRoomError] = useState('');
-  const [usersInRoom, setUsersInRoom] = useState(0);
+  const [roomMetadata, setRoomMetadata] = useState<IRoomMetadata>();
 
   const userIsHost = useMemo(
     () => !!(user?._id && roomData?.hostRef && user._id === roomData.hostRef),
@@ -59,7 +60,7 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
         { roomId: roomData?._id },
         ({ success, data }: SocketEventResponse & { data: IRoomMetadata }) => {
           if (success && data?.playersInRoom) {
-            setUsersInRoom(data.playersInRoom);
+            setRoomMetadata(data);
           }
         }
       );
@@ -71,7 +72,7 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
       SocketEvent.USER_JOINED_ROOM,
       ({ username, metadata }: { username: string; metadata: IRoomMetadata }) => {
         refetchRoomData();
-        setUsersInRoom(metadata.playersInRoom);
+        setRoomMetadata(metadata);
         toast.show({
           placement: 'top',
           render: ({ id }) => (
@@ -193,13 +194,22 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
             The room is currently{roomData.availableToJoin ? ' ' : ' not '}available to join.
           </Text>
           <Text>There are {roomData.playerRefs.length} members of the room.</Text>
-          <Text>There are currently {usersInRoom} players connected to the room.</Text>
+          <Text>
+            There are currently {roomMetadata?.playersInRoom.length ?? '-'} players connected to the
+            room.
+          </Text>
           {userIsHost && !!roomData?._id && (
             <HStack alignItems="center">
               <Text>Invite more players by sharing this room id (click to copy): </Text>
               <CopyableText text={roomData._id} />
             </HStack>
           )}
+        </Box>
+        <Box alignItems="center">
+          <Heading size="lg">Users In Room</Heading>
+          {(roomMetadata?.playersInRoom ?? []).map((username) => (
+            <Text key={username.replace(' ', '-')}>{username}</Text>
+          ))}
         </Box>
       </VStack>
       <InteractiveModal

@@ -33,6 +33,7 @@ export enum SocketEvent {
   CLOSE_ROOM = 'closeRoom',
   GET_ROOM_METADATA = 'getRoomMetadata',
   JOIN_ROOM = 'joinRoom',
+  MAP_USER_TO_SOCKET = 'mapUserToSocket',
 
   // event emitted to rooms
   CLOSE_ROOM_IN_PROGRESS = 'closeRoomInProgress',

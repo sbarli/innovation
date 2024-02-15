@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { SocketBaseService } from '../services/socket-base.service';
 import { SocketRoomService } from '../services/socket-room.service';
+import { SocketUsersService } from '../services/socket-users.service';
 import { SocketGateway } from '../socket.gateway';
 
 describe('SocketGateway', () => {
@@ -22,6 +23,15 @@ describe('SocketGateway', () => {
             handleJoinRoom: jest.fn(),
             handleCloseRoom: jest.fn(),
             handleGetRoomMetadata: jest.fn(),
+          },
+        },
+        {
+          provide: SocketUsersService,
+          useValue: {
+            handleSocketToUserMap: jest.fn(),
+            getUsernameFromSocketId: jest.fn(),
+            getManyUsernamesFromSocketIds: jest.fn(),
+            removeSocketFromUsernameMap: jest.fn(),
           },
         },
         SocketGateway,

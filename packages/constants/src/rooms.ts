@@ -1,6 +1,6 @@
 export interface IRoomMetadata {
   gameId?: string | null;
-  playersInRoom: number;
+  playersInRoom: string[];
   roomId: string;
 }
 

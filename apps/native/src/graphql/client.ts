@@ -47,10 +47,10 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
   );
   const { removeItem: clearRefreshToken } = useAsyncStorage(StorageKeys.REFRESH_TOKEN);
 
-  const clearTokensAndRedirectToAuth = () => {
+  const redirectToLogout = () => {
     clearAuthToken();
     clearRefreshToken();
-    router.push(Routes.AUTH);
+    router.push(Routes.LOGOUT);
     return;
   };
 
@@ -61,7 +61,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
         case 'UNAUTHENTICATED':
           // if the token refresh failed, now consider this really unauthorized and redirect to Auth screen
           if (operation.operationName === 'RefreshToken') {
-            return clearTokensAndRedirectToAuth();
+            return redirectToLogout();
           }
           // otherwise, attempt the refresh
           return fromPromise(
@@ -75,7 +75,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
                 return authToken;
               })
               .catch(() => {
-                return clearTokensAndRedirectToAuth();
+                return redirectToLogout();
               })
           )
             .filter((value) => Boolean(value))

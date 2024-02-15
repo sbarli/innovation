@@ -4,10 +4,11 @@ import { RoomsModule } from 'src/rooms/rooms.module';
 
 import { SocketBaseService } from './services/socket-base.service';
 import { SocketRoomService } from './services/socket-room.service';
+import { SocketUsersService } from './services/socket-users.service';
 import { SocketGateway } from './socket.gateway';
 
 @Module({
   imports: [GamesModule, RoomsModule],
-  providers: [SocketGateway, SocketBaseService, SocketRoomService],
+  providers: [SocketGateway, SocketBaseService, SocketRoomService, SocketUsersService],
 })
 export class SocketModule {}

@@ -10,6 +10,8 @@ import {
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { Socket, io } from 'socket.io-client';
 
+import { SocketEvent } from '@inno/constants';
+
 import { WEBSOCKET_API } from '../app-core/constants/manifest';
 import { StorageKeys } from '../app-core/constants/storage.constants';
 
@@ -30,7 +32,7 @@ export function useSocketContext() {
 }
 
 export function SocketProvider(props: PropsWithChildren) {
-  const { getItem } = useAsyncStorage(StorageKeys.AUTH_TOKEN);
+  const { getItem: getAuthToken } = useAsyncStorage(StorageKeys.AUTH_TOKEN);
   const [socket, setSocket] = useState<Socket>();
 
   const connectUserToSocket = useCallback(
@@ -45,6 +47,8 @@ export function SocketProvider(props: PropsWithChildren) {
           },
         });
         setSocket(newSocket);
+        // enable BE to map user to socketId
+        newSocket.emit(SocketEvent.MAP_USER_TO_SOCKET);
       }
     },
     [socket]
@@ -57,7 +61,7 @@ export function SocketProvider(props: PropsWithChildren) {
 
   useEffect(() => {
     const trySocketConnection = async () => {
-      const token = await getItem();
+      const token = await getAuthToken();
       if (token) {
         connectUserToSocket(token);
       }
