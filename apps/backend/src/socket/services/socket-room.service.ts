@@ -14,6 +14,8 @@ import {
 } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
 
+import { SocketUsersService } from './socket-users.service';
+
 export interface IBaseSocketServiceParams {
   user: UserWithoutPassword;
   socketServer: Socket;
@@ -38,6 +40,7 @@ export class SocketRoomService {
   private logger: Logger = new Logger('SocketRoomService');
 
   constructor(
+    private readonly socketUsersService: SocketUsersService,
     private readonly gamesService: GamesService,
     private readonly roomsService: RoomsService
   ) {}
@@ -152,10 +155,13 @@ export class SocketRoomService {
       const game = await this.gamesService.findGameByRoomRef(roomId);
 
       const connectedSockets = await socketServer.in(roomId).fetchSockets();
+      const socketUsernames = this.socketUsersService.getManyUsernamesFromSocketIds(
+        connectedSockets.map((soc) => soc.id)
+      );
 
       const connectedPlayersData: IRoomMetadata = {
         gameId: game?._id,
-        playersInRoom: connectedSockets.length,
+        playersInRoom: socketUsernames,
         roomId: roomId.toString(),
       };
 
@@ -177,7 +183,11 @@ export class SocketRoomService {
    */
   async handleCloseRoom(
     socket: Socket,
-    { roomId, socketServer, user }: IHandleCloseRoomParams,
+    {
+      roomId,
+      socketServer,
+      user,
+    }: IHandleCloseRoomParams & { user?: Partial<UserWithoutPassword> },
     silenceSocketEmits: boolean = false
   ) {
     const connectedSockets = await socketServer.in(roomId).fetchSockets();

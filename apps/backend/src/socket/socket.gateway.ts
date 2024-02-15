@@ -18,6 +18,7 @@ import { SocketEvent } from '@inno/constants';
 
 import { SocketBaseService } from './services/socket-base.service';
 import { SocketRoomService } from './services/socket-room.service';
+import { SocketUsersService } from './services/socket-users.service';
 
 @WebSocketGateway({
   cors: {
@@ -33,7 +34,8 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
 
   constructor(
     private readonly socketBaseService: SocketBaseService,
-    private readonly socketRoomService: SocketRoomService
+    private readonly socketRoomService: SocketRoomService,
+    private readonly socketUsersService: SocketUsersService
   ) {}
 
   afterInit() {
@@ -46,6 +48,17 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
 
   handleConnection(@ConnectedSocket() socket: Socket) {
     return this.socketBaseService.handleConnection(socket, { socketServer: this.server });
+  }
+
+  @UseGuards(JwtWsAuthGuard)
+  @SubscribeMessage(SocketEvent.MAP_USER_TO_SOCKET)
+  mapUserToSocket(
+    @CurrentUserFromRequest() user: UserWithoutPassword,
+    @ConnectedSocket() socket: Socket
+  ) {
+    return this.socketUsersService.handleSocketToUserMap(socket, {
+      user,
+    });
   }
 
   @UseGuards(JwtWsAuthGuard)
