@@ -63,6 +63,19 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
   }
 
   @UseGuards(JwtWsAuthGuard)
+  @SubscribeMessage(SocketEvent.GET_ROOM_METADATA)
+  getRoomMetadata(
+    @CurrentUserFromRequest() user: UserWithoutPassword,
+    @MessageBody('roomId') roomId: string
+  ) {
+    return this.socketRoomService.handleGetRoomMetadata({
+      roomId,
+      socketServer: this.server,
+      user,
+    });
+  }
+
+  @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.CLOSE_ROOM)
   closeRoom(
     @CurrentUserFromRequest() user: UserWithoutPassword,

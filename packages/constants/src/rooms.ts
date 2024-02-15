@@ -3,3 +3,5 @@ export interface IRoomMetadata {
   playersInRoom: number;
   roomId: string;
 }
+
+export const MAX_USERS_PER_ROOM = 2;

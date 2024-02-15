@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 import { UsersService } from 'src/users/users.service';
 
+import { MAX_USERS_PER_ROOM } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
 
 import { UpdateRoomAvailabilityInput } from './dto/update-room-availability.dto';
@@ -43,16 +44,9 @@ export class RoomsService {
   ): Promise<Room[]> {
     try {
       const rooms = await this.roomModel.find({
-        $or: [
-          {
-            hostRef: playerRef,
-          },
-          {
-            playerRefs: {
-              $in: [playerRef],
-            },
-          },
-        ],
+        playerRefs: {
+          $in: [playerRef],
+        },
       });
       // if we have no rooms or just want all rooms the player is in
       if (!rooms.length || roomType === 'both') {
@@ -132,6 +126,15 @@ export class RoomsService {
         throw new Error('RoomsService.addPlayerToRoom -> Room not open for joining');
       }
 
+      // max of n users per room check
+      const CURRENT_PLAYER_COUNT = room.playerRefs.length;
+      const tooManyUsers = CURRENT_PLAYER_COUNT >= MAX_USERS_PER_ROOM;
+      if (tooManyUsers) {
+        // make the room unavailable and throw an error
+        await this.roomModel.findByIdAndUpdate(roomId, { availableToJoin: false });
+        throw new Error('RoomsService.addPlayerToRoom -> Too many players in room');
+      }
+
       const updateData: Partial<Room> = { playerRefs: [...room.playerRefs, playerRef] };
 
       // otherwise, update room with new player
@@ -155,9 +158,7 @@ export class RoomsService {
         throw new Error('RoomsService.closeRoom -> Player does not exist');
       }
       // Make sure player is room member
-      const playerIsRoomMember =
-        room.hostRef?.toString() === playerRef.toString() ||
-        room.playerRefs.includes(playerRef.toString());
+      const playerIsRoomMember = room.playerRefs.includes(playerRef.toString());
       if (!playerIsRoomMember) {
         throw new Error('RoomsService.closeRoom -> Only room members can close the room');
       }

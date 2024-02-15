@@ -31,6 +31,7 @@ export enum SocketEvent {
 
   // client-Emitted Events
   CLOSE_ROOM = 'closeRoom',
+  GET_ROOM_METADATA = 'getRoomMetadata',
   JOIN_ROOM = 'joinRoom',
 
   // event emitted to rooms
