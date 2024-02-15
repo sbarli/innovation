@@ -135,9 +135,14 @@ export class RoomsService {
         throw new Error('RoomsService.addPlayerToRoom -> Too many players in room');
       }
 
+      // otherwise, update room with new player
       const updateData: Partial<Room> = { playerRefs: [...room.playerRefs, playerRef] };
 
-      // otherwise, update room with new player
+      // if player is the last allowed to join, close the room
+      if (CURRENT_PLAYER_COUNT + 1 === MAX_USERS_PER_ROOM) {
+        updateData.availableToJoin = false;
+      }
+
       return this.roomModel.findByIdAndUpdate(roomId, updateData, { new: true });
     } catch (error) {
       throw new Error(

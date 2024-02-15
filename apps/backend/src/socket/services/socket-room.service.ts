@@ -62,16 +62,11 @@ export class SocketRoomService {
           error: errorData,
         });
       }
-      const roomIsOpen = room.availableToJoin;
       const userIsRoomMember = room.playerRefs
         .map((ref) => ref.toString())
         .includes(user._id.toString());
-      if (!roomIsOpen || !userIsRoomMember) {
-        this.logger.error(
-          `${user._id} could not join room ${roomId}: ${
-            !roomIsOpen ? 'Room is closed' : 'User is not member of room'
-          }`
-        );
+      if (!userIsRoomMember) {
+        this.logger.error(`${user._id} could not join room ${roomId}: User is not member of room`);
         const errorData = new SocketEventError(SocketEventErrorCode.INVALID, 'User cannot join', {
           roomId,
         });
