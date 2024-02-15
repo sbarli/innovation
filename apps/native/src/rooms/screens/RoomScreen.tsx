@@ -209,11 +209,7 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
         onConfirm={handleConfirmLeaveRoom}
         confirmText="Confirm Leave Room"
       >
-        <Text>If you are the host, this will end the game for everyone.</Text>
-        <Text>
-          If you are a player, this will remove you from the game and everyone else will continue to
-          play.
-        </Text>
+        <Text>Leaving will end the game for everyone.</Text>
         {leaveRoomError ? <FormError errorMsg={leaveRoomError} /> : null}
       </InteractiveModal>
     </>
