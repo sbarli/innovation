@@ -5,10 +5,8 @@ import { StatusBar } from 'expo-status-bar';
 import { Routes } from '../app-core/constants/navigation';
 import { CreateRoomCTA } from '../rooms/components/CreateRoomCTA';
 import { JoinRoomCTA } from '../rooms/components/JoinRoomCTA';
-import { useSocketContext } from '../websockets/SocketProvider';
 
 export const HomeScreen = () => {
-  const { socket } = useSocketContext();
   return (
     <>
       <StatusBar style="auto" />
@@ -24,8 +22,8 @@ export const HomeScreen = () => {
             <ButtonText>Authenticate</ButtonText>
           </Button>
         </Link>
-        <CreateRoomCTA socket={socket} />
-        <JoinRoomCTA socket={socket} />
+        <CreateRoomCTA />
+        <JoinRoomCTA />
         <Link href={Routes.EXAMPLES} asChild>
           <Button
             size="md"

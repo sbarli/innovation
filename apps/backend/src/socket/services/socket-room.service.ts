@@ -62,16 +62,11 @@ export class SocketRoomService {
           error: errorData,
         });
       }
-      const roomIsOpen = room.availableToJoin;
-      const userIsRoomMember =
-        room.hostRef?.toString() === user._id.toString() ||
-        room.playerRefs.map((ref) => ref.toString()).includes(user._id.toString());
-      if (!roomIsOpen || !userIsRoomMember) {
-        this.logger.error(
-          `${user._id} could not join room ${roomId}: ${
-            !roomIsOpen ? 'Room is closed' : 'User is not member of room'
-          }`
-        );
+      const userIsRoomMember = room.playerRefs
+        .map((ref) => ref.toString())
+        .includes(user._id.toString());
+      if (!userIsRoomMember) {
+        this.logger.error(`${user._id} could not join room ${roomId}: User is not member of room`);
         const errorData = new SocketEventError(SocketEventErrorCode.INVALID, 'User cannot join', {
           roomId,
         });
@@ -85,16 +80,34 @@ export class SocketRoomService {
       } else {
         socket.join(roomId);
       }
-      const roomMetadata = await this.handleGetRoomMetadata({ roomId, socketServer, user }, true);
+      const { success, data: roomMetadata } = await this.handleGetRoomMetadata(
+        { roomId, socketServer, user },
+        { room: true, userInRoom: true }
+      );
+
+      if (!success) {
+        const errorData = new SocketEventError(
+          SocketEventErrorCode.UNKNOWN,
+          'Cannot get room metadata',
+          {
+            roomId,
+          }
+        );
+        return new SocketEventResponse({
+          success: false,
+          error: errorData,
+        });
+      }
+
       socket.to(roomId).emit(SocketEvent.USER_JOINED_ROOM, {
         username: user.username,
-        metadata: roomMetadata,
+        metadata: roomMetadata as IRoomMetadata,
       });
       return new SocketEventResponse({
         success: true,
         data: {
           room,
-          metadata: roomMetadata.data ? (roomMetadata.data as IRoomMetadata) : {},
+          metadata: roomMetadata as IRoomMetadata,
         },
       });
     } catch (error) {
@@ -114,14 +127,25 @@ export class SocketRoomService {
    * @description gets metadata for specified room
    */
   async handleGetRoomMetadata(
-    { roomId, socketServer }: ISocketServiceMethodParamsWithRoomId,
-    byPassRoomValidation = false
+    { roomId, socketServer, user }: ISocketServiceMethodParamsWithRoomId,
+    byPassValidations = {
+      room: false,
+      userInRoom: false,
+    }
   ) {
     try {
-      if (!byPassRoomValidation) {
+      if (!byPassValidations.room || !byPassValidations.userInRoom) {
         const room = await this.roomsService.findRoomByRef(roomId);
         if (!room) {
           throw new Error(`Room ${roomId} not found. Check the room id and try again!`);
+        }
+        if (!byPassValidations.userInRoom) {
+          const userIsRoomMember = room.playerRefs
+            .map((ref) => ref.toString())
+            .includes(user._id.toString());
+          if (!userIsRoomMember) {
+            throw new Error(`User ${user._id} is not a member of room ${room._id}`);
+          }
         }
       }
 

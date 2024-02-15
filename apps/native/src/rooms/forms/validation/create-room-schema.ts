@@ -8,7 +8,7 @@ export const createRoomFormSchema: ZodType<CreateRoomFormData> = z.object({
     .min(5, 'Room name must be at least 5 characters long')
     .max(100, 'Room name may not be more than 100 characters long')
     .refine(
-      (value) => /^[\w_\-]+$/.test(value),
-      "Room name may only contain letters, numbers, '_', and/or '-'"
+      (value) => /^[a-zA-Z0-9 ]*$/gm.test(value),
+      "Room name may only contain letters, numbers, and spaces (' ')"
     ),
 });

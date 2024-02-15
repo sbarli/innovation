@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # lint the repo
-yarn turbo run lint:fix --filter="[HEAD^1]" --filter=@inno/gql
+yarn turbo run lint:fix --filter="[HEAD^1]"
 
 # test the repo
-yarn turbo run test --filter="[HEAD^1]" --filter=@inno/gql
+yarn turbo run test --filter="[HEAD^1]"

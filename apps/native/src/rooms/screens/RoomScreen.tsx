@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ApolloError } from '@apollo/client';
 import {
@@ -18,6 +18,7 @@ import { IRoomMetadata, SocketEvent, SocketEventError, SocketEventResponse } fro
 import { RoomDataFragment, useCloseRoomMutation } from '@inno/gql';
 import { getCatchErrorMessage } from '@inno/utils';
 
+import { CopyableText } from '../../app-core/components/clipboard/CopyableText';
 import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
 import { CustomToast } from '../../app-core/components/toasts/CustomToast';
 import { Routes } from '../../app-core/constants/navigation';
@@ -44,6 +45,26 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
   const [showModal, setShowModal] = useState(false);
   const [leaveRoomError, setLeaveRoomError] = useState('');
   const [usersInRoom, setUsersInRoom] = useState(0);
+
+  const userIsHost = useMemo(
+    () => !!(user?._id && roomData?.hostRef && user._id === roomData.hostRef),
+    [user?._id, roomData?.hostRef]
+  );
+
+  // get current room metadata on when roomId exists and/or changes
+  useEffect(() => {
+    if (roomData?._id) {
+      socket?.emit(
+        SocketEvent.GET_ROOM_METADATA,
+        { roomId: roomData?._id },
+        ({ success, data }: SocketEventResponse & { data: IRoomMetadata }) => {
+          if (success && data?.playersInRoom) {
+            setUsersInRoom(data.playersInRoom);
+          }
+        }
+      );
+    }
+  }, [roomData?._id]);
 
   useEffect(() => {
     socket?.on(
@@ -168,8 +189,17 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
         </HStack>
         <Box alignItems="center">
           <Text>Welcome to the {roomData.name} room!</Text>
-          <Text>There are currently {usersInRoom} players in the room.</Text>
-          <Text>There are {roomData.playerRefs.length + 1} players currently allowed in room.</Text>
+          <Text>
+            The room is currently{roomData.availableToJoin ? ' ' : ' not '}available to join.
+          </Text>
+          <Text>There are {roomData.playerRefs.length} members of the room.</Text>
+          <Text>There are currently {usersInRoom} players connected to the room.</Text>
+          {userIsHost && !!roomData?._id && (
+            <HStack alignItems="center">
+              <Text>Invite more players by sharing this room id (click to copy): </Text>
+              <CopyableText text={roomData._id} />
+            </HStack>
+          )}
         </Box>
       </VStack>
       <InteractiveModal
@@ -179,11 +209,7 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
         onConfirm={handleConfirmLeaveRoom}
         confirmText="Confirm Leave Room"
       >
-        <Text>If you are the host, this will end the game for everyone.</Text>
-        <Text>
-          If you are a player, this will remove you from the game and everyone else will continue to
-          play.
-        </Text>
+        <Text>Leaving will end the game for everyone.</Text>
         {leaveRoomError ? <FormError errorMsg={leaveRoomError} /> : null}
       </InteractiveModal>
     </>
