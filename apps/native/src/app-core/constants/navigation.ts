@@ -3,6 +3,7 @@ export enum Routes {
   CREATE_ROOM = '/create-room',
   EXAMPLES = '/examples',
   HOME = '/',
+  LOGOUT = '/logout',
   ROOM = '/rooms/[roomId]',
 }
 

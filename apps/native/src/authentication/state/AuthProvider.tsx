@@ -1,4 +1,11 @@
-import { PropsWithChildren, createContext, useCallback, useContext, useState } from 'react';
+import {
+  PropsWithChildren,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
@@ -32,14 +39,20 @@ export function AuthProvider(props: PropsWithChildren) {
   const { setItem: setRefreshToken, removeItem: clearRefreshToken } = useAsyncStorage(
     StorageKeys.REFRESH_TOKEN
   );
+  const {
+    getItem: getStorageUser,
+    setItem: setStorageUser,
+    removeItem: clearStorageUser,
+  } = useAsyncStorage(StorageKeys.USER);
   const [user, setUser] = useState<UserWithoutPassword>();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | undefined>();
 
   const { loading: isAuthenticatedLoading } = useIsAuthenticatedQuery({
     fetchPolicy: 'no-cache',
     onCompleted(data) {
       if (data?.isAuthenticated?._id) {
         setIsAuthenticated(true);
+        setStorageUser(JSON.stringify(data?.isAuthenticated));
         setUser(data?.isAuthenticated);
         return true;
       }
@@ -50,11 +63,25 @@ export function AuthProvider(props: PropsWithChildren) {
     },
   });
 
+  useEffect(() => {
+    const tryToPopulateUserFromStorage = async () => {
+      if (!user) {
+        const storageUser = await getStorageUser();
+        const userData: UserWithoutPassword | undefined = storageUser && JSON.parse(storageUser);
+        if (userData) {
+          setUser(userData);
+        }
+      }
+    };
+    tryToPopulateUserFromStorage();
+  }, []);
+
   const logout = useCallback(async () => {
     await clearAuthToken();
     await clearRefreshToken();
+    await clearStorageUser();
     setUser(undefined);
-    setIsAuthenticated(false);
+    setIsAuthenticated(undefined);
     disconnectUserFromSocket();
     router.push(Routes.AUTH);
   }, []);
@@ -73,6 +100,7 @@ export function AuthProvider(props: PropsWithChildren) {
         await setRefreshToken(refreshToken);
       }
       if (user) {
+        setStorageUser(JSON.stringify(user));
         setUser(user);
       }
       setIsAuthenticated(true);
@@ -92,7 +120,7 @@ export function AuthProvider(props: PropsWithChildren) {
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated: !!isAuthenticated,
+        isAuthenticated,
         isLoading: authLoading,
         login,
         loginError: loginErrorMessage,
