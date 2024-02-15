@@ -1,23 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { Box, Button, ButtonText, Text } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
-import { Socket } from 'socket.io-client';
 
-import { SocketEvent, SocketEventError, SocketEventResponse } from '@inno/constants';
 import { useCreateRoomMutation } from '@inno/gql';
-import { getCatchErrorMessage } from '@inno/utils';
 
 import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
 import { Routes } from '../../app-core/constants/navigation';
 import { CreateRoomForm } from '../forms/CreateRoomForm';
+import { useJoinRoom } from '../hooks/useJoinRoom';
 import { CreateRoomFormData } from '../room.types';
 
-export interface ICreateRoomCTAProps {
-  socket?: Socket;
-}
-
-export const CreateRoomCTA = ({ socket }: ICreateRoomCTAProps) => {
+export const CreateRoomCTA = () => {
   const [createRoomMutation, { loading: createRoomMutationLoading }] = useCreateRoomMutation({
     fetchPolicy: 'no-cache',
   });
@@ -29,30 +23,20 @@ export const CreateRoomCTA = ({ socket }: ICreateRoomCTAProps) => {
     setShowModal(false);
   }, []);
 
-  const handleJoinRoom = async (roomId: string) => {
-    if (!socket || !socket?.connected) {
-      setErrorMsg('Unexpected error occurred. Please refresh and try again!');
-      setCreateAndJoinInProgress(false);
-      return;
-    }
-    await socket?.emit(
-      SocketEvent.JOIN_ROOM,
-      { roomId: roomId },
-      (response: SocketEventResponse) => {
-        if (!response.success) {
-          setErrorMsg(response.error?.message || 'Error joining room');
-          setCreateAndJoinInProgress(false);
-          return;
-        }
-        setCreateAndJoinInProgress(false);
-        setShowModal(false);
-        router.push({
-          pathname: Routes.ROOM,
-          params: { roomId },
-        });
-      }
-    );
+  const handleSuccessfulJoinRoom = (roomId: string) => {
+    setCreateAndJoinInProgress(false);
+    setShowModal(false);
+    router.push({
+      pathname: Routes.ROOM,
+      params: { roomId },
+    });
   };
+
+  const {
+    handleJoinRoom,
+    errorMsg: joinErrorMsg,
+    loading: joinLoading,
+  } = useJoinRoom({ successCallback: handleSuccessfulJoinRoom });
 
   const handleSubmit = async (data: CreateRoomFormData) => {
     setCreateAndJoinInProgress(true);
@@ -68,21 +52,12 @@ export const CreateRoomCTA = ({ socket }: ICreateRoomCTAProps) => {
         }
         handleJoinRoom(data?.createRoom._id);
       },
-      onError(error) {
-        setErrorMsg(getCatchErrorMessage(error, 'An error occurred. Please try again!'));
+      onError() {
+        setErrorMsg('An error occurred. Please try again!');
         setCreateAndJoinInProgress(false);
       },
     });
   };
-
-  useEffect(() => {
-    socket?.on(SocketEvent.JOIN_ROOM_ERROR, (error: SocketEventError) => {
-      setErrorMsg(error.message);
-    });
-    return () => {
-      socket?.removeListener(SocketEvent.JOIN_ROOM_ERROR);
-    };
-  }, [socket]);
 
   return (
     <Box>
@@ -93,8 +68,8 @@ export const CreateRoomCTA = ({ socket }: ICreateRoomCTAProps) => {
         <>
           <Text>Give your new room a name</Text>
           <CreateRoomForm
-            error={errorMsg}
-            loading={createAndJoinInProgress || createRoomMutationLoading}
+            error={errorMsg || joinErrorMsg}
+            loading={createAndJoinInProgress || createRoomMutationLoading || joinLoading}
             onSubmit={handleSubmit}
           />
         </>

@@ -54,6 +54,8 @@ export const CreateRoomForm = ({ error: customError, loading, onSubmit }: ICreat
         <FormError errorMsg={errors.roomName?.message as string} />
       </Box>
 
+      <FormError errorMsg={customError} />
+
       <HStack justifyContent="flex-end">
         <Button
           onPress={handleSubmit(onSubmit)}
@@ -66,7 +68,6 @@ export const CreateRoomForm = ({ error: customError, loading, onSubmit }: ICreat
           <ButtonText>Create Room</ButtonText>
         </Button>
       </HStack>
-      <FormError errorMsg={customError} />
     </Box>
   );
 };

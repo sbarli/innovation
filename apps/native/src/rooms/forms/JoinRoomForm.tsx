@@ -60,6 +60,8 @@ export const JoinRoomForm = ({ error: customError, loading, onSubmit }: IJoinRoo
         <FormError errorMsg={errors.roomId?.message as string} />
       </Box>
 
+      <FormError errorMsg={customError} />
+
       <HStack justifyContent="flex-end">
         <Button
           onPress={handleSubmit(onSubmit)}
@@ -72,7 +74,6 @@ export const JoinRoomForm = ({ error: customError, loading, onSubmit }: IJoinRoo
           <ButtonText>Join</ButtonText>
         </Button>
       </HStack>
-      <FormError errorMsg={customError} />
     </Box>
   );
 };
