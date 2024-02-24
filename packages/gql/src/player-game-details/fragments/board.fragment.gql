@@ -1,0 +1,17 @@
+fragment Board on Board {
+  blue {
+    ...BoardPile
+  }
+  green {
+    ...BoardPile
+  }
+  purple {
+    ...BoardPile
+  }
+  red {
+    ...BoardPile
+  }
+  yellow {
+    ...BoardPile
+  }
+}

@@ -1,0 +1,10 @@
+mutation CreateNewGame($newGameDto: CreateNewGameInput!) {
+  createNewGame(newGameDto: $newGameDto) {
+    game {
+      ...Game
+    }
+    playerGameDetails {
+      ...PlayerGameDetails
+    }
+  }
+}

@@ -1,0 +1,13 @@
+fragment Game on Game {
+  _id
+  currentActionNumber
+  currentPlayerRef
+  playerRefs
+  winnerRef
+  deck {
+    ...Deck
+  }
+  achievements {
+    ...AvailableAchievements
+  }
+}

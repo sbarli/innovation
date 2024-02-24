@@ -1,0 +1,15 @@
+fragment PlayerGameDetails on PlayerGameDetails {
+  _id
+  playerRef
+  age
+  score
+  resourceTotals {
+    ...ResourceTotals
+  }
+  board {
+    ...Board
+  }
+  achievements
+  hand
+  scoreCardRefs
+}

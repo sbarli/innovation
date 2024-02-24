@@ -461,12 +461,31 @@ export type DogmaEffectsFragment = { __typename?: 'Card', dogmaEffects: Array<{ 
 
 export type ResourceSpacesFragment = { __typename?: 'Card', resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null } };
 
-export type ResourceTotalsFragment = { __typename?: 'Card', resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number } };
+export type ResourceTotalsFragment = { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number };
 
 export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
+export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
+
+export type CreateNewGameMutationVariables = Exact<{
+  newGameDto: CreateNewGameInput;
+}>;
+
+
+export type CreateNewGameMutation = { __typename?: 'Mutation', createNewGame: { __typename?: 'CreateNewGameResponse', game: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, achievements: { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } }, playerGameDetails: Array<{ __typename?: 'PlayerGameDetails', _id: string, playerRef: string, age: number, score: number, achievements: Array<string>, hand: Array<string>, scoreCardRefs: Array<string>, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } }> } };
+
+export type AvailableAchievementsFragment = { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string };
+
+export type DeckFragment = { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> };
+
+export type GameFragment = { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, achievements: { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } };
+
+export type BoardPileFragment = { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null };
+
+export type BoardFragment = { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } };
+
+export type PlayerGameDetailsFragment = { __typename?: 'PlayerGameDetails', _id: string, playerRef: string, age: number, score: number, achievements: Array<string>, hand: Array<string>, scoreCardRefs: Array<string>, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } };
 
 export type AddPlayerToRoomMutationVariables = Exact<{
   roomId: Scalars['String']['input'];
@@ -560,18 +579,102 @@ export const ResourceSpacesFragmentDoc = gql`
   }
 }
     `;
-export const ResourceTotalsFragmentDoc = gql`
-    fragment ResourceTotals on Card {
-  resourceTotals {
-    castles
-    crowns
-    leaves
-    lightbulbs
-    factories
-    timepieces
-  }
+export const DeckFragmentDoc = gql`
+    fragment Deck on Deck {
+  ONE
+  TWO
+  THREE
+  FOUR
+  FIVE
+  SIX
+  SEVEN
+  EIGHT
+  NINE
+  TEN
 }
     `;
+export const AvailableAchievementsFragmentDoc = gql`
+    fragment AvailableAchievements on Achievements {
+  ONE
+  TWO
+  THREE
+  FOUR
+  FIVE
+  SIX
+  SEVEN
+  EIGHT
+  NINE
+}
+    `;
+export const GameFragmentDoc = gql`
+    fragment Game on Game {
+  _id
+  currentActionNumber
+  currentPlayerRef
+  playerRefs
+  winnerRef
+  deck {
+    ...Deck
+  }
+  achievements {
+    ...AvailableAchievements
+  }
+}
+    ${DeckFragmentDoc}
+${AvailableAchievementsFragmentDoc}`;
+export const ResourceTotalsFragmentDoc = gql`
+    fragment ResourceTotals on ResourceTotals {
+  castles
+  crowns
+  leaves
+  lightbulbs
+  factories
+  timepieces
+}
+    `;
+export const BoardPileFragmentDoc = gql`
+    fragment BoardPile on BoardPile {
+  cardRefs
+  splayed
+}
+    `;
+export const BoardFragmentDoc = gql`
+    fragment Board on Board {
+  blue {
+    ...BoardPile
+  }
+  green {
+    ...BoardPile
+  }
+  purple {
+    ...BoardPile
+  }
+  red {
+    ...BoardPile
+  }
+  yellow {
+    ...BoardPile
+  }
+}
+    ${BoardPileFragmentDoc}`;
+export const PlayerGameDetailsFragmentDoc = gql`
+    fragment PlayerGameDetails on PlayerGameDetails {
+  _id
+  playerRef
+  age
+  score
+  resourceTotals {
+    ...ResourceTotals
+  }
+  board {
+    ...Board
+  }
+  achievements
+  hand
+  scoreCardRefs
+}
+    ${ResourceTotalsFragmentDoc}
+${BoardFragmentDoc}`;
 export const RoomDataFragmentDoc = gql`
     fragment RoomData on Room {
   _id
@@ -730,7 +833,9 @@ export const GetAllCardsDocument = gql`
   getAllCards {
     ...BaseCard
     ...ResourceSpaces
-    ...ResourceTotals
+    resourceTotals {
+      ...ResourceTotals
+    }
     ...DogmaEffects
   }
 }
@@ -770,6 +875,45 @@ export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
 export type GetAllCardsLazyQueryHookResult = ReturnType<typeof useGetAllCardsLazyQuery>;
 export type GetAllCardsSuspenseQueryHookResult = ReturnType<typeof useGetAllCardsSuspenseQuery>;
 export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
+export const CreateNewGameDocument = gql`
+    mutation CreateNewGame($newGameDto: CreateNewGameInput!) {
+  createNewGame(newGameDto: $newGameDto) {
+    game {
+      ...Game
+    }
+    playerGameDetails {
+      ...PlayerGameDetails
+    }
+  }
+}
+    ${GameFragmentDoc}
+${PlayerGameDetailsFragmentDoc}`;
+export type CreateNewGameMutationFn = Apollo.MutationFunction<CreateNewGameMutation, CreateNewGameMutationVariables>;
+
+/**
+ * __useCreateNewGameMutation__
+ *
+ * To run a mutation, you first call `useCreateNewGameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNewGameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNewGameMutation, { data, loading, error }] = useCreateNewGameMutation({
+ *   variables: {
+ *      newGameDto: // value for 'newGameDto'
+ *   },
+ * });
+ */
+export function useCreateNewGameMutation(baseOptions?: Apollo.MutationHookOptions<CreateNewGameMutation, CreateNewGameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateNewGameMutation, CreateNewGameMutationVariables>(CreateNewGameDocument, options);
+      }
+export type CreateNewGameMutationHookResult = ReturnType<typeof useCreateNewGameMutation>;
+export type CreateNewGameMutationResult = Apollo.MutationResult<CreateNewGameMutation>;
+export type CreateNewGameMutationOptions = Apollo.BaseMutationOptions<CreateNewGameMutation, CreateNewGameMutationVariables>;
 export const AddPlayerToRoomDocument = gql`
     mutation AddPlayerToRoom($roomId: String!) {
   addPlayerToRoom(roomId: $roomId) {
