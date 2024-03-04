@@ -26,6 +26,7 @@ import { Routes } from '../../app-core/constants/navigation';
 import { FormError } from '../../app-core/forms/FormError';
 import { useAuthContext } from '../../authentication/state/AuthProvider';
 import { useSocketContext } from '../../websockets/SocketProvider';
+import { useStartNewGame } from '../hooks/useStartNewGame';
 
 export interface IRoomScreenProps {
   error?: ApolloError;
@@ -46,6 +47,12 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
   const [showModal, setShowModal] = useState(false);
   const [leaveRoomError, setLeaveRoomError] = useState('');
   const [roomMetadata, setRoomMetadata] = useState<IRoomMetadata>();
+
+  const {
+    errorMsg: startGameError,
+    loading: startGameLoading,
+    handleStartGame,
+  } = useStartNewGame({});
 
   const userIsHost = useMemo(
     () => !!(user?._id && roomData?.hostRef && user._id === roomData.hostRef),
@@ -169,6 +176,13 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
 
   const handleStartPress = () => {
     console.log('READY TO START GAME!');
+    if (!roomData?._id || !roomData?.playerRefs) {
+      return;
+    }
+    handleStartGame({
+      playerRefs: roomData.playerRefs,
+      roomRef: roomData._id,
+    });
   };
 
   if (!roomData && loading) {
@@ -214,6 +228,7 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
                 <Button onPress={handleStartPress} variant="solid" action="positive" size="lg">
                   <ButtonText>Start Game</ButtonText>
                 </Button>
+                {startGameError ? <FormError errorMsg={startGameError} /> : null}
               </Box>
             ) : (
               <>
@@ -233,7 +248,13 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
             {userIsHost ? (
               <Box>
                 <Text>No more users are able to join. Are you ready to start the game?</Text>
-                <Button onPress={handleStartPress} variant="solid" action="positive" size="lg">
+                <Button
+                  onPress={handleStartPress}
+                  variant="solid"
+                  action="positive"
+                  size="lg"
+                  disabled={startGameLoading}
+                >
                   <ButtonText>Start Game</ButtonText>
                 </Button>
               </Box>
