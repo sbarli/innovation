@@ -14,13 +14,13 @@ export class GamesResolver {
 
   @Query(() => Game, { nullable: true })
   async getGame(
-    @Args('gameRef', { type: () => String }) gameRef: string
+    @Args('gameId', { type: () => String }) gameId: string
   ): Promise<Game | null | undefined> {
     try {
-      return this.gamesService.findGameByRef(gameRef);
+      return this.gamesService.findGameById(gameId);
     } catch (error) {
       throw new HttpException(
-        getCatchErrorMessage(error, `GetGame Query -> Could not find game with id ${gameRef}`),
+        getCatchErrorMessage(error, `GetGame Query -> Could not find game with id ${gameId}`),
         HttpStatus.BAD_REQUEST
       );
     }

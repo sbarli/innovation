@@ -76,6 +76,9 @@ export class NewGameService {
     }
   }
 
+  /**
+   * @deprecated
+   */
   async validateUniqueGame(playerRefs: string[]): Promise<boolean> {
     try {
       const game = await this.gamesService.findActiveGameByPlayers(playerRefs);
@@ -111,7 +114,7 @@ export class NewGameService {
     };
   }
 
-  async startGame({
+  async newGame({
     roomRef,
     playerRefs,
     starterDeck,
