@@ -136,6 +136,15 @@ export type CloseRoomResponse = {
   success: Scalars['Boolean']['output'];
 };
 
+export type CreateGameInput = {
+  achievements: AchievementsInput;
+  currentActionNumber: Scalars['Float']['input'];
+  currentPlayerRef: Scalars['ID']['input'];
+  deck: DeckInput;
+  playerRefs: Array<Scalars['ID']['input']>;
+  roomRef: Scalars['ID']['input'];
+};
+
 export type CreateNewGameInput = {
   playerRefs: Array<Scalars['String']['input']>;
   roomRef: Scalars['String']['input'];
@@ -234,9 +243,10 @@ export type Mutation = {
   __typename?: 'Mutation';
   addPlayerToRoom?: Maybe<Room>;
   closeRoom: CloseRoomResponse;
-  createNewGame: CreateNewGameResponse;
+  createNewGame: Game;
   createPlayerGameDetails: PlayerGameDetails;
   createRoom: Room;
+  newGame: CreateNewGameResponse;
   refreshToken: AccessTokenPayload;
   signup: AuthResponse;
   updateGame?: Maybe<Game>;
@@ -256,7 +266,7 @@ export type MutationCloseRoomArgs = {
 
 
 export type MutationCreateNewGameArgs = {
-  newGameDto: CreateNewGameInput;
+  newGameData: CreateGameInput;
 };
 
 
@@ -267,6 +277,11 @@ export type MutationCreatePlayerGameDetailsArgs = {
 
 export type MutationCreateRoomArgs = {
   newRoomData: CreateRoomInput;
+};
+
+
+export type MutationNewGameArgs = {
+  newGameDto: CreateNewGameInput;
 };
 
 
@@ -324,7 +339,7 @@ export type Query = {
 
 
 export type QueryGetGameArgs = {
-  gameRef: Scalars['String']['input'];
+  gameId: Scalars['String']['input'];
 };
 
 
@@ -468,18 +483,25 @@ export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
 
-export type CreateNewGameMutationVariables = Exact<{
+export type NewGameMutationVariables = Exact<{
   newGameDto: CreateNewGameInput;
 }>;
 
 
-export type CreateNewGameMutation = { __typename?: 'Mutation', createNewGame: { __typename?: 'CreateNewGameResponse', game: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, achievements: { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } }, playerGameDetails: Array<{ __typename?: 'PlayerGameDetails', _id: string, playerRef: string, age: number, score: number, achievements: Array<string>, hand: Array<string>, scoreCardRefs: Array<string>, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } }> } };
+export type NewGameMutation = { __typename?: 'Mutation', newGame: { __typename?: 'CreateNewGameResponse', game: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, achievements: { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } }, playerGameDetails: Array<{ __typename?: 'PlayerGameDetails', _id: string, playerRef: string, age: number, score: number, achievements: Array<string>, hand: Array<string>, scoreCardRefs: Array<string>, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } }> } };
 
 export type AvailableAchievementsFragment = { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string };
 
 export type DeckFragment = { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> };
 
 export type GameFragment = { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, achievements: { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } };
+
+export type GetGameQueryVariables = Exact<{
+  gameId: Scalars['String']['input'];
+}>;
+
+
+export type GetGameQuery = { __typename?: 'Query', getGame?: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, achievements: { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } } | null };
 
 export type BoardPileFragment = { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null };
 
@@ -875,9 +897,9 @@ export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
 export type GetAllCardsLazyQueryHookResult = ReturnType<typeof useGetAllCardsLazyQuery>;
 export type GetAllCardsSuspenseQueryHookResult = ReturnType<typeof useGetAllCardsSuspenseQuery>;
 export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
-export const CreateNewGameDocument = gql`
-    mutation CreateNewGame($newGameDto: CreateNewGameInput!) {
-  createNewGame(newGameDto: $newGameDto) {
+export const NewGameDocument = gql`
+    mutation NewGame($newGameDto: CreateNewGameInput!) {
+  newGame(newGameDto: $newGameDto) {
     game {
       ...Game
     }
@@ -888,32 +910,72 @@ export const CreateNewGameDocument = gql`
 }
     ${GameFragmentDoc}
 ${PlayerGameDetailsFragmentDoc}`;
-export type CreateNewGameMutationFn = Apollo.MutationFunction<CreateNewGameMutation, CreateNewGameMutationVariables>;
+export type NewGameMutationFn = Apollo.MutationFunction<NewGameMutation, NewGameMutationVariables>;
 
 /**
- * __useCreateNewGameMutation__
+ * __useNewGameMutation__
  *
- * To run a mutation, you first call `useCreateNewGameMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateNewGameMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useNewGameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useNewGameMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createNewGameMutation, { data, loading, error }] = useCreateNewGameMutation({
+ * const [newGameMutation, { data, loading, error }] = useNewGameMutation({
  *   variables: {
  *      newGameDto: // value for 'newGameDto'
  *   },
  * });
  */
-export function useCreateNewGameMutation(baseOptions?: Apollo.MutationHookOptions<CreateNewGameMutation, CreateNewGameMutationVariables>) {
+export function useNewGameMutation(baseOptions?: Apollo.MutationHookOptions<NewGameMutation, NewGameMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateNewGameMutation, CreateNewGameMutationVariables>(CreateNewGameDocument, options);
+        return Apollo.useMutation<NewGameMutation, NewGameMutationVariables>(NewGameDocument, options);
       }
-export type CreateNewGameMutationHookResult = ReturnType<typeof useCreateNewGameMutation>;
-export type CreateNewGameMutationResult = Apollo.MutationResult<CreateNewGameMutation>;
-export type CreateNewGameMutationOptions = Apollo.BaseMutationOptions<CreateNewGameMutation, CreateNewGameMutationVariables>;
+export type NewGameMutationHookResult = ReturnType<typeof useNewGameMutation>;
+export type NewGameMutationResult = Apollo.MutationResult<NewGameMutation>;
+export type NewGameMutationOptions = Apollo.BaseMutationOptions<NewGameMutation, NewGameMutationVariables>;
+export const GetGameDocument = gql`
+    query GetGame($gameId: String!) {
+  getGame(gameId: $gameId) {
+    ...Game
+  }
+}
+    ${GameFragmentDoc}`;
+
+/**
+ * __useGetGameQuery__
+ *
+ * To run a query within a React component, call `useGetGameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetGameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetGameQuery({
+ *   variables: {
+ *      gameId: // value for 'gameId'
+ *   },
+ * });
+ */
+export function useGetGameQuery(baseOptions: Apollo.QueryHookOptions<GetGameQuery, GetGameQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetGameQuery, GetGameQueryVariables>(GetGameDocument, options);
+      }
+export function useGetGameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetGameQuery, GetGameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetGameQuery, GetGameQueryVariables>(GetGameDocument, options);
+        }
+export function useGetGameSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetGameQuery, GetGameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetGameQuery, GetGameQueryVariables>(GetGameDocument, options);
+        }
+export type GetGameQueryHookResult = ReturnType<typeof useGetGameQuery>;
+export type GetGameLazyQueryHookResult = ReturnType<typeof useGetGameLazyQuery>;
+export type GetGameSuspenseQueryHookResult = ReturnType<typeof useGetGameSuspenseQuery>;
+export type GetGameQueryResult = Apollo.QueryResult<GetGameQuery, GetGameQueryVariables>;
 export const AddPlayerToRoomDocument = gql`
     mutation AddPlayerToRoom($roomId: String!) {
   addPlayerToRoom(roomId: $roomId) {
