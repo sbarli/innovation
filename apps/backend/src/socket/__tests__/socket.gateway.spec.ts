@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { SocketBaseService } from '../services/socket-base.service';
+import { SocketGameService } from '../services/socket-game.service';
 import { SocketRoomService } from '../services/socket-room.service';
 import { SocketUsersService } from '../services/socket-users.service';
 import { SocketGateway } from '../socket.gateway';
@@ -15,6 +16,12 @@ describe('SocketGateway', () => {
           provide: SocketBaseService,
           useValue: {
             handleConnection: jest.fn(),
+          },
+        },
+        {
+          provide: SocketGameService,
+          useValue: {
+            handleStartGame: jest.fn(),
           },
         },
         {
