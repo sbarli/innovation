@@ -109,6 +109,15 @@ type CloseRoomResponse {
   success: Boolean!
 }
 
+input CreateGameInput {
+  achievements: AchievementsInput!
+  currentActionNumber: Float!
+  currentPlayerRef: ID!
+  deck: DeckInput!
+  playerRefs: [ID!]!
+  roomRef: ID!
+}
+
 input CreateNewGameInput {
   playerRefs: [String!]!
   roomRef: String!
@@ -207,9 +216,10 @@ input GetUserInput {
 type Mutation {
   addPlayerToRoom(roomId: String!): Room
   closeRoom(roomId: String!): CloseRoomResponse!
-  createNewGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
+  createNewGame(newGameData: CreateGameInput!): Game!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
   createRoom(newRoomData: CreateRoomInput!): Room!
+  newGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
   refreshToken: AccessTokenPayload!
   signup(newUserData: CreateUserInput!): AuthResponse!
   updateGame(id: String!, updates: UpdateGameInput!): Game
@@ -236,7 +246,7 @@ type Query {
   getAllCards: [Card!]!
   getCardIdAndRefByAge: CardIdAndRefByAge!
   getCardRefsByAge: CardRefsByAge!
-  getGame(gameRef: String!): Game
+  getGame(gameId: String!): Game
   getOneCard(options: FindOneOptionsInput!): Card
   getPlayerGameDetails(gameRef: ID!, playerRef: ID!): PlayerGameDetails
   getPlayerGameDetailsById(id: ID!): PlayerGameDetails
