@@ -186,7 +186,7 @@ export class SocketRoomService {
     const connectedSockets = await socketServer.in(roomId).fetchSockets();
     socketServer.to(roomId).emit(SocketEvent.CLOSE_ROOM_IN_PROGRESS, {
       roomId,
-      intiatedBy: user?.username ?? 'User',
+      initiatedBy: user?.username ?? 'User',
     });
     try {
       socketServer.in(roomId).socketsLeave(roomId);
