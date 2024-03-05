@@ -1,10 +1,8 @@
-fragment ResourceTotals on Card {
-  resourceTotals {
-    castles
-    crowns
-    leaves
-    lightbulbs
-    factories
-    timepieces
-  }
+fragment ResourceTotals on ResourceTotals {
+  castles
+  crowns
+  leaves
+  lightbulbs
+  factories
+  timepieces
 }

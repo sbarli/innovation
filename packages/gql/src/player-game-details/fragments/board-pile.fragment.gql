@@ -1,0 +1,4 @@
+fragment BoardPile on BoardPile {
+  cardRefs
+  splayed
+}

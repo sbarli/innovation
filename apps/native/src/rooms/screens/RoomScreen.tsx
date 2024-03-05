@@ -26,6 +26,7 @@ import { Routes } from '../../app-core/constants/navigation';
 import { FormError } from '../../app-core/forms/FormError';
 import { useAuthContext } from '../../authentication/state/AuthProvider';
 import { useSocketContext } from '../../websockets/SocketProvider';
+import { useStartNewGame } from '../hooks/useStartNewGame';
 
 export interface IRoomScreenProps {
   error?: ApolloError;
@@ -47,10 +48,21 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
   const [leaveRoomError, setLeaveRoomError] = useState('');
   const [roomMetadata, setRoomMetadata] = useState<IRoomMetadata>();
 
+  const {
+    errorMsg: startGameError,
+    loading: startGameLoading,
+    handleStartGame,
+  } = useStartNewGame({});
+
   const userIsHost = useMemo(
     () => !!(user?._id && roomData?.hostRef && user._id === roomData.hostRef),
     [user?._id, roomData?.hostRef]
   );
+
+  const allPlayersInLobby = roomData?.playerRefs.length === roomMetadata?.playersInRoom.length;
+
+  const roomIsOpen =
+    roomData?.availableToJoin || (!roomData?.availableToJoin && !allPlayersInLobby);
 
   // get current room metadata on when roomId exists and/or changes
   useEffect(() => {
@@ -162,6 +174,17 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
     });
   };
 
+  const handleStartPress = () => {
+    console.log('READY TO START GAME!');
+    if (!roomData?._id || !roomData?.playerRefs) {
+      return;
+    }
+    handleStartGame({
+      playerRefs: roomData.playerRefs,
+      roomRef: roomData._id,
+    });
+  };
+
   if (!roomData && loading) {
     return (
       <Box alignItems="center">
@@ -189,28 +212,57 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
           </Button>
         </HStack>
         <Box alignItems="center">
-          <Text>Welcome to the {roomData.name} room!</Text>
-          <Text>
-            The room is currently{roomData.availableToJoin ? ' ' : ' not '}available to join.
-          </Text>
-          <Text>There are {roomData.playerRefs.length} members of the room.</Text>
-          <Text>
-            There are currently {roomMetadata?.playersInRoom.length ?? '-'} players connected to the
-            room.
-          </Text>
-          {userIsHost && !!roomData?._id && (
-            <HStack alignItems="center">
-              <Text>Invite more players by sharing this room id (click to copy): </Text>
-              <CopyableText text={roomData._id} />
-            </HStack>
-          )}
-        </Box>
-        <Box alignItems="center">
           <Heading size="lg">Users In Room</Heading>
           {(roomMetadata?.playersInRoom ?? []).map((username) => (
             <Text key={username.replace(' ', '-')}>{username}</Text>
           ))}
         </Box>
+        {roomIsOpen ? (
+          <Box alignItems="center">
+            <Heading size="lg">Room Open</Heading>
+            {userIsHost && (roomMetadata?.playersInRoom ?? []).length > 1 ? (
+              <Box>
+                <Text>
+                  More players are still able to join. Are you ready to start the game anyway?
+                </Text>
+                <Button onPress={handleStartPress} variant="solid" action="positive" size="lg">
+                  <ButtonText>Start Game</ButtonText>
+                </Button>
+                {startGameError ? <FormError errorMsg={startGameError} /> : null}
+              </Box>
+            ) : (
+              <>
+                <Text>Waiting for more players to join...</Text>
+                {userIsHost && !!roomData?._id && (
+                  <HStack alignItems="center">
+                    <Text>Invite more players by sharing this room id (click to copy): </Text>
+                    <CopyableText text={roomData._id} />
+                  </HStack>
+                )}
+              </>
+            )}
+          </Box>
+        ) : (
+          <Box alignItems="center">
+            <Heading size="lg">Room Full</Heading>
+            {userIsHost ? (
+              <Box>
+                <Text>No more users are able to join. Are you ready to start the game?</Text>
+                <Button
+                  onPress={handleStartPress}
+                  variant="solid"
+                  action="positive"
+                  size="lg"
+                  disabled={startGameLoading}
+                >
+                  <ButtonText>Start Game</ButtonText>
+                </Button>
+              </Box>
+            ) : (
+              <Text>Waiting for host to start the game...</Text>
+            )}
+          </Box>
+        )}
       </VStack>
       <InteractiveModal
         headerText="Are you sure you want to leave the room?"

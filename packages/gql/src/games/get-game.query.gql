@@ -1,0 +1,5 @@
+query GetGame($gameId: String!) {
+  getGame(gameId: $gameId) {
+    ...Game
+  }
+}

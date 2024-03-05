@@ -39,7 +39,7 @@ describe('GameplayResolver', () => {
             validatePlayersExist: jest.fn(),
             validateUniqueGame: jest.fn(),
             getGameSetup: jest.fn(),
-            startGame: jest.fn(),
+            newGame: jest.fn(),
           },
         },
         GameplayResolver,
@@ -66,9 +66,6 @@ describe('GameplayResolver', () => {
         const validatePlayersSpy = jest
           .spyOn(newGameService, 'validatePlayersExist')
           .mockResolvedValueOnce(true);
-        const validateGameSpy = jest
-          .spyOn(newGameService, 'validateUniqueGame')
-          .mockResolvedValueOnce(true);
         const findCardsSpy = jest
           .spyOn(cardsService, 'findAll')
           .mockResolvedValueOnce(MOCK_FIND_ALL_CARDS_RESPONSE);
@@ -78,22 +75,21 @@ describe('GameplayResolver', () => {
         const gameSetupSpy = jest
           .spyOn(newGameService, 'getGameSetup')
           .mockReturnValueOnce(MOCK_NEW_GAME_SETUP);
-        const startGameSpy = jest
-          .spyOn(newGameService, 'startGame')
+        const newGameSpy = jest
+          .spyOn(newGameService, 'newGame')
           .mockResolvedValueOnce(MOCK_NEW_GAME_RESPONSE);
 
-        const output = await gameplayResolver.createNewGame(MOCK_NEW_GAME_INPUT);
+        const output = await gameplayResolver.newGame(MOCK_NEW_GAME_INPUT);
 
         expect(validateRoomSpy).toHaveBeenCalledWith(MOCK_NEW_GAME_INPUT.roomRef);
         expect(validatePlayersSpy).toHaveBeenCalledWith(MOCK_NEW_GAME_INPUT.playerRefs);
-        expect(validateGameSpy).toHaveBeenCalledWith(MOCK_NEW_GAME_INPUT.playerRefs);
         expect(findCardsSpy).toHaveBeenCalledTimes(1);
         expect(sortCardsSpy).toHaveBeenCalledWith({ cards: MOCK_FIND_ALL_CARDS_RESPONSE });
         expect(gameSetupSpy).toHaveBeenCalledWith(
           MOCK_CARD_REFS_BY_AGE,
           MOCK_NEW_GAME_INPUT.playerRefs
         );
-        expect(startGameSpy).toHaveBeenCalledWith({
+        expect(newGameSpy).toHaveBeenCalledWith({
           roomRef: MOCK_NEW_GAME_INPUT.roomRef,
           playerRefs: MOCK_NEW_GAME_INPUT.playerRefs,
           starterDeck: MOCK_DECK,

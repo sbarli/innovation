@@ -22,7 +22,7 @@ describe('GamesResolver', () => {
           provide: GamesService,
           useValue: {
             create: jest.fn(() => MOCK_GAME),
-            findGameByRef: jest.fn(() => MOCK_GAME),
+            findGameById: jest.fn(() => MOCK_GAME),
             findActiveGameByPlayers: jest.fn(),
             updateGameByRef: jest.fn(),
           },
@@ -41,8 +41,8 @@ describe('GamesResolver', () => {
 
   describe('queries', () => {
     describe('getGame', () => {
-      it('should return output of calling gamesService.findGameByRef', async () => {
-        jest.spyOn(gamesService, 'findGameByRef');
+      it('should return output of calling gamesService.findGameById', async () => {
+        jest.spyOn(gamesService, 'findGameById');
         const output = await gamesResolver.getGame(MOCK_ID);
         expect(output).toEqual(MOCK_GAME);
       });

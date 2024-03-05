@@ -11,12 +11,12 @@ import { CreateGameInput, Game, GameDocument } from './schemas/game.schema';
 export class GamesService {
   constructor(@InjectModel(Game.name) private gameModel: Model<GameDocument>) {}
 
-  async findGameByRef(ref: string): Promise<Game | null | undefined> {
+  async findGameById(id: string): Promise<Game | null | undefined> {
     try {
-      return this.gameModel.findById(ref);
+      return this.gameModel.findById(id);
     } catch (error) {
       throw new Error(
-        getCatchErrorMessage(error, 'GamesService.findGameByRef -> Error finding game')
+        getCatchErrorMessage(error, 'GamesService.findGameById -> Error finding game')
       );
     }
   }

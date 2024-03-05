@@ -175,7 +175,7 @@ describe('NewGameService', () => {
     });
   });
 
-  describe('startGame', () => {
+  describe('newGame', () => {
     it('should return new game response when new game data creation successful', async () => {
       const createGameSpy = jest.spyOn(gamesService, 'create').mockResolvedValueOnce(MOCK_GAME);
       const detailsSpy = jest
@@ -183,7 +183,7 @@ describe('NewGameService', () => {
         .mockResolvedValue(MOCK_PLAYER_2_DETAILS)
         .mockResolvedValueOnce(MOCK_PLAYER_1_DETAILS);
 
-      const output = await newGameService.startGame({
+      const output = await newGameService.newGame({
         roomRef: MOCK_ROOM_ID,
         playerRefs: MOCK_PLAYER_REFS,
         starterDeck: MOCK_DECK,

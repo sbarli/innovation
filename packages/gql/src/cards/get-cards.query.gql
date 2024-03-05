@@ -2,7 +2,9 @@ query GetAllCards {
   getAllCards {
     ...BaseCard
     ...ResourceSpaces
-    ...ResourceTotals
+    resourceTotals {
+      ...ResourceTotals
+    }
     ...DogmaEffects
   }
 }

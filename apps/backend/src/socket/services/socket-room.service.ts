@@ -14,16 +14,9 @@ import {
 } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
 
+import { ISocketServiceMethodParamsWithRoomId } from '../socket.types';
+
 import { SocketUsersService } from './socket-users.service';
-
-export interface IBaseSocketServiceParams {
-  user: UserWithoutPassword;
-  socketServer: Socket;
-}
-
-export interface ISocketServiceMethodParamsWithRoomId extends IBaseSocketServiceParams {
-  roomId: string;
-}
 
 export interface IHandleCreateRoomParams {
   roomName: string;

@@ -17,6 +17,7 @@ import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 import { SocketEvent } from '@inno/constants';
 
 import { SocketBaseService } from './services/socket-base.service';
+import { SocketGameService } from './services/socket-game.service';
 import { SocketRoomService } from './services/socket-room.service';
 import { SocketUsersService } from './services/socket-users.service';
 
@@ -34,6 +35,7 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
 
   constructor(
     private readonly socketBaseService: SocketBaseService,
+    private readonly socketGameService: SocketGameService,
     private readonly socketRoomService: SocketRoomService,
     private readonly socketUsersService: SocketUsersService
   ) {}
@@ -96,6 +98,22 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     @ConnectedSocket() socket: Socket
   ) {
     return this.socketRoomService.handleCloseRoom(socket, {
+      roomId,
+      socketServer: this.server,
+      user,
+    });
+  }
+
+  @UseGuards(JwtWsAuthGuard)
+  @SubscribeMessage(SocketEvent.START_GAME)
+  startGame(
+    @CurrentUserFromRequest() user: UserWithoutPassword,
+    @MessageBody('gameId') gameId: string,
+    @MessageBody('roomId') roomId: string,
+    @ConnectedSocket() socket: Socket
+  ) {
+    return this.socketGameService.handleStartGame(socket, {
+      gameId,
       roomId,
       socketServer: this.server,
       user,

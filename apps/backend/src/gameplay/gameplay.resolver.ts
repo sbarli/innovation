@@ -15,20 +15,19 @@ export class GameplayResolver {
   ) {}
 
   @Mutation(() => CreateNewGameResponse)
-  async createNewGame(
+  async newGame(
     @Args('newGameDto', { type: () => CreateNewGameInput })
     newGameDto: CreateNewGameInput
   ) {
     await this.newGameService.validateRoomExists(newGameDto.roomRef);
     await this.newGameService.validatePlayersExist(newGameDto.playerRefs);
-    await this.newGameService.validateUniqueGame(newGameDto.playerRefs);
     const cards = await this.cardsService.findAll();
     const cardRefsByAge = this.cardsSortingService.refsByAge({ cards });
     const { deck, achievements, playerStarterHands } = this.newGameService.getGameSetup(
       cardRefsByAge,
       newGameDto.playerRefs
     );
-    return this.newGameService.startGame({
+    return this.newGameService.newGame({
       roomRef: newGameDto.roomRef,
       playerRefs: newGameDto.playerRefs,
       starterDeck: deck,

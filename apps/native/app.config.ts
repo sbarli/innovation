@@ -1,7 +1,7 @@
 import { ExpoConfig, ConfigContext } from 'expo/config';
 
 const APP_NAME = 'Innovation';
-const APP_ORIENTATION = 'landscape';
+const APP_ORIENTATION = 'portrait';
 const APP_SLUG = 'innovation';
 const APP_VERSION = {
   major: 0,
