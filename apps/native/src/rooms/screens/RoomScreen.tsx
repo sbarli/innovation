@@ -1,31 +1,26 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { ApolloError } from '@apollo/client';
 import {
   Box,
   Button,
-  ButtonIcon,
   ButtonText,
-  CloseIcon,
   HStack,
   Heading,
   Text,
   VStack,
   useToast,
 } from '@gluestack-ui/themed';
-import { router } from 'expo-router';
 
-import { IRoomMetadata, SocketEvent, SocketEventError, SocketEventResponse } from '@inno/constants';
-import { RoomDataFragment, useCloseRoomMutation } from '@inno/gql';
-import { getCatchErrorMessage } from '@inno/utils';
+import { IRoomMetadata, SocketEvent, SocketEventResponse } from '@inno/constants';
+import { RoomDataFragment } from '@inno/gql';
 
 import { CopyableText } from '../../app-core/components/clipboard/CopyableText';
-import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
 import { CustomToast } from '../../app-core/components/toasts/CustomToast';
-import { Routes } from '../../app-core/constants/navigation';
 import { FormError } from '../../app-core/forms/FormError';
 import { useAuthContext } from '../../authentication/state/AuthProvider';
 import { useSocketContext } from '../../websockets/SocketProvider';
+import { LeaveRoomCTA } from '../components/LeaveRoomCTA';
 import { useStartNewGame } from '../hooks/useStartNewGame';
 
 export interface IRoomScreenProps {
@@ -39,13 +34,6 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
   const { user } = useAuthContext();
   const { socket } = useSocketContext();
   const toast = useToast();
-
-  const [closeRoomMutation] = useCloseRoomMutation({
-    fetchPolicy: 'no-cache',
-  });
-
-  const [showModal, setShowModal] = useState(false);
-  const [leaveRoomError, setLeaveRoomError] = useState('');
   const [roomMetadata, setRoomMetadata] = useState<IRoomMetadata>();
 
   const {
@@ -97,85 +85,12 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
         });
       }
     );
-    socket?.on(
-      SocketEvent.CLOSE_ROOM_IN_PROGRESS,
-      ({ roomId, initiatedBy }: { roomId: string; initiatedBy: string }) => {
-        if (initiatedBy !== user?.username && roomId === roomData?._id) {
-          toast.show({
-            placement: 'top',
-            render: ({ id }) => (
-              <CustomToast
-                id={id}
-                title="User Leaving Room"
-                description={`${initiatedBy} is leaving the room. Room is being closed. Game is over.`}
-              />
-            ),
-          });
-        }
-      }
-    );
-    socket?.on(SocketEvent.CLOSE_ROOM_SUCCESS, () => {
-      setLeaveRoomError('');
-      router.push(Routes.HOME);
-    });
-    socket?.on(SocketEvent.CLOSE_ROOM_ERROR, (error: SocketEventError) => {
-      setLeaveRoomError(error.message);
-    });
     return () => {
-      socket?.removeListener(SocketEvent.CLOSE_ROOM_ERROR);
-      socket?.removeListener(SocketEvent.CLOSE_ROOM_SUCCESS);
-      socket?.removeListener(SocketEvent.CLOSE_ROOM_IN_PROGRESS);
       socket?.removeListener(SocketEvent.USER_JOINED_ROOM);
     };
   }, [socket]);
 
-  const handleLeavePress = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = useCallback(() => {
-    setShowModal(false);
-  }, []);
-
-  const handleCloseRoom = async (roomId: string) => {
-    await socket?.emit(
-      SocketEvent.CLOSE_ROOM,
-      { roomId: roomId },
-      (response: SocketEventResponse) => {
-        if (!response.success) {
-          setLeaveRoomError(response.error?.message || 'Error leaving room');
-          return;
-        }
-        setShowModal(false);
-        router.push(Routes.HOME);
-      }
-    );
-  };
-
-  const handleConfirmLeaveRoom = async () => {
-    if (!roomData?._id) {
-      setLeaveRoomError('Error leaving room');
-      return;
-    }
-    closeRoomMutation({
-      variables: {
-        roomId: roomData._id,
-      },
-      onCompleted(data) {
-        if (!data?.closeRoom.success) {
-          setLeaveRoomError('An error occurred. Please try again!');
-          return;
-        }
-        handleCloseRoom(roomData._id);
-      },
-      onError(error) {
-        setLeaveRoomError(getCatchErrorMessage(error, 'An error occurred. Please try again!'));
-      },
-    });
-  };
-
   const handleStartPress = () => {
-    console.log('READY TO START GAME!');
     if (!roomData?._id || !roomData?.playerRefs) {
       return;
     }
@@ -203,77 +118,62 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
   }
 
   return (
-    <>
-      <VStack px="$6">
-        <HStack justifyContent="flex-end">
-          <Button onPress={handleLeavePress} variant="outline" action="negative" size="sm">
-            <ButtonText>Leave Room </ButtonText>
-            <ButtonIcon color="$red600" as={CloseIcon} />
-          </Button>
-        </HStack>
+    <VStack px="$6">
+      <HStack justifyContent="flex-end">
+        <LeaveRoomCTA roomId={roomData._id} />
+      </HStack>
+      <Box alignItems="center">
+        <Heading size="lg">Users In Room</Heading>
+        {(roomMetadata?.playersInRoom ?? []).map((username) => (
+          <Text key={username.replace(' ', '-')}>{username}</Text>
+        ))}
+      </Box>
+      {roomIsOpen ? (
         <Box alignItems="center">
-          <Heading size="lg">Users In Room</Heading>
-          {(roomMetadata?.playersInRoom ?? []).map((username) => (
-            <Text key={username.replace(' ', '-')}>{username}</Text>
-          ))}
+          <Heading size="lg">Room Open</Heading>
+          {userIsHost && (roomMetadata?.playersInRoom ?? []).length > 1 ? (
+            <Box>
+              <Text>
+                More players are still able to join. Are you ready to start the game anyway?
+              </Text>
+              <Button onPress={handleStartPress} variant="solid" action="positive" size="lg">
+                <ButtonText>Start Game</ButtonText>
+              </Button>
+              {startGameError ? <FormError errorMsg={startGameError} /> : null}
+            </Box>
+          ) : (
+            <>
+              <Text>Waiting for more players to join...</Text>
+              {userIsHost && !!roomData?._id && (
+                <HStack alignItems="center">
+                  <Text>Invite more players by sharing this room id (click to copy): </Text>
+                  <CopyableText text={roomData._id} />
+                </HStack>
+              )}
+            </>
+          )}
         </Box>
-        {roomIsOpen ? (
-          <Box alignItems="center">
-            <Heading size="lg">Room Open</Heading>
-            {userIsHost && (roomMetadata?.playersInRoom ?? []).length > 1 ? (
-              <Box>
-                <Text>
-                  More players are still able to join. Are you ready to start the game anyway?
-                </Text>
-                <Button onPress={handleStartPress} variant="solid" action="positive" size="lg">
-                  <ButtonText>Start Game</ButtonText>
-                </Button>
-                {startGameError ? <FormError errorMsg={startGameError} /> : null}
-              </Box>
-            ) : (
-              <>
-                <Text>Waiting for more players to join...</Text>
-                {userIsHost && !!roomData?._id && (
-                  <HStack alignItems="center">
-                    <Text>Invite more players by sharing this room id (click to copy): </Text>
-                    <CopyableText text={roomData._id} />
-                  </HStack>
-                )}
-              </>
-            )}
-          </Box>
-        ) : (
-          <Box alignItems="center">
-            <Heading size="lg">Room Full</Heading>
-            {userIsHost ? (
-              <Box>
-                <Text>No more users are able to join. Are you ready to start the game?</Text>
-                <Button
-                  onPress={handleStartPress}
-                  variant="solid"
-                  action="positive"
-                  size="lg"
-                  disabled={startGameLoading}
-                >
-                  <ButtonText>Start Game</ButtonText>
-                </Button>
-              </Box>
-            ) : (
-              <Text>Waiting for host to start the game...</Text>
-            )}
-          </Box>
-        )}
-      </VStack>
-      <InteractiveModal
-        headerText="Are you sure you want to leave the room?"
-        onClose={handleCloseModal}
-        showModal={showModal}
-        onConfirm={handleConfirmLeaveRoom}
-        confirmText="Confirm Leave Room"
-      >
-        <Text>Leaving will end the game for everyone.</Text>
-        {leaveRoomError ? <FormError errorMsg={leaveRoomError} /> : null}
-      </InteractiveModal>
-    </>
+      ) : (
+        <Box alignItems="center">
+          <Heading size="lg">Room Full</Heading>
+          {userIsHost ? (
+            <Box>
+              <Text>No more users are able to join. Are you ready to start the game?</Text>
+              <Button
+                onPress={handleStartPress}
+                variant="solid"
+                action="positive"
+                size="lg"
+                disabled={startGameLoading}
+              >
+                <ButtonText>Start Game</ButtonText>
+              </Button>
+            </Box>
+          ) : (
+            <Text>Waiting for host to start the game...</Text>
+          )}
+        </Box>
+      )}
+    </VStack>
   );
 };
