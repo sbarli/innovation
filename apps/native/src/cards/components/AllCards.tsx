@@ -2,7 +2,8 @@ import { Box, HStack, Text } from '@gluestack-ui/themed';
 
 import { useGetAllCardsQuery } from '@inno/gql';
 
-import { CardFront } from './CardFront';
+import { CardBack } from './back/CardBack';
+import { CardFront } from './front/CardFront';
 
 export const AllCards = () => {
   const { data, loading } = useGetAllCardsQuery();
@@ -15,10 +16,24 @@ export const AllCards = () => {
     );
   }
   return (
-    <HStack w="$full" paddingHorizontal="$10">
-      <Box>{allCards?.slice(0, 3).map((c) => <CardFront key={c.cardId} card={c} />)}</Box>
-      <Box>{allCards?.slice(3, 6).map((c) => <CardFront key={c.cardId} card={c} />)}</Box>
-      <Box>{allCards?.slice(6, 9).map((c) => <CardFront key={c.cardId} card={c} />)}</Box>
-    </HStack>
+    <Box w="$full" paddingHorizontal="$10">
+      <HStack w="$full" space="md">
+        {allCards?.slice(0, 3).map((c) => <CardFront key={c.cardId} card={c} />)}
+      </HStack>
+      <HStack w="$full" space="md">
+        <CardBack age={1} />
+        <CardBack age={2} />
+        <CardBack age={3} />
+        <CardBack age={4} />
+        <CardBack age={5} />
+      </HStack>
+      <HStack w="$full" space="md">
+        <CardBack age={6} />
+        <CardBack age={7} />
+        <CardBack age={8} />
+        <CardBack age={9} />
+        <CardBack age={10} />
+      </HStack>
+    </Box>
   );
 };

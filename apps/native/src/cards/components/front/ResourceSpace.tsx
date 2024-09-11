@@ -2,17 +2,17 @@ import { Box, Image } from '@gluestack-ui/themed';
 
 import { Color, Resource } from '@inno/constants';
 
-import castleImage from '../../../assets/resources/castle.png';
-import crownImage from '../../../assets/resources/crown.png';
-import factoryImage from '../../../assets/resources/factory.png';
-import leafImage from '../../../assets/resources/leaf.png';
-import lightbulbImage from '../../../assets/resources/lightbulb.png';
-import timepieceImage from '../../../assets/resources/timepiece.png';
+import castleImage from '../../../../assets/resources/castle.png';
+import crownImage from '../../../../assets/resources/crown.png';
+import factoryImage from '../../../../assets/resources/factory.png';
+import leafImage from '../../../../assets/resources/leaf.png';
+import lightbulbImage from '../../../../assets/resources/lightbulb.png';
+import timepieceImage from '../../../../assets/resources/timepiece.png';
 import {
   BORDER_COLOR_LIGHT,
   resourceColorMap,
   secondaryCardColorMap,
-} from '../../app-core/constants/colors';
+} from '../../../app-core/constants/colors';
 
 const resourceToResourceImageMap = {
   [Resource.CASTLES]: castleImage,

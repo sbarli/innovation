@@ -3,7 +3,7 @@ import { Box, HStack } from '@gluestack-ui/themed';
 import { Color, Resource } from '@inno/constants';
 import { Card as CardType } from '@inno/gql';
 
-import { primaryCardColorMap } from '../../app-core/constants/colors';
+import { primaryCardColorMap } from '../../../app-core/constants/colors';
 
 import { CardAge } from './CardAge';
 import { CardName } from './CardName';

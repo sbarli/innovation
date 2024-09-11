@@ -6,26 +6,24 @@ import {
   BORDER_COLOR_LIGHT,
   TEXT_COLOR_LIGHT,
   secondaryCardColorMap,
-} from '../../app-core/constants/colors';
+} from '../../../app-core/constants/colors';
 
-export interface ICardAgeProps {
-  age: number;
+export interface ICardNameProps {
   color: Color;
+  name: string;
 }
 
-export const CardAge = ({ color, age }: ICardAgeProps) => {
+export const CardName = ({ color, name }: ICardNameProps) => {
   return (
     <Box
       bg={secondaryCardColorMap[color]}
-      padding="$1"
-      borderRadius="$full"
+      paddingHorizontal="$5"
+      paddingVertical="$1"
       borderWidth="$1"
       borderColor={BORDER_COLOR_LIGHT}
-      h="$7"
-      w="$7"
     >
-      <Text color={TEXT_COLOR_LIGHT} textAlign="center" size="sm">
-        {age}
+      <Text color={TEXT_COLOR_LIGHT} size="sm" margin={0} isTruncated>
+        {name}
       </Text>
     </Box>
   );
