@@ -18,10 +18,14 @@
     },
     "@inno/constants#build": {},
     "@inno/gql#build": {},
+    "@inno/mocks#build": {
+      "dependsOn": ["^@inno/gql#build"]
+    },
     "@inno/native#dev": {
       "dependsOn": [
         "^@inno/constants#build",
         "^@inno/gql#build",
+        "^@inno/mocks#build",
         "^@inno/utils#build"
       ]
     },
