@@ -1,5 +1,6 @@
 import { Color, Resource } from '@inno/constants';
 
+// TODO: ADD TO GLUESTACK THEME
 const BROWN_PALLETE = {
   brown100: '#fdf8f1',
   brown200: '#f4dfc6',
