@@ -64,7 +64,7 @@ input BoardPileInput {
 
 type Card {
   _id: ID!
-  age: String!
+  age: Int!
   cardId: String!
   color: String!
   dogmaEffects: [DogmaEffect!]!

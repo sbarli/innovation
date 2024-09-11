@@ -87,7 +87,7 @@ export type BoardPileInput = {
 export type Card = {
   __typename?: 'Card';
   _id: Scalars['ID']['output'];
-  age: Scalars['String']['output'];
+  age: Scalars['Int']['output'];
   cardId: Scalars['String']['output'];
   color: Scalars['String']['output'];
   dogmaEffects: Array<DogmaEffect>;
@@ -470,7 +470,7 @@ export type SignupMutationVariables = Exact<{
 
 export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'AuthResponse', authToken: string, refreshToken: string, user: { __typename?: 'UserWithoutPassword', _id: string, username: string, email: string } } };
 
-export type BaseCardFragment = { __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string };
+export type BaseCardFragment = { __typename?: 'Card', _id: string, cardId: string, name: string, age: number, color: string, dogmaResource: string };
 
 export type DogmaEffectsFragment = { __typename?: 'Card', dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> };
 
@@ -481,7 +481,7 @@ export type ResourceTotalsFragment = { __typename?: 'ResourceTotals', castles: n
 export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: string, color: string, dogmaResource: string, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
+export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: number, color: string, dogmaResource: string, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
 
 export type NewGameMutationVariables = Exact<{
   newGameDto: CreateNewGameInput;

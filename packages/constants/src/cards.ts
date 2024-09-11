@@ -45,3 +45,11 @@ export enum Resource {
   FACTORIES = 'factories',
   TIMEPIECES = 'timepieces',
 }
+
+export enum Color {
+  BLUE = 'blue',
+  GREEN = 'green',
+  PURPLE = 'purple',
+  RED = 'red',
+  YELLOW = 'yellow',
+}

@@ -1,4 +1,4 @@
-import { Field, ID, InputType, ObjectType, OmitType } from '@nestjs/graphql';
+import { Field, ID, InputType, Int, ObjectType, OmitType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
@@ -22,8 +22,8 @@ export class Card {
   @Field(() => String)
   name!: string;
 
-  @Prop({ type: String, required: true })
-  @Field(() => String)
+  @Prop({ type: Number, required: true, integer: true })
+  @Field(() => Int)
   age!: number;
 
   @Prop({ type: String, required: true })
