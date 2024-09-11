@@ -6,6 +6,8 @@ export enum Routes {
   HOME = '/',
   LOGOUT = '/logout',
   ROOM = '/rooms/[roomId]',
+  TRAINING = '/training',
+  TRAINING_GAME = '/training/game',
 }
 
 export enum AuthRouteParams {
