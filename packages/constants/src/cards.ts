@@ -11,6 +11,19 @@ export enum AgeString {
   TEN = 'TEN',
 }
 
+export enum AgeName {
+  PREHISTORY = 'PREHISTORY',
+  CLASSICAL = 'CLASSICAL',
+  MEDIEVAL = 'MEDIEVAL',
+  RENAISSANCE = 'RENAISSANCE',
+  EXPLORATION = 'EXPLORATION',
+  ENLIGHTENMENT = 'ENLIGHTENMENT',
+  ROMANCE = 'ROMANCE',
+  MODERN = 'MODERN',
+  POSTMODERN = 'POSTMODERN',
+  INFORMATION = 'INFORMATION',
+}
+
 export const ages = [
   AgeString.ONE,
   AgeString.TWO,
@@ -53,3 +66,28 @@ export enum Color {
   RED = 'red',
   YELLOW = 'yellow',
 }
+
+export const ageStringToAgeNameMap: { [key in AgeString]: AgeName } = {
+  [AgeString.ONE]: AgeName.PREHISTORY,
+  [AgeString.TWO]: AgeName.CLASSICAL,
+  [AgeString.THREE]: AgeName.MEDIEVAL,
+  [AgeString.FOUR]: AgeName.RENAISSANCE,
+  [AgeString.FIVE]: AgeName.EXPLORATION,
+  [AgeString.SIX]: AgeName.ENLIGHTENMENT,
+  [AgeString.SEVEN]: AgeName.ROMANCE,
+  [AgeString.EIGHT]: AgeName.MODERN,
+  [AgeString.NINE]: AgeName.POSTMODERN,
+  [AgeString.TEN]: AgeName.INFORMATION,
+};
+
+export const ageCostToAchieveMap: { [key in AgeString]?: number } = {
+  [AgeString.ONE]: 5,
+  [AgeString.TWO]: 10,
+  [AgeString.THREE]: 15,
+  [AgeString.FOUR]: 20,
+  [AgeString.FIVE]: 25,
+  [AgeString.SIX]: 30,
+  [AgeString.SEVEN]: 35,
+  [AgeString.EIGHT]: 40,
+  [AgeString.NINE]: 45,
+};
