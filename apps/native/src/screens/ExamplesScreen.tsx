@@ -1,8 +1,6 @@
 import { AddIcon, Box, Button, ButtonIcon, ButtonText } from '@gluestack-ui/themed';
 import { StatusBar } from 'expo-status-bar';
 
-import { AllCards } from '../cards/components/AllCards';
-
 export const ExamplesScreen = () => {
   return (
     <>
@@ -22,7 +20,6 @@ export const ExamplesScreen = () => {
           <ButtonText>Boop</ButtonText>
           <ButtonIcon as={AddIcon} />
         </Button>
-        <AllCards />
       </Box>
     </>
   );

@@ -1,0 +1,17 @@
+{
+  "name": "@inno/mocks",
+  "version": "0.0.1",
+  "description": "shared mocks",
+  "author": "Samantha Barli",
+  "private": true,
+  "main": "./dist/index",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "devDependencies": {
+    "@inno/gql": "*",
+    "tsconfig": "*",
+    "typescript": "^5.1.3"
+  }
+}

@@ -24,7 +24,7 @@ export const HomeScreen = () => {
         </Link>
         <CreateRoomCTA />
         <JoinRoomCTA />
-        <Link href={Routes.EXAMPLES} asChild>
+        <Link href={Routes.TRAINING} asChild>
           <Button
             size="md"
             variant="solid"
@@ -32,7 +32,7 @@ export const HomeScreen = () => {
             isDisabled={false}
             isFocusVisible={false}
           >
-            <ButtonText>Examples</ButtonText>
+            <ButtonText>Training</ButtonText>
           </Button>
         </Link>
       </Box>
