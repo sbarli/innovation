@@ -67,6 +67,19 @@ export enum Color {
   YELLOW = 'yellow',
 }
 
+export const ageStringToAgeNumberMap: { [key in AgeString]: number } = {
+  [AgeString.ONE]: 1,
+  [AgeString.TWO]: 2,
+  [AgeString.THREE]: 3,
+  [AgeString.FOUR]: 4,
+  [AgeString.FIVE]: 5,
+  [AgeString.SIX]: 6,
+  [AgeString.SEVEN]: 7,
+  [AgeString.EIGHT]: 8,
+  [AgeString.NINE]: 9,
+  [AgeString.TEN]: 10,
+};
+
 export const ageStringToAgeNameMap: { [key in AgeString]: AgeName } = {
   [AgeString.ONE]: AgeName.PREHISTORY,
   [AgeString.TWO]: AgeName.CLASSICAL,
