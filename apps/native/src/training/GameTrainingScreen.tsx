@@ -3,6 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 
 import { Card, Game, PlayerGameDetails } from '@inno/gql';
 
+import { DeckLayout } from '../deck/DeckLayout';
+
 export interface IGameTrainingScreenProps {
   cards: Card[];
   game: Game;
@@ -14,7 +16,9 @@ export const GameTrainingScreen = ({ }: IGameTrainingScreenProps) => {
   return (
     <>
       <StatusBar style="auto" />
-      <Box alignItems="center"></Box>
+      <Box alignItems="center">
+        <DeckLayout useMock />
+      </Box>
     </>
   );
 };
