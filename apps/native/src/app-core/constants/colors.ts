@@ -15,6 +15,7 @@ const BROWN_PALLETE = {
 
 export const BORDER_COLOR_LIGHT = '$trueGray50';
 export const TEXT_COLOR_LIGHT = '$trueGray50';
+export const TEXT_COLOR_DARK = '$trueGray900';
 export const CARD_BACK_BORDER_COLOR_LIGHT = BROWN_PALLETE.brown100;
 export const CARD_BACK_COLOR_LIGHT = BROWN_PALLETE.brown200;
 export const CARD_BACK_COLOR_DARK = BROWN_PALLETE.brown900;
@@ -33,6 +34,14 @@ export const secondaryCardColorMap = {
   [Color.PURPLE]: '$violet900',
   [Color.RED]: '$red900',
   [Color.YELLOW]: '$yellow800',
+};
+
+export const tertiaryCardColorMap = {
+  [Color.BLUE]: '$blue50',
+  [Color.GREEN]: '$green100',
+  [Color.PURPLE]: '$purple50',
+  [Color.RED]: '$red200',
+  [Color.YELLOW]: '$yellow50',
 };
 
 export const resourceColorMap = {
