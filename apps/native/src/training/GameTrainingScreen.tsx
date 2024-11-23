@@ -12,12 +12,12 @@ export interface IGameTrainingScreenProps {
 }
 
 // eslint-disable-next-line prettier/prettier
-export const GameTrainingScreen = ({ }: IGameTrainingScreenProps) => {
+export const GameTrainingScreen = ({ game }: IGameTrainingScreenProps) => {
   return (
     <>
       <StatusBar style="auto" />
       <Box alignItems="center">
-        <DeckLayout useMock />
+        <DeckLayout deck={game.deck} />
       </Box>
     </>
   );
