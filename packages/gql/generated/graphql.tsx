@@ -166,6 +166,7 @@ export type CreatePlayerGameDetailsInput = {
   resourceTotals: ResourceTotalsInput;
   score: Scalars['Float']['input'];
   scoreCardRefs: Array<Scalars['ID']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateRoomInput = {
@@ -320,6 +321,7 @@ export type PlayerGameDetails = {
   score: Scalars['Float']['output'];
   scoreCardRefs: Array<Scalars['ID']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  username?: Maybe<Scalars['String']['output']>;
 };
 
 export type Query = {
@@ -331,6 +333,7 @@ export type Query = {
   getOneCard?: Maybe<Card>;
   getPlayerGameDetails?: Maybe<PlayerGameDetails>;
   getPlayerGameDetailsById?: Maybe<PlayerGameDetails>;
+  getPlayerGameDetailsWithUser?: Maybe<PlayerGameDetails>;
   getRoom?: Maybe<Room>;
   getRoomsForPlayer?: Maybe<Array<Room>>;
   isAuthenticated: UserWithoutPassword;
@@ -356,6 +359,12 @@ export type QueryGetPlayerGameDetailsArgs = {
 
 export type QueryGetPlayerGameDetailsByIdArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryGetPlayerGameDetailsWithUserArgs = {
+  gameRef: Scalars['ID']['input'];
+  playerRef: Scalars['ID']['input'];
 };
 
 
@@ -488,7 +497,7 @@ export type NewGameMutationVariables = Exact<{
 }>;
 
 
-export type NewGameMutation = { __typename?: 'Mutation', newGame: { __typename?: 'CreateNewGameResponse', game: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, achievements: { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } }, playerGameDetails: Array<{ __typename?: 'PlayerGameDetails', _id: string, playerRef: string, age: number, score: number, achievements: Array<string>, hand: Array<string>, scoreCardRefs: Array<string>, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } }> } };
+export type NewGameMutation = { __typename?: 'Mutation', newGame: { __typename?: 'CreateNewGameResponse', game: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, achievements: { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } }, playerGameDetails: Array<{ __typename?: 'PlayerGameDetails', _id: string, playerRef: string, username?: string | null, age: number, score: number, achievements: Array<string>, hand: Array<string>, scoreCardRefs: Array<string>, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } }> } };
 
 export type AvailableAchievementsFragment = { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string };
 
@@ -507,7 +516,7 @@ export type BoardPileFragment = { __typename?: 'BoardPile', cardRefs: Array<stri
 
 export type BoardFragment = { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } };
 
-export type PlayerGameDetailsFragment = { __typename?: 'PlayerGameDetails', _id: string, playerRef: string, age: number, score: number, achievements: Array<string>, hand: Array<string>, scoreCardRefs: Array<string>, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } };
+export type PlayerGameDetailsFragment = { __typename?: 'PlayerGameDetails', _id: string, playerRef: string, username?: string | null, age: number, score: number, achievements: Array<string>, hand: Array<string>, scoreCardRefs: Array<string>, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } };
 
 export type AddPlayerToRoomMutationVariables = Exact<{
   roomId: Scalars['String']['input'];
@@ -683,6 +692,7 @@ export const PlayerGameDetailsFragmentDoc = gql`
     fragment PlayerGameDetails on PlayerGameDetails {
   _id
   playerRef
+  username
   age
   score
   resourceTotals {
