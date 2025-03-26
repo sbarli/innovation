@@ -138,6 +138,7 @@ input CreatePlayerGameDetailsInput {
   resourceTotals: ResourceTotalsInput!
   score: Float!
   scoreCardRefs: [ID!]!
+  username: String
 }
 
 input CreateRoomInput {
@@ -240,6 +241,7 @@ type PlayerGameDetails {
   score: Float!
   scoreCardRefs: [ID!]!
   updatedAt: DateTime
+  username: String
 }
 
 type Query {
@@ -250,6 +252,7 @@ type Query {
   getOneCard(options: FindOneOptionsInput!): Card
   getPlayerGameDetails(gameRef: ID!, playerRef: ID!): PlayerGameDetails
   getPlayerGameDetailsById(id: ID!): PlayerGameDetails
+  getPlayerGameDetailsWithUser(gameRef: ID!, playerRef: ID!): PlayerGameDetails
   getRoom(roomId: String!): Room
   getRoomsForPlayer: [Room!]
   isAuthenticated: UserWithoutPassword!

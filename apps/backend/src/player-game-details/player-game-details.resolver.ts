@@ -1,4 +1,7 @@
-import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+
+import { User } from '../users/schemas/user.schema';
+import { UsersService } from '../users/users.service';
 
 import { UpdatePlayerGameDetailsInput } from './dto/update-player-game-details.dto';
 import { PlayerGameDetailsService } from './player-game-details.service';
@@ -7,12 +10,26 @@ import {
   PlayerGameDetails,
 } from './schemas/player-game-details.schema';
 
-@Resolver('PlayerGameDetails')
+@Resolver(() => PlayerGameDetails)
 export class PlayerGameDetailsResolver {
-  constructor(private readonly playerGameDetailsService: PlayerGameDetailsService) {}
+  constructor(
+    private usersService: UsersService,
+    private readonly playerGameDetailsService: PlayerGameDetailsService
+  ) {}
 
   @Query(() => PlayerGameDetails, { nullable: true })
   async getPlayerGameDetails(
+    @Args('gameRef', { type: () => ID }) gameRef: string,
+    @Args('playerRef', { type: () => ID }) playerRef: string
+  ): Promise<PlayerGameDetails | null | undefined> {
+    return this.playerGameDetailsService.findDetailsByGameAndPlayer({
+      gameRef,
+      playerRef,
+    });
+  }
+
+  @Query(() => PlayerGameDetails, { nullable: true })
+  async getPlayerGameDetailsWithUser(
     @Args('gameRef', { type: () => ID }) gameRef: string,
     @Args('playerRef', { type: () => ID }) playerRef: string
   ): Promise<PlayerGameDetails | null | undefined> {
@@ -54,5 +71,11 @@ export class PlayerGameDetailsResolver {
       id,
       updates,
     });
+  }
+
+  @ResolveField('username', () => User)
+  async username(@Parent() playerGameDetails: PlayerGameDetails) {
+    const { playerRef } = playerGameDetails;
+    return this.usersService.getUsernameByRef(playerRef);
   }
 }

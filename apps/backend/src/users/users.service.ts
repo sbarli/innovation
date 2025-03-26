@@ -13,6 +13,20 @@ import { User, UserDocument } from './schemas/user.schema';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
+  async getUsernameByRef(ref: string): Promise<string> {
+    try {
+      const user = await this.userModel.findById(ref);
+      if (!user?.username) {
+        throw new Error('usersService.getUsernameByRef -> username not found');
+      }
+      return user.username;
+    } catch (error) {
+      throw new Error(
+        getCatchErrorMessage(error ?? 'usersService.findUsers -> Failed to find users')
+      );
+    }
+  }
+
   async findUserByRef(ref: string): Promise<User | undefined | null> {
     return this.userModel.findById(ref);
   }
