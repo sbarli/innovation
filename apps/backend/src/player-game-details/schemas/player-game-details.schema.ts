@@ -69,6 +69,9 @@ export class PlayerGameDetails {
   @Field(() => [ID])
   scoreCardRefs!: string[];
 
+  @Field(() => String, { nullable: true })
+  username?: string;
+
   // TODO: add once we have special achievement data
   // @Prop({
   //   required: true,

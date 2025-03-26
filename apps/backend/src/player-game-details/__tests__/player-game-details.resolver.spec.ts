@@ -1,5 +1,6 @@
 import { Test } from '@nestjs/testing';
 
+import { UsersService } from '../../users/users.service';
 import {
   MOCK_GAME_REF,
   MOCK_PLAYER_GAME_DETAILS,
@@ -25,6 +26,12 @@ describe('PlayerGameDetailsResolver', () => {
             findDetailsByGameAndPlayer: jest.fn(),
             create: jest.fn(() => MOCK_PLAYER_GAME_DETAILS),
             updateById: jest.fn(),
+          },
+        },
+        {
+          provide: UsersService,
+          useValue: {
+            getUsernameByRef: jest.fn(),
           },
         },
         PlayerGameDetailsResolver,
