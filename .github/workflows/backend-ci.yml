@@ -9,6 +9,10 @@ on:
       - 'packages/utils/**'
   pull_request:
     types: [opened, synchronize]
+    paths: 
+      - 'apps/backend/**'
+      - 'packages/constants/**'
+      - 'packages/utils/**'
  
 jobs:
   build:
