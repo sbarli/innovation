@@ -124,8 +124,7 @@ input CreateNewGameInput {
 }
 
 type CreateNewGameResponse {
-  game: Game!
-  playerGameDetails: [PlayerGameDetails!]!
+  gameId: ID!
 }
 
 input CreatePlayerGameDetailsInput {

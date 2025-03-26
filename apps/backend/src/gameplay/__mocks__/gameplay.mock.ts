@@ -34,10 +34,5 @@ export const MOCK_PLAYER_2_DETAILS: PlayerGameDetails = {
 };
 
 export const MOCK_NEW_GAME_RESPONSE: CreateNewGameResponse = {
-  game: {
-    ...MOCK_GAME,
-    playerRefs: MOCK_NEW_GAME_INPUT.playerRefs,
-    currentPlayerRef: MOCK_USER_ID,
-  },
-  playerGameDetails: [MOCK_PLAYER_1_DETAILS, MOCK_PLAYER_2_DETAILS],
+  gameId: 'MOCK_GAME_ID',
 };
