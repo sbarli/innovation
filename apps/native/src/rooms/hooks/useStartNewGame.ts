@@ -35,7 +35,7 @@ export const useStartNewGame = ({
     }
   };
 
-  const handleStartGameEvent = async ({ game }: NewGameMutation['newGame']) => {
+  const handleStartGameEvent = async ({ gameId }: NewGameMutation['newGame']) => {
     if (!socket || !socket?.connected) {
       setErrorMsg('Unexpected error occurred. Please refresh and try again!');
       setStartInProgress(false);
@@ -43,7 +43,7 @@ export const useStartNewGame = ({
     }
     await socket?.emit(
       SocketEvent.START_GAME,
-      { gameId: game._id, roomId: roomId as string },
+      { gameId: gameId as string, roomId: roomId as string },
       (response: SocketEventResponse) => {
         if (!response.success) {
           setErrorMsg(response.error?.message || 'Error starting game');
@@ -52,9 +52,9 @@ export const useStartNewGame = ({
         }
         setStartInProgress(false);
         setStartSuccessful(true);
-        handleRedirectToGameScreen(game._id);
+        handleRedirectToGameScreen(gameId);
         if (successCallback) {
-          successCallback(game._id);
+          successCallback(gameId);
         }
       }
     );
@@ -68,7 +68,7 @@ export const useStartNewGame = ({
         newGameDto: newRoomData,
       },
       onCompleted(data) {
-        if (!data?.newGame?.game || !data?.newGame?.playerGameDetails) {
+        if (!data?.newGame?.gameId) {
           setErrorMsg('An error occurred. Please try again.');
           setStartInProgress(false);
           return;

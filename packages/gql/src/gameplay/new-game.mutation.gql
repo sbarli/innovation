@@ -1,10 +1,5 @@
 mutation NewGame($newGameDto: CreateNewGameInput!) {
   newGame(newGameDto: $newGameDto) {
-    game {
-      ...Game
-    }
-    playerGameDetails {
-      ...PlayerGameDetails
-    }
+    gameId
   }
 }

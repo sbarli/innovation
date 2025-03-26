@@ -147,14 +147,14 @@ export class NewGameService {
         // TODO: add once we have spec achiev added to schema
         // specialAchievements: [],
       }));
-      const allPlayerGameDetails = await Promise.all(
+      // TODO: do we need to have any other checks that this was successful?
+      await Promise.all(
         playerGameDetailsData.map((pgd) => this.playerGameDetailsService.create(pgd))
       );
 
       // return newly created game and game details (per player)
       return {
-        game: newGameFromDb,
-        playerGameDetails: allPlayerGameDetails,
+        gameId: newGameFromDb._id,
       };
     } catch (error) {
       throw new Error(
