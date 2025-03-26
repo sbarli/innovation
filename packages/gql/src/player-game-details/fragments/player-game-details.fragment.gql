@@ -1,6 +1,7 @@
 fragment PlayerGameDetails on PlayerGameDetails {
   _id
   playerRef
+  username
   age
   score
   resourceTotals {
