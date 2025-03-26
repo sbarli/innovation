@@ -3,7 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 
 import { Card, Game, PlayerGameDetails } from '@inno/gql';
 
-import { DeckLayout } from '../deck/DeckLayout';
+import { DeckLayout } from '../deck/components/DeckLayout';
+import { useDeckMetadata } from '../deck/hooks/useDeckMetadata';
 
 export interface IGameTrainingScreenProps {
   cards: Card[];
@@ -13,11 +14,13 @@ export interface IGameTrainingScreenProps {
 
 // eslint-disable-next-line prettier/prettier
 export const GameTrainingScreen = ({ game }: IGameTrainingScreenProps) => {
+  const { deckMetadata } = useDeckMetadata({ deck: game.deck });
+
   return (
     <>
       <StatusBar style="auto" />
       <Box alignItems="center">
-        <DeckLayout deck={game.deck} />
+        <DeckLayout deckMetadata={deckMetadata} />
       </Box>
     </>
   );

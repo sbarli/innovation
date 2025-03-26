@@ -3,7 +3,7 @@ import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
 import { Routes } from '../app-core/constants/navigation';
-import { AllCards } from '../cards/components/AllCards';
+// import { AllCards } from '../cards/components/AllCards';
 
 export const TrainingScreen = () => {
   return (
@@ -22,7 +22,7 @@ export const TrainingScreen = () => {
           </Button>
         </Link>
       </Box>
-      <AllCards />
+      {/* <AllCards /> */}
     </>
   );
 };
