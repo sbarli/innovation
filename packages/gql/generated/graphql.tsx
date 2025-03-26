@@ -152,8 +152,7 @@ export type CreateNewGameInput = {
 
 export type CreateNewGameResponse = {
   __typename?: 'CreateNewGameResponse';
-  game: Game;
-  playerGameDetails: Array<PlayerGameDetails>;
+  gameId: Scalars['ID']['output'];
 };
 
 export type CreatePlayerGameDetailsInput = {
@@ -497,7 +496,7 @@ export type NewGameMutationVariables = Exact<{
 }>;
 
 
-export type NewGameMutation = { __typename?: 'Mutation', newGame: { __typename?: 'CreateNewGameResponse', game: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, achievements: { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } }, playerGameDetails: Array<{ __typename?: 'PlayerGameDetails', _id: string, playerRef: string, username?: string | null, age: number, score: number, achievements: Array<string>, hand: Array<string>, scoreCardRefs: Array<string>, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } }> } };
+export type NewGameMutation = { __typename?: 'Mutation', newGame: { __typename?: 'CreateNewGameResponse', gameId: string } };
 
 export type AvailableAchievementsFragment = { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string };
 
@@ -910,16 +909,10 @@ export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAll
 export const NewGameDocument = gql`
     mutation NewGame($newGameDto: CreateNewGameInput!) {
   newGame(newGameDto: $newGameDto) {
-    game {
-      ...Game
-    }
-    playerGameDetails {
-      ...PlayerGameDetails
-    }
+    gameId
   }
 }
-    ${GameFragmentDoc}
-${PlayerGameDetailsFragmentDoc}`;
+    `;
 export type NewGameMutationFn = Apollo.MutationFunction<NewGameMutation, NewGameMutationVariables>;
 
 /**
