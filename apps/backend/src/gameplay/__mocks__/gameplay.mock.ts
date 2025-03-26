@@ -34,5 +34,5 @@ export const MOCK_PLAYER_2_DETAILS: PlayerGameDetails = {
 };
 
 export const MOCK_NEW_GAME_RESPONSE: CreateNewGameResponse = {
-  gameId: 'MOCK_GAME_ID',
+  gameId: MOCK_GAME._id,
 };
