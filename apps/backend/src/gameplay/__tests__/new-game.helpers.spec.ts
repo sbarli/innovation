@@ -37,7 +37,7 @@ describe('pickAgeAchievements', () => {
 
   it('should return one card per age sorted by age', () => {
     Object.entries(ageAchievements).forEach(([age, card]) => {
-      const cardIsCorrectAge = MOCK_DECK[age as AgeString].includes(card);
+      const cardIsCorrectAge = MOCK_DECK[age as AgeString].includes(card as string);
       expect(cardIsCorrectAge).toBe(true);
     });
   });

@@ -11,7 +11,7 @@ export const validateGameUpdates = (updates: UpdateGameInput): IValidateGameUpda
     errors: [],
   };
   if (
-    !updates.achievements &&
+    !updates.ageAchievements &&
     !updates.currentActionNumber &&
     !updates.currentPlayerRef &&
     !updates.deck &&

@@ -1,13 +1,15 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 
-import { Achievements } from '../schemas/achievements.schema';
+import { ActionNumber, GameStage } from '@inno/constants';
+
+import { AgeAchievements } from '../schemas/age-achievements.schema';
 import { Deck } from '../schemas/deck.schema';
 
 @ObjectType()
 @InputType()
 export class UpdateGameInput {
   @Field(() => Number, { nullable: true })
-  currentActionNumber?: number;
+  currentActionNumber?: ActionNumber;
 
   @Field(() => String, { nullable: true })
   currentPlayerRef?: string;
@@ -18,6 +20,9 @@ export class UpdateGameInput {
   @Field(() => Deck, { nullable: true })
   deck?: Deck;
 
-  @Field(() => Achievements, { nullable: true })
-  achievements?: Achievements;
+  @Field(() => AgeAchievements, { nullable: true })
+  ageAchievements?: AgeAchievements;
+
+  @Field(() => String, { nullable: true })
+  stage?: GameStage;
 }

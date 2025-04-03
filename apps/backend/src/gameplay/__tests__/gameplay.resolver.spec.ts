@@ -3,7 +3,7 @@ import { MOCK_CARD_REFS_BY_AGE } from 'src/cards/__mocks__/cards-sorting.mock';
 import { MOCK_CARD } from 'src/cards/__mocks__/cards.mock';
 import { CardsSortingService } from 'src/cards/services/cards-sorting.service';
 import { CardsService } from 'src/cards/services/cards.service';
-import { MOCK_STARTER_ACHIEVEMENTS } from 'src/games/__mocks__/achievements.mock';
+import { MOCK_STARTER_AGE_ACHIEVEMENTS } from 'src/games/__mocks__/age-achievements.mock';
 import { MOCK_DECK } from 'src/games/__mocks__/deck.mock';
 
 import { MOCK_NEW_GAME_INPUT, MOCK_NEW_GAME_RESPONSE } from '../__mocks__/gameplay.mock';
@@ -93,7 +93,7 @@ describe('GameplayResolver', () => {
           roomRef: MOCK_NEW_GAME_INPUT.roomRef,
           playerRefs: MOCK_NEW_GAME_INPUT.playerRefs,
           starterDeck: MOCK_DECK,
-          ageAchievements: MOCK_STARTER_ACHIEVEMENTS,
+          ageAchievements: MOCK_STARTER_AGE_ACHIEVEMENTS,
           playerStarterHands: MOCK_PLAYER_STARTER_HANDS,
         });
         expect(output).toEqual(MOCK_NEW_GAME_RESPONSE);

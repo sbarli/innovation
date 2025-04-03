@@ -1,6 +1,8 @@
 import { MOCK_ROOM_ID } from 'src/rooms/__mocks__/room.mock';
 import { MOCK_USER_ID, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
 
+import { GameStage } from '@inno/constants';
+
 import { CreateGameInput, Game } from '../schemas/game.schema';
 
 import { MOCK_DECK } from './deck.mock';
@@ -11,9 +13,10 @@ export const MOCK_GAME_INPUT: CreateGameInput = {
   roomRef: MOCK_ROOM_ID,
   currentActionNumber: 2,
   currentPlayerRef: MOCK_USER_ID,
+  stage: GameStage.SETUP,
   playerRefs: [MOCK_USER_ID, MOCK_USER_ID_2],
   deck: MOCK_DECK,
-  achievements: {
+  ageAchievements: {
     ONE: '6435a7d5dd31b5790f7bc58a',
     TWO: '6435a7d5dd31b5790f7bc59b',
     THREE: '6435a7d5dd31b5790f7bc5a4',
@@ -33,9 +36,10 @@ export const MOCK_GAME: Game = {
   updatedAt: undefined,
   currentActionNumber: 2,
   currentPlayerRef: MOCK_USER_ID,
+  stage: GameStage.ACTIVE,
   playerRefs: [MOCK_USER_ID, MOCK_USER_ID_2],
   deck: MOCK_DECK,
-  achievements: {
+  ageAchievements: {
     ONE: '6435a7d5dd31b5790f7bc58a',
     TWO: '6435a7d5dd31b5790f7bc59b',
     THREE: '6435a7d5dd31b5790f7bc5a4',

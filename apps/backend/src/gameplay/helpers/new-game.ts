@@ -1,5 +1,5 @@
 import { CardRefsByAge } from 'src/cards/dto/card-refs-by-age.dto';
-import { Achievements } from 'src/games/schemas/achievements.schema';
+import { AgeAchievements } from 'src/games/schemas/age-achievements.schema';
 import { Deck } from 'src/games/schemas/deck.schema';
 
 import { AgeString, ages } from '@inno/constants';
@@ -25,7 +25,7 @@ export const shuffleDeck = (cardRefsByAge: CardRefsByAge): Deck =>
 
 export const pickAgeAchievements = (
   currentDeck: Deck
-): { ageAchievements: Achievements; deckMinusAchievements: Deck } => {
+): { ageAchievements: AgeAchievements; deckMinusAchievements: Deck } => {
   const deckMinusAchievements = cloneDeck(currentDeck);
   const ageAchievements = ages.reduce((acc, age) => {
     if (age !== AgeString.TEN) {
@@ -36,7 +36,7 @@ export const pickAgeAchievements = (
       acc[age] = cardId;
     }
     return acc;
-  }, {} as Achievements);
+  }, {} as AgeAchievements);
   return { ageAchievements, deckMinusAchievements };
 };
 

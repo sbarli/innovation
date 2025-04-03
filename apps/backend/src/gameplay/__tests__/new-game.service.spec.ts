@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { MOCK_CARD_REFS_BY_AGE } from 'src/cards/__mocks__/cards-sorting.mock';
-import { MOCK_STARTER_ACHIEVEMENTS } from 'src/games/__mocks__/achievements.mock';
+import { MOCK_STARTER_AGE_ACHIEVEMENTS } from 'src/games/__mocks__/age-achievements.mock';
 import { MOCK_DECK } from 'src/games/__mocks__/deck.mock';
 import { MOCK_GAME } from 'src/games/__mocks__/game.mock';
 import { GamesService } from 'src/games/games.service';
@@ -152,7 +152,7 @@ describe('NewGameService', () => {
     it('should return initial game setup data', () => {
       const shuffleSpy = jest.spyOn(helpers, 'shuffleDeck').mockReturnValueOnce(MOCK_DECK);
       const pickAchievementsSpy = jest.spyOn(helpers, 'pickAgeAchievements').mockReturnValueOnce({
-        ageAchievements: MOCK_STARTER_ACHIEVEMENTS,
+        ageAchievements: MOCK_STARTER_AGE_ACHIEVEMENTS,
         deckMinusAchievements: MOCK_DECK,
       });
       const selectHandsSpy = jest
@@ -169,7 +169,7 @@ describe('NewGameService', () => {
       expect(selectHandsSpy).toHaveBeenCalledWith(MOCK_DECK, MOCK_PLAYER_REFS);
       expect(output).toEqual({
         deck: MOCK_DECK,
-        achievements: MOCK_STARTER_ACHIEVEMENTS,
+        achievements: MOCK_STARTER_AGE_ACHIEVEMENTS,
         playerStarterHands: MOCK_PLAYER_STARTER_HANDS,
       });
     });
@@ -187,7 +187,7 @@ describe('NewGameService', () => {
         roomRef: MOCK_ROOM_ID,
         playerRefs: MOCK_PLAYER_REFS,
         starterDeck: MOCK_DECK,
-        ageAchievements: MOCK_STARTER_ACHIEVEMENTS,
+        ageAchievements: MOCK_STARTER_AGE_ACHIEVEMENTS,
         playerStarterHands: MOCK_PLAYER_STARTER_HANDS,
       });
 
@@ -197,7 +197,7 @@ describe('NewGameService', () => {
         currentPlayerRef: MOCK_PLAYER_REFS[0],
         playerRefs: MOCK_PLAYER_REFS,
         deck: MOCK_DECK,
-        achievements: MOCK_STARTER_ACHIEVEMENTS,
+        achievements: MOCK_STARTER_AGE_ACHIEVEMENTS,
       });
       expect(detailsSpy).toHaveBeenCalledTimes(2);
       expect(output).toEqual(MOCK_NEW_GAME_RESPONSE);

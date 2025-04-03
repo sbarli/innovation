@@ -4,8 +4,8 @@ import { Schema as MongooseSchema } from 'mongoose';
 
 @Schema({ _id: false })
 @ObjectType()
-@InputType('AchievementsInput')
-export class Achievements {
+@InputType('AgeAchievementsInput')
+export class AgeAchievements {
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
