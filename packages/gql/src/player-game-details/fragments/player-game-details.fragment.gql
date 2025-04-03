@@ -2,15 +2,11 @@ fragment PlayerGameDetails on PlayerGameDetails {
   _id
   playerRef
   username
-  age
-  score
-  resourceTotals {
-    ...ResourceTotals
-  }
   board {
     ...Board
   }
-  achievements
+  ageAchievements
   hand
-  scoreCardRefs
+  scorePile
+  specialAchievements
 }

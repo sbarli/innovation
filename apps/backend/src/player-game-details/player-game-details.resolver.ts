@@ -39,6 +39,15 @@ export class PlayerGameDetailsResolver {
     });
   }
 
+  @Query(() => [PlayerGameDetails]!)
+  async getDetailsByGame(
+    @Args('gameRef', { type: () => ID }) gameRef: string
+  ): Promise<PlayerGameDetails[]> {
+    return this.playerGameDetailsService.findDetailsByGame({
+      gameRef,
+    });
+  }
+
   @Query(() => PlayerGameDetails, { nullable: true })
   async getPlayerGameDetailsById(@Args('id', { type: () => ID }) id: string) {
     return this.playerGameDetailsService.findById(id);

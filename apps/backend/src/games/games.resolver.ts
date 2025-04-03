@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { getCatchErrorMessage } from '@inno/utils';
 
@@ -14,7 +14,7 @@ export class GamesResolver {
 
   @Query(() => Game, { nullable: true })
   async getGame(
-    @Args('gameId', { type: () => String }) gameId: string
+    @Args('gameId', { type: () => ID }) gameId: string
   ): Promise<Game | null | undefined> {
     try {
       return this.gamesService.findGameById(gameId);
@@ -36,7 +36,7 @@ export class GamesResolver {
 
   @Mutation(() => Game, { nullable: true })
   async updateGame(
-    @Args('id', { type: () => String }) id: string,
+    @Args('id', { type: () => ID }) id: string,
     @Args('updates', { type: () => UpdateGameInput }) updates: UpdateGameInput
   ): Promise<Game | null | undefined> {
     const { hasErrors, errors } = validateGameUpdates(updates);

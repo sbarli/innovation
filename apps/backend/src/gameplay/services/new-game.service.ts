@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CardRefsByAge } from 'src/cards/dto/card-refs-by-age.dto';
 import { GamesService } from 'src/games/games.service';
-import { Achievements } from 'src/games/schemas/achievements.schema';
+import { AgeAchievements } from 'src/games/schemas/age-achievements.schema';
 import { Deck } from 'src/games/schemas/deck.schema';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
 import { PlayerGameDetails } from 'src/player-game-details/schemas/player-game-details.schema';
 import { RoomsService } from 'src/rooms/rooms.service';
 import { UsersService } from 'src/users/users.service';
 
+import { GameStage } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
 
-import { baseResourceTotals } from '../constants/resource-totals';
+import { CreateGameInput } from '../../games/schemas/game.schema';
 import { CreateNewGameResponse } from '../dto/create-new-game.output.dto';
 import { createBaseBoard } from '../helpers/board';
 import {
@@ -22,7 +23,7 @@ import {
 
 export type TNewGameSetup = {
   deck: Deck;
-  achievements: Achievements;
+  ageAchievements: AgeAchievements;
   playerStarterHands: TPlayerStarterHands;
 };
 
@@ -30,7 +31,7 @@ interface IStartGameProps {
   roomRef: string;
   playerRefs: string[];
   starterDeck: Deck;
-  ageAchievements: Achievements;
+  ageAchievements: AgeAchievements;
   playerStarterHands: TPlayerStarterHands;
 }
 
@@ -98,7 +99,7 @@ export class NewGameService {
     // create starter deck (shuffle each age)
     const starterDeck = shuffleDeck(cardRefsByAge);
 
-    // select age achievements (remove from starter deck)
+    // select age Achievements (remove from starter deck)
     const { ageAchievements, deckMinusAchievements } = pickAgeAchievements(starterDeck);
 
     // select player starting hands (2 cards x n players) (remove from current deck)
@@ -109,7 +110,7 @@ export class NewGameService {
 
     return {
       deck: deckMinusStarterHands,
-      achievements: ageAchievements,
+      ageAchievements: ageAchievements,
       playerStarterHands,
     };
   }
@@ -123,13 +124,14 @@ export class NewGameService {
   }: IStartGameProps): Promise<CreateNewGameResponse> {
     try {
       // create game
-      const newGameData = {
+      const newGameData: CreateGameInput = {
         roomRef,
         currentActionNumber: 2,
         currentPlayerRef: playerRefs[0],
+        stage: GameStage.SETUP,
         playerRefs,
         deck: starterDeck,
-        achievements: ageAchievements,
+        ageAchievements: ageAchievements,
       };
       const newGameFromDb = await this.gamesService.create(newGameData);
 
@@ -137,15 +139,11 @@ export class NewGameService {
       const playerGameDetailsData: Omit<PlayerGameDetails, '_id'>[] = playerRefs.map((ref) => ({
         playerRef: ref,
         gameRef: newGameFromDb._id,
-        age: 1,
-        score: 0,
-        resourceTotals: { ...baseResourceTotals },
         board: createBaseBoard(),
-        achievements: [],
+        ageAchievements: [],
         hand: playerStarterHands[ref],
-        scoreCardRefs: [],
-        // TODO: add once we have spec achiev added to schema
-        // specialAchievements: [],
+        scorePile: [],
+        specialAchievements: [],
       }));
       // TODO: do we need to have any other checks that this was successful?
       await Promise.all(

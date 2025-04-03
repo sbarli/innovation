@@ -112,14 +112,14 @@ describe('PlayerGameDetailsResolver', () => {
       it('should return output of calling playerGameDetailsService.updateById', async () => {
         const MOCK_UPDATED_PLAYER_GAME_DETAILS: PlayerGameDetails = {
           ...MOCK_PLAYER_GAME_DETAILS,
-          age: 3,
+          hand: [],
         };
         jest
           .spyOn(playerGameDetailsService, 'updateById')
           .mockResolvedValueOnce(MOCK_UPDATED_PLAYER_GAME_DETAILS);
         const output = await playerGameDetailsResolver.updatePlayerGameDetails(
           MOCK_PLAYER_GAME_DETAILS_ID,
-          { age: 3 }
+          { hand: [] }
         );
         expect(output).toEqual(MOCK_UPDATED_PLAYER_GAME_DETAILS);
       });

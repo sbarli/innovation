@@ -1,25 +1,31 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useEffect } from 'react';
 
-import { useGetGameQuery } from '@inno/gql';
+import { Redirect, useLocalSearchParams } from 'expo-router';
 
 import { HeaderNoNav } from '../../../../../../src/app-core/components/headers/HeaderNoNav';
+import { Routes } from '../../../../../../src/app-core/constants/navigation';
 import { GameScreen } from '../../../../../../src/games/screens/GameScreen';
+import { useGameContext } from '../../../../../../src/games/state/GameProvider';
 
 // eslint-disable-next-line import/no-default-export
 export default function Game() {
   const { gameId } = useLocalSearchParams();
-  const { data } = useGetGameQuery({
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'cache-and-network',
-    variables: {
-      gameId: (gameId as string) ?? '',
-    },
-    skip: !gameId || typeof gameId !== 'string',
-  });
+  const { fetchGameData, loadingGameData } = useGameContext();
+
+  useEffect(() => {
+    if (!!gameId && typeof gameId === 'string' && !loadingGameData) {
+      fetchGameData(gameId);
+    }
+  }, [gameId]);
+
+  if (!gameId || typeof gameId !== 'string') {
+    return <Redirect href={Routes.HOME} />;
+  }
+
   return (
     <>
       <HeaderNoNav title="Game Start" />
-      <GameScreen gameData={data?.getGame} />
+      <GameScreen gameId={gameId} />
     </>
   );
 }

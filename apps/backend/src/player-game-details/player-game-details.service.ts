@@ -33,6 +33,12 @@ export class PlayerGameDetailsService {
     });
   }
 
+  async findDetailsByGame({ gameRef }: { gameRef: string }): Promise<PlayerGameDetails[]> {
+    return this.playerGameDetailsModel.find({
+      gameRef,
+    });
+  }
+
   async create(detailsToCreate: CreatePlayerGameDetailsInput): Promise<PlayerGameDetails> {
     const createdPlayerGameDetails = new this.playerGameDetailsModel(detailsToCreate);
     return createdPlayerGameDetails.save();

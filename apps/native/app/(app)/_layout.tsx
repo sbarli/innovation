@@ -3,9 +3,11 @@ import { Redirect, Slot } from 'expo-router';
 
 import { Routes } from '../../src/app-core/constants/navigation';
 import { useAuthContext } from '../../src/authentication/state/AuthProvider';
+import { CardsProvider } from '../../src/cards/state/CardsProvider';
 
 // eslint-disable-next-line import/no-default-export
 export default function AuthWrapper() {
+  console.log('loading AuthWrapper');
   const { isAuthenticated, isLoading, logout } = useAuthContext();
 
   // You can keep the splash screen open, or render a loading screen like we do here.
@@ -21,5 +23,9 @@ export default function AuthWrapper() {
     // in the headless Node process that the pages are rendered in.
     return <Redirect href={Routes.AUTH} />;
   }
-  return <Slot />;
+  return (
+    <CardsProvider>
+      <Slot />
+    </CardsProvider>
+  );
 }

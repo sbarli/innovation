@@ -23,7 +23,7 @@ export class GameplayResolver {
     await this.newGameService.validatePlayersExist(newGameDto.playerRefs);
     const cards = await this.cardsService.findAll();
     const cardRefsByAge = this.cardsSortingService.refsByAge({ cards });
-    const { deck, achievements, playerStarterHands } = this.newGameService.getGameSetup(
+    const { deck, ageAchievements, playerStarterHands } = this.newGameService.getGameSetup(
       cardRefsByAge,
       newGameDto.playerRefs
     );
@@ -31,7 +31,7 @@ export class GameplayResolver {
       roomRef: newGameDto.roomRef,
       playerRefs: newGameDto.playerRefs,
       starterDeck: deck,
-      ageAchievements: achievements,
+      ageAchievements,
       playerStarterHands,
     });
   }

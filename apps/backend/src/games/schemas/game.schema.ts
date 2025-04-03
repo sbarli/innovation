@@ -2,7 +2,9 @@ import { Field, ID, InputType, ObjectType, OmitType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 
-import { Achievements } from './achievements.schema';
+import { ActionNumber, GameStage } from '@inno/constants';
+
+import { AgeAchievements } from './age-achievements.schema';
 import { Deck } from './deck.schema';
 
 export type GameDocument = HydratedDocument<Game>;
@@ -27,11 +29,15 @@ export class Game {
 
   @Prop({ type: Number, required: true })
   @Field(() => Number)
-  currentActionNumber!: number;
+  currentActionNumber!: ActionNumber;
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   @Field(() => ID)
   currentPlayerRef!: string;
+
+  @Prop({ required: true, type: String })
+  @Field(() => String)
+  stage!: GameStage;
 
   @Prop({
     required: true,
@@ -53,13 +59,9 @@ export class Game {
   @Field(() => Deck)
   deck!: Deck;
 
-  @Prop({ required: true, type: Achievements })
-  @Field(() => Achievements)
-  achievements!: Achievements;
-
-  // TODO: add once we have spec achieve data
-  // @Prop({ required: true, type: SpecialAchievements })
-  // specialAchievements: SpecialAchievements;
+  @Prop({ required: true, type: AgeAchievements })
+  @Field(() => AgeAchievements)
+  ageAchievements!: AgeAchievements;
 }
 
 @InputType()

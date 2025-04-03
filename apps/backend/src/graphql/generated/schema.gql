@@ -6,7 +6,7 @@ type AccessTokenPayload {
   authToken: String!
 }
 
-type Achievements {
+type AgeAchievements {
   EIGHT: ID!
   FIVE: ID!
   FOUR: ID!
@@ -18,7 +18,7 @@ type Achievements {
   TWO: ID!
 }
 
-input AchievementsInput {
+input AgeAchievementsInput {
   EIGHT: ID!
   FIVE: ID!
   FOUR: ID!
@@ -110,12 +110,13 @@ type CloseRoomResponse {
 }
 
 input CreateGameInput {
-  achievements: AchievementsInput!
+  ageAchievements: AgeAchievementsInput!
   currentActionNumber: Float!
   currentPlayerRef: ID!
   deck: DeckInput!
   playerRefs: [ID!]!
   roomRef: ID!
+  stage: String!
 }
 
 input CreateNewGameInput {
@@ -128,15 +129,13 @@ type CreateNewGameResponse {
 }
 
 input CreatePlayerGameDetailsInput {
-  achievements: [ID!]!
-  age: Float!
+  ageAchievements: [ID!]!
   board: BoardInput!
   gameRef: ID!
   hand: [ID!]!
   playerRef: ID!
-  resourceTotals: ResourceTotalsInput!
-  score: Float!
-  scoreCardRefs: [ID!]!
+  scorePile: [ID!]!
+  specialAchievements: [ID!]!
   username: String
 }
 
@@ -197,13 +196,14 @@ input FindOneOptionsInput {
 
 type Game {
   _id: ID!
-  achievements: Achievements!
+  ageAchievements: AgeAchievements!
   createdAt: DateTime
   currentActionNumber: Float!
   currentPlayerRef: ID!
   deck: Deck!
   playerRefs: [ID!]!
   roomRef: ID!
+  stage: String!
   updatedAt: DateTime
   winnerRef: ID
 }
@@ -222,23 +222,21 @@ type Mutation {
   newGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
   refreshToken: AccessTokenPayload!
   signup(newUserData: CreateUserInput!): AuthResponse!
-  updateGame(id: String!, updates: UpdateGameInput!): Game
+  updateGame(id: ID!, updates: UpdateGameInput!): Game
   updatePlayerGameDetails(id: ID!, updates: UpdatePlayerGameDetailsInput!): PlayerGameDetails
   updateRoomAvailability(data: UpdateRoomAvailabilityInput!): Room
 }
 
 type PlayerGameDetails {
   _id: ID!
-  achievements: [ID!]!
-  age: Float!
+  ageAchievements: [ID!]!
   board: Board!
   createdAt: DateTime
   gameRef: ID!
   hand: [ID!]!
   playerRef: ID!
-  resourceTotals: ResourceTotals!
-  score: Float!
-  scoreCardRefs: [ID!]!
+  scorePile: [ID!]!
+  specialAchievements: [ID!]!
   updatedAt: DateTime
   username: String
 }
@@ -247,7 +245,8 @@ type Query {
   getAllCards: [Card!]!
   getCardIdAndRefByAge: CardIdAndRefByAge!
   getCardRefsByAge: CardRefsByAge!
-  getGame(gameId: String!): Game
+  getDetailsByGame(gameRef: ID!): [PlayerGameDetails!]!
+  getGame(gameId: ID!): Game
   getOneCard(options: FindOneOptionsInput!): Card
   getPlayerGameDetails(gameRef: ID!, playerRef: ID!): PlayerGameDetails
   getPlayerGameDetailsById(id: ID!): PlayerGameDetails
@@ -300,21 +299,20 @@ enum SplayOption {
 }
 
 input UpdateGameInput {
-  achievements: AchievementsInput
+  ageAchievements: AgeAchievementsInput
   currentActionNumber: Float
   currentPlayerRef: String
   deck: DeckInput
+  stage: String
   winnerRef: String
 }
 
 input UpdatePlayerGameDetailsInput {
-  achievements: [ID!]
-  age: Float
+  ageAchievements: [ID!]
   board: BoardInput
   hand: [ID!]
-  resourceTotals: ResourceTotalsInput
-  score: Float
-  scoreCardRefs: [ID!]
+  scorePile: [ID!]
+  specialAchievements: [ID!]
 }
 
 input UpdateRoomAvailabilityInput {
