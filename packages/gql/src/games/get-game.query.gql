@@ -1,4 +1,4 @@
-query GetGame($gameId: String!) {
+query GetGame($gameId: ID!) {
   getGame(gameId: $gameId) {
     ...Game
   }

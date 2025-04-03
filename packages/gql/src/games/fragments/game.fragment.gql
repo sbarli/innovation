@@ -3,11 +3,12 @@ fragment Game on Game {
   currentActionNumber
   currentPlayerRef
   playerRefs
+  stage
   winnerRef
   deck {
     ...Deck
   }
-  achievements {
-    ...AvailableAchievements
+  ageAchievements {
+    ...GameAgeAchievements
   }
 }
