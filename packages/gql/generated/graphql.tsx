@@ -24,8 +24,8 @@ export type AccessTokenPayload = {
   authToken: Scalars['String']['output'];
 };
 
-export type Achievements = {
-  __typename?: 'Achievements';
+export type AgeAchievements = {
+  __typename?: 'AgeAchievements';
   EIGHT: Scalars['ID']['output'];
   FIVE: Scalars['ID']['output'];
   FOUR: Scalars['ID']['output'];
@@ -37,7 +37,7 @@ export type Achievements = {
   TWO: Scalars['ID']['output'];
 };
 
-export type AchievementsInput = {
+export type AgeAchievementsInput = {
   EIGHT: Scalars['ID']['input'];
   FIVE: Scalars['ID']['input'];
   FOUR: Scalars['ID']['input'];
@@ -137,12 +137,13 @@ export type CloseRoomResponse = {
 };
 
 export type CreateGameInput = {
-  achievements: AchievementsInput;
+  ageAchievements: AgeAchievementsInput;
   currentActionNumber: Scalars['Float']['input'];
   currentPlayerRef: Scalars['ID']['input'];
   deck: DeckInput;
   playerRefs: Array<Scalars['ID']['input']>;
   roomRef: Scalars['ID']['input'];
+  stage: Scalars['String']['input'];
 };
 
 export type CreateNewGameInput = {
@@ -156,15 +157,13 @@ export type CreateNewGameResponse = {
 };
 
 export type CreatePlayerGameDetailsInput = {
-  achievements: Array<Scalars['ID']['input']>;
-  age: Scalars['Float']['input'];
+  ageAchievements: Array<Scalars['ID']['input']>;
   board: BoardInput;
   gameRef: Scalars['ID']['input'];
   hand: Array<Scalars['ID']['input']>;
   playerRef: Scalars['ID']['input'];
-  resourceTotals: ResourceTotalsInput;
-  score: Scalars['Float']['input'];
-  scoreCardRefs: Array<Scalars['ID']['input']>;
+  scorePile: Array<Scalars['ID']['input']>;
+  specialAchievements: Array<Scalars['ID']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -223,13 +222,14 @@ export type FindOneOptionsInput = {
 export type Game = {
   __typename?: 'Game';
   _id: Scalars['ID']['output'];
-  achievements: Achievements;
+  ageAchievements: AgeAchievements;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   currentActionNumber: Scalars['Float']['output'];
   currentPlayerRef: Scalars['ID']['output'];
   deck: Deck;
   playerRefs: Array<Scalars['ID']['output']>;
   roomRef: Scalars['ID']['output'];
+  stage: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   winnerRef?: Maybe<Scalars['ID']['output']>;
 };
@@ -291,7 +291,7 @@ export type MutationSignupArgs = {
 
 
 export type MutationUpdateGameArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
   updates: UpdateGameInput;
 };
 
@@ -309,16 +309,14 @@ export type MutationUpdateRoomAvailabilityArgs = {
 export type PlayerGameDetails = {
   __typename?: 'PlayerGameDetails';
   _id: Scalars['ID']['output'];
-  achievements: Array<Scalars['ID']['output']>;
-  age: Scalars['Float']['output'];
+  ageAchievements: Array<Scalars['ID']['output']>;
   board: Board;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   gameRef: Scalars['ID']['output'];
   hand: Array<Scalars['ID']['output']>;
   playerRef: Scalars['ID']['output'];
-  resourceTotals: ResourceTotals;
-  score: Scalars['Float']['output'];
-  scoreCardRefs: Array<Scalars['ID']['output']>;
+  scorePile: Array<Scalars['ID']['output']>;
+  specialAchievements: Array<Scalars['ID']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   username?: Maybe<Scalars['String']['output']>;
 };
@@ -328,6 +326,7 @@ export type Query = {
   getAllCards: Array<Card>;
   getCardIdAndRefByAge: CardIdAndRefByAge;
   getCardRefsByAge: CardRefsByAge;
+  getDetailsByGame: Array<PlayerGameDetails>;
   getGame?: Maybe<Game>;
   getOneCard?: Maybe<Card>;
   getPlayerGameDetails?: Maybe<PlayerGameDetails>;
@@ -340,8 +339,13 @@ export type Query = {
 };
 
 
+export type QueryGetDetailsByGameArgs = {
+  gameRef: Scalars['ID']['input'];
+};
+
+
 export type QueryGetGameArgs = {
-  gameId: Scalars['String']['input'];
+  gameId: Scalars['ID']['input'];
 };
 
 
@@ -421,21 +425,20 @@ export enum SplayOption {
 }
 
 export type UpdateGameInput = {
-  achievements?: InputMaybe<AchievementsInput>;
+  ageAchievements?: InputMaybe<AgeAchievementsInput>;
   currentActionNumber?: InputMaybe<Scalars['Float']['input']>;
   currentPlayerRef?: InputMaybe<Scalars['String']['input']>;
   deck?: InputMaybe<DeckInput>;
+  stage?: InputMaybe<Scalars['String']['input']>;
   winnerRef?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdatePlayerGameDetailsInput = {
-  achievements?: InputMaybe<Array<Scalars['ID']['input']>>;
-  age?: InputMaybe<Scalars['Float']['input']>;
+  ageAchievements?: InputMaybe<Array<Scalars['ID']['input']>>;
   board?: InputMaybe<BoardInput>;
   hand?: InputMaybe<Array<Scalars['ID']['input']>>;
-  resourceTotals?: InputMaybe<ResourceTotalsInput>;
-  score?: InputMaybe<Scalars['Float']['input']>;
-  scoreCardRefs?: InputMaybe<Array<Scalars['ID']['input']>>;
+  scorePile?: InputMaybe<Array<Scalars['ID']['input']>>;
+  specialAchievements?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 export type UpdateRoomAvailabilityInput = {
@@ -491,6 +494,13 @@ export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: number, color: string, dogmaResource: string, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
 
+export type GetGameDataQueryVariables = Exact<{
+  gameId: Scalars['ID']['input'];
+}>;
+
+
+export type GetGameDataQuery = { __typename?: 'Query', getGame?: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, stage: string, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, ageAchievements: { __typename?: 'AgeAchievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } } | null, getDetailsByGame: Array<{ __typename?: 'PlayerGameDetails', _id: string, playerRef: string, username?: string | null, ageAchievements: Array<string>, hand: Array<string>, scorePile: Array<string>, specialAchievements: Array<string>, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } }> };
+
 export type NewGameMutationVariables = Exact<{
   newGameDto: CreateNewGameInput;
 }>;
@@ -498,24 +508,24 @@ export type NewGameMutationVariables = Exact<{
 
 export type NewGameMutation = { __typename?: 'Mutation', newGame: { __typename?: 'CreateNewGameResponse', gameId: string } };
 
-export type AvailableAchievementsFragment = { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string };
+export type GameAgeAchievementsFragment = { __typename?: 'AgeAchievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string };
 
 export type DeckFragment = { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> };
 
-export type GameFragment = { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, achievements: { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } };
+export type GameFragment = { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, stage: string, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, ageAchievements: { __typename?: 'AgeAchievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } };
 
 export type GetGameQueryVariables = Exact<{
-  gameId: Scalars['String']['input'];
+  gameId: Scalars['ID']['input'];
 }>;
 
 
-export type GetGameQuery = { __typename?: 'Query', getGame?: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, achievements: { __typename?: 'Achievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } } | null };
+export type GetGameQuery = { __typename?: 'Query', getGame?: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, stage: string, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, ageAchievements: { __typename?: 'AgeAchievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } } | null };
 
 export type BoardPileFragment = { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null };
 
 export type BoardFragment = { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } };
 
-export type PlayerGameDetailsFragment = { __typename?: 'PlayerGameDetails', _id: string, playerRef: string, username?: string | null, age: number, score: number, achievements: Array<string>, hand: Array<string>, scoreCardRefs: Array<string>, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } };
+export type PlayerGameDetailsFragment = { __typename?: 'PlayerGameDetails', _id: string, playerRef: string, username?: string | null, ageAchievements: Array<string>, hand: Array<string>, scorePile: Array<string>, specialAchievements: Array<string>, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } };
 
 export type AddPlayerToRoomMutationVariables = Exact<{
   roomId: Scalars['String']['input'];
@@ -609,6 +619,16 @@ export const ResourceSpacesFragmentDoc = gql`
   }
 }
     `;
+export const ResourceTotalsFragmentDoc = gql`
+    fragment ResourceTotals on ResourceTotals {
+  castles
+  crowns
+  leaves
+  lightbulbs
+  factories
+  timepieces
+}
+    `;
 export const DeckFragmentDoc = gql`
     fragment Deck on Deck {
   ONE
@@ -623,8 +643,8 @@ export const DeckFragmentDoc = gql`
   TEN
 }
     `;
-export const AvailableAchievementsFragmentDoc = gql`
-    fragment AvailableAchievements on Achievements {
+export const GameAgeAchievementsFragmentDoc = gql`
+    fragment GameAgeAchievements on AgeAchievements {
   ONE
   TWO
   THREE
@@ -642,26 +662,17 @@ export const GameFragmentDoc = gql`
   currentActionNumber
   currentPlayerRef
   playerRefs
+  stage
   winnerRef
   deck {
     ...Deck
   }
-  achievements {
-    ...AvailableAchievements
+  ageAchievements {
+    ...GameAgeAchievements
   }
 }
     ${DeckFragmentDoc}
-${AvailableAchievementsFragmentDoc}`;
-export const ResourceTotalsFragmentDoc = gql`
-    fragment ResourceTotals on ResourceTotals {
-  castles
-  crowns
-  leaves
-  lightbulbs
-  factories
-  timepieces
-}
-    `;
+${GameAgeAchievementsFragmentDoc}`;
 export const BoardPileFragmentDoc = gql`
     fragment BoardPile on BoardPile {
   cardRefs
@@ -692,20 +703,15 @@ export const PlayerGameDetailsFragmentDoc = gql`
   _id
   playerRef
   username
-  age
-  score
-  resourceTotals {
-    ...ResourceTotals
-  }
   board {
     ...Board
   }
-  achievements
+  ageAchievements
   hand
-  scoreCardRefs
+  scorePile
+  specialAchievements
 }
-    ${ResourceTotalsFragmentDoc}
-${BoardFragmentDoc}`;
+    ${BoardFragmentDoc}`;
 export const RoomDataFragmentDoc = gql`
     fragment RoomData on Room {
   _id
@@ -906,6 +912,50 @@ export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
 export type GetAllCardsLazyQueryHookResult = ReturnType<typeof useGetAllCardsLazyQuery>;
 export type GetAllCardsSuspenseQueryHookResult = ReturnType<typeof useGetAllCardsSuspenseQuery>;
 export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
+export const GetGameDataDocument = gql`
+    query GetGameData($gameId: ID!) {
+  getGame(gameId: $gameId) {
+    ...Game
+  }
+  getDetailsByGame(gameRef: $gameId) {
+    ...PlayerGameDetails
+  }
+}
+    ${GameFragmentDoc}
+${PlayerGameDetailsFragmentDoc}`;
+
+/**
+ * __useGetGameDataQuery__
+ *
+ * To run a query within a React component, call `useGetGameDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetGameDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetGameDataQuery({
+ *   variables: {
+ *      gameId: // value for 'gameId'
+ *   },
+ * });
+ */
+export function useGetGameDataQuery(baseOptions: Apollo.QueryHookOptions<GetGameDataQuery, GetGameDataQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetGameDataQuery, GetGameDataQueryVariables>(GetGameDataDocument, options);
+      }
+export function useGetGameDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetGameDataQuery, GetGameDataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetGameDataQuery, GetGameDataQueryVariables>(GetGameDataDocument, options);
+        }
+export function useGetGameDataSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetGameDataQuery, GetGameDataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetGameDataQuery, GetGameDataQueryVariables>(GetGameDataDocument, options);
+        }
+export type GetGameDataQueryHookResult = ReturnType<typeof useGetGameDataQuery>;
+export type GetGameDataLazyQueryHookResult = ReturnType<typeof useGetGameDataLazyQuery>;
+export type GetGameDataSuspenseQueryHookResult = ReturnType<typeof useGetGameDataSuspenseQuery>;
+export type GetGameDataQueryResult = Apollo.QueryResult<GetGameDataQuery, GetGameDataQueryVariables>;
 export const NewGameDocument = gql`
     mutation NewGame($newGameDto: CreateNewGameInput!) {
   newGame(newGameDto: $newGameDto) {
@@ -940,7 +990,7 @@ export type NewGameMutationHookResult = ReturnType<typeof useNewGameMutation>;
 export type NewGameMutationResult = Apollo.MutationResult<NewGameMutation>;
 export type NewGameMutationOptions = Apollo.BaseMutationOptions<NewGameMutation, NewGameMutationVariables>;
 export const GetGameDocument = gql`
-    query GetGame($gameId: String!) {
+    query GetGame($gameId: ID!) {
   getGame(gameId: $gameId) {
     ...Game
   }
