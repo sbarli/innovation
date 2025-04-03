@@ -10,6 +10,8 @@ import { RoomsService } from 'src/rooms/rooms.service';
 import { MOCK_USER, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
 import { UsersService } from 'src/users/users.service';
 
+import { GameStage } from '@inno/constants';
+
 import {
   MOCK_NEW_GAME_RESPONSE,
   MOCK_PLAYER_1_DETAILS,
@@ -169,7 +171,7 @@ describe('NewGameService', () => {
       expect(selectHandsSpy).toHaveBeenCalledWith(MOCK_DECK, MOCK_PLAYER_REFS);
       expect(output).toEqual({
         deck: MOCK_DECK,
-        achievements: MOCK_STARTER_AGE_ACHIEVEMENTS,
+        ageAchievements: MOCK_STARTER_AGE_ACHIEVEMENTS,
         playerStarterHands: MOCK_PLAYER_STARTER_HANDS,
       });
     });
@@ -195,9 +197,10 @@ describe('NewGameService', () => {
         roomRef: MOCK_ROOM_ID,
         currentActionNumber: 2,
         currentPlayerRef: MOCK_PLAYER_REFS[0],
+        stage: GameStage.SETUP,
         playerRefs: MOCK_PLAYER_REFS,
         deck: MOCK_DECK,
-        achievements: MOCK_STARTER_AGE_ACHIEVEMENTS,
+        ageAchievements: MOCK_STARTER_AGE_ACHIEVEMENTS,
       });
       expect(detailsSpy).toHaveBeenCalledTimes(2);
       expect(output).toEqual(MOCK_NEW_GAME_RESPONSE);
