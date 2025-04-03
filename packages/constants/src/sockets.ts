@@ -41,6 +41,7 @@ export enum SocketEvent {
   CLOSE_ROOM_IN_PROGRESS = 'closeRoomInProgress',
   CLOSE_ROOM_SUCCESS = 'closeRoomSuccess',
   GAME_STARTED = 'gameStarted',
+  GAME_UPDATED = 'gameUpdated',
   USER_JOINED_ROOM = 'userJoinedRoom',
   USER_LEFT_ROOM = 'userLeftRoom',
 }
