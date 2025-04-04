@@ -7,7 +7,6 @@ import { CardsProvider } from '../../src/cards/state/CardsProvider';
 
 // eslint-disable-next-line import/no-default-export
 export default function AuthWrapper() {
-  console.log('loading AuthWrapper');
   const { isAuthenticated, isLoading, logout } = useAuthContext();
 
   // You can keep the splash screen open, or render a loading screen like we do here.

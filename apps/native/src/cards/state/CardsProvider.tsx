@@ -1,19 +1,32 @@
-import { createContext, PropsWithChildren, useContext } from 'react';
+import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
 
-import { Card, useGetAllCardsQuery } from '@inno/gql';
+import { useGetAllCardsQuery } from '@inno/gql';
+
+import { Cards } from '../../app-core/types/game.types';
 
 type TCardsContext = {
-  cards: Card[];
+  cards?: Cards;
   cardsLoading: boolean;
 };
 const CardsContext = createContext<TCardsContext>({} as TCardsContext);
 
 export const CardsProvider = ({ children }: PropsWithChildren) => {
   const { data, loading } = useGetAllCardsQuery();
+
+  const cards = useMemo(() => {
+    if (!data?.getAllCards?.length) {
+      return undefined;
+    }
+    return (data?.getAllCards ?? []).reduce((acc, card) => {
+      acc[card._id] = card;
+      return acc;
+    }, {} as Cards);
+  }, [data]);
+
   return (
     <CardsContext.Provider
       value={{
-        cards: data?.getAllCards ?? [],
+        cards,
         cardsLoading: loading,
       }}
     >

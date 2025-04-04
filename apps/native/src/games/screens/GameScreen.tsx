@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 
 import { Box, ScrollView, StatusBar, Text } from '@gluestack-ui/themed';
 
+import { GameStage } from '@inno/constants';
+
+import { GameSetup } from '../components/setup/GameSetup';
 import { useGameContext } from '../state/GameProvider';
 
 export interface IGameScreenProps {
@@ -51,6 +54,7 @@ export const GameScreen = ({ gameId }: IGameScreenProps) => {
       <StatusBar />
       <Box alignItems="center">
         <Text>Welcome to the Game Screen for game {gameId || '...'}</Text>
+        {metadata.stage === GameStage.SETUP && <GameSetup />}
         <ScrollView h="$full">
           <Text>Age Achievements: {JSON.stringify(ageAchievements, null, 2)}</Text>
           <Text>Deck: {JSON.stringify(deck, null, 2)}</Text>

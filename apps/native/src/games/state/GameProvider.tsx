@@ -54,8 +54,6 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
     gameData: GameFragment;
     playerDetails: PlayerGameDetailsFragment[];
   }) => {
-    console.log('fetched game data: ', gameData);
-    console.log('fetched player details: ', playerDetails);
     if (gameData) {
       setMetadata(formatGameMetadata({ rawGameData: gameData }));
     }
@@ -68,7 +66,6 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
       );
     }
     if (gameData?.deck) {
-      console.log('gameData?.deck: ', gameData?.deck);
       setDeck(formatDeckMetadata(gameData.deck));
     }
     if (playerDetails?.length) {
