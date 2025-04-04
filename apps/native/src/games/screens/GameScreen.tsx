@@ -13,17 +13,19 @@ export interface IGameScreenProps {
 
 export const GameScreen = ({ gameId }: IGameScreenProps) => {
   const {
-    loadingGameData,
-    fetchGameData,
     ageAchievements,
-    specialAchievements,
+    boards,
     deck,
-    players,
+    hands,
+    fetchGameData,
+    loadingGameData,
     metadata,
+    players,
+    specialAchievements,
   } = useGameContext();
 
   const isMissingGameData =
-    !ageAchievements || !specialAchievements || !deck || !players || !metadata;
+    !ageAchievements || !specialAchievements || !deck || !players || !metadata || !hands || !boards;
 
   useEffect(() => {
     fetchGameData(gameId);
@@ -57,7 +59,9 @@ export const GameScreen = ({ gameId }: IGameScreenProps) => {
         {metadata.stage === GameStage.SETUP && <GameSetup />}
         <ScrollView h="$full">
           <Text>Age Achievements: {JSON.stringify(ageAchievements, null, 2)}</Text>
+          <Text>Boards: {JSON.stringify(boards, null, 2)}</Text>
           <Text>Deck: {JSON.stringify(deck, null, 2)}</Text>
+          <Text>Hands: {JSON.stringify(hands, null, 2)}</Text>
           <Text>Metadata: {JSON.stringify(metadata, null, 2)}</Text>
           <Text>Players: {JSON.stringify(players, null, 2)}</Text>
           <Text>Special Achievements: {JSON.stringify(specialAchievements, null, 2)}</Text>

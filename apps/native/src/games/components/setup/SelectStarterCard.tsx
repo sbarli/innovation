@@ -5,10 +5,12 @@ import { Box, Button, ButtonText, Text } from '@gluestack-ui/themed';
 import { CardFrontWithDetails } from '../../../cards/components/CardFrontWithDetails';
 import { useCardsContext } from '../../../cards/state/CardsProvider';
 import { useCurrentPlayerGameData } from '../../hooks/useCurrentPlayerGameData';
+import { useMeldCard } from '../../hooks/useMeldCard';
 
 export const SelectStarterCard: FC = () => {
   const { cards } = useCardsContext();
   const { currentPlayerGameData } = useCurrentPlayerGameData();
+  const { loading: meldingInProgress, error: meldingError, meldCardFromHand } = useMeldCard();
 
   const [selectedCardRef, setSelectedCardRef] = useState<string>('');
 
@@ -21,6 +23,7 @@ export const SelectStarterCard: FC = () => {
       return;
     }
     console.log('Ready to submit selected card: ', selectedCardRef);
+    meldCardFromHand({ cardId: selectedCardRef });
   };
 
   if (!currentPlayerGameData || !cards) {
@@ -34,6 +37,7 @@ export const SelectStarterCard: FC = () => {
   return (
     <Box>
       <Text>Here is your starter hand. Select your first card to meld.</Text>
+      {!!meldingError && <Text>An error occurred while melding your card: {meldingError}</Text>}
       {!!selectedCardRef && <Text>You selected {cards[selectedCardRef].name}</Text>}
       {currentPlayerGameData.hand.reduce((acc, cardRef) => {
         const card = cards[cardRef];
@@ -54,7 +58,7 @@ export const SelectStarterCard: FC = () => {
               size="sm"
               variant="outline"
               action="primary"
-              isDisabled={selectedCardRef === cardRef}
+              isDisabled={selectedCardRef === cardRef || meldingInProgress}
               isFocusVisible={false}
             >
               <ButtonText>
@@ -70,7 +74,7 @@ export const SelectStarterCard: FC = () => {
         size="md"
         variant="solid"
         action="primary"
-        isDisabled={!selectedCardRef}
+        isDisabled={!selectedCardRef || meldingInProgress}
         isFocusVisible={false}
       >
         <ButtonText>Confirm meld card</ButtonText>

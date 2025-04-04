@@ -173,12 +173,17 @@ export type BoardPile = Omit<GQLBoardPile, '__typename'>;
 
 export type Board = Record<keyof Omit<GQLBoard, '__typename'>, BoardPile>;
 
+export type Boards = Record<string, Board>;
+
+export type Hand = string[];
+
+export type Hands = Record<string, Hand>;
+
 export type Player = {
-  id: string;
-  username: string;
-  hand: string[];
-  board: Board;
+  detailsRecordRef: string;
   metadata: PlayerMetadata;
+  playerId: string;
+  username: string;
 };
 
 export type GameStatus = {
