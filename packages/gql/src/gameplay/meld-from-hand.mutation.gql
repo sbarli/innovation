@@ -1,0 +1,12 @@
+mutation MeldFromHand($meldInput: MeldInput!) {
+  meld(meldInput: $meldInput) {
+    gameId
+    playerId
+    updatedPlayerBoard {
+      ...Board
+    }
+    metadata {
+      updatedPlayerHand
+    }
+  }
+}

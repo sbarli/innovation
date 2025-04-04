@@ -239,6 +239,27 @@ export type GetUserInput = {
   password: Scalars['String']['input'];
 };
 
+export type MeldInput = {
+  cardRef: Scalars['ID']['input'];
+  gameRef: Scalars['ID']['input'];
+  meldType: Scalars['String']['input'];
+  playerRef: Scalars['ID']['input'];
+};
+
+export type MeldResponse = {
+  __typename?: 'MeldResponse';
+  gameId: Scalars['ID']['output'];
+  metadata: MeldResponseMetadata;
+  playerId: Scalars['ID']['output'];
+  updatedPlayerBoard: Board;
+};
+
+export type MeldResponseMetadata = {
+  __typename?: 'MeldResponseMetadata';
+  updatedDeck: Deck;
+  updatedPlayerHand: Array<Scalars['ID']['output']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPlayerToRoom?: Maybe<Room>;
@@ -246,6 +267,7 @@ export type Mutation = {
   createNewGame: Game;
   createPlayerGameDetails: PlayerGameDetails;
   createRoom: Room;
+  meld: MeldResponse;
   newGame: CreateNewGameResponse;
   refreshToken: AccessTokenPayload;
   signup: AuthResponse;
@@ -277,6 +299,11 @@ export type MutationCreatePlayerGameDetailsArgs = {
 
 export type MutationCreateRoomArgs = {
   newRoomData: CreateRoomInput;
+};
+
+
+export type MutationMeldArgs = {
+  meldInput: MeldInput;
 };
 
 
@@ -500,6 +527,13 @@ export type GetGameDataQueryVariables = Exact<{
 
 
 export type GetGameDataQuery = { __typename?: 'Query', getGame?: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, stage: string, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, ageAchievements: { __typename?: 'AgeAchievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } } | null, getDetailsByGame: Array<{ __typename?: 'PlayerGameDetails', _id: string, playerRef: string, username?: string | null, ageAchievements: Array<string>, hand: Array<string>, scorePile: Array<string>, specialAchievements: Array<string>, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } }> };
+
+export type MeldFromHandMutationVariables = Exact<{
+  meldInput: MeldInput;
+}>;
+
+
+export type MeldFromHandMutation = { __typename?: 'Mutation', meld: { __typename?: 'MeldResponse', gameId: string, playerId: string, updatedPlayerBoard: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } }, metadata: { __typename?: 'MeldResponseMetadata', updatedPlayerHand: Array<string> } } };
 
 export type NewGameMutationVariables = Exact<{
   newGameDto: CreateNewGameInput;
@@ -956,6 +990,46 @@ export type GetGameDataQueryHookResult = ReturnType<typeof useGetGameDataQuery>;
 export type GetGameDataLazyQueryHookResult = ReturnType<typeof useGetGameDataLazyQuery>;
 export type GetGameDataSuspenseQueryHookResult = ReturnType<typeof useGetGameDataSuspenseQuery>;
 export type GetGameDataQueryResult = Apollo.QueryResult<GetGameDataQuery, GetGameDataQueryVariables>;
+export const MeldFromHandDocument = gql`
+    mutation MeldFromHand($meldInput: MeldInput!) {
+  meld(meldInput: $meldInput) {
+    gameId
+    playerId
+    updatedPlayerBoard {
+      ...Board
+    }
+    metadata {
+      updatedPlayerHand
+    }
+  }
+}
+    ${BoardFragmentDoc}`;
+export type MeldFromHandMutationFn = Apollo.MutationFunction<MeldFromHandMutation, MeldFromHandMutationVariables>;
+
+/**
+ * __useMeldFromHandMutation__
+ *
+ * To run a mutation, you first call `useMeldFromHandMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMeldFromHandMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [meldFromHandMutation, { data, loading, error }] = useMeldFromHandMutation({
+ *   variables: {
+ *      meldInput: // value for 'meldInput'
+ *   },
+ * });
+ */
+export function useMeldFromHandMutation(baseOptions?: Apollo.MutationHookOptions<MeldFromHandMutation, MeldFromHandMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MeldFromHandMutation, MeldFromHandMutationVariables>(MeldFromHandDocument, options);
+      }
+export type MeldFromHandMutationHookResult = ReturnType<typeof useMeldFromHandMutation>;
+export type MeldFromHandMutationResult = Apollo.MutationResult<MeldFromHandMutation>;
+export type MeldFromHandMutationOptions = Apollo.BaseMutationOptions<MeldFromHandMutation, MeldFromHandMutationVariables>;
 export const NewGameDocument = gql`
     mutation NewGame($newGameDto: CreateNewGameInput!) {
   newGame(newGameDto: $newGameDto) {
