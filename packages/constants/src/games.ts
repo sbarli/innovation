@@ -5,3 +5,5 @@ export enum GameStage {
 }
 
 export type ActionNumber = 1 | 2;
+
+export type MeldType = 'fromHand' | 'fromDeck';
