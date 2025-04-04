@@ -27,10 +27,12 @@ export class PlayerGameDetailsService {
     gameRef: string;
     playerRef: string;
   }): Promise<PlayerGameDetails | null | undefined> {
-    return this.playerGameDetailsModel.findOne({
-      playerRef,
-      gameRef,
-    });
+    return this.playerGameDetailsModel
+      .findOne({
+        playerRef,
+        gameRef,
+      })
+      .lean();
   }
 
   async findDetailsByGame({ gameRef }: { gameRef: string }): Promise<PlayerGameDetails[]> {

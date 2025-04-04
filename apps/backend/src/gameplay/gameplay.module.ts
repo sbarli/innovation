@@ -7,9 +7,12 @@ import { UsersModule } from 'src/users/users.module';
 
 import { GameplayResolver } from './gameplay.resolver';
 import { NewGameService } from './services/new-game.service';
+import { PlayerActionsService } from './services/player-actions.service';
+import { VaildationService } from './services/validation.service';
 
 @Module({
   imports: [UsersModule, CardsModule, GamesModule, PlayerGameDetailsModule, RoomsModule],
-  providers: [NewGameService, GameplayResolver],
+  providers: [VaildationService, PlayerActionsService, NewGameService, GameplayResolver],
+  exports: [PlayerActionsService],
 })
 export class GameplayModule {}

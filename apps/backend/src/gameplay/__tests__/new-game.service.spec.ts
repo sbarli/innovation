@@ -5,9 +5,8 @@ import { MOCK_DECK } from 'src/games/__mocks__/deck.mock';
 import { MOCK_GAME } from 'src/games/__mocks__/game.mock';
 import { GamesService } from 'src/games/games.service';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
-import { MOCK_NEW_ROOM, MOCK_ROOM_ID } from 'src/rooms/__mocks__/room.mock';
+import { MOCK_ROOM_ID } from 'src/rooms/__mocks__/room.mock';
 import { RoomsService } from 'src/rooms/rooms.service';
-import { MOCK_USER, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
 import { UsersService } from 'src/users/users.service';
 
 import { GameStage } from '@inno/constants';
@@ -74,80 +73,6 @@ describe('NewGameService', () => {
     expect(playerGameDetailsService).toBeDefined();
     expect(gamesService).toBeDefined();
     expect(roomsService).toBeDefined();
-  });
-
-  describe('validateRoomExists', () => {
-    it('should throw error when room is not found', async () => {
-      const findRoomSpy = jest.spyOn(roomsService, 'findRoomByRef').mockResolvedValueOnce(null);
-
-      const output = async () => await newGameService.validateRoomExists(MOCK_ROOM_ID);
-
-      expect(output).rejects.toThrow('Room not found');
-      expect(findRoomSpy).toHaveBeenCalledWith(MOCK_ROOM_ID);
-    });
-
-    it('should return true when room exists', async () => {
-      const findRoomSpy = jest
-        .spyOn(roomsService, 'findRoomByRef')
-        .mockResolvedValueOnce(MOCK_NEW_ROOM);
-
-      const output = await newGameService.validateRoomExists(MOCK_ROOM_ID);
-
-      expect(findRoomSpy).toHaveBeenCalledWith(MOCK_ROOM_ID);
-      expect(output).toBe(true);
-    });
-  });
-
-  describe('validatePlayersExist', () => {
-    it('should throw error when one or more players is not found', async () => {
-      const findCardsSpy = jest.spyOn(usersService, 'findUsers').mockResolvedValueOnce([MOCK_USER]);
-
-      const output = async () => await newGameService.validatePlayersExist(MOCK_PLAYER_REFS);
-
-      expect(output).rejects.toThrow('One or more players not found');
-      expect(findCardsSpy).toHaveBeenCalledWith({
-        searchField: 'ref',
-        searchValues: MOCK_PLAYER_REFS,
-      });
-    });
-
-    it('should return true when all players exist', async () => {
-      const findCardsSpy = jest
-        .spyOn(usersService, 'findUsers')
-        .mockResolvedValueOnce([MOCK_USER, { ...MOCK_USER, _id: MOCK_USER_ID_2 }]);
-
-      const output = await newGameService.validatePlayersExist(MOCK_PLAYER_REFS);
-
-      expect(findCardsSpy).toHaveBeenCalledWith({
-        searchField: 'ref',
-        searchValues: MOCK_PLAYER_REFS,
-      });
-      expect(output).toBe(true);
-    });
-  });
-
-  describe('validateUniqueGame', () => {
-    it('should throw error when active game exists for players', async () => {
-      const findActiveGameSpy = jest
-        .spyOn(gamesService, 'findActiveGameByPlayers')
-        .mockResolvedValueOnce(MOCK_GAME);
-
-      const output = async () => await newGameService.validateUniqueGame(MOCK_PLAYER_REFS);
-
-      expect(output).rejects.toThrow('Active game already exists for these players');
-      expect(findActiveGameSpy).toHaveBeenCalledWith(MOCK_PLAYER_REFS);
-    });
-
-    it('should return true when no active game exists for players', async () => {
-      const findActiveGameSpy = jest
-        .spyOn(gamesService, 'findActiveGameByPlayers')
-        .mockResolvedValueOnce(null);
-
-      const output = await newGameService.validateUniqueGame(MOCK_PLAYER_REFS);
-
-      expect(findActiveGameSpy).toHaveBeenCalledWith(MOCK_PLAYER_REFS);
-      expect(output).toBe(true);
-    });
   });
 
   describe('getGameSetup', () => {

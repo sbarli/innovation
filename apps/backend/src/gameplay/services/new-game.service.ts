@@ -5,8 +5,6 @@ import { AgeAchievements } from 'src/games/schemas/age-achievements.schema';
 import { Deck } from 'src/games/schemas/deck.schema';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
 import { PlayerGameDetails } from 'src/player-game-details/schemas/player-game-details.schema';
-import { RoomsService } from 'src/rooms/rooms.service';
-import { UsersService } from 'src/users/users.service';
 
 import { GameStage } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
@@ -38,62 +36,9 @@ interface IStartGameProps {
 @Injectable()
 export class NewGameService {
   constructor(
-    private usersService: UsersService,
     private playerGameDetailsService: PlayerGameDetailsService,
-    private gamesService: GamesService,
-    private roomsService: RoomsService
+    private gamesService: GamesService
   ) {}
-
-  async validateRoomExists(roomRef: string): Promise<boolean> {
-    try {
-      const foundRoom = await this.roomsService.findRoomByRef(roomRef);
-      if (!foundRoom) {
-        throw new Error('Room not found');
-      }
-      return true;
-    } catch (error) {
-      throw new Error(
-        getCatchErrorMessage(error) ??
-          'newGameService.validateRoomExists: Unable to validate room exists'
-      );
-    }
-  }
-
-  async validatePlayersExist(playerRefs: string[]): Promise<boolean> {
-    try {
-      const foundPlayers = await this.usersService.findUsers({
-        searchField: 'ref',
-        searchValues: playerRefs,
-      });
-      if (foundPlayers?.length !== playerRefs.length) {
-        throw new Error('One or more players not found');
-      }
-      return true;
-    } catch (error) {
-      throw new Error(
-        getCatchErrorMessage(error) ??
-          'newGameService.validatePlayersExist: Unable to validate players exist'
-      );
-    }
-  }
-
-  /**
-   * @deprecated
-   */
-  async validateUniqueGame(playerRefs: string[]): Promise<boolean> {
-    try {
-      const game = await this.gamesService.findActiveGameByPlayers(playerRefs);
-      if (game) {
-        throw new Error('Active game already exists for these players');
-      }
-      return true;
-    } catch (error) {
-      throw new Error(
-        getCatchErrorMessage(error) ??
-          'newGameService.validateUniqueGame: Unable to validate unique game'
-      );
-    }
-  }
 
   getGameSetup(cardRefsByAge: CardRefsByAge, playerRefs: string[]): TNewGameSetup {
     // create starter deck (shuffle each age)

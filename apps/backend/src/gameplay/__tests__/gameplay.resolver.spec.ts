@@ -10,11 +10,13 @@ import { MOCK_NEW_GAME_INPUT, MOCK_NEW_GAME_RESPONSE } from '../__mocks__/gamepl
 import { MOCK_NEW_GAME_SETUP, MOCK_PLAYER_STARTER_HANDS } from '../__mocks__/new-game.mock';
 import { GameplayResolver } from '../gameplay.resolver';
 import { NewGameService } from '../services/new-game.service';
+import { VaildationService } from '../services/validation.service';
 
 describe('GameplayResolver', () => {
   let cardsService: CardsService;
   let cardsSortingService: CardsSortingService;
   let newGameService: NewGameService;
+  let validationService: VaildationService;
   let gameplayResolver: GameplayResolver;
 
   beforeEach(async () => {
@@ -35,11 +37,15 @@ describe('GameplayResolver', () => {
         {
           provide: NewGameService,
           useValue: {
-            validateRoomExists: jest.fn(),
-            validatePlayersExist: jest.fn(),
-            validateUniqueGame: jest.fn(),
             getGameSetup: jest.fn(),
             newGame: jest.fn(),
+          },
+        },
+        {
+          provide: VaildationService,
+          useValue: {
+            validateRoomExists: jest.fn(),
+            validatePlayersExist: jest.fn(),
           },
         },
         GameplayResolver,
@@ -49,6 +55,7 @@ describe('GameplayResolver', () => {
     cardsService = moduleRef.get<CardsService>(CardsService);
     cardsSortingService = moduleRef.get<CardsSortingService>(CardsSortingService);
     newGameService = moduleRef.get<NewGameService>(NewGameService);
+    validationService = moduleRef.get<VaildationService>(VaildationService);
     gameplayResolver = moduleRef.get<GameplayResolver>(GameplayResolver);
   });
 
@@ -61,10 +68,10 @@ describe('GameplayResolver', () => {
       it('should return output of creating a new game when all validations pass', async () => {
         const MOCK_FIND_ALL_CARDS_RESPONSE = [MOCK_CARD];
         const validateRoomSpy = jest
-          .spyOn(newGameService, 'validateRoomExists')
+          .spyOn(validationService, 'validateRoomExists')
           .mockResolvedValueOnce(true);
         const validatePlayersSpy = jest
-          .spyOn(newGameService, 'validatePlayersExist')
+          .spyOn(validationService, 'validatePlayersExist')
           .mockResolvedValueOnce(true);
         const findCardsSpy = jest
           .spyOn(cardsService, 'findAll')
