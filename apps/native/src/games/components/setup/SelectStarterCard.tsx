@@ -2,13 +2,19 @@ import { FC, ReactElement, useState } from 'react';
 
 import { Box, Button, ButtonText, Text } from '@gluestack-ui/themed';
 
+import { SocketEvent } from '@inno/constants';
+
 import { CardFrontWithDetails } from '../../../cards/components/CardFrontWithDetails';
 import { useCardsContext } from '../../../cards/state/CardsProvider';
+import { useRoomContext } from '../../../rooms/state/RoomProvider';
+import { useSocketContext } from '../../../websockets/SocketProvider';
 import { useCurrentPlayerGameData } from '../../hooks/useCurrentPlayerGameData';
 import { useMeldCard } from '../../hooks/useMeldCard';
 
 export const SelectStarterCard: FC = () => {
   const { cards } = useCardsContext();
+  const { currentRoomId } = useRoomContext();
+  const { socket } = useSocketContext();
   const { currentPlayerGameData } = useCurrentPlayerGameData();
   const { loading: meldingInProgress, error: meldingError, meldCardFromHand } = useMeldCard();
 
@@ -18,12 +24,18 @@ export const SelectStarterCard: FC = () => {
     setSelectedCardRef(cardRef);
   };
 
+  const emitSocketStarterCardMeldedEvent = () => {
+    if (!socket) {
+      return;
+    }
+    socket.emit(SocketEvent.STARTER_CARD_MELDED, { roomId: currentRoomId });
+  };
+
   const handleConfirmSelectedCard = () => {
     if (!selectedCardRef) {
       return;
     }
-    console.log('Ready to submit selected card: ', selectedCardRef);
-    meldCardFromHand({ cardId: selectedCardRef });
+    meldCardFromHand({ cardId: selectedCardRef, onSuccess: emitSocketStarterCardMeldedEvent });
   };
 
   if (!currentPlayerGameData || !cards) {

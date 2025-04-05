@@ -10,8 +10,10 @@ import { Routes } from '../../app-core/constants/navigation';
 import { CreateRoomForm } from '../forms/CreateRoomForm';
 import { useJoinRoom } from '../hooks/useJoinRoom';
 import { CreateRoomFormData } from '../room.types';
+import { useRoomContext } from '../state/RoomProvider';
 
 export const CreateRoomCTA = () => {
+  const { updateCurrentRoomId } = useRoomContext();
   const [createRoomMutation, { loading: createRoomMutationLoading }] = useCreateRoomMutation({
     fetchPolicy: 'no-cache',
   });
@@ -26,6 +28,7 @@ export const CreateRoomCTA = () => {
   const handleSuccessfulJoinRoom = (roomId: string) => {
     setCreateAndJoinInProgress(false);
     setShowModal(false);
+    updateCurrentRoomId(roomId);
     router.push({
       pathname: Routes.ROOM,
       params: { roomId },

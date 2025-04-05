@@ -136,7 +136,6 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
   };
 
   const fetchGameData = useCallback(async (gameId: string) => {
-    console.log(`useGameData: fetchGameData: fetching for ${gameId}`);
     setGameId(gameId);
     await getGameDataQuery({
       variables: {
@@ -165,6 +164,7 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
     });
   }, []);
 
+  // TODO: for some reason this doesn't pop toast as expected. maybe add this later, but for now this is overkill
   // useEffect(() => {
   //   socket?.on(SocketEvent.GAME_UPDATED, (resp: SocketEventResponse) => {
   //     console.log('GAME_UPDATED event caught -> resp: ', JSON.stringify(resp, null, 2));

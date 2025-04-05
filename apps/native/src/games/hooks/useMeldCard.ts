@@ -15,7 +15,7 @@ export const useMeldCard = () => {
   });
   const [errorMsg, setErrorMsg] = useState<Nullable<string>>(null);
 
-  const meldCardFromHand = ({ cardId }: { cardId: string }) => {
+  const meldCardFromHand = ({ cardId, onSuccess }: { cardId: string; onSuccess?: () => void }) => {
     if (!user || !gameId) {
       console.error('User not authenticated');
       return;
@@ -43,6 +43,9 @@ export const useMeldCard = () => {
           updatedPlayerBoard: recurseRemoveTypename(data.meld.updatedPlayerBoard),
           updatedPlayerHand: recurseRemoveTypename(data.meld.metadata.updatedPlayerHand),
         });
+        if (onSuccess) {
+          onSuccess();
+        }
       },
       onError(e: unknown) {
         console.error('meldCardFromHand: error: ', e);

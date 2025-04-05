@@ -4,6 +4,7 @@ import { Redirect, Slot } from 'expo-router';
 import { Routes } from '../../src/app-core/constants/navigation';
 import { useAuthContext } from '../../src/authentication/state/AuthProvider';
 import { CardsProvider } from '../../src/cards/state/CardsProvider';
+import { RoomProvider } from '../../src/rooms/state/RoomProvider';
 
 // eslint-disable-next-line import/no-default-export
 export default function AuthWrapper() {
@@ -24,7 +25,9 @@ export default function AuthWrapper() {
   }
   return (
     <CardsProvider>
-      <Slot />
+      <RoomProvider>
+        <Slot />
+      </RoomProvider>
     </CardsProvider>
   );
 }
