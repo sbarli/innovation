@@ -47,9 +47,7 @@ export class GameplayResolver {
     @Args('meldInput', { type: () => MeldInput })
     meldInput: MeldInput
   ) {
-    console.log('Meld input:', meldInput);
     if (meldInput.meldType === 'fromHand') {
-      console.log('Melding from hand');
       const data = await this.playerActionsService.meldCardFromHand({
         cardId: meldInput.cardRef,
         gameId: meldInput.gameRef,
