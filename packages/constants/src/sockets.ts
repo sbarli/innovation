@@ -36,8 +36,11 @@ export enum SocketEvent {
   JOIN_ROOM = 'joinRoom',
   MAP_USER_TO_SOCKET = 'mapUserToSocket',
   START_GAME = 'startGame',
+  MELD_CARD_FROM_HAND = 'meldCardFromHand',
+  STARTER_CARD_MELDED = 'starterCardMelded',
 
   // event emitted to rooms
+  CARD_MELDED = 'cardMelded',
   CLOSE_ROOM_IN_PROGRESS = 'closeRoomInProgress',
   CLOSE_ROOM_SUCCESS = 'closeRoomSuccess',
   GAME_STARTED = 'gameStarted',

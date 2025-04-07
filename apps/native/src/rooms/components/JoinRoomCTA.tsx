@@ -9,8 +9,10 @@ import { Routes } from '../../app-core/constants/navigation';
 import { JoinRoomForm } from '../forms/JoinRoomForm';
 import { useJoinRoom } from '../hooks/useJoinRoom';
 import { JoinRoomFormData } from '../room.types';
+import { useRoomContext } from '../state/RoomProvider';
 
 export const JoinRoomCTA = () => {
+  const { updateCurrentRoomId } = useRoomContext();
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = useCallback(() => {
@@ -19,6 +21,7 @@ export const JoinRoomCTA = () => {
 
   const handleSuccessfulJoinRoom = (roomId: string) => {
     setShowModal(false);
+    updateCurrentRoomId(roomId);
     router.push({
       pathname: Routes.ROOM,
       params: { roomId },

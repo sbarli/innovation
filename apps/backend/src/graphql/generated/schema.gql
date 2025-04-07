@@ -213,12 +213,32 @@ input GetUserInput {
   password: String!
 }
 
+input MeldInput {
+  cardRef: ID!
+  gameRef: ID!
+  meldType: String!
+  playerRef: ID!
+}
+
+type MeldResponse {
+  gameId: ID!
+  metadata: MeldResponseMetadata!
+  playerId: ID!
+  updatedPlayerBoard: Board!
+}
+
+type MeldResponseMetadata {
+  updatedDeck: Deck!
+  updatedPlayerHand: [ID!]!
+}
+
 type Mutation {
   addPlayerToRoom(roomId: String!): Room
   closeRoom(roomId: String!): CloseRoomResponse!
   createNewGame(newGameData: CreateGameInput!): Game!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
   createRoom(newRoomData: CreateRoomInput!): Room!
+  meld(meldInput: MeldInput!): MeldResponse!
   newGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
   refreshToken: AccessTokenPayload!
   signup(newUserData: CreateUserInput!): AuthResponse!

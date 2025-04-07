@@ -4,8 +4,13 @@ import { GameFragment, PlayerGameDetailsFragment, useGetGameDataLazyQuery } from
 
 import {
   AgeAchievements,
+  Board,
+  Boards,
   Deck,
   GameStatus,
+  Hand,
+  Hands,
+  Player,
   Players,
   SpecialAchievements,
 } from '../../app-core/types/game.types';
@@ -20,14 +25,24 @@ import { formatSpecialAchievementsMetadata } from '../helpers/formatSpecialAchie
 // TODO: add default state here
 type TGameContext = {
   ageAchievements?: AgeAchievements;
+  boards?: Boards;
   deck?: Deck;
+  gameId?: string;
+  hands?: Hands;
   fetchGameData: (gameId: string) => void;
   loadingGameData: boolean;
   metadata?: GameStatus;
   players?: Players;
   specialAchievements?: SpecialAchievements;
+  updatePlayerGameData: (data: IPlayerGameUpdateProps) => void;
 };
 const GameContext = createContext<TGameContext>({} as TGameContext);
+
+export interface IPlayerGameUpdateProps {
+  updatedPlayerId: string;
+  updatedPlayerBoard?: Board;
+  updatedPlayerHand?: Hand;
+}
 
 // Provider component to wrap around App
 export const GameProvider = ({ children }: PropsWithChildren) => {
@@ -35,7 +50,10 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
   const { cards } = useCardsContext();
   // const { socket } = useSocketContext();
   const [ageAchievements, setAgeAchievements] = useState<AgeAchievements>();
+  const [boards, setBoards] = useState<Boards>();
   const [deck, setDeck] = useState<Deck>();
+  const [gameId, setGameId] = useState<string>();
+  const [hands, setHands] = useState<Hands>();
   const [loading, setLoading] = useState<boolean>(true);
   const [metadata, setMetadata] = useState<GameStatus>();
   const [players, setPlayers] = useState<Players>();
@@ -47,6 +65,24 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
     setLoading(false);
   };
 
+  const updatePlayerGameData = useCallback(
+    ({ updatedPlayerId, ...dataToUpdate }: IPlayerGameUpdateProps) => {
+      if (dataToUpdate.updatedPlayerBoard) {
+        setBoards((prev) => ({
+          ...prev,
+          [updatedPlayerId]: dataToUpdate.updatedPlayerBoard as Board,
+        }));
+      }
+      if (dataToUpdate.updatedPlayerHand) {
+        setHands((prev) => ({
+          ...prev,
+          [updatedPlayerId]: dataToUpdate.updatedPlayerHand as Hand,
+        }));
+      }
+    },
+    []
+  );
+
   const handleFetchedGameData = ({
     gameData,
     playerDetails,
@@ -54,8 +90,6 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
     gameData: GameFragment;
     playerDetails: PlayerGameDetailsFragment[];
   }) => {
-    console.log('fetched game data: ', gameData);
-    console.log('fetched player details: ', playerDetails);
     if (gameData) {
       setMetadata(formatGameMetadata({ rawGameData: gameData }));
     }
@@ -68,26 +102,41 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
       );
     }
     if (gameData?.deck) {
-      console.log('gameData?.deck: ', gameData?.deck);
       setDeck(formatDeckMetadata(gameData.deck));
     }
     if (playerDetails?.length) {
       setSpecialAchievements(formatSpecialAchievementsMetadata(playerDetails));
     }
     if (playerDetails?.length && cards && gameData?.deck) {
-      setPlayers(
-        formatPlayers({
-          cards,
-          deck: gameData?.deck,
-          playersGameData: playerDetails,
-        })
-      );
+      const allPlayerData = formatPlayers({
+        cards,
+        deck: gameData?.deck,
+        playersGameData: playerDetails,
+      });
+      const players = allPlayerData.reduce((acc, data) => {
+        const dataDupe: Partial<typeof data> = { ...data };
+        delete dataDupe.hand;
+        delete dataDupe.board;
+        acc[data.playerId] = dataDupe as Player;
+        return acc;
+      }, {} as Players);
+      const hands = allPlayerData.reduce((acc, data) => {
+        acc[data.playerId] = data.hand;
+        return acc;
+      }, {} as Hands);
+      const boards = allPlayerData.reduce((acc, data) => {
+        acc[data.playerId] = data.board;
+        return acc;
+      }, {} as Boards);
+      setHands(hands);
+      setBoards(boards);
+      setPlayers(players);
     }
     setLoading(false);
   };
 
   const fetchGameData = useCallback(async (gameId: string) => {
-    console.log(`useGameData: fetchGameData: fetching for ${gameId}`);
+    setGameId(gameId);
     await getGameDataQuery({
       variables: {
         gameId,
@@ -115,6 +164,7 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
     });
   }, []);
 
+  // TODO: for some reason this doesn't pop toast as expected. maybe add this later, but for now this is overkill
   // useEffect(() => {
   //   socket?.on(SocketEvent.GAME_UPDATED, (resp: SocketEventResponse) => {
   //     console.log('GAME_UPDATED event caught -> resp: ', JSON.stringify(resp, null, 2));
@@ -135,12 +185,16 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
     <GameContext.Provider
       value={{
         ageAchievements,
+        boards,
         deck,
+        gameId,
+        hands,
         fetchGameData,
         loadingGameData: loading || fetchingGameData,
         metadata,
         players,
         specialAchievements,
+        updatePlayerGameData,
       }}
     >
       {children}

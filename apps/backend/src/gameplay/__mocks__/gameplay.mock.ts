@@ -7,6 +7,8 @@ import { MOCK_USER_ID, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
 
 import { CreateNewGameInput } from '../dto/create-new-game.input.dto';
 import { CreateNewGameResponse } from '../dto/create-new-game.output.dto';
+import { MeldInput } from '../dto/meld.input.dto';
+import { IMeldCardfromHandResponse } from '../services/player-actions.service';
 
 export const MOCK_PLAYER_REFS = [MOCK_USER_ID, MOCK_USER_ID_2];
 
@@ -35,4 +37,16 @@ export const MOCK_PLAYER_2_DETAILS: PlayerGameDetails = {
 
 export const MOCK_NEW_GAME_RESPONSE: CreateNewGameResponse = {
   gameId: MOCK_GAME._id,
+};
+
+export const MOCK_MELD_FROM_HAND_INPUT: MeldInput = {
+  gameRef: MOCK_GAME._id,
+  playerRef: MOCK_PLAYER_GAME_DETAILS.playerRef,
+  cardRef: MOCK_PLAYER_GAME_DETAILS.hand[0],
+  meldType: 'fromHand',
+};
+
+export const MOCK_MELD_FROM_HAND_RESPONSE: IMeldCardfromHandResponse = {
+  updatedPlayerHand: MOCK_PLAYER_GAME_DETAILS.hand.slice(1),
+  updatedPlayerBoard: MOCK_PLAYER_GAME_DETAILS.board,
 };

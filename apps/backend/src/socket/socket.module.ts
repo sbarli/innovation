@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { GameplayModule } from 'src/gameplay/gameplay.module';
 import { GamesModule } from 'src/games/games.module';
 import { RoomsModule } from 'src/rooms/rooms.module';
 
@@ -9,7 +10,7 @@ import { SocketUsersService } from './services/socket-users.service';
 import { SocketGateway } from './socket.gateway';
 
 @Module({
-  imports: [GamesModule, RoomsModule],
+  imports: [GameplayModule, GamesModule, RoomsModule],
   providers: [
     SocketGateway,
     SocketBaseService,

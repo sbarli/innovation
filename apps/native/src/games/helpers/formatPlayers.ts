@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: REMOVE ^^
 import { AgeString } from '@inno/constants';
-import { BoardFragment, Card, DeckFragment, PlayerGameDetailsFragment } from '@inno/gql';
+import { BoardFragment, DeckFragment, PlayerGameDetailsFragment } from '@inno/gql';
 
 import {
   Board,
+  Cards,
+  Hand,
   Player,
   PlayerMetadata,
-  Players,
   PossibleActions,
   ResourceTotals,
 } from '../../app-core/types/game.types';
 
-const calculateResourceTotals = (playerBoard: BoardFragment, cards: Card[]): ResourceTotals => {
+const calculateResourceTotals = (playerBoard: BoardFragment, cards: Cards): ResourceTotals => {
   // TODO: add real logic
   return {
     CASTLES: 0,
@@ -23,17 +24,17 @@ const calculateResourceTotals = (playerBoard: BoardFragment, cards: Card[]): Res
     TIMEPIECES: 0,
   };
 };
-const calculatePlayerAge = (playerBoard: BoardFragment, cards: Card[]): number => {
+const calculatePlayerAge = (playerBoard: BoardFragment, cards: Cards): number => {
   // TODO: add real logic
   return 1;
 };
-const calculatePlayerScore = (playerScorePile: string[], cards: Card[]): number => {
+const calculatePlayerScore = (playerScorePile: string[], cards: Cards): number => {
   // TODO: add real logic
   return 0;
 };
 const determinePlayerPossibleActions = (
   playerData: PlayerGameDetailsFragment,
-  cards: Card[],
+  cards: Cards,
   deck: DeckFragment
 ): PossibleActions => {
   // TODO: add real logic
@@ -57,7 +58,7 @@ const formatPlayerBoard = (playerBoard: BoardFragment): Board => {
 
 const formatPlayerMetadata = (
   playerData: PlayerGameDetailsFragment,
-  cards: Card[],
+  cards: Cards,
   deck: DeckFragment
 ): PlayerMetadata => {
   return {
@@ -70,11 +71,12 @@ const formatPlayerMetadata = (
 
 const formatPlayer = (
   playerData: PlayerGameDetailsFragment,
-  cards: Card[],
+  cards: Cards,
   deck: DeckFragment
-): Player => {
+): Player & { hand: Hand; board: Board } => {
   return {
-    id: playerData._id,
+    playerId: playerData.playerRef,
+    detailsRecordRef: playerData._id,
     username: playerData.username ?? 'Unnamed user',
     hand: playerData.hand,
     board: formatPlayerBoard(playerData.board),
@@ -87,12 +89,9 @@ export const formatPlayers = ({
   deck,
   playersGameData,
 }: {
-  cards: Card[];
+  cards: Cards;
   deck: DeckFragment;
   playersGameData: PlayerGameDetailsFragment[];
-}): Players => {
-  return playersGameData.reduce((acc, playerData) => {
-    acc[playerData._id] = formatPlayer(playerData, cards, deck);
-    return acc;
-  }, {} as Players);
+}): Array<Player & { hand: Hand; board: Board }> => {
+  return playersGameData.map((playerData) => formatPlayer(playerData, cards, deck));
 };
