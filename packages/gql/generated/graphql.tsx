@@ -786,8 +786,8 @@ export function useIsAuthenticatedLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<IsAuthenticatedQuery, IsAuthenticatedQueryVariables>(IsAuthenticatedDocument, options);
         }
-export function useIsAuthenticatedSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<IsAuthenticatedQuery, IsAuthenticatedQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
+export function useIsAuthenticatedSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<IsAuthenticatedQuery, IsAuthenticatedQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<IsAuthenticatedQuery, IsAuthenticatedQueryVariables>(IsAuthenticatedDocument, options);
         }
 export type IsAuthenticatedQueryHookResult = ReturnType<typeof useIsAuthenticatedQuery>;
@@ -818,7 +818,7 @@ export const LoginDocument = gql`
  *   },
  * });
  */
-export function useLoginQuery(baseOptions: Apollo.QueryHookOptions<LoginQuery, LoginQueryVariables>) {
+export function useLoginQuery(baseOptions: Apollo.QueryHookOptions<LoginQuery, LoginQueryVariables> & ({ variables: LoginQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
       }
@@ -826,8 +826,8 @@ export function useLoginLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Logi
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
         }
-export function useLoginSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<LoginQuery, LoginQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
+export function useLoginSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<LoginQuery, LoginQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
         }
 export type LoginQueryHookResult = ReturnType<typeof useLoginQuery>;
@@ -938,8 +938,8 @@ export function useGetAllCardsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetAllCardsQuery, GetAllCardsQueryVariables>(GetAllCardsDocument, options);
         }
-export function useGetAllCardsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllCardsQuery, GetAllCardsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
+export function useGetAllCardsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllCardsQuery, GetAllCardsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<GetAllCardsQuery, GetAllCardsQueryVariables>(GetAllCardsDocument, options);
         }
 export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
@@ -974,7 +974,7 @@ ${PlayerGameDetailsFragmentDoc}`;
  *   },
  * });
  */
-export function useGetGameDataQuery(baseOptions: Apollo.QueryHookOptions<GetGameDataQuery, GetGameDataQueryVariables>) {
+export function useGetGameDataQuery(baseOptions: Apollo.QueryHookOptions<GetGameDataQuery, GetGameDataQueryVariables> & ({ variables: GetGameDataQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetGameDataQuery, GetGameDataQueryVariables>(GetGameDataDocument, options);
       }
@@ -982,8 +982,8 @@ export function useGetGameDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetGameDataQuery, GetGameDataQueryVariables>(GetGameDataDocument, options);
         }
-export function useGetGameDataSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetGameDataQuery, GetGameDataQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
+export function useGetGameDataSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetGameDataQuery, GetGameDataQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<GetGameDataQuery, GetGameDataQueryVariables>(GetGameDataDocument, options);
         }
 export type GetGameDataQueryHookResult = ReturnType<typeof useGetGameDataQuery>;
@@ -1087,7 +1087,7 @@ export const GetGameDocument = gql`
  *   },
  * });
  */
-export function useGetGameQuery(baseOptions: Apollo.QueryHookOptions<GetGameQuery, GetGameQueryVariables>) {
+export function useGetGameQuery(baseOptions: Apollo.QueryHookOptions<GetGameQuery, GetGameQueryVariables> & ({ variables: GetGameQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetGameQuery, GetGameQueryVariables>(GetGameDocument, options);
       }
@@ -1095,8 +1095,8 @@ export function useGetGameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetGameQuery, GetGameQueryVariables>(GetGameDocument, options);
         }
-export function useGetGameSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetGameQuery, GetGameQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
+export function useGetGameSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetGameQuery, GetGameQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<GetGameQuery, GetGameQueryVariables>(GetGameDocument, options);
         }
 export type GetGameQueryHookResult = ReturnType<typeof useGetGameQuery>;
@@ -1226,7 +1226,7 @@ export const GetRoomDocument = gql`
  *   },
  * });
  */
-export function useGetRoomQuery(baseOptions: Apollo.QueryHookOptions<GetRoomQuery, GetRoomQueryVariables>) {
+export function useGetRoomQuery(baseOptions: Apollo.QueryHookOptions<GetRoomQuery, GetRoomQueryVariables> & ({ variables: GetRoomQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetRoomQuery, GetRoomQueryVariables>(GetRoomDocument, options);
       }
@@ -1234,8 +1234,8 @@ export function useGetRoomLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetRoomQuery, GetRoomQueryVariables>(GetRoomDocument, options);
         }
-export function useGetRoomSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRoomQuery, GetRoomQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
+export function useGetRoomSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRoomQuery, GetRoomQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<GetRoomQuery, GetRoomQueryVariables>(GetRoomDocument, options);
         }
 export type GetRoomQueryHookResult = ReturnType<typeof useGetRoomQuery>;
@@ -1273,8 +1273,8 @@ export function useGetRoomsForPlayerLazyQuery(baseOptions?: Apollo.LazyQueryHook
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>(GetRoomsForPlayerDocument, options);
         }
-export function useGetRoomsForPlayerSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
+export function useGetRoomsForPlayerSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<GetRoomsForPlayerQuery, GetRoomsForPlayerQueryVariables>(GetRoomsForPlayerDocument, options);
         }
 export type GetRoomsForPlayerQueryHookResult = ReturnType<typeof useGetRoomsForPlayerQuery>;
