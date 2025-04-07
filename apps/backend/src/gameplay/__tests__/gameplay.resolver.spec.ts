@@ -6,10 +6,16 @@ import { CardsService } from 'src/cards/services/cards.service';
 import { MOCK_STARTER_AGE_ACHIEVEMENTS } from 'src/games/__mocks__/age-achievements.mock';
 import { MOCK_DECK } from 'src/games/__mocks__/deck.mock';
 
-import { MOCK_NEW_GAME_INPUT, MOCK_NEW_GAME_RESPONSE } from '../__mocks__/gameplay.mock';
+import {
+  MOCK_MELD_FROM_HAND_INPUT,
+  MOCK_MELD_FROM_HAND_RESPONSE,
+  MOCK_NEW_GAME_INPUT,
+  MOCK_NEW_GAME_RESPONSE,
+} from '../__mocks__/gameplay.mock';
 import { MOCK_NEW_GAME_SETUP, MOCK_PLAYER_STARTER_HANDS } from '../__mocks__/new-game.mock';
 import { GameplayResolver } from '../gameplay.resolver';
 import { NewGameService } from '../services/new-game.service';
+import { PlayerActionsService } from '../services/player-actions.service';
 import { VaildationService } from '../services/validation.service';
 
 describe('GameplayResolver', () => {
@@ -17,6 +23,7 @@ describe('GameplayResolver', () => {
   let cardsSortingService: CardsSortingService;
   let newGameService: NewGameService;
   let validationService: VaildationService;
+  let playerActionsService: PlayerActionsService;
   let gameplayResolver: GameplayResolver;
 
   beforeEach(async () => {
@@ -48,6 +55,12 @@ describe('GameplayResolver', () => {
             validatePlayersExist: jest.fn(),
           },
         },
+        {
+          provide: PlayerActionsService,
+          useValue: {
+            meldCardFromHand: jest.fn(),
+          },
+        },
         GameplayResolver,
       ],
     }).compile();
@@ -56,10 +69,12 @@ describe('GameplayResolver', () => {
     cardsSortingService = moduleRef.get<CardsSortingService>(CardsSortingService);
     newGameService = moduleRef.get<NewGameService>(NewGameService);
     validationService = moduleRef.get<VaildationService>(VaildationService);
+    playerActionsService = moduleRef.get<PlayerActionsService>(PlayerActionsService);
     gameplayResolver = moduleRef.get<GameplayResolver>(GameplayResolver);
   });
 
   it('should be defined', () => {
+    expect(playerActionsService).toBeDefined();
     expect(gameplayResolver).toBeDefined();
   });
 
@@ -104,6 +119,29 @@ describe('GameplayResolver', () => {
           playerStarterHands: MOCK_PLAYER_STARTER_HANDS,
         });
         expect(output).toEqual(MOCK_NEW_GAME_RESPONSE);
+      });
+    });
+    describe('meld', () => {
+      it('should return output of running meldCardFromHand when meldType is "fromHand"', async () => {
+        const playerActionsServiceSpy = jest
+          .spyOn(playerActionsService, 'meldCardFromHand')
+          .mockResolvedValueOnce(MOCK_MELD_FROM_HAND_RESPONSE);
+
+        const output = await gameplayResolver.meld(MOCK_MELD_FROM_HAND_INPUT);
+
+        expect(playerActionsServiceSpy).toHaveBeenCalledWith({
+          cardId: MOCK_MELD_FROM_HAND_INPUT.cardRef,
+          gameId: MOCK_MELD_FROM_HAND_INPUT.gameRef,
+          playerId: MOCK_MELD_FROM_HAND_INPUT.playerRef,
+        });
+        expect(output).toEqual({
+          gameId: MOCK_MELD_FROM_HAND_INPUT.gameRef,
+          playerId: MOCK_MELD_FROM_HAND_INPUT.playerRef,
+          updatedPlayerBoard: MOCK_MELD_FROM_HAND_RESPONSE.updatedPlayerBoard,
+          metadata: {
+            updatedPlayerHand: MOCK_MELD_FROM_HAND_RESPONSE.updatedPlayerHand,
+          },
+        });
       });
     });
   });
