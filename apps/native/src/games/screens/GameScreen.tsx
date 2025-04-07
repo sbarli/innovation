@@ -31,16 +31,6 @@ export const GameScreen = ({ gameId }: IGameScreenProps) => {
     fetchGameData(gameId);
   }, []);
 
-  if (loadingGameData) {
-    return (
-      <>
-        <StatusBar />
-        <Box alignItems="center">
-          <Text>Loading data for game {gameId || '...'}</Text>
-        </Box>
-      </>
-    );
-  }
   if (isMissingGameData) {
     return (
       <>
@@ -56,6 +46,11 @@ export const GameScreen = ({ gameId }: IGameScreenProps) => {
       <StatusBar />
       <Box alignItems="center">
         <Text>Welcome to the Game Screen for game {gameId || '...'}</Text>
+        {!!loadingGameData && (
+          <Box alignItems="center">
+            <Text>Loading data for game {gameId || '...'}</Text>
+          </Box>
+        )}
         {metadata.stage === GameStage.SETUP && <GameSetup />}
         <ScrollView h="$full">
           <Text>Age Achievements: {JSON.stringify(ageAchievements, null, 2)}</Text>
