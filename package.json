@@ -9,7 +9,9 @@
   "scripts": {
     "build": "turbo run build",
     "build:backend": "turbo run @inno/backend#build",
-    "clean": "turbo clean && rm -rf node_modules",
+    "clean:all": "turbo clean && rm -rf node_modules",
+    "clean:td": "turbo daemon clean",
+    "tb:start": "turbo daemon start",
     "dev": "turbo run dev",
     "dev:backend": "turbo run @inno/backend#dev",
     "dev:native": "turbo run @inno/native#dev",
@@ -28,6 +30,7 @@
       "eslint --quiet --fix"
     ]
   },
+  "dependencies": {},
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/typescript-operations": "^4.0.1",
@@ -37,11 +40,10 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
-    "turbo": "latest"
+    "turbo": "2.5.0"
   },
   "engines": {
-    "node": "18.18.2"
+    "node": "22.14.0"
   },
-  "dependencies": {},
   "packageManager": "yarn@1.22.19"
 }
