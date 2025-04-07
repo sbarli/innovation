@@ -9,7 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "build:backend": "turbo run @inno/backend#build",
-    "clean:all": "turbo clean && rm -rf node_modules",
+    "clean:all": "turbo clean && ./scripts/recurseDeleteNodeModules.sh && yarn cache clean",
     "clean:td": "turbo daemon clean",
     "tb:start": "turbo daemon start",
     "dev": "turbo run dev",
