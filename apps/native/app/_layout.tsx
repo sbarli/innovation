@@ -1,12 +1,13 @@
 import { loadErrorMessages, loadDevMessages } from '@apollo/client/dev';
-import { config } from '@gluestack-ui/config';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
+import '@/global.css';
 import { Slot } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AuthProvider } from '../src/authentication/state/AuthProvider';
 import { GraphQLProvider } from '../src/graphql/ApolloProvider';
 import { SocketProvider } from '../src/websockets/SocketProvider';
+
+import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 
 // // UGLY HACK
 // // This is a hack to make sure that the console logs are printed in the
@@ -63,7 +64,7 @@ export default function AppProvidersWrapper() {
     loadErrorMessages();
   }
   return (
-    <GluestackUIProvider config={config}>
+    <GluestackUIProvider mode="light">
       <GraphQLProvider>
         <SocketProvider>
           <SafeAreaView>
