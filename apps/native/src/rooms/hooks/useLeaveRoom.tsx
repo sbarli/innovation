@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import { useToast } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
 
 import { SocketEvent, SocketEventError, SocketEventResponse } from '@inno/constants';
@@ -10,6 +9,8 @@ import { getCatchErrorMessage } from '@inno/utils';
 import { CustomToast } from '../../app-core/components/toasts/CustomToast';
 import { Routes } from '../../app-core/constants/navigation';
 import { useSocketContext } from '../../websockets/SocketProvider';
+
+import { useToast } from '@/components/ui/toast';
 
 export const useLeaveRoom = ({
   roomId,

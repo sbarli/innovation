@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 
-import { Center, Text } from '@gluestack-ui/themed';
-
 import { useAuthContext } from '../state/AuthProvider';
+
+import { Center } from '@/components/ui/center';
+import { Text } from '@/components/ui/text';
 
 export const LogoutScreen = () => {
   const { logout } = useAuthContext();

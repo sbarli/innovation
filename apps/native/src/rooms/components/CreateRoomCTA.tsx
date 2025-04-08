@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 
-import { Box, Button, ButtonText, Text } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
 
 import { useCreateRoomMutation } from '@inno/gql';
@@ -11,6 +10,10 @@ import { CreateRoomForm } from '../forms/CreateRoomForm';
 import { useJoinRoom } from '../hooks/useJoinRoom';
 import { CreateRoomFormData } from '../room.types';
 import { useRoomContext } from '../state/RoomProvider';
+
+import { Box } from '@/components/ui/box';
+import { Button, ButtonText } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
 
 export const CreateRoomCTA = () => {
   const { updateCurrentRoomId } = useRoomContext();

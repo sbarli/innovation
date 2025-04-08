@@ -1,8 +1,9 @@
-import { Box, Text } from '@gluestack-ui/themed';
-
 import { AgeString, ageCostToAchieveMap } from '@inno/constants';
 
 import { CARD_BACK_COLOR_DARK, CARD_BACK_COLOR_LIGHT } from '../../../app-core/constants/colors';
+
+import { Box } from '@/components/ui/box';
+import { Text } from '@/components/ui/text';
 
 export interface IAchievementCostProps {
   age: AgeString;
@@ -15,16 +16,9 @@ export const AchievementCost = ({ age }: IAchievementCostProps) => {
   }
   return (
     <Box
-      bg={CARD_BACK_COLOR_LIGHT}
-      borderRadius="$full"
-      borderWidth="$1"
-      borderColor={CARD_BACK_COLOR_DARK}
-      h="$5"
-      w="$5"
-      alignItems="center"
-      justifyContent="center"
+      className={` borderColor-${CARD_BACK_COLOR_DARK} bg-${CARD_BACK_COLOR_LIGHT} rounded-full border-1 h-5 w-5 items-center justify-center `}
     >
-      <Text color={CARD_BACK_COLOR_DARK} textAlign="center" size="xs" fontWeight="$semibold">
+      <Text size="xs" className={` color-${CARD_BACK_COLOR_DARK} text-center font-semibold `}>
         {cost}
       </Text>
     </Box>

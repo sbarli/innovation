@@ -1,5 +1,3 @@
-import { Box, HStack } from '@gluestack-ui/themed';
-
 import { Color, Resource } from '@inno/constants';
 import { Card as CardType } from '@inno/gql';
 
@@ -8,6 +6,9 @@ import { primaryCardColorMap } from '../../../app-core/constants/colors';
 import { CardAge } from './CardAge';
 import { CardName } from './CardName';
 import { ResourceSpace } from './ResourceSpace';
+
+import { Box } from '@/components/ui/box';
+import { HStack } from '@/components/ui/hstack';
 
 export interface ICardFrontProps {
   card: CardType;
@@ -21,19 +22,14 @@ export const CardFront = ({ card }: ICardFrontProps) => {
   const colorEnum = card.color as Color;
   return (
     <Box
-      bg={primaryCardColorMap[card.color as Color]}
-      maxWidth="$56"
-      padding="$3.5"
-      borderRadius="$md"
-      h="$32"
-      justifyContent="space-between"
+      className={` bg-${primaryCardColorMap[card.color as Color]} max-w-56 p-3.5 rounded-md h-32 justify-between `}
     >
-      <HStack justifyContent="space-between" w="$full">
+      <HStack className="justify-between w-full">
         <ResourceSpace cardColor={colorEnum} resource={resourceSpace1} />
         <CardName color={colorEnum} name={card.name} />
         <CardAge age={card.age} color={colorEnum} />
       </HStack>
-      <HStack justifyContent="space-between" w="$full">
+      <HStack className="justify-between w-full">
         <ResourceSpace cardColor={colorEnum} resource={resourceSpace2} />
         <ResourceSpace cardColor={colorEnum} resource={resourceSpace3} />
         <ResourceSpace cardColor={colorEnum} resource={resourceSpace4} />

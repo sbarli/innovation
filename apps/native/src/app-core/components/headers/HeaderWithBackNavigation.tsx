@@ -1,43 +1,21 @@
-import { ArrowLeftIcon, Button, ButtonIcon, HStack, Heading } from '@gluestack-ui/themed';
-
 import { Logout } from '../../../authentication/components/Logout';
 import { useNavigateBack } from '../../hooks/navigation/useNavigateBack';
 import { IHeaderProps } from '../../types/header.types';
 
+import { Button, ButtonIcon } from '@/components/ui/button';
+import { Heading } from '@/components/ui/heading';
+import { HStack } from '@/components/ui/hstack';
+import { ArrowLeftIcon } from '@/components/ui/icon';
+
 export const HeaderWithBackNavigation = ({ showLogout = true, title }: IHeaderProps) => {
   const { navigateBack } = useNavigateBack();
   return (
-    <HStack
-      backgroundColor="$primary500"
-      marginBottom="$5"
-      paddingVertical="$2"
-      paddingLeft="$8"
-      paddingRight="$6"
-      justifyContent="space-between"
-      alignItems="center"
-    >
-      <HStack alignItems="center" space="sm">
+    <HStack className="bg-primary-500 mb-5 py-2 pl-8 pr-6 justify-between items-center">
+      <HStack space="sm" className="items-center">
         <Button onPress={navigateBack} variant="link" size="xl">
-          <ButtonIcon
-            color="$textLight100"
-            sx={{
-              _dark: {
-                color: '$textDark300',
-              },
-            }}
-            as={ArrowLeftIcon}
-          />
+          <ButtonIcon as={ArrowLeftIcon} className="text-textLight-100 dark:text-textDark-300" />
         </Button>
-        <Heading
-          margin={0}
-          size="xl"
-          color="$textLight100"
-          sx={{
-            _dark: {
-              color: '$textDark300',
-            },
-          }}
-        >
+        <Heading size="xl" className="m-[0px] text-textLight-100 dark:text-textDark-300">
           {title}
         </Heading>
       </HStack>

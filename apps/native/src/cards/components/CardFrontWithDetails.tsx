@@ -1,23 +1,22 @@
 import { useState } from 'react';
 
+import { Card as CardType } from '@inno/gql';
+
+import { CardDetails } from './front/CardDetails';
+import { CardFront } from './front/CardFront';
+
+import { Heading } from '@/components/ui/heading';
+import { Icon, CloseIcon } from '@/components/ui/icon';
 import {
   Popover,
   PopoverBackdrop,
   PopoverContent,
   PopoverArrow,
-  Heading,
   PopoverCloseButton,
-  Icon,
-  CloseIcon,
   PopoverHeader,
   PopoverBody,
-  Pressable,
-} from '@gluestack-ui/themed';
-
-import { Card as CardType } from '@inno/gql';
-
-import { CardDetails } from './front/CardDetails';
-import { CardFront } from './front/CardFront';
+} from '@/components/ui/popover';
+import { Pressable } from '@/components/ui/pressable';
 
 export interface ICardFrontWithDetailsProps {
   card: CardType;

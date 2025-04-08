@@ -1,10 +1,11 @@
-import { Box } from '@gluestack-ui/themed';
 import { StatusBar } from 'expo-status-bar';
 
 import { Card, Game, PlayerGameDetails } from '@inno/gql';
 
 import { DeckLayout } from '../deck/components/DeckLayout';
 import { useDeckMetadata } from '../deck/hooks/useDeckMetadata';
+
+import { Box } from '@/components/ui/box';
 
 export interface IGameTrainingScreenProps {
   cards: Card[];
@@ -19,7 +20,7 @@ export const GameTrainingScreen = ({ game }: IGameTrainingScreenProps) => {
   return (
     <>
       <StatusBar style="auto" />
-      <Box alignItems="center">
+      <Box className="items-center">
         <DeckLayout deckMetadata={deckMetadata} />
       </Box>
     </>

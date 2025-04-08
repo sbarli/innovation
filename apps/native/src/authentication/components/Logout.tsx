@@ -1,6 +1,6 @@
-import { Button, ButtonText } from '@gluestack-ui/themed';
-
 import { useAuthContext } from '../state/AuthProvider';
+
+import { Button, ButtonText } from '@/components/ui/button';
 
 export const Logout = () => {
   const { isAuthenticated, logout } = useAuthContext();

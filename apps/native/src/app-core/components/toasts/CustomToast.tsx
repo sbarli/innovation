@@ -1,4 +1,5 @@
-import { Toast, ToastDescription, ToastTitle, VStack } from '@gluestack-ui/themed';
+import { Toast, ToastDescription, ToastTitle } from '@/components/ui/toast';
+import { VStack } from '@/components/ui/vstack';
 
 export interface ICustomToastProps {
   action?: 'error' | 'warning' | 'success' | 'info' | 'attention' | undefined;

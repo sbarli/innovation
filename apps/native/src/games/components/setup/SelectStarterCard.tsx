@@ -1,7 +1,5 @@
 import { FC, ReactElement, useState } from 'react';
 
-import { Box, Button, ButtonText, Text } from '@gluestack-ui/themed';
-
 import { SocketEvent } from '@inno/constants';
 
 import { CardFrontWithDetails } from '../../../cards/components/CardFrontWithDetails';
@@ -10,6 +8,10 @@ import { useRoomContext } from '../../../rooms/state/RoomProvider';
 import { useSocketContext } from '../../../websockets/SocketProvider';
 import { useCurrentPlayerGameData } from '../../hooks/useCurrentPlayerGameData';
 import { useMeldCard } from '../../hooks/useMeldCard';
+
+import { Box } from '@/components/ui/box';
+import { Button, ButtonText } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
 
 export const SelectStarterCard: FC = () => {
   const { cards } = useCardsContext();
@@ -57,11 +59,9 @@ export const SelectStarterCard: FC = () => {
           return acc;
         }
         acc.push(
-          <Box key={cardRef} padding={2} marginBottom={2} alignItems="center">
+          <Box key={cardRef} className="p-[2px] mb-[2px] items-center">
             <Box
-              borderColor={'$green500'}
-              borderWidth={selectedCardRef === cardRef ? 2 : 0}
-              padding={2}
+              className={` ${selectedCardRef === cardRef ? 'border-[2px]' : 'border-[0px]'} border-green-500 p-[2px] `}
             >
               <CardFrontWithDetails card={card} />
             </Box>

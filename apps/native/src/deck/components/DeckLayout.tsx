@@ -1,4 +1,3 @@
-import { Box } from '@gluestack-ui/themed';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 
 import { AgeString, ageStringToAgeNumberMap } from '@inno/constants';
@@ -7,6 +6,8 @@ import { BadgeType, CountBadge } from '../../app-core/components/CountBadge';
 import { MaybePressable } from '../../app-core/components/MaybePressable';
 import { VerticalEmptyCardSlot } from '../../cards/components/VerticalEmptyCardSlot';
 import { CardBack } from '../../cards/components/back/CardBack';
+
+import { Box } from '@/components/ui/box';
 
 export interface IDeckPileMetadata {
   age: AgeString;

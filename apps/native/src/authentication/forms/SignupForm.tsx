@@ -1,4 +1,3 @@
-import { Box, Button, ButtonText, Input, InputField } from '@gluestack-ui/themed';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 
@@ -6,6 +5,10 @@ import { FormError } from '../../app-core/forms/FormError';
 import { SignupFormData } from '../auth.types';
 import { useAuthContext } from '../state/AuthProvider';
 import { signupFormSchema } from '../validation/signup-schema';
+
+import { Box } from '@/components/ui/box';
+import { Button, ButtonText } from '@/components/ui/button';
+import { Input, InputField } from '@/components/ui/input';
 
 export const SignupForm = () => {
   const { signup, signupError } = useAuthContext();
@@ -30,8 +33,8 @@ export const SignupForm = () => {
     });
   };
   return (
-    <Box w="$1/2">
-      <Box marginBottom="$5">
+    <Box className="w-1/2">
+      <Box className="mb-5">
         <Controller
           control={control}
           name="username"
@@ -57,8 +60,7 @@ export const SignupForm = () => {
         />
         <FormError errorMsg={errors.username?.message} />
       </Box>
-
-      <Box marginBottom="$5">
+      <Box className="mb-5">
         <Controller
           control={control}
           name="email"
@@ -84,8 +86,7 @@ export const SignupForm = () => {
         />
         <FormError errorMsg={errors.email?.message} />
       </Box>
-
-      <Box marginBottom="$5">
+      <Box className="mb-5">
         <Controller
           control={control}
           name="password"
@@ -112,8 +113,7 @@ export const SignupForm = () => {
         />
         <FormError errorMsg={errors.password?.message} />
       </Box>
-
-      <Box marginBottom="$5">
+      <Box className="mb-5">
         <Controller
           control={control}
           name="passwordConfirm"
@@ -140,7 +140,6 @@ export const SignupForm = () => {
         />
         <FormError errorMsg={errors.passwordConfirm?.message} />
       </Box>
-
       <Button
         onPress={handleSubmit(onSubmit)}
         size="md"

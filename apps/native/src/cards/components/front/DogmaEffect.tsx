@@ -1,6 +1,3 @@
-import { Box } from '@gluestack-ui/themed';
-import { Text } from '@gluestack-ui/themed';
-
 import { Color } from '@inno/constants';
 
 import {
@@ -9,6 +6,9 @@ import {
   secondaryCardColorMap,
   tertiaryCardColorMap,
 } from '../../../app-core/constants/colors';
+
+import { Box } from '@/components/ui/box';
+import { Text } from '@/components/ui/text';
 
 export interface IDogmaEffectProps {
   color: Color;
@@ -19,12 +19,9 @@ export interface IDogmaEffectProps {
 export const DogmaEffect = ({ color, effectDescription, isDemand = false }: IDogmaEffectProps) => {
   return (
     <Box
-      bg={isDemand ? secondaryCardColorMap[color] : tertiaryCardColorMap[color]}
-      paddingVertical="$1"
-      paddingHorizontal="$3"
-      marginHorizontal="$2"
+      className={` ${isDemand ? secondaryCardColorMap[color] : tertiaryCardColorMap[color]} py-1 px-3 mx-2 `}
     >
-      <Text color={isDemand ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK} size="sm">
+      <Text size="sm" className={` ${isDemand ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK} `}>
         {effectDescription}
       </Text>
     </Box>

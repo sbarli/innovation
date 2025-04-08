@@ -1,5 +1,3 @@
-import { Box, HStack, VStack } from '@gluestack-ui/themed';
-
 import { Color, Resource } from '@inno/constants';
 import { Card as CardType } from '@inno/gql';
 
@@ -9,6 +7,10 @@ import { CardAge } from './CardAge';
 import { CardName } from './CardName';
 import { DogmaEffect } from './DogmaEffect';
 import { ResourceSpace } from './ResourceSpace';
+
+import { Box } from '@/components/ui/box';
+import { HStack } from '@/components/ui/hstack';
+import { VStack } from '@/components/ui/vstack';
 
 export interface ICardDetailsProps {
   card: CardType;
@@ -22,19 +24,14 @@ export const CardDetails = ({ card }: ICardDetailsProps) => {
   const colorEnum = card.color as Color;
   return (
     <Box
-      bg={primaryCardColorMap[card.color as Color]}
-      padding="$3.5"
-      borderRadius="$md"
-      w="$full"
-      minHeight="$48"
-      justifyContent="space-between"
+      className={` bg-${primaryCardColorMap[card.color as Color]} p-3.5 rounded-md w-full min-h-48 justify-between `}
     >
-      <HStack justifyContent="space-between" w="$full">
+      <HStack className="justify-between w-full">
         <ResourceSpace cardColor={colorEnum} resource={resourceSpace1} />
         <CardName color={colorEnum} name={card.name} />
         <CardAge age={card.age} color={colorEnum} />
       </HStack>
-      <VStack gap="$5" paddingVertical="$5">
+      <VStack className="gap-5 py-5">
         {/* NOTE: using map instead of Flatlist due to small amount of data + removing Virtualized list inside scrollview error */}
         {card.dogmaEffects.map((effect, index) => (
           <DogmaEffect
@@ -45,7 +42,7 @@ export const CardDetails = ({ card }: ICardDetailsProps) => {
           />
         ))}
       </VStack>
-      <HStack justifyContent="space-between" w="$full">
+      <HStack className="justify-between w-full">
         <ResourceSpace cardColor={colorEnum} resource={resourceSpace2} />
         <ResourceSpace cardColor={colorEnum} resource={resourceSpace3} />
         <ResourceSpace cardColor={colorEnum} resource={resourceSpace4} />

@@ -1,7 +1,5 @@
 import { useCallback, useState } from 'react';
 
-import { Box, Button, ButtonText } from '@gluestack-ui/themed';
-import { Text } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
 
 import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
@@ -10,6 +8,10 @@ import { JoinRoomForm } from '../forms/JoinRoomForm';
 import { useJoinRoom } from '../hooks/useJoinRoom';
 import { JoinRoomFormData } from '../room.types';
 import { useRoomContext } from '../state/RoomProvider';
+
+import { Box } from '@/components/ui/box';
+import { Button, ButtonText } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
 
 export const JoinRoomCTA = () => {
   const { updateCurrentRoomId } = useRoomContext();

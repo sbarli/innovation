@@ -1,4 +1,3 @@
-import { Box, Button, ButtonText, HStack, Input, InputField } from '@gluestack-ui/themed';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 
@@ -6,6 +5,11 @@ import { FormError } from '../../app-core/forms/FormError';
 import { CreateRoomFormData } from '../room.types';
 
 import { createRoomFormSchema } from './validation/create-room-schema';
+
+import { Box } from '@/components/ui/box';
+import { Button, ButtonText } from '@/components/ui/button';
+import { HStack } from '@/components/ui/hstack';
+import { Input, InputField } from '@/components/ui/input';
 
 export interface ICreateRoomFormProps {
   error?: string;
@@ -26,8 +30,8 @@ export const CreateRoomForm = ({ error: customError, loading, onSubmit }: ICreat
   });
 
   return (
-    <Box mt="$2">
-      <Box marginBottom="$5">
+    <Box className="mt-2">
+      <Box className="mb-5">
         <Controller
           control={control}
           name="roomName"
@@ -53,10 +57,8 @@ export const CreateRoomForm = ({ error: customError, loading, onSubmit }: ICreat
         />
         <FormError errorMsg={errors.roomName?.message as string} />
       </Box>
-
       <FormError errorMsg={customError} />
-
-      <HStack justifyContent="flex-end">
+      <HStack className="justify-end">
         <Button
           onPress={handleSubmit(onSubmit)}
           size="md"

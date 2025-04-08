@@ -1,5 +1,3 @@
-import { Box, HStack, Text } from '@gluestack-ui/themed';
-
 import { ageStringToAgeNameMap, cardAgeToAgeStringMap } from '@inno/constants';
 
 import {
@@ -11,6 +9,10 @@ import {
 import { AchievementCost } from './AchievementCost';
 import { CardAgeBack } from './CardAgeBack';
 
+import { Box } from '@/components/ui/box';
+import { HStack } from '@/components/ui/hstack';
+import { Text } from '@/components/ui/text';
+
 export interface ICardBackProps {
   age: number;
 }
@@ -20,35 +22,23 @@ export const CardBack = ({ age }: ICardBackProps) => {
   const ageName = ageStringToAgeNameMap[ageStr];
   return (
     <Box
-      bg={CARD_BACK_BORDER_COLOR_LIGHT}
-      padding="$2"
-      borderRadius="$md"
-      borderWidth="$2"
-      borderColor={CARD_BACK_COLOR_LIGHT}
-      w="$32"
-      h="$48"
-      justifyContent="space-between"
+      className={` borderColor-${CARD_BACK_COLOR_LIGHT} bg-${CARD_BACK_BORDER_COLOR_LIGHT} p-2 rounded-md border-2 w-32 h-48 justify-between `}
     >
       <Box
-        bg={CARD_BACK_COLOR_LIGHT}
-        w="$full"
-        h="$full"
-        justifyContent="space-between"
         borderTopLeftRadius="$3xl"
         borderTopRightRadius="$3xl"
         borderBottomLeftRadius="$lg"
         borderBottomRightRadius="$lg"
-        borderWidth="$1"
-        borderColor={CARD_BACK_COLOR_DARK}
+        className={` borderColor-${CARD_BACK_COLOR_DARK} bg-${CARD_BACK_COLOR_LIGHT} w-full h-full justify-between border-1 `}
       >
-        <HStack justifyContent="space-between">
+        <HStack className="justify-between">
           <CardAgeBack age={age} />
           <CardAgeBack age={age} />
         </HStack>
-        <Text color={CARD_BACK_COLOR_DARK} fontWeight="$bold" alignSelf="center" size="sm">
+        <Text size="sm" className={` color-${CARD_BACK_COLOR_DARK} font-bold self-center `}>
           {ageName}
         </Text>
-        <Box paddingBottom="$3" paddingRight="$2" alignSelf="flex-end">
+        <Box className="pb-3 pr-2 self-end">
           <AchievementCost age={ageStr} />
         </Box>
       </Box>

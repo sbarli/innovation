@@ -1,7 +1,5 @@
 import { FC, useEffect } from 'react';
 
-import { Box, Text, useToast } from '@gluestack-ui/themed';
-
 import { SocketEvent } from '@inno/constants';
 
 import { CustomToast } from '../../../app-core/components/toasts/CustomToast';
@@ -11,6 +9,10 @@ import { useCurrentPlayerGameData } from '../../hooks/useCurrentPlayerGameData';
 import { useGameContext } from '../../state/GameProvider';
 
 import { SelectStarterCard } from './SelectStarterCard';
+
+import { Box } from '@/components/ui/box';
+import { Text } from '@/components/ui/text';
+import { useToast } from '@/components/ui/toast';
 
 export const GameSetup: FC = () => {
   const { user } = useAuthContext();
