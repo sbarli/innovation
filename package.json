@@ -30,7 +30,6 @@
       "eslint --quiet --fix"
     ]
   },
-  "dependencies": {},
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/typescript-operations": "^4.0.1",
@@ -45,5 +44,5 @@
   "engines": {
     "node": "22.14.0"
   },
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "yarn@4.9.0"
 }
