@@ -25,10 +25,11 @@ export const CardBack = ({ age }: ICardBackProps) => {
       className={` borderColor-${CARD_BACK_COLOR_LIGHT} bg-${CARD_BACK_BORDER_COLOR_LIGHT} p-2 rounded-md border-2 w-32 h-48 justify-between `}
     >
       <Box
-        borderTopLeftRadius="$3xl"
-        borderTopRightRadius="$3xl"
-        borderBottomLeftRadius="$lg"
-        borderBottomRightRadius="$lg"
+        // TODO: fix this
+        // borderTopLeftRadius="$3xl"
+        // borderTopRightRadius="$3xl"
+        // borderBottomLeftRadius="$lg"
+        // borderBottomRightRadius="$lg"
         className={` borderColor-${CARD_BACK_COLOR_DARK} bg-${CARD_BACK_COLOR_LIGHT} w-full h-full justify-between border-1 `}
       >
         <HStack className="justify-between">

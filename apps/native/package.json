@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "main": "index.js",
   "scripts": {
-    "start": "doppler run -- DARK_MODE=media expo start",
-    "android": "DARK_MODE=media expo start --android",
-    "ios": "DARK_MODE=media expo start --ios",
-    "web": "DARK_MODE=media expo start --web",
+    "start": "doppler run -- expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
     "eject": "expo eject",
     "dev": "yarn start",
     "predev": "cd ../../ && turbo run @inno/constants#build && turbo run @inno/gql#build && turbo run @inno/mocks#build && turbo run @inno/utils#build",
@@ -32,7 +32,6 @@
     "@hookform/resolvers": "^3.3.2",
     "@inno/constants": "*",
     "@inno/gql": "*",
-    "@inno/ui": "*",
     "@inno/utils": "*",
     "@react-native-async-storage/async-storage": "1.23.1",
     "babel-plugin-module-resolver": "^5.0.2",
@@ -61,10 +60,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@inno/eslint-custom": "*",
     "@inno/mocks": "*",
-    "eslint-config-custom": "*",
     "jscodeshift": "0.15.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "private": true
 }
