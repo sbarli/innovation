@@ -1,7 +1,7 @@
 import eslint from "@eslint/js"; // eslint.configs.recommended is basically "eslint:recommended"
-import eslintConfigPrettier from "eslint-config-prettier";
 import globals from "globals";
 import { resolve } from "node:path";
+import eslintConfigPrettier from "eslint-config-prettier";
 import flatCompat from "./compat.js";
 import tseslint from "typescript-eslint";
 
@@ -14,20 +14,8 @@ export default [
   eslint.configs.recommended,
   ...tsConfig,
   eslintConfigPrettier,
-  ...flatCompat.plugins("eslint-plugin-only-warn"),
+  ...flatCompat.plugins(["eslint-config-turbo", "eslint-plugin-only-warn"]),
   {
-    extends: compat.extends(
-      "plugin:@typescript-eslint/recommended",
-      "plugin:prettier/recommended",
-      "prettier",
-      "eslint-config-turbo",
-    ),
-    plugins: {
-      "@typescript-eslint": typescriptEslintEslintPlugin,
-      turbo,
-      prettier,
-      import: fixupPluginRules(_import),
-    },
     languageOptions: {
       parserOptions: {
         project: resolve(process.cwd(), "tsconfig.json")
@@ -38,33 +26,35 @@ export default [
         JSX: true
       }
     }
+  },
+  {
     rules: {
-      "import/order": ["error", {
-          groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
-          "newlines-between": "always",
+      // "import/order": ["error", {
+      //     groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
+      //     "newlines-between": "always",
 
-          alphabetize: {
-              order: "asc",
-              caseInsensitive: false,
-          },
+      //     alphabetize: {
+      //         order: "asc",
+      //         caseInsensitive: false,
+      //     },
 
-          pathGroups: [{
-              pattern: "react",
-              position: "before",
-              group: "external",
-          }, {
-              pattern: "{src}/**",
-              group: "internal",
-          }, {
-              pattern: "@inno/**",
-              position: "before",
-              group: "internal",
-          }],
+      //     pathGroups: [{
+      //         pattern: "react",
+      //         position: "before",
+      //         group: "external",
+      //     }, {
+      //         pattern: "{src}/**",
+      //         group: "internal",
+      //     }, {
+      //         pattern: "@inno/**",
+      //         position: "before",
+      //         group: "internal",
+      //     }],
 
-          pathGroupsExcludedImportTypes: [],
-      }],
+      //     pathGroupsExcludedImportTypes: [],
+      // }],
 
-      "import/no-default-export": "error",
+      // "import/no-default-export": "error",
 
       "comma-dangle": ["error", {
           arrays: "always-multiline",

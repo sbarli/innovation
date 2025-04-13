@@ -62,6 +62,11 @@
     "@babel/core": "^7.25.2",
     "@inno/eslint-custom": "*",
     "@inno/mocks": "*",
+    "@types/babel__core": "~7.20.5",
+    "@types/jscodeshift": "~17.3.0",
+    "@types/react": "~18.3.20",
+    "@types/react-dom": "~18.3.6",
+    "@types/react-native-web": "~0.19.0",
     "jscodeshift": "0.15.2",
     "typescript": "^5.8.3"
   },
