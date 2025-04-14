@@ -28,10 +28,7 @@ Object.entries(screenSize).forEach(([key, value]) => {
   }
 });
 
-export const getBreakPointValue = (
-  values: BreakPointValue,
-  width: number
-): unknown => {
+export const getBreakPointValue = (values: BreakPointValue, width: number): unknown => {
   if (typeof values !== 'object') return values;
 
   let finalBreakPointResolvedValue: unknown;
@@ -53,18 +50,14 @@ export const getBreakPointValue = (
   });
 
   mediaQueriesBreakpoints.sort(
-    (a: MediaQueriesBreakpoints, b: MediaQueriesBreakpoints) =>
-      a.breakpoint - b.breakpoint
+    (a: MediaQueriesBreakpoints, b: MediaQueriesBreakpoints) => a.breakpoint - b.breakpoint
   );
 
-  mediaQueriesBreakpoints.forEach(
-    (breakpoint: MediaQueriesBreakpoints, index: number) => {
-      breakpoint.value = values.hasOwnProperty(breakpoint.key)
-        ? values[breakpoint.key]
-        : mediaQueriesBreakpoints[index - 1]?.value ||
-          mediaQueriesBreakpoints[0]?.value;
-    }
-  );
+  mediaQueriesBreakpoints.forEach((breakpoint: MediaQueriesBreakpoints, index: number) => {
+    breakpoint.value = values.hasOwnProperty(breakpoint.key)
+      ? values[breakpoint.key]
+      : mediaQueriesBreakpoints[index - 1]?.value || mediaQueriesBreakpoints[0]?.value;
+  });
 
   const lastValidObject = getLastValidObject(mediaQueriesBreakpoints);
 

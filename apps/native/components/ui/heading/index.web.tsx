@@ -161,15 +161,7 @@ const Heading = memo(
     { className, size = 'lg', as: AsComp, ...props },
     ref
   ) {
-    const {
-      isTruncated,
-      bold,
-      underline,
-      strikeThrough,
-      sub,
-      italic,
-      highlight,
-    } = props;
+    const { isTruncated, bold, underline, strikeThrough, sub, italic, highlight } = props;
 
     if (AsComp) {
       return (
