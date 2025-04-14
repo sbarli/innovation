@@ -1,11 +1,11 @@
 import { loadErrorMessages, loadDevMessages } from '@apollo/client/dev';
 import '@/global.css';
 import { Slot } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AuthProvider } from '../src/authentication/state/AuthProvider';
 import { GraphQLProvider } from '../src/graphql/ApolloProvider';
 import { SocketProvider } from '../src/websockets/SocketProvider';
+import { SafeAreaView } from '@/components/ui/safe-area-view';
 
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 

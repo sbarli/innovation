@@ -28,7 +28,7 @@ export const DeckLayout = ({ deckMetadata }: IDeckLayoutProps) => {
       data={deckMetadata}
       renderItem={({ item: pile }: ListRenderItemInfo<IDeckPileMetadata>) => {
         const ageNum = ageStringToAgeNumberMap[pile.age];
-        return !!pile.numCardsInPile ? (
+        return pile.numCardsInPile ? (
           <MaybePressable
             handlePress={pile.availableToDraw && pile.onDraw ? pile.onDraw : undefined}
           >

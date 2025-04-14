@@ -1,4 +1,4 @@
-import { Text } from "@/components/ui/text";
+import { Text } from '@/components/ui/text';
 import { Redirect, Slot } from 'expo-router';
 
 import { Routes } from '../../src/app-core/constants/navigation';

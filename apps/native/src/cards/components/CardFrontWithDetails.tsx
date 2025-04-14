@@ -38,7 +38,7 @@ export const CardFrontWithDetails = ({ card }: ICardFrontWithDetailsProps) => {
         onOpen={handleOpenCardDetails}
         placement="bottom"
         size="md"
-        trigger={(triggerProps) => {
+        trigger={(triggerProps: any) => {
           return (
             <Pressable {...triggerProps}>
               <CardFront card={card} />

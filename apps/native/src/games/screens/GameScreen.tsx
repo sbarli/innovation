@@ -55,7 +55,7 @@ export const GameScreen = ({ gameId }: IGameScreenProps) => {
           </Box>
         )}
         {metadata.stage === GameStage.SETUP && <GameSetup />}
-        <ScrollView className="h-full">
+        <ScrollView>
           <Text>Age Achievements: {JSON.stringify(ageAchievements, null, 2)}</Text>
           <Text>Boards: {JSON.stringify(boards, null, 2)}</Text>
           <Text>Deck: {JSON.stringify(deck, null, 2)}</Text>

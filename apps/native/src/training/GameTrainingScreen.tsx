@@ -13,7 +13,6 @@ export interface IGameTrainingScreenProps {
   gameDetailsByPlayer: PlayerGameDetails[];
 }
 
-// eslint-disable-next-line prettier/prettier
 export const GameTrainingScreen = ({ game }: IGameTrainingScreenProps) => {
   const { deckMetadata } = useDeckMetadata({ deck: game.deck });
 
