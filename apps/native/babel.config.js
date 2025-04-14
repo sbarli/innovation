@@ -12,7 +12,6 @@ module.exports = function (api) {
       'nativewind/babel',
     ],
     plugins: [
-      'expo-router/babel',
       [
         'module-resolver',
         {
