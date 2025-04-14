@@ -1,7 +1,7 @@
 import eslint from "@eslint/js"; // eslint.configs.recommended is basically "eslint:recommended"
 import globals from "globals";
 import path from "path";
-import flatCompat from "./compat.js";
+import flatCompat from "./compat.mjs";
 import tseslint from "typescript-eslint";
 import importPlugin from 'eslint-plugin-import';
 import turboPlugin from 'eslint-plugin-turbo';
@@ -95,6 +95,8 @@ export default [
       // Ignore dotfiles
       ".*.?(c)js",
       "*.config*.?(c)js",
+      ".*.?(m)js",
+      "*.config*.?(m)js",
       ".*.ts",
       "*.config*.ts",
       "*.d.ts",

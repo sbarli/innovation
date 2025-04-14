@@ -2,7 +2,6 @@
   "name": "@inno/eslint-custom",
   "version": "0.3.0",
   "private": true,
-  "type": "module",
   "devDependencies": {
     "@eslint/compat": "^1.2.8",
     "@eslint/eslintrc": "^3.3.1",
