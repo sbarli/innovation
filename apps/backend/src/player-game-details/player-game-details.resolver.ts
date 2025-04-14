@@ -39,7 +39,7 @@ export class PlayerGameDetailsResolver {
     });
   }
 
-  @Query(() => [PlayerGameDetails]!)
+  @Query(() => [PlayerGameDetails])
   async getDetailsByGame(
     @Args('gameRef', { type: () => ID }) gameRef: string
   ): Promise<PlayerGameDetails[]> {

@@ -15,4 +15,5 @@ import { VaildationService } from './services/validation.service';
   providers: [VaildationService, PlayerActionsService, NewGameService, GameplayResolver],
   exports: [PlayerActionsService],
 })
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class GameplayModule {}

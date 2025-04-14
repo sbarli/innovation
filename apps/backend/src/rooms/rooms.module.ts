@@ -11,4 +11,5 @@ import { Room, RoomSchema } from './schemas/room.schema';
   providers: [RoomsService, RoomsResolver],
   exports: [RoomsService],
 })
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class RoomsModule {}
