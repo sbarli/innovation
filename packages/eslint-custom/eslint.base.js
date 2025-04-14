@@ -1,9 +1,12 @@
 import eslint from "@eslint/js"; // eslint.configs.recommended is basically "eslint:recommended"
 import globals from "globals";
-import { resolve } from "node:path";
-import eslintConfigPrettier from "eslint-config-prettier";
+import path from "path";
 import flatCompat from "./compat.js";
 import tseslint from "typescript-eslint";
+import importPlugin from 'eslint-plugin-import';
+import turboPlugin from 'eslint-plugin-turbo';
+import onlyWarn from 'eslint-plugin-only-warn';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 const tsConfig = /** @type {import("eslint").Linter.Config[]} */ (
   tseslint.configs.strict
@@ -13,17 +16,29 @@ const tsConfig = /** @type {import("eslint").Linter.Config[]} */ (
 export default [
   eslint.configs.recommended,
   ...tsConfig,
-  eslintConfigPrettier,
-  ...flatCompat.plugins(["eslint-config-turbo", "eslint-plugin-only-warn"]),
+  eslintPluginPrettierRecommended,
+  // importPlugin.flatConfigs.recommended,
+  // importPlugin.flatConfigs.typescript,
+  {
+    plugins: {
+      turbo: turboPlugin,
+    },
+  },
+  {
+    plugins: {
+      onlyWarn,
+    },
+  },
   {
     languageOptions: {
       parserOptions: {
-        project: resolve(process.cwd(), "tsconfig.json")
+        project: path.resolve(process.cwd(), "tsconfig.json")
       },
       globals: {
         ...globals.node,
         React: true,
-        JSX: true
+        JSX: true,
+        jest: true,
       }
     }
   },
@@ -83,14 +98,16 @@ export default [
       ".*.ts",
       "*.config*.ts",
       "*.d.ts",
-      "dist",
+      "**/dist/*",
       ".git",
-      "node_modules",
-      "build",
+      "**/node_modules/*",
+      "**/build/*",
       ".next",
       "*rollup*",
       "**/.prettierrc",
       "**/*.generated.*",
+      "**/.yarn",
+      "*.yarn"
     ]
   }
 ];
