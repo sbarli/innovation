@@ -23,7 +23,8 @@
     "lint:staged": "lint-staged",
     "postinstall": "npx patch-package",
     "test": "turbo run test",
-    "codegen": "graphql-codegen --config codegen.yml && turbo run @inno/gql#build"
+    "codegen": "graphql-codegen --config codegen.yml && turbo run @inno/gql#build",
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
@@ -34,16 +35,22 @@
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^4.1.0",
-    "@inno/eslint-custom": "*",
+    "@inno/eslint-custom": "workspace:*",
     "@parcel/watcher": "^2.3.0",
     "@types/lint-staged": "~13.3.0",
-    "husky": "^8.0.3",
+    "eslint": "^9.24.0",
+    "husky": "^9.1.7",
     "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
-    "turbo": "2.5.0"
+    "tsconfig": "*",
+    "turbo": "2.5.0",
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": "22.14.0"
   },
-  "packageManager": "yarn@4.9.0"
+  "packageManager": "yarn@4.9.0",
+  "dependencies": {
+    "patch-package": "^8.0.0"
+  }
 }
