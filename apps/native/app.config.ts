@@ -20,9 +20,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   orientation: APP_ORIENTATION,
   extra: {
     eas: {
-      projectId: process.env['EXPO_PUBLIC_PROJECT_ID'] ?? '',
+      projectId: process.env['EXPO_PUBLIC_PROJECT_ID'] ?? 'unknown',
     },
   },
-  owner: process.env['EXPO_PUBLIC_OWNER_HANDLE'] ?? '',
+  owner: process.env['EXPO_PUBLIC_OWNER_HANDLE'] ?? 'sbarli',
   plugins: ['expo-router'],
 });
