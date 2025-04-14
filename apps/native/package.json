@@ -2,7 +2,6 @@
   "name": "@inno/native",
   "version": "0.1.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "doppler run -- expo start",
     "android": "expo start --android",
