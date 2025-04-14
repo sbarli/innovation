@@ -2,6 +2,7 @@
   "name": "@inno/native",
   "version": "0.1.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "doppler run -- expo start",
     "android": "expo start --android",
@@ -17,7 +18,9 @@
     "lint:eslint": "eslint \"**/*.{ts,tsx,js,jsx}\"",
     "lint:eslint:fix": "yarn lint:eslint --fix",
     "lint": "yarn lint:types && yarn lint:eslint",
-    "lint:fix": "yarn lint:eslint:fix"
+    "lint:fix": "yarn lint:eslint:fix",
+    "lint:errors": "yarn lint:eslint --quiet",
+    "lint:files-only": "yarn lint:eslint | grep /apps/native"
   },
   "dependencies": {
     "@apollo/client": "^3.8.6",
@@ -30,9 +33,9 @@
     "@gluestack-ui/themed": "^1.0.8",
     "@gluestack-ui/toast": "^1.0.9",
     "@hookform/resolvers": "^3.3.2",
-    "@inno/constants": "*",
-    "@inno/gql": "*",
-    "@inno/utils": "*",
+    "@inno/constants": "workspace:*",
+    "@inno/gql": "workspace:*",
+    "@inno/utils": "workspace:*",
     "@react-native-async-storage/async-storage": "1.23.1",
     "babel-plugin-module-resolver": "^5.0.2",
     "expo": "^52.0.44",
@@ -49,10 +52,10 @@
     "react-native": "0.76.9",
     "react-native-css-interop": "^0.1.22",
     "react-native-gesture-handler": "~2.20.2",
-    "react-native-reanimated": "^3.17.2",
-    "react-native-safe-area-context": "^5.3.0",
+    "react-native-reanimated": "~3.16.1",
+    "react-native-safe-area-context": "4.12.0",
     "react-native-screens": "~4.4.0",
-    "react-native-svg": "15.2.0",
+    "react-native-svg": "15.8.0",
     "react-native-web": "~0.19.13",
     "socket.io-client": "^4.7.4",
     "tailwindcss": "3.4.17",
@@ -60,15 +63,20 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
-    "@inno/eslint-custom": "*",
-    "@inno/mocks": "*",
+    "@inno/eslint-custom": "workspace:*",
+    "@inno/mocks": "workspace:*",
     "@types/babel__core": "~7.20.5",
     "@types/jscodeshift": "~17.3.0",
+    "@types/node": "^22.14.1",
     "@types/react": "~18.3.20",
     "@types/react-dom": "~18.3.6",
     "@types/react-native-web": "~0.19.0",
+    "eslint": "^9.24.0",
     "jscodeshift": "0.15.2",
     "typescript": "^5.8.3"
   },
-  "private": true
+  "private": true,
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  }
 }
