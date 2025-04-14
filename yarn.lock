@@ -3684,6 +3684,7 @@ __metadata:
     "@types/supertest": "npm:^2.0.11"
     bcrypt: "npm:^5.1.1"
     cache-manager: "npm:^5.2.4"
+    eslint: "npm:^9.24.0"
     graphql: "npm:^16.8.1"
     jest: "npm:^29.7.0"
     mongoose: "npm:^7.0.3"
