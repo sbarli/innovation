@@ -16,7 +16,7 @@ export class BoardPile {
   @Field(() => [ID])
   cardRefs!: string[];
 
-  @Prop({ nullable: true })
+  @Prop({ type: String, nullable: true })
   @Field(() => SplayOption, { nullable: true })
   splayed?: SplayOption;
 }

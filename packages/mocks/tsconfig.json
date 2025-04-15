@@ -1,6 +1,7 @@
 {
   "extends": "tsconfig/base.json",
   "compilerOptions": {
+    "rootDir": "gql-responses",
     "outDir": "./dist"
   },
   "exclude": ["node_modules", "dist"]
