@@ -3,9 +3,9 @@ import { useGetAllCardsQuery } from '@inno/gql';
 import { CardFrontWithDetails } from './CardFrontWithDetails';
 import { CardBack } from './back/CardBack';
 
-import { Box } from '@/components/ui/box';
-import { HStack } from '@/components/ui/hstack';
-import { Text } from '@/components/ui/text';
+import { Box } from '../../app-core/components/gluestack/box';
+import { HStack } from '../../app-core/components/gluestack/hstack';
+import { Text } from '../../app-core/components/gluestack/text';
 
 export const AllCards = () => {
   const { data, loading } = useGetAllCardsQuery();

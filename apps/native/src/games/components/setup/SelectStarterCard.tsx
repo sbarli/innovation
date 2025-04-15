@@ -9,9 +9,9 @@ import { useSocketContext } from '../../../websockets/SocketProvider';
 import { useCurrentPlayerGameData } from '../../hooks/useCurrentPlayerGameData';
 import { useMeldCard } from '../../hooks/useMeldCard';
 
-import { Box } from '@/components/ui/box';
-import { Button, ButtonText } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../../../app-core/components/gluestack/button';
+import { Text } from '../../../app-core/components/gluestack/text';
 
 export const SelectStarterCard: FC = () => {
   const { cards } = useCardsContext();

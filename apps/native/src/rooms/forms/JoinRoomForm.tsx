@@ -6,12 +6,12 @@ import { JoinRoomFormData } from '../room.types';
 
 import { joinRoomFormSchema } from './validation/join-room-schema';
 
-import { Box } from '@/components/ui/box';
-import { Button, ButtonText } from '@/components/ui/button';
-import { HStack } from '@/components/ui/hstack';
-import { Input, InputField } from '@/components/ui/input';
-import { Text } from '@/components/ui/text';
-import { VStack } from '@/components/ui/vstack';
+import { Box } from '../../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../../app-core/components/gluestack/button';
+import { HStack } from '../../app-core/components/gluestack/hstack';
+import { Input, InputField } from '../../app-core/components/gluestack/input';
+import { Text } from '../../app-core/components/gluestack/text';
+import { VStack } from '../../app-core/components/gluestack/vstack';
 
 export interface IJoinRoomFormProps {
   error?: string;

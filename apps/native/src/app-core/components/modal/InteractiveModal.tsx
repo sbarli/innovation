@@ -1,8 +1,8 @@
 import { PropsWithChildren } from 'react';
 
-import { Button, ButtonText } from '@/components/ui/button';
-import { Heading } from '@/components/ui/heading';
-import { CloseIcon, Icon } from '@/components/ui/icon';
+import { Button, ButtonText } from '../gluestack/button';
+import { Heading } from '../gluestack/heading';
+import { CloseIcon, Icon } from '../gluestack/icon';
 import {
   ModalBackdrop,
   ModalBody,
@@ -11,7 +11,7 @@ import {
   ModalFooter,
   ModalHeader,
   Modal,
-} from '@/components/ui/modal';
+} from '../gluestack/modal';
 
 export interface IInteractiveModal extends PropsWithChildren {
   cancelText?: string;

@@ -5,7 +5,7 @@ import { Card, Game, PlayerGameDetails } from '@inno/gql';
 import { DeckLayout } from '../deck/components/DeckLayout';
 import { useDeckMetadata } from '../deck/hooks/useDeckMetadata';
 
-import { Box } from '@/components/ui/box';
+import { Box } from '../app-core/components/gluestack/box';
 
 export interface IGameTrainingScreenProps {
   cards: Card[];

@@ -1,5 +1,5 @@
-import { Box } from '@/components/ui/box';
-import { Text } from '@/components/ui/text';
+import { Box } from './gluestack/box';
+import { Text } from './gluestack/text';
 
 export enum BadgeType {
   DEFAULT = 'default',

@@ -5,8 +5,8 @@ import { Routes } from '../app-core/constants/navigation';
 import { CreateRoomCTA } from '../rooms/components/CreateRoomCTA';
 import { JoinRoomCTA } from '../rooms/components/JoinRoomCTA';
 
-import { Box } from '@/components/ui/box';
-import { Button, ButtonText } from '@/components/ui/button';
+import { Box } from '../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../app-core/components/gluestack/button';
 
 export const HomeScreen = () => {
   return (

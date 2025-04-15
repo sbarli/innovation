@@ -5,8 +5,8 @@ import { Card as CardType } from '@inno/gql';
 import { CardDetails } from './front/CardDetails';
 import { CardFront } from './front/CardFront';
 
-import { Heading } from '@/components/ui/heading';
-import { Icon, CloseIcon } from '@/components/ui/icon';
+import { Heading } from '../../app-core/components/gluestack/heading';
+import { Icon, CloseIcon } from '../../app-core/components/gluestack/icon';
 import {
   Popover,
   PopoverBackdrop,
@@ -15,8 +15,8 @@ import {
   PopoverCloseButton,
   PopoverHeader,
   PopoverBody,
-} from '@/components/ui/popover';
-import { Pressable } from '@/components/ui/pressable';
+} from '../../app-core/components/gluestack/popover';
+import { Pressable } from '../../app-core/components/gluestack/pressable';
 
 export interface ICardFrontWithDetailsProps {
   card: CardType;
@@ -38,6 +38,7 @@ export const CardFrontWithDetails = ({ card }: ICardFrontWithDetailsProps) => {
         onOpen={handleOpenCardDetails}
         placement="bottom"
         size="md"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         trigger={(triggerProps: any) => {
           return (
             <Pressable {...triggerProps}>

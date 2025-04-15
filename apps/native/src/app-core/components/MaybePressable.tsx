@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 
-import { Pressable } from '@/components/ui/pressable';
+import { Pressable } from './gluestack/pressable';
 
 interface IMaybePressableProps extends PropsWithChildren {
   handlePress?(): void;

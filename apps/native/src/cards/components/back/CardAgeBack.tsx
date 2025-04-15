@@ -4,8 +4,8 @@ import {
   CARD_BACK_COLOR_LIGHT,
 } from '../../../app-core/constants/colors';
 
-import { Box } from '@/components/ui/box';
-import { Text } from '@/components/ui/text';
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Text } from '../../../app-core/components/gluestack/text';
 
 export interface ICardAgeBackProps {
   age: number;

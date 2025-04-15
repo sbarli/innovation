@@ -2,10 +2,10 @@ import { Logout } from '../../../authentication/components/Logout';
 import { useNavigateBack } from '../../hooks/navigation/useNavigateBack';
 import { IHeaderProps } from '../../types/header.types';
 
-import { Button, ButtonIcon } from '@/components/ui/button';
-import { Heading } from '@/components/ui/heading';
-import { HStack } from '@/components/ui/hstack';
-import { ArrowLeftIcon } from '@/components/ui/icon';
+import { Button, ButtonIcon } from '../gluestack/button';
+import { Heading } from '../gluestack/heading';
+import { HStack } from '../gluestack/hstack';
+import { ArrowLeftIcon } from '../gluestack/icon';
 
 export const HeaderWithBackNavigation = ({ showLogout = true, title }: IHeaderProps) => {
   const { navigateBack } = useNavigateBack();

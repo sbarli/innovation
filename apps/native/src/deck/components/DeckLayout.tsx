@@ -7,7 +7,7 @@ import { MaybePressable } from '../../app-core/components/MaybePressable';
 import { VerticalEmptyCardSlot } from '../../cards/components/VerticalEmptyCardSlot';
 import { CardBack } from '../../cards/components/back/CardBack';
 
-import { Box } from '@/components/ui/box';
+import { Box } from '../../app-core/components/gluestack/box';
 
 export interface IDeckPileMetadata {
   age: AgeString;

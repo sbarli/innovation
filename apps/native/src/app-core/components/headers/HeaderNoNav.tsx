@@ -1,9 +1,9 @@
 import { Logout } from '../../../authentication/components/Logout';
 import { IHeaderProps } from '../../types/header.types';
 
-import { Box } from '@/components/ui/box';
-import { Heading } from '@/components/ui/heading';
-import { HStack } from '@/components/ui/hstack';
+import { Box } from '../gluestack/box';
+import { Heading } from '../gluestack/heading';
+import { HStack } from '../gluestack/hstack';
 
 export const HeaderNoNav = ({ showLogout = true, title }: IHeaderProps) => {
   return (

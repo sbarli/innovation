@@ -5,10 +5,10 @@ import { GameStage } from '@inno/constants';
 import { GameSetup } from '../components/setup/GameSetup';
 import { useGameContext } from '../state/GameProvider';
 
-import { Box } from '@/components/ui/box';
-import { ScrollView } from '@/components/ui/scroll-view';
-import { StatusBar } from '@/components/ui/status-bar';
-import { Text } from '@/components/ui/text';
+import { Box } from '../../app-core/components/gluestack/box';
+import { ScrollView } from '../../app-core/components/gluestack/scroll-view';
+import { StatusBar } from '../../app-core/components/gluestack/status-bar';
+import { Text } from '../../app-core/components/gluestack/text';
 
 export interface IGameScreenProps {
   gameId: string;

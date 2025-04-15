@@ -10,9 +10,9 @@ import { useGameContext } from '../../state/GameProvider';
 
 import { SelectStarterCard } from './SelectStarterCard';
 
-import { Box } from '@/components/ui/box';
-import { Text } from '@/components/ui/text';
-import { useToast } from '@/components/ui/toast';
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Text } from '../../../app-core/components/gluestack/text';
+import { useToast } from '../../../app-core/components/gluestack/toast';
 
 export const GameSetup: FC = () => {
   const { user } = useAuthContext();

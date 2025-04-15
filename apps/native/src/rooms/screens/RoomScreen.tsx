@@ -13,13 +13,13 @@ import { useSocketContext } from '../../websockets/SocketProvider';
 import { LeaveRoomCTA } from '../components/LeaveRoomCTA';
 import { useStartNewGame } from '../hooks/useStartNewGame';
 
-import { Box } from '@/components/ui/box';
-import { Button, ButtonText } from '@/components/ui/button';
-import { Heading } from '@/components/ui/heading';
-import { HStack } from '@/components/ui/hstack';
-import { Text } from '@/components/ui/text';
-import { useToast } from '@/components/ui/toast';
-import { VStack } from '@/components/ui/vstack';
+import { Box } from '../../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../../app-core/components/gluestack/button';
+import { Heading } from '../../app-core/components/gluestack/heading';
+import { HStack } from '../../app-core/components/gluestack/hstack';
+import { Text } from '../../app-core/components/gluestack/text';
+import { useToast } from '../../app-core/components/gluestack/toast';
+import { VStack } from '../../app-core/components/gluestack/vstack';
 
 export interface IRoomScreenProps {
   error?: ApolloError;

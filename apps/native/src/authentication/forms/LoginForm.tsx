@@ -6,9 +6,9 @@ import { LoginFormData } from '../auth.types';
 import { useAuthContext } from '../state/AuthProvider';
 import { loginFormSchema } from '../validation/login-schema';
 
-import { Box } from '@/components/ui/box';
-import { Button, ButtonText } from '@/components/ui/button';
-import { Input, InputField } from '@/components/ui/input';
+import { Box } from '../../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../../app-core/components/gluestack/button';
+import { Input, InputField } from '../../app-core/components/gluestack/input';
 
 export const LoginForm = () => {
   const { login, loginError } = useAuthContext();

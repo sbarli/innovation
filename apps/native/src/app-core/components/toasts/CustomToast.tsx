@@ -1,5 +1,5 @@
-import { Toast, ToastDescription, ToastTitle } from '@/components/ui/toast';
-import { VStack } from '@/components/ui/vstack';
+import { Toast, ToastDescription, ToastTitle } from '../gluestack/toast';
+import { VStack } from '../gluestack/vstack';
 
 export interface ICustomToastProps {
   action?: 'error' | 'warning' | 'success' | 'info' | 'muted';

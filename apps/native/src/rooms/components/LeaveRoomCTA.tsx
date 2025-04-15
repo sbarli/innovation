@@ -8,9 +8,9 @@ import { FormError } from '../../app-core/forms/FormError';
 import { useAuthContext } from '../../authentication/state/AuthProvider';
 import { useLeaveRoom } from '../hooks/useLeaveRoom';
 
-import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
-import { CloseIcon } from '@/components/ui/icon';
-import { Text } from '@/components/ui/text';
+import { Button, ButtonIcon, ButtonText } from '../../app-core/components/gluestack/button';
+import { CloseIcon } from '../../app-core/components/gluestack/icon';
+import { Text } from '../../app-core/components/gluestack/text';
 
 export const LeaveRoomCTA = ({ roomId }: { roomId: string }) => {
   const { user } = useAuthContext();

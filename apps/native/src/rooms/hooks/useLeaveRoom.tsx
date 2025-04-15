@@ -10,7 +10,7 @@ import { CustomToast } from '../../app-core/components/toasts/CustomToast';
 import { Routes } from '../../app-core/constants/navigation';
 import { useSocketContext } from '../../websockets/SocketProvider';
 
-import { useToast } from '@/components/ui/toast';
+import { useToast } from '../../app-core/components/gluestack/toast';
 
 export const useLeaveRoom = ({
   roomId,

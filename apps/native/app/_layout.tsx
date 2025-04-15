@@ -1,13 +1,13 @@
 import { loadErrorMessages, loadDevMessages } from '@apollo/client/dev';
-import '@/global.css';
+import '../global.css';
 import { Slot } from 'expo-router';
 
 import { AuthProvider } from '../src/authentication/state/AuthProvider';
 import { GraphQLProvider } from '../src/graphql/ApolloProvider';
 import { SocketProvider } from '../src/websockets/SocketProvider';
-import { SafeAreaView } from '@/components/ui/safe-area-view';
+import { SafeAreaView } from '../src/app-core/components/gluestack/safe-area-view';
 
-import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
+import { GluestackUIProvider } from '../src/app-core/components/gluestack/gluestack-ui-provider';
 
 // // UGLY HACK
 // // This is a hack to make sure that the console logs are printed in the

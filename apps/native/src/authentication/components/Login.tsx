@@ -3,9 +3,9 @@ import { Link } from 'expo-router';
 import { AuthRouteParams, Routes } from '../../app-core/constants/navigation';
 import { LoginForm } from '../forms/LoginForm';
 
-import { Box } from '@/components/ui/box';
-import { Button, ButtonText } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
+import { Box } from '../../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../../app-core/components/gluestack/button';
+import { Text } from '../../app-core/components/gluestack/text';
 
 export const Login = () => {
   return (

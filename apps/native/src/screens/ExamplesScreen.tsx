@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 
-import { Box } from '@/components/ui/box';
-import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
-import { AddIcon } from '@/components/ui/icon';
+import { Box } from '../app-core/components/gluestack/box';
+import { Button, ButtonIcon, ButtonText } from '../app-core/components/gluestack/button';
+import { AddIcon } from '../app-core/components/gluestack/icon';
 
 export const ExamplesScreen = () => {
   return (

@@ -7,8 +7,8 @@ import { CardAge } from './CardAge';
 import { CardName } from './CardName';
 import { ResourceSpace } from './ResourceSpace';
 
-import { Box } from '@/components/ui/box';
-import { HStack } from '@/components/ui/hstack';
+import { Box } from '../../../app-core/components/gluestack/box';
+import { HStack } from '../../../app-core/components/gluestack/hstack';
 
 export interface ICardFrontProps {
   card: CardType;

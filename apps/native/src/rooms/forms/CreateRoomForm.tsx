@@ -6,10 +6,10 @@ import { CreateRoomFormData } from '../room.types';
 
 import { createRoomFormSchema } from './validation/create-room-schema';
 
-import { Box } from '@/components/ui/box';
-import { Button, ButtonText } from '@/components/ui/button';
-import { HStack } from '@/components/ui/hstack';
-import { Input, InputField } from '@/components/ui/input';
+import { Box } from '../../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../../app-core/components/gluestack/button';
+import { HStack } from '../../app-core/components/gluestack/hstack';
+import { Input, InputField } from '../../app-core/components/gluestack/input';
 
 export interface ICreateRoomFormProps {
   error?: string;

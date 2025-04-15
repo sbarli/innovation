@@ -1,4 +1,4 @@
-import { Text } from '@/components/ui/text';
+import { Text } from '../components/gluestack/text';
 
 export interface IFormErrorProps {
   errorMsg?: string;

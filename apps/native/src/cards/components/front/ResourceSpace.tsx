@@ -12,8 +12,8 @@ import {
   secondaryCardColorMap,
 } from '../../../app-core/constants/colors';
 
-import { Box } from '@/components/ui/box';
-import { Image } from '@/components/ui/image';
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Image } from '../../../app-core/components/gluestack/image';
 
 const resourceToResourceImageMap = {
   [Resource.CASTLES]: castleImage,
