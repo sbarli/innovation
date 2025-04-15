@@ -15,6 +15,7 @@ export const signupFormSchema: ZodType<SignupFormData> = z
       .min(3)
       .max(20)
       .refine(
+        // eslint-disable-next-line no-useless-escape
         (value) => /^[\w.\-]+$/.test(value),
         "Display name may only contain letters, numbers, '.', and '-'"
       ),

@@ -21,7 +21,8 @@ export const CopyableText = ({ text }: { text: string }) => {
           />
         ),
       });
-    } catch (_e) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_e: unknown) {
       toast.show({
         placement: 'top',
         render: ({ id }) => (

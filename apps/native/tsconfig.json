@@ -19,7 +19,8 @@
     "app/**/*.tsx",
     "components/**/*.ts",
     "components/**/*.tsx",
-    "nativewind-env.d.ts"
+    "nativewind-env.d.ts",
+    "index.js"
   ],
   "exclude": [
     "node_modules",

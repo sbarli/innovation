@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// TODO: FIX ^^
 import React, { useEffect, useState, createContext, useContext, useMemo, forwardRef } from 'react';
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { View, Dimensions, Platform, ViewProps } from 'react-native';
@@ -279,7 +281,6 @@ const GridItem = forwardRef<React.ComponentRef<typeof View>, IGridItemProps>(fun
 
       setFlexBasisValue(flexBasisVal);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calculatedWidth, responsiveColSpan, numColumns, columnGap, gap, flexDirection]);
 
   return (
@@ -293,7 +294,6 @@ const GridItem = forwardRef<React.ComponentRef<typeof View>, IGridItemProps>(fun
       {...props}
       style={[
         {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           flexBasis: flexBasisValue as any,
         },
         props.style,
