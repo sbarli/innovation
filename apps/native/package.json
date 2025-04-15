@@ -10,7 +10,6 @@
     "eject": "expo eject",
     "dev": "yarn start",
     "predev": "cd ../../ && turbo run @inno/constants#build && turbo run @inno/gql#build && turbo run @inno/mocks#build && turbo run @inno/utils#build",
-    "eas": "eas",
     "exp": "npx expo",
     "exp:doc": "npx expo-doctor@latest",
     "lint:types": "yarn tsc",
@@ -19,7 +18,11 @@
     "lint": "yarn lint:types && yarn lint:eslint",
     "lint:fix": "yarn lint:eslint:fix",
     "lint:errors": "yarn lint:eslint --quiet",
-    "lint:files-only": "yarn lint:eslint | grep /apps/native"
+    "lint:files-only": "yarn lint:eslint | grep /apps/native",
+    "build:ios:dev": "yarn sync-secrets:dev && eas build --platform ios --profile development",
+    "sync-secrets:dev": "doppler run --mount ./eas/.env -- eas env:push development --path ./eas/.env",
+    "eas-build-pre-install": "corepack enable",
+    "postinstall": "cd ../.. && yarn build"
   },
   "dependencies": {
     "@apollo/client": "^3.8.6",
@@ -37,7 +40,7 @@
     "@inno/utils": "workspace:*",
     "@react-native-async-storage/async-storage": "1.23.1",
     "babel-plugin-module-resolver": "^5.0.2",
-    "expo": "^52.0.44",
+    "expo": "~52.0.46",
     "expo-clipboard": "~7.0.1",
     "expo-constants": "~17.0.8",
     "expo-dev-client": "~5.0.20",
@@ -78,5 +81,12 @@
   "private": true,
   "installConfig": {
     "hoistingLimits": "workspaces"
+  },
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "listUnknownPackages": false
+      }
+    }
   }
 }
