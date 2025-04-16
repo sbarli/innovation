@@ -3,8 +3,14 @@
     "appVersionSource": "remote"
   },
   "build": {
-    "development": {
+    "env-common": {
+      "node": "22.14.0",
+      "yarn": "1.22.22"
+    },
+    "development-client": {
+      "extends": "env-common",
       "environment": "development",
+      "developmentClient": true,
       "ios": {
         "simulator": true
       }

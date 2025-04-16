@@ -20,8 +20,8 @@
     "lint:errors": "yarn lint:eslint --quiet",
     "lint:files-only": "yarn lint:eslint | grep /apps/native",
     "build:ios:dev": "yarn sync-secrets:dev && eas build --platform ios --profile development",
-    "sync-secrets:dev": "doppler run --mount ./eas/.env -- eas env:push development --path ./eas/.env",
-    "eas-build-pre-install": "corepack enable",
+    "build:ios:dev-client": "yarn sync-secrets:dev && eas build --platform ios --profile development-client",
+    "sync-secrets:dev": "doppler run --mount ./.env -- eas env:push development --path ./.env",
     "postinstall": "cd ../.. && yarn build"
   },
   "dependencies": {
