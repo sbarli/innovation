@@ -2,15 +2,14 @@ import { useCallback, useState } from 'react';
 
 import { router } from 'expo-router';
 
+import { Button, ButtonIcon, ButtonText } from '../../app-core/components/gluestack/button';
+import { CloseIcon } from '../../app-core/components/gluestack/icon';
+import { Text } from '../../app-core/components/gluestack/text';
 import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
 import { Routes } from '../../app-core/constants/navigation';
 import { FormError } from '../../app-core/forms/FormError';
 import { useAuthContext } from '../../authentication/state/AuthProvider';
 import { useLeaveRoom } from '../hooks/useLeaveRoom';
-
-import { Button, ButtonIcon, ButtonText } from '../../app-core/components/gluestack/button';
-import { CloseIcon } from '../../app-core/components/gluestack/icon';
-import { Text } from '../../app-core/components/gluestack/text';
 
 export const LeaveRoomCTA = ({ roomId }: { roomId: string }) => {
   const { user } = useAuthContext();

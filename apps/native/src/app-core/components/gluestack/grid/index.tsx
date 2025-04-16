@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // TODO: FIX ^^
 import React, { useEffect, useState, createContext, useContext, useMemo, forwardRef } from 'react';
+
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
-import { View, Dimensions, Platform, ViewProps } from 'react-native';
-import { gridStyle, gridItemStyle } from './styles';
 import { cssInterop } from 'nativewind';
-import {
-  useBreakpointValue,
-  getBreakPointValue,
-} from '../app-core/components/gluestack/utils/use-break-point-value';
+import { View, Dimensions, Platform, ViewProps } from 'react-native';
+
+import { useBreakpointValue, getBreakPointValue } from '../utils/use-break-point-value';
+
+import { gridStyle, gridItemStyle } from './styles';
 
 const { width: DEVICE_WIDTH } = Dimensions.get('window');
 

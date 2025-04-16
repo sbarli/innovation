@@ -1,11 +1,10 @@
 import { Link } from 'expo-router';
 
-import { AuthRouteParams, Routes } from '../../app-core/constants/navigation';
-import { SignupForm } from '../forms/SignupForm';
-
 import { Box } from '../../app-core/components/gluestack/box';
 import { Button, ButtonText } from '../../app-core/components/gluestack/button';
 import { Text } from '../../app-core/components/gluestack/text';
+import { AuthRouteParams, Routes } from '../../app-core/constants/navigation';
+import { SignupForm } from '../forms/SignupForm';
 
 export const Signup = () => {
   return (

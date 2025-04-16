@@ -6,14 +6,13 @@ import factoryImage from '../../../../assets/resources/factory.png';
 import leafImage from '../../../../assets/resources/leaf.png';
 import lightbulbImage from '../../../../assets/resources/lightbulb.png';
 import timepieceImage from '../../../../assets/resources/timepiece.png';
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Image } from '../../../app-core/components/gluestack/image';
 import {
   BORDER_COLOR_LIGHT,
   resourceColorMap,
   secondaryCardColorMap,
 } from '../../../app-core/constants/colors';
-
-import { Box } from '../../../app-core/components/gluestack/box';
-import { Image } from '../../../app-core/components/gluestack/image';
 
 const resourceToResourceImageMap = {
   [Resource.CASTLES]: castleImage,

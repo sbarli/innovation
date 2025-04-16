@@ -2,6 +2,9 @@ import { FC, useEffect } from 'react';
 
 import { SocketEvent } from '@inno/constants';
 
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Text } from '../../../app-core/components/gluestack/text';
+import { useToast } from '../../../app-core/components/gluestack/toast';
 import { CustomToast } from '../../../app-core/components/toasts/CustomToast';
 import { useAuthContext } from '../../../authentication/state/AuthProvider';
 import { useSocketContext } from '../../../websockets/SocketProvider';
@@ -9,10 +12,6 @@ import { useCurrentPlayerGameData } from '../../hooks/useCurrentPlayerGameData';
 import { useGameContext } from '../../state/GameProvider';
 
 import { SelectStarterCard } from './SelectStarterCard';
-
-import { Box } from '../../../app-core/components/gluestack/box';
-import { Text } from '../../../app-core/components/gluestack/text';
-import { useToast } from '../../../app-core/components/gluestack/toast';
 
 export const GameSetup: FC = () => {
   const { user } = useAuthContext();

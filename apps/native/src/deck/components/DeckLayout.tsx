@@ -4,10 +4,9 @@ import { AgeString, ageStringToAgeNumberMap } from '@inno/constants';
 
 import { BadgeType, CountBadge } from '../../app-core/components/CountBadge';
 import { MaybePressable } from '../../app-core/components/MaybePressable';
+import { Box } from '../../app-core/components/gluestack/box';
 import { VerticalEmptyCardSlot } from '../../cards/components/VerticalEmptyCardSlot';
 import { CardBack } from '../../cards/components/back/CardBack';
-
-import { Box } from '../../app-core/components/gluestack/box';
 
 export interface IDeckPileMetadata {
   age: AgeString;

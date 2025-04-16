@@ -1,10 +1,9 @@
 import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
-import { Routes } from '../app-core/constants/navigation';
-
 import { Box } from '../app-core/components/gluestack/box';
 import { Button, ButtonText } from '../app-core/components/gluestack/button';
+import { Routes } from '../app-core/constants/navigation';
 // import { AllCards } from '../cards/components/AllCards';
 
 export const TrainingScreen = () => {

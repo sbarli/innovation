@@ -1,7 +1,6 @@
 import { Logout } from '../../../authentication/components/Logout';
 import { useNavigateBack } from '../../hooks/navigation/useNavigateBack';
 import { IHeaderProps } from '../../types/header.types';
-
 import { Button, ButtonIcon } from '../gluestack/button';
 import { Heading } from '../gluestack/heading';
 import { HStack } from '../gluestack/hstack';

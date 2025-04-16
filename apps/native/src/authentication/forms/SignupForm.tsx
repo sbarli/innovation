@@ -1,14 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 
+import { Box } from '../../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../../app-core/components/gluestack/button';
+import { Input, InputField } from '../../app-core/components/gluestack/input';
 import { FormError } from '../../app-core/forms/FormError';
 import { SignupFormData } from '../auth.types';
 import { useAuthContext } from '../state/AuthProvider';
 import { signupFormSchema } from '../validation/signup-schema';
-
-import { Box } from '../../app-core/components/gluestack/box';
-import { Button, ButtonText } from '../../app-core/components/gluestack/button';
-import { Input, InputField } from '../../app-core/components/gluestack/input';
 
 export const SignupForm = () => {
   const { signup, signupError } = useAuthContext();

@@ -1,9 +1,8 @@
+import { Box } from '../../app-core/components/gluestack/box';
 import {
   CARD_BACK_BORDER_COLOR_LIGHT,
   CARD_BACK_COLOR_LIGHT,
 } from '../../app-core/constants/colors';
-
-import { Box } from '../../app-core/components/gluestack/box';
 
 export const VerticalEmptyCardSlot = () => {
   return (

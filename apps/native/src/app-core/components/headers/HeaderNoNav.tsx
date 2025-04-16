@@ -1,6 +1,5 @@
 import { Logout } from '../../../authentication/components/Logout';
 import { IHeaderProps } from '../../types/header.types';
-
 import { Box } from '../gluestack/box';
 import { Heading } from '../gluestack/heading';
 import { HStack } from '../gluestack/hstack';

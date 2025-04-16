@@ -2,13 +2,12 @@ import { useEffect } from 'react';
 
 import { GameStage } from '@inno/constants';
 
-import { GameSetup } from '../components/setup/GameSetup';
-import { useGameContext } from '../state/GameProvider';
-
 import { Box } from '../../app-core/components/gluestack/box';
 import { ScrollView } from '../../app-core/components/gluestack/scroll-view';
 import { StatusBar } from '../../app-core/components/gluestack/status-bar';
 import { Text } from '../../app-core/components/gluestack/text';
+import { GameSetup } from '../components/setup/GameSetup';
+import { useGameContext } from '../state/GameProvider';
 
 export interface IGameScreenProps {
   gameId: string;

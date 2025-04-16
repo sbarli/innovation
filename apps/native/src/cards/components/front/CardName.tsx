@@ -1,13 +1,12 @@
 import { Color } from '@inno/constants';
 
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Text } from '../../../app-core/components/gluestack/text';
 import {
   BORDER_COLOR_LIGHT,
   TEXT_COLOR_LIGHT,
   secondaryCardColorMap,
 } from '../../../app-core/constants/colors';
-
-import { Box } from '../../../app-core/components/gluestack/box';
-import { Text } from '../../../app-core/components/gluestack/text';
 
 export interface ICardNameProps {
   color: Color;

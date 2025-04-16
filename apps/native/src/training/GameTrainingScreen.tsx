@@ -2,10 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 
 import { Card, Game, PlayerGameDetails } from '@inno/gql';
 
+import { Box } from '../app-core/components/gluestack/box';
 import { DeckLayout } from '../deck/components/DeckLayout';
 import { useDeckMetadata } from '../deck/hooks/useDeckMetadata';
-
-import { Box } from '../app-core/components/gluestack/box';
 
 export interface IGameTrainingScreenProps {
   cards: Card[];

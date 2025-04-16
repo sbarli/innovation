@@ -1,11 +1,12 @@
 'use client';
 import React from 'react';
+
 import { createMenu } from '@gluestack-ui/menu';
+import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
+import { Motion, AnimatePresence, MotionComponentProps } from '@legendapp/motion';
 import { cssInterop } from 'nativewind';
 import { Pressable, Text, View, ViewStyle } from 'react-native';
-import { Motion, AnimatePresence, MotionComponentProps } from '@legendapp/motion';
-import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 
 type IMotionViewProps = React.ComponentProps<typeof View> &
   MotionComponentProps<typeof View, ViewStyle, unknown, unknown, unknown>;

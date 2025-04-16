@@ -1,5 +1,8 @@
 import { ageStringToAgeNameMap, cardAgeToAgeStringMap } from '@inno/constants';
 
+import { Box } from '../../../app-core/components/gluestack/box';
+import { HStack } from '../../../app-core/components/gluestack/hstack';
+import { Text } from '../../../app-core/components/gluestack/text';
 import {
   CARD_BACK_BORDER_COLOR_LIGHT,
   CARD_BACK_COLOR_DARK,
@@ -8,10 +11,6 @@ import {
 
 import { AchievementCost } from './AchievementCost';
 import { CardAgeBack } from './CardAgeBack';
-
-import { Box } from '../../../app-core/components/gluestack/box';
-import { HStack } from '../../../app-core/components/gluestack/hstack';
-import { Text } from '../../../app-core/components/gluestack/text';
 
 export interface ICardBackProps {
   age: number;

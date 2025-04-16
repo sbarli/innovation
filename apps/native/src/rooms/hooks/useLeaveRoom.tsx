@@ -6,11 +6,10 @@ import { SocketEvent, SocketEventError, SocketEventResponse } from '@inno/consta
 import { useCloseRoomMutation } from '@inno/gql';
 import { getCatchErrorMessage } from '@inno/utils';
 
+import { useToast } from '../../app-core/components/gluestack/toast';
 import { CustomToast } from '../../app-core/components/toasts/CustomToast';
 import { Routes } from '../../app-core/constants/navigation';
 import { useSocketContext } from '../../websockets/SocketProvider';
-
-import { useToast } from '../../app-core/components/gluestack/toast';
 
 export const useLeaveRoom = ({
   roomId,

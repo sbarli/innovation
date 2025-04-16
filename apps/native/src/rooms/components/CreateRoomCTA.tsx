@@ -4,16 +4,15 @@ import { router } from 'expo-router';
 
 import { useCreateRoomMutation } from '@inno/gql';
 
+import { Box } from '../../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../../app-core/components/gluestack/button';
+import { Text } from '../../app-core/components/gluestack/text';
 import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
 import { Routes } from '../../app-core/constants/navigation';
 import { CreateRoomForm } from '../forms/CreateRoomForm';
 import { useJoinRoom } from '../hooks/useJoinRoom';
 import { CreateRoomFormData } from '../room.types';
 import { useRoomContext } from '../state/RoomProvider';
-
-import { Box } from '../../app-core/components/gluestack/box';
-import { Button, ButtonText } from '../../app-core/components/gluestack/button';
-import { Text } from '../../app-core/components/gluestack/text';
 
 export const CreateRoomCTA = () => {
   const { updateCurrentRoomId } = useRoomContext();

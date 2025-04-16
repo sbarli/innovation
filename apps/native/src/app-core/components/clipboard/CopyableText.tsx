@@ -1,9 +1,8 @@
 import * as Clipboard from 'expo-clipboard';
 
-import { CustomToast } from '../toasts/CustomToast';
-
 import { Button, ButtonText } from '../gluestack/button';
 import { useToast } from '../gluestack/toast';
+import { CustomToast } from '../toasts/CustomToast';
 
 export const CopyableText = ({ text }: { text: string }) => {
   const toast = useToast();

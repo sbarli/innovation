@@ -1,11 +1,10 @@
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Text } from '../../../app-core/components/gluestack/text';
 import {
   CARD_BACK_BORDER_COLOR_LIGHT,
   CARD_BACK_COLOR_DARK,
   CARD_BACK_COLOR_LIGHT,
 } from '../../../app-core/constants/colors';
-
-import { Box } from '../../../app-core/components/gluestack/box';
-import { Text } from '../../../app-core/components/gluestack/text';
 
 export interface ICardAgeBackProps {
   age: number;

@@ -1,16 +1,15 @@
 import { Color, Resource } from '@inno/constants';
 import { Card as CardType } from '@inno/gql';
 
+import { Box } from '../../../app-core/components/gluestack/box';
+import { HStack } from '../../../app-core/components/gluestack/hstack';
+import { VStack } from '../../../app-core/components/gluestack/vstack';
 import { primaryCardColorMap } from '../../../app-core/constants/colors';
 
 import { CardAge } from './CardAge';
 import { CardName } from './CardName';
 import { DogmaEffect } from './DogmaEffect';
 import { ResourceSpace } from './ResourceSpace';
-
-import { Box } from '../../../app-core/components/gluestack/box';
-import { HStack } from '../../../app-core/components/gluestack/hstack';
-import { VStack } from '../../../app-core/components/gluestack/vstack';
 
 export interface ICardDetailsProps {
   card: CardType;

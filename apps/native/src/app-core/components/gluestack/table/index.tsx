@@ -1,4 +1,5 @@
 import React, { createContext, useMemo, useContext } from 'react';
+
 import {
   Table as ExpoTable,
   THead as ExpoTHead,
@@ -7,6 +8,7 @@ import {
   TR as ExpoTR,
   Caption as ExpoTCaption,
 } from '@expo/html-elements';
+import { Text, View } from 'react-native';
 
 import {
   tableStyle,
@@ -18,7 +20,6 @@ import {
   tableDataStyle,
   tableCaptionStyle,
 } from './styles';
-import { Text, View } from 'react-native';
 
 const TableHeaderContext = createContext<{
   isHeaderRow: boolean;

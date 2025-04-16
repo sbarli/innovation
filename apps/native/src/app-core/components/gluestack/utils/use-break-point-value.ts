@@ -1,7 +1,8 @@
-import { Dimensions, useWindowDimensions } from 'react-native';
 import { useEffect, useState } from 'react';
 
+import { Dimensions, useWindowDimensions } from 'react-native';
 import resolveConfig from 'tailwindcss/resolveConfig';
+
 import * as tailwindConfig from '../../../../../tailwind.config';
 
 const TailwindTheme = resolveConfig(tailwindConfig as any);

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
+
 import { hstackStyle } from './styles';
 
 type IHStackProps = React.ComponentPropsWithoutRef<'div'> & VariantProps<typeof hstackStyle>;

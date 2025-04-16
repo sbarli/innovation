@@ -1,14 +1,13 @@
 import { Color } from '@inno/constants';
 
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Text } from '../../../app-core/components/gluestack/text';
 import {
   TEXT_COLOR_DARK,
   TEXT_COLOR_LIGHT,
   secondaryCardColorMap,
   tertiaryCardColorMap,
 } from '../../../app-core/constants/colors';
-
-import { Box } from '../../../app-core/components/gluestack/box';
-import { Text } from '../../../app-core/components/gluestack/text';
 
 export interface IDogmaEffectProps {
   color: Color;

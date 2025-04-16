@@ -1,9 +1,8 @@
 import { AgeString, ageCostToAchieveMap } from '@inno/constants';
 
-import { CARD_BACK_COLOR_DARK, CARD_BACK_COLOR_LIGHT } from '../../../app-core/constants/colors';
-
 import { Box } from '../../../app-core/components/gluestack/box';
 import { Text } from '../../../app-core/components/gluestack/text';
+import { CARD_BACK_COLOR_DARK, CARD_BACK_COLOR_LIGHT } from '../../../app-core/constants/colors';
 
 export interface IAchievementCostProps {
   age: AgeString;
