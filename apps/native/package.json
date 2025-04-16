@@ -22,7 +22,7 @@
     "build:ios:dev": "yarn sync-secrets:dev && eas build --platform ios --profile development",
     "build:ios:dev-client": "yarn sync-secrets:dev && eas build --platform ios --profile development-client",
     "sync-secrets:dev": "doppler run --mount ./.env -- eas env:push development --path ./.env",
-    "postinstall": "cd ../.. && yarn build"
+    "postinstall": "cd ../.. && TURBO_UI=0 yarn build"
   },
   "dependencies": {
     "@apollo/client": "^3.8.6",
