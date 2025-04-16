@@ -10,8 +10,8 @@
     "build": "tsc -b"
   },
   "devDependencies": {
-    "@inno/eslint-custom": "workspace:*",
-    "tsconfig": "workspace:*",
+    "@inno/eslint-custom": "*",
+    "tsconfig": "*",
     "typescript": "^5.8.3"
   },
   "dependencies": {

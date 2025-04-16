@@ -10,8 +10,8 @@
     "build": "tsc -b"
   },
   "devDependencies": {
-    "@inno/gql": "workspace:*",
-    "tsconfig": "workspace:*",
+    "@inno/gql": "*",
+    "tsconfig": "*",
     "typescript": "^5.8.3"
   }
 }
