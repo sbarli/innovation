@@ -10,9 +10,9 @@
     "build": "tsc -b"
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
+    "@inno/eslint-custom": "*",
     "tsconfig": "*",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "@apollo/client": "^3.8.6",

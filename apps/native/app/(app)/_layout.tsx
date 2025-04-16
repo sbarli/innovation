@@ -1,6 +1,6 @@
-import { Text } from '@gluestack-ui/themed';
 import { Redirect, Slot } from 'expo-router';
 
+import { Text } from '../../src/app-core/components/gluestack/text';
 import { Routes } from '../../src/app-core/constants/navigation';
 import { useAuthContext } from '../../src/authentication/state/AuthProvider';
 import { CardsProvider } from '../../src/cards/state/CardsProvider';

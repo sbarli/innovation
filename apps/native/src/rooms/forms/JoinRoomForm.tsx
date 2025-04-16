@@ -1,8 +1,12 @@
-import { Box, Button, ButtonText, HStack, Input, InputField, VStack } from '@gluestack-ui/themed';
-import { Text } from '@gluestack-ui/themed';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 
+import { Box } from '../../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../../app-core/components/gluestack/button';
+import { HStack } from '../../app-core/components/gluestack/hstack';
+import { Input, InputField } from '../../app-core/components/gluestack/input';
+import { Text } from '../../app-core/components/gluestack/text';
+import { VStack } from '../../app-core/components/gluestack/vstack';
 import { FormError } from '../../app-core/forms/FormError';
 import { JoinRoomFormData } from '../room.types';
 
@@ -28,7 +32,7 @@ export const JoinRoomForm = ({ error: customError, loading, onSubmit }: IJoinRoo
 
   return (
     <Box>
-      <Box marginBottom="$5">
+      <Box className="mb-5">
         <Controller
           control={control}
           name="roomId"
@@ -36,7 +40,7 @@ export const JoinRoomForm = ({ error: customError, loading, onSubmit }: IJoinRoo
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <VStack mt="$2" space="sm">
+            <VStack space="sm" className="mt-2">
               <Input
                 variant="outline"
                 size="md"
@@ -59,10 +63,8 @@ export const JoinRoomForm = ({ error: customError, loading, onSubmit }: IJoinRoo
         />
         <FormError errorMsg={errors.roomId?.message as string} />
       </Box>
-
       <FormError errorMsg={customError} />
-
-      <HStack justifyContent="flex-end">
+      <HStack className="justify-end">
         <Button
           onPress={handleSubmit(onSubmit)}
           size="md"

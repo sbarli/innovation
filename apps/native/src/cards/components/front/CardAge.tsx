@@ -1,7 +1,7 @@
-import { Box, Text } from '@gluestack-ui/themed';
-
 import { Color } from '@inno/constants';
 
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Text } from '../../../app-core/components/gluestack/text';
 import {
   BORDER_COLOR_LIGHT,
   TEXT_COLOR_LIGHT,
@@ -16,15 +16,9 @@ export interface ICardAgeProps {
 export const CardAge = ({ color, age }: ICardAgeProps) => {
   return (
     <Box
-      bg={secondaryCardColorMap[color]}
-      padding="$1"
-      borderRadius="$full"
-      borderWidth="$1"
-      borderColor={BORDER_COLOR_LIGHT}
-      h="$7"
-      w="$7"
+      className={` borderColor-${BORDER_COLOR_LIGHT} bg-${secondaryCardColorMap[color]} p-1 rounded-full border-1 h-7 w-7 `}
     >
-      <Text color={TEXT_COLOR_LIGHT} textAlign="center" size="sm">
+      <Text size="sm" className={` color-${TEXT_COLOR_LIGHT} text-center `}>
         {age}
       </Text>
     </Box>

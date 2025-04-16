@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { useToast } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
 
 import { SocketEvent, SocketEventError, SocketEventResponse } from '@inno/constants';
 import { useCloseRoomMutation } from '@inno/gql';
 import { getCatchErrorMessage } from '@inno/utils';
 
+import { useToast } from '../../app-core/components/gluestack/toast';
 import { CustomToast } from '../../app-core/components/toasts/CustomToast';
 import { Routes } from '../../app-core/constants/navigation';
 import { useSocketContext } from '../../websockets/SocketProvider';

@@ -19,4 +19,5 @@ import { SocketGateway } from './socket.gateway';
     SocketUsersService,
   ],
 })
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class SocketModule {}

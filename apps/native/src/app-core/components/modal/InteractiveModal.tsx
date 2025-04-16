@@ -1,17 +1,17 @@
 import { PropsWithChildren } from 'react';
 
+import { Button, ButtonText } from '../gluestack/button';
+import { Heading } from '../gluestack/heading';
+import { CloseIcon, Icon } from '../gluestack/icon';
 import {
-  CloseIcon,
-  Heading,
-  Icon,
   ModalBackdrop,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-} from '@gluestack-ui/themed';
-import { ModalFooter } from '@gluestack-ui/themed';
-import { ModalHeader } from '@gluestack-ui/themed';
-import { Button, ButtonText, Modal } from '@gluestack-ui/themed';
+  ModalFooter,
+  ModalHeader,
+  Modal,
+} from '../gluestack/modal';
 
 export interface IInteractiveModal extends PropsWithChildren {
   cancelText?: string;
@@ -50,9 +50,9 @@ export const InteractiveModal = ({
               variant="outline"
               size="sm"
               action="secondary"
-              mr="$3"
               onPress={onClose}
               disabled={disabled}
+              className="mr-3"
             >
               <ButtonText>{cancelText}</ButtonText>
             </Button>
@@ -61,9 +61,9 @@ export const InteractiveModal = ({
             <Button
               size="sm"
               action="positive"
-              borderWidth="$0"
               onPress={onConfirm}
               disabled={disabled}
+              className="border-0"
             >
               <ButtonText>{confirmText}</ButtonText>
             </Button>

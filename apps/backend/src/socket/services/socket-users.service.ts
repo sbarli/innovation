@@ -9,6 +9,7 @@ export class SocketUsersService {
   private logger: Logger = new Logger('SocketUsersService');
   private readonly clientsToUsernameMap: Map<string, string> = new Map();
 
+  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   constructor() {}
 
   /**

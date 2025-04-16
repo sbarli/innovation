@@ -1,4 +1,5 @@
-import { Box, Text } from '@gluestack-ui/themed';
+import { Box } from './gluestack/box';
+import { Text } from './gluestack/text';
 
 export enum BadgeType {
   DEFAULT = 'default',
@@ -16,17 +17,9 @@ const WARNING_BADGE_COLOR = '$yellow300';
 export const CountBadge = ({ badgeType = BadgeType.DEFAULT, count }: ICountBadgeProps) => {
   return (
     <Box
-      h="$5"
-      w="$5"
-      position="absolute"
-      bottom="$0"
-      borderWidth="$1"
-      borderColor="$black"
-      justifyContent="center"
-      alignItems="center"
-      bg={badgeType === BadgeType.WARNING ? WARNING_BADGE_COLOR : DEFAULT_BADGE_COLOR}
+      className={` ${badgeType === BadgeType.WARNING ? WARNING_BADGE_COLOR : DEFAULT_BADGE_COLOR} h-5 w-5 absolute bottom-0 border-1 border-black justify-center items-center `}
     >
-      <Text size="xs" fontWeight="$bold">
+      <Text size="xs" className="font-bold">
         {count}
       </Text>
     </Box>

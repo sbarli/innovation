@@ -1,0 +1,22 @@
+{
+  "name": "@inno/eslint-custom",
+  "version": "0.3.0",
+  "private": true,
+  "devDependencies": {
+    "@eslint/compat": "^1.2.8",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.24.0",
+    "@typescript-eslint/eslint-plugin": "^8.29.1",
+    "@typescript-eslint/parser": "^8.29.1",
+    "eslint": "^9.24.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-config-turbo": "^2.5.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-turbo": "^2.5.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.29.1"
+  }
+}

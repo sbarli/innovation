@@ -1,6 +1,6 @@
-import { Box } from '@gluestack-ui/themed';
 import { useLocalSearchParams } from 'expo-router';
 
+import { Box } from '../../app-core/components/gluestack/box';
 import { AuthRouteParams } from '../../app-core/constants/navigation';
 import { Login } from '../components/Login';
 import { Signup } from '../components/Signup';

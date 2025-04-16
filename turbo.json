@@ -1,27 +1,50 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
-  "pipeline": {
+  "ui": "tui",
+  "globalDependencies": [
+    "**/.env.*local"
+  ],
+  "tasks": {
     "build": {
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
-      "dependsOn": ["^build"]
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**"
+      ],
+      "dependsOn": [
+        "^build"
+      ]
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "interactive": true
     },
     "@inno/backend#build": {
-      "dependsOn": ["^@inno/utils#build", "^@inno/constants#build"]
+      "dependsOn": [
+        "^@inno/utils#build",
+        "^@inno/constants#build"
+      ]
     },
     "@inno/backend#dev": {
-      "dependsOn": ["^@inno/utils#build", "^@inno/constants#build"]
+      "cache": false,
+      "persistent": true,
+      "dependsOn": [
+        "^@inno/utils#build",
+        "^@inno/constants#build"
+      ]
     },
     "@inno/constants#build": {},
     "@inno/gql#build": {},
     "@inno/mocks#build": {
-      "dependsOn": ["^@inno/gql#build"]
+      "dependsOn": [
+        "^@inno/gql#build"
+      ]
     },
     "@inno/native#dev": {
+      "cache": false,
+      "persistent": true,
+      "interactive": true,
       "dependsOn": [
         "^@inno/constants#build",
         "^@inno/gql#build",

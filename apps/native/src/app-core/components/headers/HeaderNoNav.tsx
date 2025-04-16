@@ -1,29 +1,14 @@
-import { Box, HStack, Heading } from '@gluestack-ui/themed';
-
 import { Logout } from '../../../authentication/components/Logout';
 import { IHeaderProps } from '../../types/header.types';
+import { Box } from '../gluestack/box';
+import { Heading } from '../gluestack/heading';
+import { HStack } from '../gluestack/hstack';
 
 export const HeaderNoNav = ({ showLogout = true, title }: IHeaderProps) => {
   return (
-    <HStack
-      backgroundColor="$primary500"
-      marginBottom="$5"
-      paddingVertical="$2"
-      paddingLeft="$10"
-      paddingRight="$8"
-      justifyContent="space-between"
-    >
-      <Box justifyContent="center">
-        <Heading
-          margin={0}
-          size="xl"
-          color="$textLight100"
-          sx={{
-            _dark: {
-              color: '$textDark300',
-            },
-          }}
-        >
+    <HStack className="bg-primary-500 mb-5 py-2 pl-10 pr-8 justify-between">
+      <Box className="justify-center">
+        <Heading size="xl" className="m-[0px] text-textLight-100 dark:text-textDark-300">
           {title}
         </Heading>
       </Box>

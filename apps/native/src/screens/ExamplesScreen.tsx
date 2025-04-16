@@ -1,11 +1,14 @@
-import { AddIcon, Box, Button, ButtonIcon, ButtonText } from '@gluestack-ui/themed';
 import { StatusBar } from 'expo-status-bar';
+
+import { Box } from '../app-core/components/gluestack/box';
+import { Button, ButtonIcon, ButtonText } from '../app-core/components/gluestack/button';
+import { AddIcon } from '../app-core/components/gluestack/icon';
 
 export const ExamplesScreen = () => {
   return (
     <>
       <StatusBar style="auto" />
-      <Box alignItems="center">
+      <Box className="items-center">
         <Button
           onPress={() => {
             console.log('Pressed!');

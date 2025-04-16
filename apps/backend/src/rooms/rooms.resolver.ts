@@ -108,6 +108,7 @@ export class RoomsResolver {
       });
       return { success: true };
     } catch (_e) {
+      console.log('closeRoom _e: ', _e);
       return { success: false };
     }
   }

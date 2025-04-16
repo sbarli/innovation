@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 
-import { Box, ScrollView, StatusBar, Text } from '@gluestack-ui/themed';
-
 import { GameStage } from '@inno/constants';
 
+import { Box } from '../../app-core/components/gluestack/box';
+import { ScrollView } from '../../app-core/components/gluestack/scroll-view';
+import { StatusBar } from '../../app-core/components/gluestack/status-bar';
+import { Text } from '../../app-core/components/gluestack/text';
 import { GameSetup } from '../components/setup/GameSetup';
 import { useGameContext } from '../state/GameProvider';
 
@@ -35,7 +37,7 @@ export const GameScreen = ({ gameId }: IGameScreenProps) => {
     return (
       <>
         <StatusBar />
-        <Box alignItems="center">
+        <Box className="items-center">
           <Text>Mising data for game {gameId || '...'}</Text>
         </Box>
       </>
@@ -44,15 +46,15 @@ export const GameScreen = ({ gameId }: IGameScreenProps) => {
   return (
     <>
       <StatusBar />
-      <Box alignItems="center">
+      <Box className="items-center">
         <Text>Welcome to the Game Screen for game {gameId || '...'}</Text>
         {!!loadingGameData && (
-          <Box alignItems="center">
+          <Box className="items-center">
             <Text>Loading data for game {gameId || '...'}</Text>
           </Box>
         )}
         {metadata.stage === GameStage.SETUP && <GameSetup />}
-        <ScrollView h="$full">
+        <ScrollView>
           <Text>Age Achievements: {JSON.stringify(ageAchievements, null, 2)}</Text>
           <Text>Boards: {JSON.stringify(boards, null, 2)}</Text>
           <Text>Deck: {JSON.stringify(deck, null, 2)}</Text>

@@ -71,3 +71,4 @@ yarn workspace @inno/native dev
 - Codegen
 - Eslint
 - Typescript
+- Doppler (secret mgmt)

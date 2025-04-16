@@ -25,4 +25,5 @@ import { RefreshJwtStrategy } from './strategies/refresh.strategy';
   ],
   providers: [AuthService, LocalStrategy, AuthResolver, JwtStrategy, RefreshJwtStrategy],
 })
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class AuthModule {}

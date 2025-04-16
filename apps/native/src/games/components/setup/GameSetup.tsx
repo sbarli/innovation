@@ -1,9 +1,10 @@
 import { FC, useEffect } from 'react';
 
-import { Box, Text, useToast } from '@gluestack-ui/themed';
-
 import { SocketEvent } from '@inno/constants';
 
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Text } from '../../../app-core/components/gluestack/text';
+import { useToast } from '../../../app-core/components/gluestack/toast';
 import { CustomToast } from '../../../app-core/components/toasts/CustomToast';
 import { useAuthContext } from '../../../authentication/state/AuthProvider';
 import { useSocketContext } from '../../../websockets/SocketProvider';

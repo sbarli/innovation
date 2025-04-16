@@ -1,5 +1,5 @@
-import { Box, Text } from '@gluestack-ui/themed';
-
+import { Box } from '../../../app-core/components/gluestack/box';
+import { Text } from '../../../app-core/components/gluestack/text';
 import {
   CARD_BACK_BORDER_COLOR_LIGHT,
   CARD_BACK_COLOR_DARK,
@@ -13,16 +13,9 @@ export interface ICardAgeBackProps {
 export const CardAgeBack = ({ age }: ICardAgeBackProps) => {
   return (
     <Box
-      bg={CARD_BACK_BORDER_COLOR_LIGHT}
-      borderRadius="$2xl"
-      h="$7"
-      w="$7"
-      alignItems="center"
-      justifyContent="center"
-      borderWidth="$1"
-      borderColor={CARD_BACK_COLOR_LIGHT}
+      className={` borderColor-${CARD_BACK_COLOR_LIGHT} bg-${CARD_BACK_BORDER_COLOR_LIGHT} rounded-2xl h-7 w-7 items-center justify-center border-1 `}
     >
-      <Text color={CARD_BACK_COLOR_DARK} textAlign="center" size="md" fontWeight="$extrabold">
+      <Text size="md" className={` color-${CARD_BACK_COLOR_DARK} text-center font-extrabold `}>
         {age}
       </Text>
     </Box>

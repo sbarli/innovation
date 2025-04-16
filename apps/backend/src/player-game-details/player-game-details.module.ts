@@ -15,4 +15,5 @@ import { PlayerGameDetails, PlayerGameDetailsSchema } from './schemas/player-gam
   providers: [PlayerGameDetailsService, PlayerGameDetailsResolver],
   exports: [PlayerGameDetailsService],
 })
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class PlayerGameDetailsModule {}

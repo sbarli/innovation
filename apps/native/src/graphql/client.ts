@@ -56,7 +56,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
 
   if (graphQLErrors) {
     for (const err of graphQLErrors) {
-      switch (err.extensions.code) {
+      switch (err.extensions?.code) {
         // Handle attempting to refresh auth token when error is UNAUTHENTICATED
         case 'UNAUTHENTICATED':
           // if the token refresh failed, now consider this really unauthorized and redirect to Auth screen

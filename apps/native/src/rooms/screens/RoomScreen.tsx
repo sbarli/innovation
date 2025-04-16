@@ -1,21 +1,18 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { ApolloError } from '@apollo/client';
-import {
-  Box,
-  Button,
-  ButtonText,
-  HStack,
-  Heading,
-  Text,
-  VStack,
-  useToast,
-} from '@gluestack-ui/themed';
 
 import { IRoomMetadata, SocketEvent, SocketEventResponse } from '@inno/constants';
 import { RoomDataFragment } from '@inno/gql';
 
 import { CopyableText } from '../../app-core/components/clipboard/CopyableText';
+import { Box } from '../../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../../app-core/components/gluestack/button';
+import { Heading } from '../../app-core/components/gluestack/heading';
+import { HStack } from '../../app-core/components/gluestack/hstack';
+import { Text } from '../../app-core/components/gluestack/text';
+import { useToast } from '../../app-core/components/gluestack/toast';
+import { VStack } from '../../app-core/components/gluestack/vstack';
 import { CustomToast } from '../../app-core/components/toasts/CustomToast';
 import { FormError } from '../../app-core/forms/FormError';
 import { useAuthContext } from '../../authentication/state/AuthProvider';
@@ -102,7 +99,7 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
 
   if (!roomData && loading) {
     return (
-      <Box alignItems="center">
+      <Box className="items-center">
         <Text>Loading room...</Text>
       </Box>
     );
@@ -111,25 +108,25 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
   if (!roomData || error) {
     console.error('error: ', error);
     return (
-      <Box alignItems="center">
+      <Box className="items-center">
         <Text>Something went wrong! Go back to rooms and try again</Text>
       </Box>
     );
   }
 
   return (
-    <VStack px="$6">
-      <HStack justifyContent="flex-end">
+    <VStack className="px-6">
+      <HStack className="justify-end">
         <LeaveRoomCTA roomId={roomData._id} />
       </HStack>
-      <Box alignItems="center">
+      <Box className="items-center">
         <Heading size="lg">Users In Room</Heading>
         {(roomMetadata?.playersInRoom ?? []).map((username) => (
           <Text key={username.replace(' ', '-')}>{username}</Text>
         ))}
       </Box>
       {roomIsOpen ? (
-        <Box alignItems="center">
+        <Box className="items-center">
           <Heading size="lg">Room Open</Heading>
           {userIsHost && (roomMetadata?.playersInRoom ?? []).length > 1 ? (
             <Box>
@@ -145,7 +142,7 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
             <>
               <Text>Waiting for more players to join...</Text>
               {userIsHost && !!roomData?._id && (
-                <HStack alignItems="center">
+                <HStack className="items-center">
                   <Text>Invite more players by sharing this room id (click to copy): </Text>
                   <CopyableText text={roomData._id} />
                 </HStack>
@@ -154,7 +151,7 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
           )}
         </Box>
       ) : (
-        <Box alignItems="center">
+        <Box className="items-center">
           <Heading size="lg">Room Full</Heading>
           {userIsHost ? (
             <Box>

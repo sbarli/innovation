@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react';
 
-import { Box, Button, ButtonText } from '@gluestack-ui/themed';
-import { Text } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
 
+import { Box } from '../../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../../app-core/components/gluestack/button';
+import { Text } from '../../app-core/components/gluestack/text';
 import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
 import { Routes } from '../../app-core/constants/navigation';
 import { JoinRoomForm } from '../forms/JoinRoomForm';

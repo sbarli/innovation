@@ -1,10 +1,10 @@
-import { Box } from '@gluestack-ui/themed';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 
 import { AgeString, ageStringToAgeNumberMap } from '@inno/constants';
 
 import { BadgeType, CountBadge } from '../../app-core/components/CountBadge';
 import { MaybePressable } from '../../app-core/components/MaybePressable';
+import { Box } from '../../app-core/components/gluestack/box';
 import { VerticalEmptyCardSlot } from '../../cards/components/VerticalEmptyCardSlot';
 import { CardBack } from '../../cards/components/back/CardBack';
 
@@ -27,7 +27,7 @@ export const DeckLayout = ({ deckMetadata }: IDeckLayoutProps) => {
       data={deckMetadata}
       renderItem={({ item: pile }: ListRenderItemInfo<IDeckPileMetadata>) => {
         const ageNum = ageStringToAgeNumberMap[pile.age];
-        return !!pile.numCardsInPile ? (
+        return pile.numCardsInPile ? (
           <MaybePressable
             handlePress={pile.availableToDraw && pile.onDraw ? pile.onDraw : undefined}
           >

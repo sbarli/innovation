@@ -13,4 +13,5 @@ import { CardsService } from './services/cards.service';
   providers: [CardsService, CardsSortingService, CardsResolver],
   exports: [CardsService, CardsSortingService],
 })
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class CardsModule {}

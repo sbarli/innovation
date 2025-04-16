@@ -10,4 +10,5 @@ import { Game, GameSchema } from './schemas/game.schema';
   providers: [GamesService, GamesResolver],
   exports: [GamesService],
 })
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class GamesModule {}

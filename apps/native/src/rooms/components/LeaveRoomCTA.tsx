@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react';
 
-import { Button, ButtonIcon, ButtonText, CloseIcon } from '@gluestack-ui/themed';
-import { Text } from '@gluestack-ui/themed';
 import { router } from 'expo-router';
 
+import { Button, ButtonIcon, ButtonText } from '../../app-core/components/gluestack/button';
+import { CloseIcon } from '../../app-core/components/gluestack/icon';
+import { Text } from '../../app-core/components/gluestack/text';
 import { InteractiveModal } from '../../app-core/components/modal/InteractiveModal';
 import { Routes } from '../../app-core/constants/navigation';
 import { FormError } from '../../app-core/forms/FormError';
@@ -33,7 +34,7 @@ export const LeaveRoomCTA = ({ roomId }: { roomId: string }) => {
     <>
       <Button onPress={() => setShowModal(true)} variant="outline" action="negative" size="sm">
         <ButtonText>Leave Room </ButtonText>
-        <ButtonIcon color="$red600" as={CloseIcon} />
+        <ButtonIcon as={CloseIcon} className="text-red-600" />
       </Button>
       <InteractiveModal
         confirmText="Confirm Leave Room"

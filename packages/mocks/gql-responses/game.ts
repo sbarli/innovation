@@ -7,6 +7,7 @@ export const GAME: Game = {
   playerRefs: ['65c2d400bc5e6a8a90e4fdf2', '65c3e516a7d52f65fa43c058'],
   winnerRef: null,
   roomRef: '65e658e133ffd5bbab198881',
+  stage: 'setup',
   deck: {
     ONE: [
       '6539f5731bdd7029a5e66acb',
@@ -121,7 +122,7 @@ export const GAME: Game = {
       '6539f5731bdd7029a5e66b22',
     ],
   },
-  achievements: {
+  ageAchievements: {
     ONE: '6539f5731bdd7029a5e66ac1',
     TWO: '6539f5731bdd7029a5e66ad5',
     THREE: '6539f5731bdd7029a5e66adb',

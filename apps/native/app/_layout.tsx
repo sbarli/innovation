@@ -1,9 +1,9 @@
 import { loadErrorMessages, loadDevMessages } from '@apollo/client/dev';
-import { config } from '@gluestack-ui/config';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
+import '../global.css';
 import { Slot } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { GluestackUIProvider } from '../src/app-core/components/gluestack/gluestack-ui-provider';
+import { SafeAreaView } from '../src/app-core/components/gluestack/safe-area-view';
 import { AuthProvider } from '../src/authentication/state/AuthProvider';
 import { GraphQLProvider } from '../src/graphql/ApolloProvider';
 import { SocketProvider } from '../src/websockets/SocketProvider';
@@ -63,7 +63,7 @@ export default function AppProvidersWrapper() {
     loadErrorMessages();
   }
   return (
-    <GluestackUIProvider config={config}>
+    <GluestackUIProvider mode="light">
       <GraphQLProvider>
         <SocketProvider>
           <SafeAreaView>

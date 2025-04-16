@@ -1,5 +1,4 @@
-import { Button, ButtonText } from '@gluestack-ui/themed';
-
+import { Button, ButtonText } from '../../app-core/components/gluestack/button';
 import { useAuthContext } from '../state/AuthProvider';
 
 export const Logout = () => {

@@ -9,7 +9,9 @@
   "scripts": {
     "build": "turbo run build",
     "build:backend": "turbo run @inno/backend#build",
-    "clean": "turbo clean && rm -rf node_modules",
+    "clean:deep": "./scripts/clean.sh",
+    "tb:clean": "echo '=== TURBO CLEAN STARTING ===' && turbo clean && turbo daemon clean && echo '=== TURBO CLEAN COMPLETE ==='",
+    "tb:start": "turbo daemon start",
     "dev": "turbo run dev",
     "dev:backend": "turbo run @inno/backend#dev",
     "dev:native": "turbo run @inno/native#dev",
@@ -21,7 +23,8 @@
     "lint:staged": "lint-staged",
     "postinstall": "npx patch-package",
     "test": "turbo run test",
-    "codegen": "graphql-codegen --config codegen.yml && turbo run @inno/gql#build"
+    "codegen": "graphql-codegen --config codegen.yml && turbo run @inno/gql#build",
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
@@ -32,16 +35,22 @@
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^4.1.0",
+    "@inno/eslint-custom": "*",
     "@parcel/watcher": "^2.3.0",
-    "eslint-config-custom": "*",
-    "husky": "^8.0.3",
+    "@types/lint-staged": "~13.3.0",
+    "eslint": "^9.24.0",
+    "husky": "^9.1.7",
     "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
-    "turbo": "latest"
+    "tsconfig": "*",
+    "turbo": "2.5.0",
+    "typescript": "^5.8.3"
   },
   "engines": {
-    "node": "18.18.2"
+    "node": "22.14.0"
   },
-  "dependencies": {},
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "yarn@1.22.22",
+  "dependencies": {
+    "patch-package": "^8.0.0"
+  }
 }

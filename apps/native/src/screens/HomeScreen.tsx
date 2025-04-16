@@ -1,7 +1,8 @@
-import { Box, Button, ButtonText } from '@gluestack-ui/themed';
 import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
+import { Box } from '../app-core/components/gluestack/box';
+import { Button, ButtonText } from '../app-core/components/gluestack/button';
 import { Routes } from '../app-core/constants/navigation';
 import { CreateRoomCTA } from '../rooms/components/CreateRoomCTA';
 import { JoinRoomCTA } from '../rooms/components/JoinRoomCTA';
@@ -10,7 +11,7 @@ export const HomeScreen = () => {
   return (
     <>
       <StatusBar style="auto" />
-      <Box alignItems="center">
+      <Box className="items-center">
         <Link href={Routes.AUTH} asChild>
           <Button
             size="md"

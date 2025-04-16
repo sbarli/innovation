@@ -1,6 +1,7 @@
-import { Button, ButtonText, useToast } from '@gluestack-ui/themed';
 import * as Clipboard from 'expo-clipboard';
 
+import { Button, ButtonText } from '../gluestack/button';
+import { useToast } from '../gluestack/toast';
 import { CustomToast } from '../toasts/CustomToast';
 
 export const CopyableText = ({ text }: { text: string }) => {
@@ -19,7 +20,8 @@ export const CopyableText = ({ text }: { text: string }) => {
           />
         ),
       });
-    } catch (_e) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_e: unknown) {
       toast.show({
         placement: 'top',
         render: ({ id }) => (
