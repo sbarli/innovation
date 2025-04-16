@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "dev": "yarn start",
-    "predev": "cd ../../ && turbo run @inno/constants#build && turbo run @inno/gql#build && turbo run @inno/mocks#build && turbo run @inno/utils#build",
+    "predev": "./scripts/predev.sh",
     "exp": "npx expo",
     "exp:doc": "npx expo-doctor@latest",
     "lint:types": "yarn tsc",

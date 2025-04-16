@@ -12,8 +12,8 @@ yarn cache clean
 echo '  ...clearing watchman...'
 watchman watch-del-all
 
-# echo '  ...cleaning git...'
-# git clean -dfx
+echo '  ...cleaning git...'
+git clean -dfx
 
 echo '  ...cleaning native caches...'
 cd apps/native
