@@ -1,5 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
   "globalDependencies": [
     "**/.env.*local"
   ],
@@ -16,7 +17,8 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "interactive": true
     },
     "@inno/backend#build": {
       "dependsOn": [
@@ -25,6 +27,8 @@
       ]
     },
     "@inno/backend#dev": {
+      "cache": false,
+      "persistent": true,
       "dependsOn": [
         "^@inno/utils#build",
         "^@inno/constants#build"
@@ -38,6 +42,9 @@
       ]
     },
     "@inno/native#dev": {
+      "cache": false,
+      "persistent": true,
+      "interactive": true,
       "dependsOn": [
         "^@inno/constants#build",
         "^@inno/gql#build",
