@@ -1,5 +1,5 @@
 # lint staged files
-yarn lint:staged
+TURBO_UI=0 yarn lint:staged
 
 # run codegen to update generated files in the case that things changed
-yarn codegen
+TURBO_UI=0 yarn codegen

@@ -1,5 +1,5 @@
 # lint the repo
-yarn turbo run lint:fix
+TURBO_UI=0 yarn turbo run lint:fix
 
 # test the repo
-yarn turbo run test
+TURBO_UI=0 yarn turbo run test
