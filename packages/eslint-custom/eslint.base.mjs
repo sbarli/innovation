@@ -1,17 +1,16 @@
 /* eslint-disable import/no-default-export */
-import path from 'path';
-
 import eslint from '@eslint/js'; // eslint.configs.recommended is basically "eslint:recommended"
 import importPlugin from 'eslint-plugin-import';
+import * as pluginImportX from 'eslint-plugin-import-x';
 import onlyWarn from 'eslint-plugin-only-warn';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import turboPlugin from 'eslint-plugin-turbo';
 import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import { configs as tseslintConfigs } from 'typescript-eslint';
 
 import flatCompat from './compat.mjs';
 
-const tsConfig = /** @type {import("eslint").Linter.Config[]} */ (tseslint.configs.strict);
+const tsConfig = /** @type {import("eslint").Linter.Config[]} */ (tseslintConfigs.strict);
 
 /** @type {import("eslint").Linter.Config[]} */
 export default [
@@ -21,6 +20,8 @@ export default [
   eslintPluginPrettierRecommended,
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
+  pluginImportX.flatConfigs.recommended,
+  pluginImportX.flatConfigs.typescript,
   {
     plugins: {
       turbo: turboPlugin,
@@ -34,13 +35,27 @@ export default [
   {
     languageOptions: {
       parserOptions: {
-        project: path.resolve(process.cwd(), 'tsconfig.json'),
+        project: ['./packages/*/tsconfig.json', './apps/*/tsconfig.json'],
+        tsconfigRootDir: import.meta.dirname,
       },
       globals: {
         ...globals.node,
         React: true,
         JSX: true,
         jest: true,
+      },
+    },
+  },
+  {
+    settings: {
+      'import/resolver': {
+        typescript: {}, // this loads <rootdir>/tsconfig.json to eslint
+        node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
+      },
+      'import-x/resolver': {
+        typescript: true,
       },
     },
   },
