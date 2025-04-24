@@ -1,4 +1,5 @@
 import { Socket } from 'socket.io';
+
 import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 export interface IBaseSocketServiceParams {

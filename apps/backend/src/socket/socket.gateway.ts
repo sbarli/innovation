@@ -10,11 +10,12 @@ import {
   MessageBody,
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
+
+import { SocketEvent } from '@inno/constants';
+
 import { CurrentUserFromRequest } from 'src/auth/decorators/current-user.decorator';
 import { JwtWsAuthGuard } from 'src/auth/guards/jwt-ws-auth.guard';
 import { UserWithoutPassword } from 'src/users/schemas/user.schema';
-
-import { SocketEvent } from '@inno/constants';
 
 import { SocketBaseService } from './services/socket-base.service';
 import { SocketGameService } from './services/socket-game.service';

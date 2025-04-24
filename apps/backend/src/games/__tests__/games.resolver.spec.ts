@@ -1,4 +1,5 @@
 import { Test } from '@nestjs/testing';
+
 import { MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
 
 import {

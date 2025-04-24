@@ -1,4 +1,5 @@
 import { Test } from '@nestjs/testing';
+
 import { MOCK_NEW_ROOM, MOCK_ROOM_ID } from 'src/rooms/__mocks__/room.mock';
 import { RoomsService } from 'src/rooms/rooms.service';
 import { MOCK_USER, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';

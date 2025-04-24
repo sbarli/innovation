@@ -1,8 +1,8 @@
+import { AgeString } from '@inno/constants';
+
 import { MOCK_CARD_REFS_BY_AGE } from 'src/cards/__mocks__/cards-sorting.mock';
 import { MOCK_DECK } from 'src/games/__mocks__/deck.mock';
 import { Deck } from 'src/games/schemas/deck.schema';
-
-import { AgeString } from '@inno/constants';
 
 import { MOCK_PLAYER_REFS } from '../__mocks__/gameplay.mock';
 import {

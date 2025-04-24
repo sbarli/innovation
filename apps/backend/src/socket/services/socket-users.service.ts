@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Socket } from 'socket.io';
-import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 import { SocketEventError, SocketEventErrorCode, SocketEventResponse } from '@inno/constants';
+
+import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 @Injectable()
 export class SocketUsersService {

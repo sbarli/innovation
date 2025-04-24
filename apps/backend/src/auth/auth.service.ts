@@ -2,11 +2,12 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+
+import { getCatchErrorMessage } from '@inno/utils';
+
 import { CreateUserInput } from 'src/users/dto/create-user.dto';
 import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 import { UsersService } from 'src/users/users.service';
-
-import { getCatchErrorMessage } from '@inno/utils';
 
 import { AccessTokenPayload } from './dto/access-token-payload.dto';
 import { AuthResponse } from './dto/auth.response.dto';

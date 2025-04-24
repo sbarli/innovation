@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserWithoutPassword } from 'src/users/schemas/user.schema';
-import { UsersService } from 'src/users/users.service';
 
 import { MAX_USERS_PER_ROOM } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
+
+import { UserWithoutPassword } from 'src/users/schemas/user.schema';
+import { UsersService } from 'src/users/users.service';
 
 import { UpdateRoomAvailabilityInput } from './dto/update-room-availability.dto';
 import { PlayerRoomType } from './rooms.types';

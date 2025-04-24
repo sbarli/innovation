@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+
 import { UsersModule } from 'src/users/users.module';
 
 import { RoomsResolver } from './rooms.resolver';

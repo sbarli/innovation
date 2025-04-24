@@ -1,9 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { WsException } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
-import { GamesService } from 'src/games/games.service';
-import { RoomsService } from 'src/rooms/rooms.service';
-import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 import {
   IRoomMetadata,
@@ -13,6 +10,10 @@ import {
   SocketEventResponse,
 } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
+
+import { GamesService } from 'src/games/games.service';
+import { RoomsService } from 'src/rooms/rooms.service';
+import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 import { ISocketServiceMethodParamsWithRoomId } from '../socket.types';
 

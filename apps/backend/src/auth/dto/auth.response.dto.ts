@@ -1,4 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+
 import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 @ObjectType()

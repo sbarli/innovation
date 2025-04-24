@@ -1,4 +1,7 @@
 import { Test } from '@nestjs/testing';
+
+import { GameStage } from '@inno/constants';
+
 import { MOCK_CARD_REFS_BY_AGE } from 'src/cards/__mocks__/cards-sorting.mock';
 import { MOCK_STARTER_AGE_ACHIEVEMENTS } from 'src/games/__mocks__/age-achievements.mock';
 import { MOCK_DECK } from 'src/games/__mocks__/deck.mock';
@@ -8,8 +11,6 @@ import { PlayerGameDetailsService } from 'src/player-game-details/player-game-de
 import { MOCK_ROOM_ID } from 'src/rooms/__mocks__/room.mock';
 import { RoomsService } from 'src/rooms/rooms.service';
 import { UsersService } from 'src/users/users.service';
-
-import { GameStage } from '@inno/constants';
 
 import {
   MOCK_NEW_GAME_RESPONSE,

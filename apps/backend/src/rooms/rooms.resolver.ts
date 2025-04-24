@@ -1,10 +1,11 @@
 import { ForbiddenException, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+
+import { getCatchErrorMessage } from '@inno/utils';
+
 import { CurrentUserFromGqlCtx } from 'src/auth/decorators/current-user.decorator';
 import { JwtGqlAuthGuard } from 'src/auth/guards/jwt-gql-auth.guard';
 import { UserWithoutPassword } from 'src/users/schemas/user.schema';
-
-import { getCatchErrorMessage } from '@inno/utils';
 
 import { CloseRoomResponse } from './dto/close-room.reponse.dto';
 import { CreateRoomInput } from './dto/create-room.dto';
