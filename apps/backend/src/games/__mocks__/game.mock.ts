@@ -1,7 +1,7 @@
+import { GameStage } from '@inno/constants';
+
 import { MOCK_ROOM_ID } from 'src/rooms/__mocks__/room.mock';
 import { MOCK_USER_ID, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
-
-import { GameStage } from '@inno/constants';
 
 import { CreateGameInput, Game } from '../schemas/game.schema';
 

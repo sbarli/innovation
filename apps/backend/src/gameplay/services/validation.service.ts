@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { RoomsService } from 'src/rooms/rooms.service';
-import { UsersService } from 'src/users/users.service';
 
 import { getCatchErrorMessage } from '@inno/utils';
+
+import { RoomsService } from 'src/rooms/rooms.service';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class VaildationService {

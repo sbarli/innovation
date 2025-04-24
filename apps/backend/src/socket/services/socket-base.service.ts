@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Socket } from 'socket.io';
+
 import { UserWithoutPassword } from 'src/users/schemas/user.schema';
 
 import { SocketRoomService } from './socket-room.service';

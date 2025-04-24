@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
+
+import { getCatchErrorMessage } from '@inno/utils';
+
 import { CardsService } from 'src/cards/services/cards.service';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
 import { Board } from 'src/player-game-details/schemas/board.schema';
-
-import { getCatchErrorMessage } from '@inno/utils';
 
 import { addCardToExistingBoard } from '../helpers/board';
 

@@ -1,6 +1,6 @@
-import { ResourceTotals } from 'src/cards/schemas/resource-totals.schema';
-
 import { Resource } from '@inno/constants';
+
+import { ResourceTotals } from 'src/cards/schemas/resource-totals.schema';
 
 export const baseResourceTotals: ResourceTotals = Object.freeze({
   [Resource.CASTLES]: 0,

@@ -1,6 +1,6 @@
-import { Board } from 'src/player-game-details/schemas/board.schema';
-
 import { Color } from '@inno/constants';
+
+import { Board } from 'src/player-game-details/schemas/board.schema';
 
 export const createBaseBoard = (): Board => ({
   blue: {

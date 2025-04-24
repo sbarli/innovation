@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Cache } from 'cache-manager';
 import { Model } from 'mongoose';
 
+import { Nullable } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
 
 import { CARDS_CACHE_TTL, CardCacheKey } from '../cards.constants';
@@ -18,7 +19,7 @@ export class CardsService {
   ) {}
 
   async findAll(): Promise<Card[]> {
-    const cardsCache: Card[] | undefined = await this.cacheManager.get(CardCacheKey.ALL_CARDS);
+    const cardsCache: Nullable<Card[]> = await this.cacheManager.get(CardCacheKey.ALL_CARDS);
     if (cardsCache) {
       return cardsCache;
     }
@@ -35,8 +36,8 @@ export class CardsService {
     });
   }
 
-  async findOneByRef(ref: string): Promise<Card | null | undefined> {
-    const cacheValue: Card | undefined = await this.cacheManager.get(
+  async findOneByRef(ref: string): Promise<Nullable<Card>> {
+    const cacheValue: Nullable<Card> = await this.cacheManager.get(
       `${CardCacheKey.CARD_REF}-${ref}`
     );
     if (cacheValue) {
@@ -47,8 +48,8 @@ export class CardsService {
     return card;
   }
 
-  async findOneByCardId(cardId: string): Promise<Card | null | undefined> {
-    const cacheValue: Card | undefined = await this.cacheManager.get(
+  async findOneByCardId(cardId: string): Promise<Nullable<Card>> {
+    const cacheValue: Nullable<Card> = await this.cacheManager.get(
       `${CardCacheKey.CARD_ID}-${cardId}`
     );
     if (cacheValue) {
