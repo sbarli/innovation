@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { createCheckbox } from '@gluestack-ui/checkbox';
 import { PrimitiveIcon, IPrimitiveIcon, UIIcon } from '@gluestack-ui/icon';
@@ -10,19 +10,20 @@ import { cssInterop } from 'nativewind';
 import { View, Pressable, Text, Platform } from 'react-native';
 import type { TextProps, ViewProps } from 'react-native';
 
-const IndicatorWrapper = React.forwardRef<React.ComponentRef<typeof View>, ViewProps>(
+const IndicatorWrapper = forwardRef<React.ComponentRef<typeof View>, ViewProps>(
   function IndicatorWrapper({ ...props }, ref) {
     return <View {...props} ref={ref} />;
   }
 );
 
-const LabelWrapper = React.forwardRef<React.ComponentRef<typeof Text>, TextProps>(
-  function LabelWrapper({ ...props }, ref) {
-    return <Text {...props} ref={ref} />;
-  }
-);
+const LabelWrapper = forwardRef<React.ComponentRef<typeof Text>, TextProps>(function LabelWrapper(
+  { ...props },
+  ref
+) {
+  return <Text {...props} ref={ref} />;
+});
 
-const IconWrapper = React.forwardRef<React.ComponentRef<typeof PrimitiveIcon>, IPrimitiveIcon>(
+const IconWrapper = forwardRef<React.ComponentRef<typeof PrimitiveIcon>, IPrimitiveIcon>(
   function IconWrapper({ ...props }, ref) {
     return <UIIcon {...props} ref={ref} />;
   }
@@ -101,7 +102,7 @@ const CheckboxGroup = UICheckbox.Group;
 type ICheckboxProps = React.ComponentPropsWithoutRef<typeof UICheckbox> &
   VariantProps<typeof checkboxStyle>;
 
-const Checkbox = React.forwardRef<React.ComponentRef<typeof UICheckbox>, ICheckboxProps>(
+const Checkbox = forwardRef<React.ComponentRef<typeof UICheckbox>, ICheckboxProps>(
   function Checkbox({ className, size = 'md', ...props }, ref) {
     return (
       <UICheckbox
@@ -122,7 +123,7 @@ const Checkbox = React.forwardRef<React.ComponentRef<typeof UICheckbox>, ICheckb
 type ICheckboxIndicatorProps = React.ComponentPropsWithoutRef<typeof UICheckbox.Indicator> &
   VariantProps<typeof checkboxIndicatorStyle>;
 
-const CheckboxIndicator = React.forwardRef<
+const CheckboxIndicator = forwardRef<
   React.ComponentRef<typeof UICheckbox.Indicator>,
   ICheckboxIndicatorProps
 >(function CheckboxIndicator({ className, ...props }, ref) {
@@ -144,63 +145,61 @@ const CheckboxIndicator = React.forwardRef<
 
 type ICheckboxLabelProps = React.ComponentPropsWithoutRef<typeof UICheckbox.Label> &
   VariantProps<typeof checkboxLabelStyle>;
-const CheckboxLabel = React.forwardRef<
-  React.ComponentRef<typeof UICheckbox.Label>,
-  ICheckboxLabelProps
->(function CheckboxLabel({ className, ...props }, ref) {
-  const { size: parentSize } = useStyleContext(SCOPE);
-  return (
-    <UICheckbox.Label
-      className={checkboxLabelStyle({
-        parentVariants: {
-          size: parentSize,
-        },
-        class: className,
-      })}
-      {...props}
-      ref={ref}
-    />
-  );
-});
+const CheckboxLabel = forwardRef<React.ComponentRef<typeof UICheckbox.Label>, ICheckboxLabelProps>(
+  function CheckboxLabel({ className, ...props }, ref) {
+    const { size: parentSize } = useStyleContext(SCOPE);
+    return (
+      <UICheckbox.Label
+        className={checkboxLabelStyle({
+          parentVariants: {
+            size: parentSize,
+          },
+          class: className,
+        })}
+        {...props}
+        ref={ref}
+      />
+    );
+  }
+);
 
 type ICheckboxIconProps = React.ComponentPropsWithoutRef<typeof UICheckbox.Icon> &
   VariantProps<typeof checkboxIconStyle>;
 
-const CheckboxIcon = React.forwardRef<
-  React.ComponentRef<typeof UICheckbox.Icon>,
-  ICheckboxIconProps
->(function CheckboxIcon({ className, size, ...props }, ref) {
-  const { size: parentSize } = useStyleContext(SCOPE);
+const CheckboxIcon = forwardRef<React.ComponentRef<typeof UICheckbox.Icon>, ICheckboxIconProps>(
+  function CheckboxIcon({ className, size, ...props }, ref) {
+    const { size: parentSize } = useStyleContext(SCOPE);
 
-  if (typeof size === 'number') {
+    if (typeof size === 'number') {
+      return (
+        <UICheckbox.Icon
+          ref={ref}
+          {...props}
+          className={checkboxIconStyle({ class: className })}
+          size={size}
+        />
+      );
+    } else if ((props.height !== undefined || props.width !== undefined) && size === undefined) {
+      return (
+        <UICheckbox.Icon ref={ref} {...props} className={checkboxIconStyle({ class: className })} />
+      );
+    }
+
     return (
       <UICheckbox.Icon
-        ref={ref}
+        className={checkboxIconStyle({
+          parentVariants: {
+            size: parentSize,
+          },
+          class: className,
+          size,
+        })}
         {...props}
-        className={checkboxIconStyle({ class: className })}
-        size={size}
+        ref={ref}
       />
     );
-  } else if ((props.height !== undefined || props.width !== undefined) && size === undefined) {
-    return (
-      <UICheckbox.Icon ref={ref} {...props} className={checkboxIconStyle({ class: className })} />
-    );
   }
-
-  return (
-    <UICheckbox.Icon
-      className={checkboxIconStyle({
-        parentVariants: {
-          size: parentSize,
-        },
-        class: className,
-        size,
-      })}
-      {...props}
-      ref={ref}
-    />
-  );
-});
+);
 
 Checkbox.displayName = 'Checkbox';
 CheckboxIndicator.displayName = 'CheckboxIndicator';

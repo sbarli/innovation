@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
@@ -81,13 +81,14 @@ type ITooltipContentProps = React.ComponentProps<typeof UITooltip.Content> &
 type ITooltipTextProps = React.ComponentProps<typeof UITooltip.Text> &
   VariantProps<typeof tooltipTextStyle> & { className?: string };
 
-const Tooltip = React.forwardRef<React.ComponentRef<typeof UITooltip>, ITooltipProps>(
-  function Tooltip({ className, ...props }, ref) {
-    return <UITooltip ref={ref} className={tooltipStyle({ class: className })} {...props} />;
-  }
-);
+const Tooltip = forwardRef<React.ComponentRef<typeof UITooltip>, ITooltipProps>(function Tooltip(
+  { className, ...props },
+  ref
+) {
+  return <UITooltip ref={ref} className={tooltipStyle({ class: className })} {...props} />;
+});
 
-const TooltipContent = React.forwardRef<
+const TooltipContent = forwardRef<
   React.ComponentRef<typeof UITooltip.Content>,
   ITooltipContentProps & { className?: string }
 >(function TooltipContent({ className, ...props }, ref) {
@@ -103,7 +104,7 @@ const TooltipContent = React.forwardRef<
   );
 });
 
-const TooltipText = React.forwardRef<
+const TooltipText = forwardRef<
   React.ComponentRef<typeof UITooltip.Text>,
   ITooltipTextProps & { className?: string }
 >(function TooltipText({ size, className, ...props }, ref) {

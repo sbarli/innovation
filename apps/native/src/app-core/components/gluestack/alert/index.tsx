@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { createAlert } from '@gluestack-ui/alert';
 import { PrimitiveIcon, UIIcon } from '@gluestack-ui/icon';
@@ -125,7 +125,7 @@ cssInterop(PrimitiveIcon, {
 type IAlertProps = Omit<React.ComponentPropsWithoutRef<typeof UIAlert>, 'context'> &
   VariantProps<typeof alertStyle>;
 
-const Alert = React.forwardRef<React.ComponentRef<typeof UIAlert>, IAlertProps>(function Alert(
+const Alert = forwardRef<React.ComponentRef<typeof UIAlert>, IAlertProps>(function Alert(
   { className, variant = 'solid', action = 'muted', ...props },
   ref
 ) {
@@ -142,7 +142,7 @@ const Alert = React.forwardRef<React.ComponentRef<typeof UIAlert>, IAlertProps>(
 type IAlertTextProps = React.ComponentPropsWithoutRef<typeof UIAlert.Text> &
   VariantProps<typeof alertTextStyle>;
 
-const AlertText = React.forwardRef<React.ComponentRef<typeof UIAlert.Text>, IAlertTextProps>(
+const AlertText = forwardRef<React.ComponentRef<typeof UIAlert.Text>, IAlertTextProps>(
   function AlertText(
     {
       className,
@@ -188,7 +188,7 @@ type IAlertIconProps = React.ComponentPropsWithoutRef<typeof UIAlert.Icon> &
     width?: number;
   };
 
-const AlertIcon = React.forwardRef<React.ComponentRef<typeof UIAlert.Icon>, IAlertIconProps>(
+const AlertIcon = forwardRef<React.ComponentRef<typeof UIAlert.Icon>, IAlertIconProps>(
   function AlertIcon({ className, size = 'md', ...props }, ref) {
     const { action: parentAction } = useStyleContext(SCOPE);
 

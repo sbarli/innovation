@@ -1,6 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // TODO: FIX ^^
-import React, { useEffect, useState, createContext, useContext, useMemo, forwardRef } from 'react';
+import React, {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  useMemo,
+  forwardRef,
+  Children,
+  isValidElement,
+  cloneElement,
+} from 'react';
 
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { cssInterop } from 'nativewind';
@@ -127,7 +137,7 @@ const Grid = forwardRef<React.ComponentRef<typeof View>, IGridProps>(function Gr
 
   const itemsPerRow = useMemo(() => {
     // get the colSpan of each child
-    const colSpanArr = React.Children.map(children, (child: any) => {
+    const colSpanArr = Children.map(children, (child: any) => {
       const gridItemClassName = child?.props?._extra?.className;
 
       const colSpan2 = getBreakPointValue(
@@ -143,7 +153,7 @@ const Grid = forwardRef<React.ComponentRef<typeof View>, IGridProps>(function Gr
       return colSpan;
     });
 
-    const childrenArray = React.Children.toArray(children);
+    const childrenArray = Children.toArray(children);
 
     const rowItemsCount = arrangeChildrenIntoRows({
       childrenArray,
@@ -154,9 +164,9 @@ const Grid = forwardRef<React.ComponentRef<typeof View>, IGridProps>(function Gr
     return rowItemsCount;
   }, [responsiveNumColumns, children]);
 
-  const childrenWithProps = React.Children.map(children, (child, index) => {
-    if (React.isValidElement(child)) {
-      return React.cloneElement(child, { key: index });
+  const childrenWithProps = Children.map(children, (child, index) => {
+    if (isValidElement(child)) {
+      return cloneElement(child, { key: index });
     }
 
     return child;

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { PrimitiveIcon, UIIcon } from '@gluestack-ui/icon';
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
@@ -93,7 +93,7 @@ const radioLabelStyle = tva({
 
 type IRadioProps = Omit<React.ComponentProps<typeof UIRadio>, 'context'> &
   VariantProps<typeof radioStyle>;
-const Radio = React.forwardRef<React.ComponentRef<typeof UIRadio>, IRadioProps>(function Radio(
+const Radio = forwardRef<React.ComponentRef<typeof UIRadio>, IRadioProps>(function Radio(
   { className, size = 'md', ...props },
   ref
 ) {
@@ -109,7 +109,7 @@ const Radio = React.forwardRef<React.ComponentRef<typeof UIRadio>, IRadioProps>(
 
 type IRadioGroupProps = React.ComponentProps<typeof UIRadio.Group> &
   VariantProps<typeof radioGroupStyle>;
-const RadioGroup = React.forwardRef<React.ComponentRef<typeof UIRadio.Group>, IRadioGroupProps>(
+const RadioGroup = forwardRef<React.ComponentRef<typeof UIRadio.Group>, IRadioGroupProps>(
   function RadioGroup({ className, ...props }, ref) {
     return <UIRadio.Group className={radioGroupStyle({ class: className })} {...props} ref={ref} />;
   }
@@ -117,7 +117,7 @@ const RadioGroup = React.forwardRef<React.ComponentRef<typeof UIRadio.Group>, IR
 
 type IRadioIndicatorProps = React.ComponentProps<typeof UIRadio.Indicator> &
   VariantProps<typeof radioIndicatorStyle>;
-const RadioIndicator = React.forwardRef<
+const RadioIndicator = forwardRef<
   React.ComponentRef<typeof UIRadio.Indicator>,
   IRadioIndicatorProps
 >(function RadioIndicator({ className, ...props }, ref) {
@@ -136,7 +136,7 @@ const RadioIndicator = React.forwardRef<
 
 type IRadioLabelProps = React.ComponentProps<typeof UIRadio.Label> &
   VariantProps<typeof radioIndicatorStyle>;
-const RadioLabel = React.forwardRef<React.ComponentRef<typeof UIRadio.Label>, IRadioLabelProps>(
+const RadioLabel = forwardRef<React.ComponentRef<typeof UIRadio.Label>, IRadioLabelProps>(
   function RadioLabel({ className, ...props }, ref) {
     const { size } = useStyleContext(SCOPE);
     return (
@@ -157,7 +157,7 @@ type IRadioIconProps = React.ComponentProps<typeof UIRadio.Icon> &
     height?: number;
     width?: number;
   };
-const RadioIcon = React.forwardRef<React.ComponentRef<typeof UIRadio.Icon>, IRadioIconProps>(
+const RadioIcon = forwardRef<React.ComponentRef<typeof UIRadio.Icon>, IRadioIconProps>(
   function RadioIcon({ className, size, ...props }, ref) {
     const { size: parentSize } = useStyleContext(SCOPE);
 

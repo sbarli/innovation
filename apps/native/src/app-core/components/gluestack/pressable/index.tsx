@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
@@ -17,7 +17,7 @@ const pressableStyle = tva({
 
 type IPressableProps = Omit<React.ComponentProps<typeof UIPressable>, 'context'> &
   VariantProps<typeof pressableStyle>;
-const Pressable = React.forwardRef<React.ComponentRef<typeof UIPressable>, IPressableProps>(
+const Pressable = forwardRef<React.ComponentRef<typeof UIPressable>, IPressableProps>(
   function Pressable({ className, ...props }, ref) {
     return (
       <UIPressable

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable import-x/namespace */
+/* eslint-disable no-prototype-builtins */
 import { useEffect, useState } from 'react';
 
 import { Dimensions, useWindowDimensions } from 'react-native';

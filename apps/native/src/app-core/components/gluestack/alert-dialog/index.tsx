@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { createAlertDialog } from '@gluestack-ui/alert-dialog';
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
@@ -119,7 +119,7 @@ type IAlertDialogBackdropProps = React.ComponentPropsWithoutRef<
 > &
   VariantProps<typeof alertDialogBackdropStyle> & { className?: string };
 
-const AlertDialog = React.forwardRef<
+const AlertDialog = forwardRef<
   React.ComponentRef<typeof UIAccessibleAlertDialog>,
   IAlertDialogProps
 >(function AlertDialog({ className, size = 'md', ...props }, ref) {
@@ -134,7 +134,7 @@ const AlertDialog = React.forwardRef<
   );
 });
 
-const AlertDialogContent = React.forwardRef<
+const AlertDialogContent = forwardRef<
   React.ComponentRef<typeof UIAccessibleAlertDialog.Content>,
   IAlertDialogContentProps
 >(function AlertDialogContent({ className, size, ...props }, ref) {
@@ -177,7 +177,7 @@ const AlertDialogContent = React.forwardRef<
   );
 });
 
-const AlertDialogCloseButton = React.forwardRef<
+const AlertDialogCloseButton = forwardRef<
   React.ComponentRef<typeof UIAccessibleAlertDialog.CloseButton>,
   IAlertDialogCloseButtonProps
 >(function AlertDialogCloseButton({ className, ...props }, ref) {
@@ -192,7 +192,7 @@ const AlertDialogCloseButton = React.forwardRef<
   );
 });
 
-const AlertDialogHeader = React.forwardRef<
+const AlertDialogHeader = forwardRef<
   React.ComponentRef<typeof UIAccessibleAlertDialog.Header>,
   IAlertDialogHeaderProps
 >(function AlertDialogHeader({ className, ...props }, ref) {
@@ -207,7 +207,7 @@ const AlertDialogHeader = React.forwardRef<
   );
 });
 
-const AlertDialogFooter = React.forwardRef<
+const AlertDialogFooter = forwardRef<
   React.ComponentRef<typeof UIAccessibleAlertDialog.Footer>,
   IAlertDialogFooterProps
 >(function AlertDialogFooter({ className, ...props }, ref) {
@@ -222,7 +222,7 @@ const AlertDialogFooter = React.forwardRef<
   );
 });
 
-const AlertDialogBody = React.forwardRef<
+const AlertDialogBody = forwardRef<
   React.ComponentRef<typeof UIAccessibleAlertDialog.Body>,
   IAlertDialogBodyProps
 >(function AlertDialogBody({ className, ...props }, ref) {
@@ -237,7 +237,7 @@ const AlertDialogBody = React.forwardRef<
   );
 });
 
-const AlertDialogBackdrop = React.forwardRef<
+const AlertDialogBackdrop = forwardRef<
   React.ComponentRef<typeof UIAccessibleAlertDialog.Backdrop>,
   IAlertDialogBackdropProps
 >(function AlertDialogBackdrop({ className, ...props }, ref) {
