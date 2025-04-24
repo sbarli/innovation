@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { H4 } from '@expo/html-elements';
 import { createActionsheet } from '@gluestack-ui/actionsheet';
@@ -25,7 +25,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-const ItemWrapper = React.forwardRef<React.ComponentRef<typeof Pressable>, PressableProps>(
+const ItemWrapper = forwardRef<React.ComponentRef<typeof Pressable>, PressableProps>(
   function ItemWrapper({ ...props }, ref) {
     return <Pressable {...props} ref={ref} />;
   }
@@ -278,7 +278,7 @@ type IActionsheetIconProps = VariantProps<typeof actionsheetIconStyle> &
     width?: number;
   };
 
-const Actionsheet = React.forwardRef<React.ComponentRef<typeof UIActionsheet>, IActionsheetProps>(
+const Actionsheet = forwardRef<React.ComponentRef<typeof UIActionsheet>, IActionsheetProps>(
   function Actionsheet({ className, ...props }, ref) {
     return (
       <UIActionsheet
@@ -292,7 +292,7 @@ const Actionsheet = React.forwardRef<React.ComponentRef<typeof UIActionsheet>, I
   }
 );
 
-const ActionsheetContent = React.forwardRef<
+const ActionsheetContent = forwardRef<
   React.ComponentRef<typeof UIActionsheet.Content>,
   IActionsheetContentProps
 >(function ActionsheetContent({ className, ...props }, ref) {
@@ -307,7 +307,7 @@ const ActionsheetContent = React.forwardRef<
   );
 });
 
-const ActionsheetItem = React.forwardRef<
+const ActionsheetItem = forwardRef<
   React.ComponentRef<typeof UIActionsheet.Item>,
   IActionsheetItemProps
 >(function ActionsheetItem({ className, ...props }, ref) {
@@ -322,7 +322,7 @@ const ActionsheetItem = React.forwardRef<
   );
 });
 
-const ActionsheetItemText = React.forwardRef<
+const ActionsheetItemText = forwardRef<
   React.ComponentRef<typeof UIActionsheet.ItemText>,
   IActionsheetItemTextProps
 >(function ActionsheetItemText(
@@ -345,7 +345,7 @@ const ActionsheetItemText = React.forwardRef<
   );
 });
 
-const ActionsheetDragIndicator = React.forwardRef<
+const ActionsheetDragIndicator = forwardRef<
   React.ComponentRef<typeof UIActionsheet.DragIndicator>,
   IActionsheetDragIndicatorProps
 >(function ActionsheetDragIndicator({ className, ...props }, ref) {
@@ -360,7 +360,7 @@ const ActionsheetDragIndicator = React.forwardRef<
   );
 });
 
-const ActionsheetDragIndicatorWrapper = React.forwardRef<
+const ActionsheetDragIndicatorWrapper = forwardRef<
   React.ComponentRef<typeof UIActionsheet.DragIndicatorWrapper>,
   IActionsheetDragIndicatorWrapperProps
 >(function ActionsheetDragIndicatorWrapper({ className, ...props }, ref) {
@@ -375,7 +375,7 @@ const ActionsheetDragIndicatorWrapper = React.forwardRef<
   );
 });
 
-const ActionsheetBackdrop = React.forwardRef<
+const ActionsheetBackdrop = forwardRef<
   React.ComponentRef<typeof UIActionsheet.Backdrop>,
   IActionsheetBackdropProps
 >(function ActionsheetBackdrop({ className, ...props }, ref) {
@@ -399,7 +399,7 @@ const ActionsheetBackdrop = React.forwardRef<
   );
 });
 
-const ActionsheetScrollView = React.forwardRef<
+const ActionsheetScrollView = forwardRef<
   React.ComponentRef<typeof UIActionsheet.ScrollView>,
   IActionsheetScrollViewProps
 >(function ActionsheetScrollView({ className, ...props }, ref) {
@@ -414,7 +414,7 @@ const ActionsheetScrollView = React.forwardRef<
   );
 });
 
-const ActionsheetVirtualizedList = React.forwardRef<
+const ActionsheetVirtualizedList = forwardRef<
   React.ComponentRef<typeof UIActionsheet.VirtualizedList>,
   IActionsheetVirtualizedListProps
 >(function ActionsheetVirtualizedList({ className, ...props }, ref) {
@@ -429,7 +429,7 @@ const ActionsheetVirtualizedList = React.forwardRef<
   );
 });
 
-const ActionsheetFlatList = React.forwardRef<
+const ActionsheetFlatList = forwardRef<
   React.ComponentRef<typeof UIActionsheet.FlatList>,
   IActionsheetFlatListProps
 >(function ActionsheetFlatList({ className, ...props }, ref) {
@@ -444,7 +444,7 @@ const ActionsheetFlatList = React.forwardRef<
   );
 });
 
-const ActionsheetSectionList = React.forwardRef<
+const ActionsheetSectionList = forwardRef<
   React.ComponentRef<typeof UIActionsheet.SectionList>,
   IActionsheetSectionListProps
 >(function ActionsheetSectionList({ className, ...props }, ref) {
@@ -459,7 +459,7 @@ const ActionsheetSectionList = React.forwardRef<
   );
 });
 
-const ActionsheetSectionHeaderText = React.forwardRef<
+const ActionsheetSectionHeaderText = forwardRef<
   React.ComponentRef<typeof UIActionsheet.SectionHeaderText>,
   IActionsheetSectionHeaderTextProps
 >(function ActionsheetSectionHeaderText(
@@ -496,7 +496,7 @@ const ActionsheetSectionHeaderText = React.forwardRef<
   );
 });
 
-const ActionsheetIcon = React.forwardRef<
+const ActionsheetIcon = forwardRef<
   React.ComponentRef<typeof UIActionsheet.Icon>,
   IActionsheetIconProps
 >(function ActionsheetIcon({ className, size = 'sm', ...props }, ref) {

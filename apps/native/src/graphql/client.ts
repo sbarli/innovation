@@ -68,7 +68,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
             getNewToken()
               .then((response) => {
                 // extract new authToken from response data and return it
-                const { authToken } = response?.data?.refreshToken;
+                const { authToken } = response?.data?.refreshToken ?? {};
                 if (!authToken) {
                   throw new Error('No authToken returned');
                 }

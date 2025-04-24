@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 
@@ -10,7 +10,7 @@ type ISkeletonProps = React.ComponentPropsWithoutRef<'div'> &
     isLoaded?: boolean;
   };
 
-const Skeleton = React.forwardRef<HTMLDivElement, ISkeletonProps>(function Skeleton(
+const Skeleton = forwardRef<HTMLDivElement, ISkeletonProps>(function Skeleton(
   {
     className,
     variant = 'rounded',
@@ -46,7 +46,7 @@ type ISkeletonTextProps = React.ComponentPropsWithoutRef<'div'> &
     startColor?: string;
   };
 
-const SkeletonText = React.forwardRef<HTMLDivElement, ISkeletonTextProps>(function SkeletonText(
+const SkeletonText = forwardRef<HTMLDivElement, ISkeletonTextProps>(function SkeletonText(
   {
     className,
     _lines,

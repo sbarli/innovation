@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { createLink } from '@gluestack-ui/link';
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
@@ -64,7 +64,7 @@ const linkTextStyle = tva({
 type ILinkProps = React.ComponentProps<typeof UILink> &
   VariantProps<typeof linkStyle> & { className?: string };
 
-const Link = React.forwardRef<React.ComponentRef<typeof UILink>, ILinkProps>(function Link(
+const Link = forwardRef<React.ComponentRef<typeof UILink>, ILinkProps>(function Link(
   { className, ...props },
   ref
 ) {
@@ -74,7 +74,7 @@ const Link = React.forwardRef<React.ComponentRef<typeof UILink>, ILinkProps>(fun
 type ILinkTextProps = React.ComponentProps<typeof UILink.Text> &
   VariantProps<typeof linkTextStyle> & { className?: string };
 
-const LinkText = React.forwardRef<React.ComponentRef<typeof UILink.Text>, ILinkTextProps>(
+const LinkText = forwardRef<React.ComponentRef<typeof UILink.Text>, ILinkTextProps>(
   function LinkText({ className, size = 'md', ...props }, ref) {
     return (
       <UILink.Text

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { createImage } from '@gluestack-ui/image';
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
@@ -26,20 +26,21 @@ const imageStyle = tva({
 const UIImage = createImage({ Root: RNImage });
 
 type ImageProps = VariantProps<typeof imageStyle> & React.ComponentProps<typeof UIImage>;
-const Image = React.forwardRef<
-  React.ComponentRef<typeof UIImage>,
-  ImageProps & { className?: string }
->(function Image({ size = 'md', className, ...props }, ref) {
-  return (
-    <UIImage
-      className={imageStyle({ size, class: className })}
-      {...props}
-      ref={ref}
-      // @ts-expect-error : web only
-      style={Platform.OS === 'web' ? { height: 'revert-layer', width: 'revert-layer' } : undefined}
-    />
-  );
-});
+const Image = forwardRef<React.ComponentRef<typeof UIImage>, ImageProps & { className?: string }>(
+  function Image({ size = 'md', className, ...props }, ref) {
+    return (
+      <UIImage
+        className={imageStyle({ size, class: className })}
+        {...props}
+        ref={ref}
+        // @ts-expect-error : web only
+        style={
+          Platform.OS === 'web' ? { height: 'revert-layer', width: 'revert-layer' } : undefined
+        }
+      />
+    );
+  }
+);
 
 Image.displayName = 'Image';
 export { Image };

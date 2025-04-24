@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
@@ -44,7 +44,7 @@ const textareaInputStyle = tva({
 
 type ITextareaProps = React.ComponentProps<typeof UITextarea> & VariantProps<typeof textareaStyle>;
 
-const Textarea = React.forwardRef<React.ComponentRef<typeof UITextarea>, ITextareaProps>(
+const Textarea = forwardRef<React.ComponentRef<typeof UITextarea>, ITextareaProps>(
   function Textarea({ className, variant = 'default', size = 'md', ...props }, ref) {
     return (
       <UITextarea
@@ -60,25 +60,24 @@ const Textarea = React.forwardRef<React.ComponentRef<typeof UITextarea>, ITextar
 type ITextareaInputProps = React.ComponentProps<typeof UITextarea.Input> &
   VariantProps<typeof textareaInputStyle>;
 
-const TextareaInput = React.forwardRef<
-  React.ComponentRef<typeof UITextarea.Input>,
-  ITextareaInputProps
->(function TextareaInput({ className, ...props }, ref) {
-  const { size: parentSize } = useStyleContext(SCOPE);
+const TextareaInput = forwardRef<React.ComponentRef<typeof UITextarea.Input>, ITextareaInputProps>(
+  function TextareaInput({ className, ...props }, ref) {
+    const { size: parentSize } = useStyleContext(SCOPE);
 
-  return (
-    <UITextarea.Input
-      ref={ref}
-      {...props}
-      className={textareaInputStyle({
-        parentVariants: {
-          size: parentSize,
-        },
-        class: className,
-      })}
-    />
-  );
-});
+    return (
+      <UITextarea.Input
+        ref={ref}
+        {...props}
+        className={textareaInputStyle({
+          parentVariants: {
+            size: parentSize,
+          },
+          class: className,
+        })}
+      />
+    );
+  }
+);
 
 Textarea.displayName = 'Textarea';
 TextareaInput.displayName = 'TextareaInput';

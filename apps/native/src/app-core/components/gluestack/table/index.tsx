@@ -1,4 +1,4 @@
-import React, { createContext, useMemo, useContext } from 'react';
+import React, { createContext, useMemo, useContext, forwardRef } from 'react';
 
 import {
   Table as ExpoTable,
@@ -45,7 +45,7 @@ type ITableDataProps = React.ComponentProps<typeof View | typeof Text> & {
 };
 type ITableCaptionProps = React.ComponentProps<typeof ExpoTCaption>;
 
-const Table = React.forwardRef<React.ComponentRef<typeof ExpoTable>, ITableProps>(
+const Table = forwardRef<React.ComponentRef<typeof ExpoTable>, ITableProps>(
   ({ className, ...props }, ref) => {
     return (
       <ExpoTable
@@ -58,7 +58,7 @@ const Table = React.forwardRef<React.ComponentRef<typeof ExpoTable>, ITableProps
   }
 );
 
-const TableHeader = React.forwardRef<React.ComponentRef<typeof ExpoTHead>, ITableHeaderProps>(
+const TableHeader = forwardRef<React.ComponentRef<typeof ExpoTHead>, ITableHeaderProps>(
   function TableHeader({ className, ...props }, ref) {
     const contextValue = useMemo(() => {
       return {
@@ -78,7 +78,7 @@ const TableHeader = React.forwardRef<React.ComponentRef<typeof ExpoTHead>, ITabl
   }
 );
 
-const TableBody = React.forwardRef<React.ComponentRef<typeof ExpoTBody>, ITableBodyProps>(
+const TableBody = forwardRef<React.ComponentRef<typeof ExpoTBody>, ITableBodyProps>(
   function TableBody({ className, ...props }, ref) {
     return (
       <ExpoTBody
@@ -91,7 +91,7 @@ const TableBody = React.forwardRef<React.ComponentRef<typeof ExpoTBody>, ITableB
   }
 );
 
-const TableFooter = React.forwardRef<React.ComponentRef<typeof ExpoTFoot>, ITableFooterProps>(
+const TableFooter = forwardRef<React.ComponentRef<typeof ExpoTFoot>, ITableFooterProps>(
   function TableFooter({ className, ...props }, ref) {
     const contextValue = useMemo(() => {
       return {
@@ -111,7 +111,7 @@ const TableFooter = React.forwardRef<React.ComponentRef<typeof ExpoTFoot>, ITabl
   }
 );
 
-const TableHead = React.forwardRef<React.ComponentRef<typeof View | typeof Text>, ITableHeadProps>(
+const TableHead = forwardRef<React.ComponentRef<typeof View | typeof Text>, ITableHeadProps>(
   function TableHead({ useRNView = false, className, ...props }, ref) {
     if (useRNView) {
       return <View ref={ref} className={tableHeadStyle({ class: className })} {...props} />;
@@ -121,27 +121,28 @@ const TableHead = React.forwardRef<React.ComponentRef<typeof View | typeof Text>
   }
 );
 
-const TableRow = React.forwardRef<React.ComponentRef<typeof ExpoTR>, ITableRowProps>(
-  function TableRow({ className, ...props }, ref) {
-    const { isHeaderRow } = useContext(TableHeaderContext);
-    const { isFooterRow } = useContext(TableFooterContext);
+const TableRow = forwardRef<React.ComponentRef<typeof ExpoTR>, ITableRowProps>(function TableRow(
+  { className, ...props },
+  ref
+) {
+  const { isHeaderRow } = useContext(TableHeaderContext);
+  const { isFooterRow } = useContext(TableFooterContext);
 
-    return (
-      <ExpoTR
-        // @ts-expect-error : ref type changed
-        ref={ref}
-        className={tableRowStyleStyle({
-          isHeaderRow,
-          isFooterRow,
-          class: className,
-        })}
-        {...props}
-      />
-    );
-  }
-);
+  return (
+    <ExpoTR
+      // @ts-expect-error : ref type changed
+      ref={ref}
+      className={tableRowStyleStyle({
+        isHeaderRow,
+        isFooterRow,
+        class: className,
+      })}
+      {...props}
+    />
+  );
+});
 
-const TableData = React.forwardRef<React.ComponentRef<typeof View | typeof Text>, ITableDataProps>(
+const TableData = forwardRef<React.ComponentRef<typeof View | typeof Text>, ITableDataProps>(
   function TableData({ useRNView = false, className, ...props }, ref) {
     if (useRNView) {
       return <View ref={ref} className={tableDataStyle({ class: className })} {...props} />;
@@ -151,7 +152,7 @@ const TableData = React.forwardRef<React.ComponentRef<typeof View | typeof Text>
   }
 );
 
-const TableCaption = React.forwardRef<React.ComponentRef<typeof ExpoTCaption>, ITableCaptionProps>(
+const TableCaption = forwardRef<React.ComponentRef<typeof ExpoTCaption>, ITableCaptionProps>(
   ({ className, ...props }, ref) => {
     return (
       <ExpoTCaption

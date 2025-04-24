@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
 import { cssInterop } from 'nativewind';
@@ -11,7 +11,7 @@ cssInterop(ActivityIndicator, {
 
 const spinnerStyle = tva({});
 
-const Spinner = React.forwardRef<
+const Spinner = forwardRef<
   React.ComponentRef<typeof ActivityIndicator>,
   React.ComponentProps<typeof ActivityIndicator>
 >(function Spinner(

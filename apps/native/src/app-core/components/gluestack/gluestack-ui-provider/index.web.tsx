@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 
 import { setFlushStyles } from '@gluestack-ui/nativewind-utils/flush';
 import { OverlayProvider } from '@gluestack-ui/overlay';
@@ -41,7 +41,7 @@ export function GluestackUIProvider({
 
   setFlushStyles(cssVariablesWithMode);
 
-  const handleMediaQuery = React.useCallback((e: MediaQueryListEvent) => {
+  const handleMediaQuery = useCallback((e: MediaQueryListEvent) => {
     script(e.matches ? 'dark' : 'light');
   }, []);
 

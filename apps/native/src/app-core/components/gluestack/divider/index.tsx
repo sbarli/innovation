@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
@@ -18,7 +18,7 @@ const dividerStyle = tva({
 type IUIDividerProps = React.ComponentPropsWithoutRef<typeof View> &
   VariantProps<typeof dividerStyle>;
 
-const Divider = React.forwardRef<React.ComponentRef<typeof View>, IUIDividerProps>(function Divider(
+const Divider = forwardRef<React.ComponentRef<typeof View>, IUIDividerProps>(function Divider(
   { className, orientation = 'horizontal', ...props },
   ref
 ) {
