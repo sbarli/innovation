@@ -28,8 +28,8 @@ export const HomeScreen = () => {
         <Link href={Routes.TRAINING} asChild>
           <Button
             size="md"
-            variant="solid"
-            action="secondary"
+            variant="outline"
+            action="primary"
             isDisabled={false}
             isFocusVisible={false}
           >

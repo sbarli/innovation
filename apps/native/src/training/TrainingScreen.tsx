@@ -15,7 +15,7 @@ export const TrainingScreen = () => {
           <Button
             size="md"
             variant="solid"
-            action="secondary"
+            action="primary"
             isDisabled={false}
             isFocusVisible={false}
           >
