@@ -2,8 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Box } from '../../app-core/components/gluestack/box';
-import { Button, ButtonText } from '../../app-core/components/gluestack/button';
+import { Button, ButtonGroup, ButtonText } from '../../app-core/components/gluestack/button';
 import { Input, InputField } from '../../app-core/components/gluestack/input';
+import { isDev, TESTER_EMAILS, TESTER_PW } from '../../app-core/constants/manifest';
 import { FormError } from '../../app-core/forms/FormError';
 import { LoginFormData } from '../auth.types';
 import { useAuthContext } from '../state/AuthProvider';
@@ -15,6 +16,7 @@ export const LoginForm = () => {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<LoginFormData>({
     defaultValues: {
       email: '',
@@ -80,6 +82,26 @@ export const LoginForm = () => {
         />
         <FormError errorMsg={errors.password?.message} />
       </Box>
+      {isDev ? (
+        <ButtonGroup flexDirection="row" space="sm" className="mb-5">
+          {TESTER_EMAILS.map((email) => (
+            <Button
+              key={email}
+              onPress={() => {
+                setValue('email', email);
+                setValue('password', TESTER_PW);
+              }}
+              size="md"
+              variant="outline"
+              action="primary"
+              isDisabled={false}
+              isFocusVisible={false}
+            >
+              <ButtonText>{email}</ButtonText>
+            </Button>
+          ))}
+        </ButtonGroup>
+      ) : null}
       <Button
         onPress={handleSubmit(onSubmit)}
         size="md"

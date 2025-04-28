@@ -49,7 +49,7 @@ export const InteractiveModal = ({
             <Button
               variant="outline"
               size="sm"
-              action="secondary"
+              action="primary"
               onPress={onClose}
               disabled={disabled}
               className="mr-3"

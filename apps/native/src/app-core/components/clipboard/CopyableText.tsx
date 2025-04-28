@@ -40,7 +40,7 @@ export const CopyableText = ({ text }: { text: string }) => {
     <Button
       size="md"
       variant="link"
-      action="secondary"
+      action="primary"
       isDisabled={false}
       isFocusVisible={false}
       onPress={copyToClipboard}
