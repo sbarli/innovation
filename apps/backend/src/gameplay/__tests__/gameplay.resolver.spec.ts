@@ -140,6 +140,7 @@ describe('GameplayResolver', () => {
           playerId: MOCK_MELD_FROM_HAND_INPUT.playerRef,
           updatedPlayerBoard: MOCK_MELD_FROM_HAND_RESPONSE.updatedPlayerBoard,
           metadata: {
+            gameStageUpdated: false,
             updatedPlayerHand: MOCK_MELD_FROM_HAND_RESPONSE.updatedPlayerHand,
           },
         });
