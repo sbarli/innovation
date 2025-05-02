@@ -13,7 +13,7 @@ export class GamesService {
 
   async findGameById(id: string): Promise<Game | null | undefined> {
     try {
-      return this.gameModel.findById(id);
+      return this.gameModel.findById(id).lean();
     } catch (error) {
       throw new Error(
         getCatchErrorMessage(error, 'GamesService.findGameById -> Error finding game')
@@ -23,7 +23,7 @@ export class GamesService {
 
   async findGameByRoomRef(roomRef: string): Promise<Game | null | undefined> {
     try {
-      return this.gameModel.findOne({ roomRef });
+      return this.gameModel.findOne({ roomRef }).lean();
     } catch (error) {
       throw new Error(
         getCatchErrorMessage(error, 'GamesService.findGameByRoomRef -> Error finding game')
@@ -32,14 +32,16 @@ export class GamesService {
   }
 
   async findActiveGameByPlayers(playerRefs: string[]): Promise<Game | null | undefined> {
-    return this.gameModel.findOne({
-      $and: [
-        { playerRefs: { $all: [...playerRefs] } },
-        {
-          $or: [{ winnerRef: { $exists: false } }, { winnerRef: { $eq: null } }],
-        },
-      ],
-    });
+    return this.gameModel
+      .findOne({
+        $and: [
+          { playerRefs: { $all: [...playerRefs] } },
+          {
+            $or: [{ winnerRef: { $exists: false } }, { winnerRef: { $eq: null } }],
+          },
+        ],
+      })
+      .lean();
   }
 
   async create(newGameData: CreateGameInput): Promise<Game> {
@@ -62,6 +64,6 @@ export class GamesService {
      * @see https://stackoverflow.com/a/30419860
      */
 
-    return this.gameModel.findByIdAndUpdate(ref, gameUpdates, { new: true });
+    return this.gameModel.findByIdAndUpdate(ref, gameUpdates, { new: true }).lean();
   }
 }

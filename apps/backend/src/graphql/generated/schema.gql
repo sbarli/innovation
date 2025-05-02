@@ -216,6 +216,7 @@ input GetUserInput {
 input MeldInput {
   cardRef: ID!
   gameRef: ID!
+  isStarterMeld: Boolean!
   meldType: String!
   playerRef: ID!
 }

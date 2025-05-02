@@ -48,18 +48,26 @@ export class GameplayResolver {
     @Args('meldInput', { type: () => MeldInput })
     meldInput: MeldInput
   ) {
+    let gameStageUpdated = false;
     if (meldInput.meldType === 'fromHand') {
       const data = await this.playerActionsService.meldCardFromHand({
         cardId: meldInput.cardRef,
         gameId: meldInput.gameRef,
         playerId: meldInput.playerRef,
       });
+      if (meldInput.isStarterMeld) {
+        const movedToActive = await this.playerActionsService.maybeMoveGameStage({
+          gameId: meldInput.gameRef,
+        });
+        gameStageUpdated = movedToActive;
+      }
       return {
         gameId: meldInput.gameRef,
         playerId: meldInput.playerRef,
         updatedPlayerBoard: data.updatedPlayerBoard,
         metadata: {
           updatedPlayerHand: data.updatedPlayerHand,
+          gameStageUpdated,
         },
       };
     }

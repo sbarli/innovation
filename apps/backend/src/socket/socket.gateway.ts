@@ -125,35 +125,13 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
   @SubscribeMessage(SocketEvent.STARTER_CARD_MELDED)
   starterCardMelded(
     @CurrentUserFromRequest() user: UserWithoutPassword,
-    // @MessageBody('gameId') gameId: string,
     @MessageBody('roomId') roomId: string,
     @ConnectedSocket() socket: Socket
   ) {
     return this.socketGameService.handleStarterCardMelded(socket, {
-      // gameId,
       roomId,
       socketServer: this.server,
       user,
     });
   }
-
-  @UseGuards(JwtWsAuthGuard)
-  @SubscribeMessage(SocketEvent.MELD_CARD_FROM_HAND)
-  meldCardFromHand(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @MessageBody('cardId') cardId: string,
-    @MessageBody('gameId') gameId: string,
-    @MessageBody('roomId') roomId: string,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketGameService.handleMeldCardFromHand(socket, {
-      cardId,
-      gameId,
-      roomId,
-      socketServer: this.server,
-      user,
-    });
-  }
-
-  // Implement other Socket.IO event handlers and message handlers
 }

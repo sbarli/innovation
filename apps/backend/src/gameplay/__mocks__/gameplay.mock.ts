@@ -40,9 +40,10 @@ export const MOCK_NEW_GAME_RESPONSE: CreateNewGameResponse = {
 };
 
 export const MOCK_MELD_FROM_HAND_INPUT: MeldInput = {
-  gameRef: MOCK_GAME._id,
-  playerRef: MOCK_PLAYER_GAME_DETAILS.playerRef,
   cardRef: MOCK_PLAYER_GAME_DETAILS.hand[0],
+  gameRef: MOCK_GAME._id,
+  isStarterMeld: false,
+  playerRef: MOCK_PLAYER_GAME_DETAILS.playerRef,
   meldType: 'fromHand',
 };
 

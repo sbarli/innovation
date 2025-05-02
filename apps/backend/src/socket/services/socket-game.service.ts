@@ -10,9 +10,9 @@ import {
 } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
 
-import { PlayerActionsService } from 'src/gameplay/services/player-actions.service';
 import { GamesService } from 'src/games/games.service';
 
+import { IStarterCardMeldedUpdatedData } from '../dto/starter-card-melded.input.dto';
 import { ISocketServiceMethodParamsWithRoomId } from '../socket.types';
 
 export interface IParamsWithGameId extends ISocketServiceMethodParamsWithRoomId {
@@ -23,14 +23,15 @@ export interface IHandleMeldCardFromHandParams extends IParamsWithGameId {
   cardId: string;
 }
 
+export interface IHandleStarterCardMelded extends ISocketServiceMethodParamsWithRoomId {
+  updatedData: IStarterCardMeldedUpdatedData;
+}
+
 @Injectable()
 export class SocketGameService {
   private logger: Logger = new Logger('SocketGameService');
 
-  constructor(
-    private readonly gamesService: GamesService,
-    private readonly playerActionsService: PlayerActionsService
-  ) {}
+  constructor(private readonly gamesService: GamesService) {}
 
   /**
    * @name handleStartGame
@@ -86,10 +87,12 @@ export class SocketGameService {
   /**
    * @name handleStarterCardMelded
    * @description handles emitting event to room notifying a player has melded their starter card
+   *              -> includes updated hand and board data for player who melded
    */
   async handleStarterCardMelded(
     socket: Socket,
     { roomId, user }: ISocketServiceMethodParamsWithRoomId
+    // { roomId, user, updatedData }: IHandleStarterCardMelded
   ) {
     try {
       if (!socket.rooms.has(roomId)) {
@@ -110,9 +113,12 @@ export class SocketGameService {
         });
       }
 
-      socket.to(roomId).emit(SocketEvent.GAME_UPDATED, {
-        userId: user._id,
-        username: user.username,
+      socket.to(roomId).emit(SocketEvent.ROOM_STARTER_CARD_MELDED, {
+        meldedBy: {
+          userId: user._id,
+          username: user.username,
+        },
+        // updatedData,
       });
       return new SocketEventResponse({ success: true });
     } catch (error) {
@@ -121,71 +127,11 @@ export class SocketGameService {
         `Could not handle starter card meld: Unknown reason`
       );
       this.logger.error(errorMessage);
+      // TODO: handle error properly
       // const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
       // socket.emit(SocketEvent.START_GAME_ERROR, {
       //   error: errorData,
       // });
-      throw new WsException(errorMessage);
-    }
-  }
-
-  /**
-   * @name handleMeldCardFromHand
-   * @description handles melding a card from the player's hand and emitting the updated game state to the room
-   */
-  async handleMeldCardFromHand(
-    socket: Socket,
-    { cardId, gameId, roomId, user }: IHandleMeldCardFromHandParams
-  ) {
-    try {
-      console.log('playerActionsService', !!this.playerActionsService);
-      // const meldSuccess = await this.playerActionsService.meldCardFromHand();
-      // if (!meldSuccess) {
-      //   this.logger.error(`${user._id} could not meld card ${cardId}`);
-      //   const errorData = new SocketEventError(SocketEventErrorCode.INVALID, 'Meld card failed', {
-      //     gameId,
-      //     roomId,
-      //     userId: user._id,
-      //     cardId,
-      //   });
-      //   return new SocketEventResponse({
-      //     success: false,
-      //     error: errorData,
-      //   });
-      // }
-      if (!socket.rooms.has(roomId)) {
-        this.logger.error(`${user._id} could not meld card ${cardId}: User is not member of room`);
-        const errorData = new SocketEventError(
-          SocketEventErrorCode.INVALID,
-          'User cannot meld card for room they are not a member of',
-          {
-            gameId,
-            roomId,
-            userId: user._id,
-            cardId,
-          }
-        );
-        return new SocketEventResponse({
-          success: false,
-          error: errorData,
-        });
-      }
-
-      socket.to(roomId).emit(SocketEvent.CARD_MELDED, {
-        cardId,
-        gameId,
-        userId: user._id,
-        username: user.username,
-      });
-      return new SocketEventResponse({ success: true });
-    } catch (error) {
-      const errorMessage =
-        getCatchErrorMessage(error) ?? `${user._id} could not start game ${gameId}: Unknown reason`;
-      this.logger.error(errorMessage);
-      const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
-      socket.emit(SocketEvent.START_GAME_ERROR, {
-        error: errorData,
-      });
       throw new WsException(errorMessage);
     }
   }
