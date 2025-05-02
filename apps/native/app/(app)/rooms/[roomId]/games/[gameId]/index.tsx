@@ -10,11 +10,11 @@ import { useGameContext } from '../../../../../../src/games/state/GameProvider';
 // eslint-disable-next-line import/no-default-export
 export default function Game() {
   const { gameId } = useLocalSearchParams();
-  const { fetchGameData, loadingGameData } = useGameContext();
+  const { setGameId } = useGameContext();
 
   useEffect(() => {
-    if (!!gameId && typeof gameId === 'string' && !loadingGameData) {
-      fetchGameData(gameId);
+    if (!!gameId && typeof gameId === 'string') {
+      setGameId(gameId);
     }
   }, [gameId]);
 
@@ -25,7 +25,7 @@ export default function Game() {
   return (
     <>
       <HeaderNoNav title="Game Start" />
-      <GameScreen gameId={gameId} />
+      <GameScreen />
     </>
   );
 }

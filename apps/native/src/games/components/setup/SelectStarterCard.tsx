@@ -36,7 +36,11 @@ export const SelectStarterCard: FC = () => {
     if (!selectedCardRef) {
       return;
     }
-    meldCardFromHand({ cardId: selectedCardRef, onSuccess: emitSocketStarterCardMeldedEvent });
+    meldCardFromHand({
+      cardId: selectedCardRef,
+      isStarterMeld: true,
+      onSuccess: emitSocketStarterCardMeldedEvent,
+    });
   };
 
   if (!currentPlayerGameData || !cards) {
