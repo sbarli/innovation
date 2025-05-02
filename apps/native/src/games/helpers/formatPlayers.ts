@@ -66,6 +66,8 @@ const formatPlayerMetadata = (
     score: calculatePlayerScore(playerData.scorePile, cards),
     resourceTotals: calculateResourceTotals(playerData.board, cards),
     possibleActions: determinePlayerPossibleActions(playerData, cards, deck),
+    numAchievements: playerData.ageAchievements.length,
+    numSpecialAchievements: playerData.specialAchievements.length,
   };
 };
 

@@ -167,6 +167,8 @@ export type PlayerMetadata = {
   score: number;
   resourceTotals: ResourceTotals;
   possibleActions: PossibleActions;
+  numAchievements: number;
+  numSpecialAchievements: number;
 };
 
 export type BoardPile = Omit<GQLBoardPile, '__typename'>;
