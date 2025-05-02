@@ -1,4 +1,5 @@
 import { Logout } from '../../../authentication/components/Logout';
+import { Username } from '../../../authentication/components/Username';
 import { IHeaderProps } from '../../types/header.types';
 import { Box } from '../gluestack/box';
 import { Heading } from '../gluestack/heading';
@@ -12,7 +13,10 @@ export const HeaderNoNav = ({ showLogout = true, title }: IHeaderProps) => {
           {title}
         </Heading>
       </Box>
-      {!!showLogout && <Logout />}
+      <Box className="justify-center align-center">
+        <Username />
+        {!!showLogout && <Logout />}
+      </Box>
     </HStack>
   );
 };

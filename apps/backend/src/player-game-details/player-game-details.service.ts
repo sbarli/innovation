@@ -17,7 +17,7 @@ export class PlayerGameDetailsService {
   ) {}
 
   async findById(id: string): Promise<PlayerGameDetails | null | undefined> {
-    return this.playerGameDetailsModel.findById(id);
+    return this.playerGameDetailsModel.findById(id).lean();
   }
 
   async findDetailsByGameAndPlayer({
@@ -36,9 +36,11 @@ export class PlayerGameDetailsService {
   }
 
   async findDetailsByGame({ gameRef }: { gameRef: string }): Promise<PlayerGameDetails[]> {
-    return this.playerGameDetailsModel.find({
-      gameRef,
-    });
+    return this.playerGameDetailsModel
+      .find({
+        gameRef,
+      })
+      .lean();
   }
 
   async create(detailsToCreate: CreatePlayerGameDetailsInput): Promise<PlayerGameDetails> {
@@ -61,8 +63,10 @@ export class PlayerGameDetailsService {
      * @see https://stackoverflow.com/a/30419860
      */
 
-    return this.playerGameDetailsModel.findByIdAndUpdate(id, updates, {
-      new: true,
-    });
+    return this.playerGameDetailsModel
+      .findByIdAndUpdate(id, updates, {
+        new: true,
+      })
+      .lean();
   }
 }

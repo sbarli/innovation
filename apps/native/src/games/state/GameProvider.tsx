@@ -1,6 +1,6 @@
-import { createContext, PropsWithChildren, useCallback, useContext, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react';
 
-import { GameFragment, PlayerGameDetailsFragment, useGetGameDataLazyQuery } from '@inno/gql';
+import { GameFragment, PlayerGameDetailsFragment, useGetGameDataQuery } from '@inno/gql';
 
 import {
   AgeAchievements,
@@ -20,23 +20,28 @@ import { formatDeckMetadata } from '../helpers/formatDeckMetadata';
 import { formatGameMetadata } from '../helpers/formatGameMetadata';
 import { formatPlayers } from '../helpers/formatPlayers';
 import { formatSpecialAchievementsMetadata } from '../helpers/formatSpecialAchievementsMetadata';
-// import { useSocketContext } from '../../websockets/SocketProvider';
 
-// TODO: add default state here
 type TGameContext = {
   ageAchievements?: AgeAchievements;
   boards?: Boards;
   deck?: Deck;
   gameId?: string;
   hands?: Hands;
-  fetchGameData: (gameId: string) => void;
+  haveNecessaryGameData: boolean;
   loadingGameData: boolean;
   metadata?: GameStatus;
   players?: Players;
+  setGameId: (id: string) => void;
   specialAchievements?: SpecialAchievements;
-  updatePlayerGameData: (data: IPlayerGameUpdateProps) => void;
 };
+
+// TODO: add default state here
 const GameContext = createContext<TGameContext>({} as TGameContext);
+
+export interface IHandleFetchedGameDataProps {
+  gameData: GameFragment;
+  playerDetails: PlayerGameDetailsFragment[];
+}
 
 export interface IPlayerGameUpdateProps {
   updatedPlayerId: string;
@@ -46,140 +51,93 @@ export interface IPlayerGameUpdateProps {
 
 // Provider component to wrap around App
 export const GameProvider = ({ children }: PropsWithChildren) => {
-  const [getGameDataQuery, { loading: fetchingGameData }] = useGetGameDataLazyQuery();
   const { cards } = useCardsContext();
-  // const { socket } = useSocketContext();
-  const [ageAchievements, setAgeAchievements] = useState<AgeAchievements>();
-  const [boards, setBoards] = useState<Boards>();
-  const [deck, setDeck] = useState<Deck>();
   const [gameId, setGameId] = useState<string>();
-  const [hands, setHands] = useState<Hands>();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [metadata, setMetadata] = useState<GameStatus>();
-  const [players, setPlayers] = useState<Players>();
-  const [specialAchievements, setSpecialAchievements] = useState<SpecialAchievements>();
 
-  const handleError = (err?: unknown) => {
-    console.log('err: ', err ? JSON.stringify(err, null, 2) : 'unknown error');
-
-    setLoading(false);
-  };
-
-  const updatePlayerGameData = useCallback(
-    ({ updatedPlayerId, ...dataToUpdate }: IPlayerGameUpdateProps) => {
-      if (dataToUpdate.updatedPlayerBoard) {
-        setBoards((prev) => ({
-          ...prev,
-          [updatedPlayerId]: dataToUpdate.updatedPlayerBoard as Board,
-        }));
-      }
-      if (dataToUpdate.updatedPlayerHand) {
-        setHands((prev) => ({
-          ...prev,
-          [updatedPlayerId]: dataToUpdate.updatedPlayerHand as Hand,
-        }));
-      }
+  // error, refetch, startPolling, stopPolling
+  const { data, loading } = useGetGameDataQuery({
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-and-network',
+    variables: {
+      gameId: (gameId as string) ?? '',
     },
-    []
-  );
+    skip: !gameId || typeof gameId !== 'string',
+    pollInterval: 1000,
+  });
 
-  const handleFetchedGameData = ({
-    gameData,
-    playerDetails,
-  }: {
-    gameData: GameFragment;
-    playerDetails: PlayerGameDetailsFragment[];
-  }) => {
-    if (gameData) {
-      setMetadata(formatGameMetadata({ rawGameData: gameData }));
+  const metadata = useMemo(() => {
+    if (!data?.getGame) {
+      return;
     }
-    if (playerDetails?.length && gameData?.ageAchievements) {
-      setAgeAchievements(
-        formatAgeAchievementsMetadata({
-          gameAgeAchievemnts: gameData.ageAchievements,
-          playersGameData: playerDetails,
-        })
-      );
-    }
-    if (gameData?.deck) {
-      setDeck(formatDeckMetadata(gameData.deck));
-    }
-    if (playerDetails?.length) {
-      setSpecialAchievements(formatSpecialAchievementsMetadata(playerDetails));
-    }
-    if (playerDetails?.length && cards && gameData?.deck) {
-      const allPlayerData = formatPlayers({
-        cards,
-        deck: gameData?.deck,
-        playersGameData: playerDetails,
-      });
-      const players = allPlayerData.reduce((acc, data) => {
-        const dataDupe: Partial<typeof data> = { ...data };
-        delete dataDupe.hand;
-        delete dataDupe.board;
-        acc[data.playerId] = dataDupe as Player;
-        return acc;
-      }, {} as Players);
-      const hands = allPlayerData.reduce((acc, data) => {
-        acc[data.playerId] = data.hand;
-        return acc;
-      }, {} as Hands);
-      const boards = allPlayerData.reduce((acc, data) => {
-        acc[data.playerId] = data.board;
-        return acc;
-      }, {} as Boards);
-      setHands(hands);
-      setBoards(boards);
-      setPlayers(players);
-    }
-    setLoading(false);
-  };
+    return formatGameMetadata({ rawGameData: data?.getGame });
+  }, [data?.getGame]);
 
-  const fetchGameData = useCallback(async (gameId: string) => {
-    setGameId(gameId);
-    await getGameDataQuery({
-      variables: {
-        gameId,
-      },
-      fetchPolicy: 'no-cache',
-      onCompleted(data) {
-        setLoading(true);
-        if (!data?.getGame || !data?.getDetailsByGame?.length) {
-          handleError({
-            success: false,
-            msg: 'game data not returned from gql query',
-          });
-          return;
-        }
-        handleFetchedGameData({ gameData: data.getGame, playerDetails: data.getDetailsByGame });
-      },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      onError(e: any) {
-        console.log('caught error running getGameData e: ', e);
-        handleError({
-          success: false,
-          msg: 'error occured running gql query',
-        });
-      },
+  const ageAchievements = useMemo(() => {
+    if (!data?.getDetailsByGame?.length || !data?.getGame?.ageAchievements) {
+      return;
+    }
+    return formatAgeAchievementsMetadata({
+      gameAgeAchievemnts: data.getGame.ageAchievements,
+      playersGameData: data.getDetailsByGame,
     });
-  }, []);
+  }, [data?.getDetailsByGame, data?.getGame?.ageAchievements]);
 
-  // TODO: for some reason this doesn't pop toast as expected. maybe add this later, but for now this is overkill
-  // useEffect(() => {
-  //   socket?.on(SocketEvent.GAME_UPDATED, (resp: SocketEventResponse) => {
-  //     console.log('GAME_UPDATED event caught -> resp: ', JSON.stringify(resp, null, 2));
-  //     if (!resp.success) {
-  //       return handleError(resp.error);
-  //     }
-  //     if (resp.data) {
-  //       console.log('received game update notification. updated data: ', resp.data);
-  //     }
-  //   });
+  const deck = useMemo(() => {
+    if (!data?.getGame?.deck) {
+      return;
+    }
+    return formatDeckMetadata(data.getGame.deck);
+  }, [data?.getGame?.deck]);
 
-  //   return () => {
-  //     socket?.removeListener(SocketEvent.GAME_UPDATED);
-  //   };
-  // }, [socket]);
+  const specialAchievements = useMemo(() => {
+    if (!data?.getDetailsByGame) {
+      return;
+    }
+    return formatSpecialAchievementsMetadata(data.getDetailsByGame);
+  }, [data?.getDetailsByGame]);
+
+  const { players, hands, boards } = useMemo(() => {
+    if (!data?.getDetailsByGame?.length || !data?.getGame?.deck || !cards) {
+      return {};
+    }
+    const allPlayerData = formatPlayers({
+      cards,
+      deck: data.getGame.deck,
+      playersGameData: data.getDetailsByGame,
+    });
+    const players = allPlayerData.reduce((acc, data) => {
+      const dataDupe: Partial<typeof data> = { ...data };
+      delete dataDupe.hand;
+      delete dataDupe.board;
+      acc[data.playerId] = dataDupe as Player;
+      return acc;
+    }, {} as Players);
+    const hands = allPlayerData.reduce((acc, data) => {
+      acc[data.playerId] = data.hand;
+      return acc;
+    }, {} as Hands);
+    const boards = allPlayerData.reduce((acc, data) => {
+      acc[data.playerId] = data.board;
+      return acc;
+    }, {} as Boards);
+    return { players, hands, boards };
+  }, [cards, data?.getDetailsByGame, data?.getGame?.deck]);
+
+  const haveNecessaryGameData = useMemo(() => {
+    if (
+      !gameId ||
+      !ageAchievements ||
+      !specialAchievements ||
+      !metadata ||
+      !players ||
+      !hands ||
+      !boards ||
+      !deck
+    ) {
+      return false;
+    }
+    return true;
+  }, [gameId, ageAchievements, specialAchievements, metadata, players, hands, boards, deck]);
 
   return (
     <GameContext.Provider
@@ -189,12 +147,12 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
         deck,
         gameId,
         hands,
-        fetchGameData,
-        loadingGameData: loading || fetchingGameData,
+        haveNecessaryGameData,
+        loadingGameData: loading,
         metadata,
         players,
+        setGameId,
         specialAchievements,
-        updatePlayerGameData,
       }}
     >
       {children}

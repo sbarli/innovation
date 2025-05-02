@@ -1,5 +1,6 @@
 fragment PlayerGameDetails on PlayerGameDetails {
   _id
+  gameRef
   playerRef
   username
   board {

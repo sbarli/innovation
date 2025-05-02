@@ -15,4 +15,7 @@ export class MeldInput {
 
   @Field(() => String)
   meldType!: MeldType;
+
+  @Field(() => Boolean)
+  isStarterMeld!: boolean;
 }

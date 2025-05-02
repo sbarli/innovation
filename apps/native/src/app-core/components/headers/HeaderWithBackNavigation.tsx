@@ -1,6 +1,8 @@
 import { Logout } from '../../../authentication/components/Logout';
+import { Username } from '../../../authentication/components/Username';
 import { useNavigateBack } from '../../hooks/navigation/useNavigateBack';
 import { IHeaderProps } from '../../types/header.types';
+import { Box } from '../gluestack/box';
 import { Button, ButtonIcon } from '../gluestack/button';
 import { Heading } from '../gluestack/heading';
 import { HStack } from '../gluestack/hstack';
@@ -18,7 +20,10 @@ export const HeaderWithBackNavigation = ({ showLogout = true, title }: IHeaderPr
           {title}
         </Heading>
       </HStack>
-      {!!showLogout && <Logout />}
+      <Box className="justify-center align-center">
+        <Username />
+        {!!showLogout && <Logout />}
+      </Box>
     </HStack>
   );
 };

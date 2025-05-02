@@ -13,9 +13,13 @@ import { useGameContext } from '../../state/GameProvider';
 
 import { SelectStarterCard } from './SelectStarterCard';
 
+export interface IRoomStarterCardMeldedCallbackProps {
+  meldedBy: { username: string; userId: string };
+}
+
 export const GameSetup: FC = () => {
   const { user } = useAuthContext();
-  const { gameId, hands, fetchGameData } = useGameContext();
+  const { gameId, hands, players } = useGameContext();
   const { socket } = useSocketContext();
   const { currentPlayerGameData } = useCurrentPlayerGameData();
 
@@ -23,17 +27,16 @@ export const GameSetup: FC = () => {
 
   useEffect(() => {
     socket?.on(
-      SocketEvent.GAME_UPDATED,
-      ({ username, userId }: { username: string; userId: string }) => {
-        if (gameId && user?._id && user._id !== userId) {
-          fetchGameData(gameId);
+      SocketEvent.ROOM_STARTER_CARD_MELDED,
+      ({ meldedBy }: IRoomStarterCardMeldedCallbackProps) => {
+        if (gameId && user?._id && user._id !== meldedBy.userId) {
           toast.show({
             placement: 'top',
             render: ({ id }) => (
               <CustomToast
                 id={id}
                 title="Starter Card Melded"
-                description={`${username} has melded their starter card`}
+                description={`${meldedBy.username} has melded their starter card`}
               />
             ),
           });
@@ -53,8 +56,16 @@ export const GameSetup: FC = () => {
     );
   }
 
+  // TODO: memoize this
   const currentPlayerStarterCardMelded = currentPlayerGameData.hand.length === 1;
-  const allPlayersMeldedStarterCard = Object.keys(hands).every((pid) => hands[pid].length === 1);
+  const playersWithStarterCardMelded = Object.keys(hands).reduce((acc, pid) => {
+    if (players && hands[pid].length === 1) {
+      acc.push(players[pid].username);
+    }
+    return acc;
+  }, [] as string[]);
+  const totalPlayers = Object.keys(players ?? {}).length;
+  const allPlayersMeldedStarterCard = totalPlayers === playersWithStarterCardMelded.length;
 
   if (allPlayersMeldedStarterCard) {
     return (
@@ -65,14 +76,18 @@ export const GameSetup: FC = () => {
     );
   }
 
-  if (currentPlayerStarterCardMelded) {
-    return (
-      <Box>
+  return (
+    <Box>
+      <Text>
+        Waiting for {totalPlayers - playersWithStarterCardMelded.length} of {totalPlayers} players
+        to meld...
+      </Text>
+      <Text>{playersWithStarterCardMelded.join(', ')} have melded their starter card.</Text>
+      {!currentPlayerStarterCardMelded ? (
+        <SelectStarterCard />
+      ) : (
         <Text>You have already melded your starter card.</Text>
-        <Text>Waiting for other players to meld their starter cards...</Text>
-      </Box>
-    );
-  }
-
-  return <SelectStarterCard />;
+      )}
+    </Box>
+  );
 };
