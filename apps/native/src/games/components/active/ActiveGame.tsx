@@ -7,6 +7,8 @@ import { Text } from '../../../app-core/components/gluestack/text';
 import { useCurrentPlayerGameData } from '../../hooks/useCurrentPlayerGameData';
 import { useGameContext } from '../../state/GameProvider';
 
+import { StatsDrawer } from './game-stats/StatsDrawer';
+
 export const ActiveGame: FC = () => {
   const { metadata } = useGameContext();
   const { currentPlayerGameData } = useCurrentPlayerGameData();
@@ -21,6 +23,7 @@ export const ActiveGame: FC = () => {
 
   return (
     <Box>
+      <StatsDrawer />
       <Text>WELCOME TO THE ACTIVE GAME!!</Text>
     </Box>
   );
