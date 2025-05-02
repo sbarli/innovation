@@ -242,6 +242,7 @@ export type GetUserInput = {
 export type MeldInput = {
   cardRef: Scalars['ID']['input'];
   gameRef: Scalars['ID']['input'];
+  isStarterMeld: Scalars['Boolean']['input'];
   meldType: Scalars['String']['input'];
   playerRef: Scalars['ID']['input'];
 };
@@ -526,7 +527,7 @@ export type GetGameDataQueryVariables = Exact<{
 }>;
 
 
-export type GetGameDataQuery = { __typename?: 'Query', getGame?: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, stage: string, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, ageAchievements: { __typename?: 'AgeAchievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } } | null, getDetailsByGame: Array<{ __typename?: 'PlayerGameDetails', _id: string, playerRef: string, username?: string | null, ageAchievements: Array<string>, hand: Array<string>, scorePile: Array<string>, specialAchievements: Array<string>, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } }> };
+export type GetGameDataQuery = { __typename?: 'Query', getGame?: { __typename?: 'Game', _id: string, currentActionNumber: number, currentPlayerRef: string, playerRefs: Array<string>, stage: string, winnerRef?: string | null, deck: { __typename?: 'Deck', ONE: Array<string>, TWO: Array<string>, THREE: Array<string>, FOUR: Array<string>, FIVE: Array<string>, SIX: Array<string>, SEVEN: Array<string>, EIGHT: Array<string>, NINE: Array<string>, TEN: Array<string> }, ageAchievements: { __typename?: 'AgeAchievements', ONE: string, TWO: string, THREE: string, FOUR: string, FIVE: string, SIX: string, SEVEN: string, EIGHT: string, NINE: string } } | null, getDetailsByGame: Array<{ __typename?: 'PlayerGameDetails', _id: string, gameRef: string, playerRef: string, username?: string | null, ageAchievements: Array<string>, hand: Array<string>, scorePile: Array<string>, specialAchievements: Array<string>, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } }> };
 
 export type MeldFromHandMutationVariables = Exact<{
   meldInput: MeldInput;
@@ -559,7 +560,7 @@ export type BoardPileFragment = { __typename?: 'BoardPile', cardRefs: Array<stri
 
 export type BoardFragment = { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } };
 
-export type PlayerGameDetailsFragment = { __typename?: 'PlayerGameDetails', _id: string, playerRef: string, username?: string | null, ageAchievements: Array<string>, hand: Array<string>, scorePile: Array<string>, specialAchievements: Array<string>, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } };
+export type PlayerGameDetailsFragment = { __typename?: 'PlayerGameDetails', _id: string, gameRef: string, playerRef: string, username?: string | null, ageAchievements: Array<string>, hand: Array<string>, scorePile: Array<string>, specialAchievements: Array<string>, board: { __typename?: 'Board', blue: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, green: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, purple: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, red: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null }, yellow: { __typename?: 'BoardPile', cardRefs: Array<string>, splayed?: SplayOption | null } } };
 
 export type AddPlayerToRoomMutationVariables = Exact<{
   roomId: Scalars['String']['input'];
@@ -735,6 +736,7 @@ export const BoardFragmentDoc = gql`
 export const PlayerGameDetailsFragmentDoc = gql`
     fragment PlayerGameDetails on PlayerGameDetails {
   _id
+  gameRef
   playerRef
   username
   board {
