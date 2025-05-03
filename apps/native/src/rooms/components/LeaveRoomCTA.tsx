@@ -21,7 +21,7 @@ export const LeaveRoomCTA = ({ roomId }: { roomId: string }) => {
 
   const handleSuccessfulLeaveRoom = () => {
     setShowModal(false);
-    router.push(Routes.HOME);
+    router.push(Routes.HOME.path);
   };
 
   const { handleLeaveRoom, errorMsg, loading } = useLeaveRoom({

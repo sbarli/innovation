@@ -50,7 +50,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
   const redirectToLogout = () => {
     clearAuthToken();
     clearRefreshToken();
-    router.push(Routes.LOGOUT);
+    router.push(Routes.LOGOUT.path);
     return;
   };
 

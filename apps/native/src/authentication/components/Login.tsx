@@ -16,7 +16,7 @@ export const Login = () => {
         <Text>Don't have an account? </Text>
         <Link
           href={{
-            pathname: Routes.AUTH,
+            pathname: Routes.AUTH.path,
             params: {
               type: AuthRouteParams.SIGNUP,
             },

@@ -11,7 +11,7 @@ export const TrainingScreen = () => {
     <>
       <StatusBar style="auto" />
       <Box className="items-center justify-center">
-        <Link href={Routes.TRAINING_GAME} asChild>
+        <Link href={Routes.TRAINING_GAME.path} asChild>
           <Button
             size="md"
             variant="solid"

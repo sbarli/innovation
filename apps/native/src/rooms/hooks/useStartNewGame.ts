@@ -26,7 +26,7 @@ export const useStartNewGame = ({
   const handleRedirectToGameScreen = (gameId: string) => {
     if (typeof roomId === 'string') {
       router.push({
-        pathname: Routes.GAME,
+        pathname: Routes.GAME.path,
         params: {
           roomId,
           gameId,
