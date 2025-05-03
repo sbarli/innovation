@@ -18,5 +18,5 @@ export const useCurrentPlayerGameData = () => {
     };
   }, [user, players, hands, boards]);
 
-  return { currentPlayerGameData };
+  return currentPlayerGameData;
 };

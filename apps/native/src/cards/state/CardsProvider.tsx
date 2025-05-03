@@ -5,7 +5,7 @@ import { useGetAllCardsQuery } from '@inno/gql';
 import { Cards } from '../../app-core/types/game.types';
 
 type TCardsContext = {
-  cards?: Cards;
+  cards: Cards;
   cardsLoading: boolean;
 };
 const CardsContext = createContext<TCardsContext>({} as TCardsContext);
@@ -15,7 +15,7 @@ export const CardsProvider = ({ children }: PropsWithChildren) => {
 
   const cards = useMemo(() => {
     if (!data?.getAllCards?.length) {
-      return undefined;
+      return {};
     }
     return (data?.getAllCards ?? []).reduce((acc, card) => {
       acc[card._id] = card;
