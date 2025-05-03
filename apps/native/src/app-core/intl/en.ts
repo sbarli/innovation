@@ -2,6 +2,9 @@ export const text = {
   common: {
     CLOSE: 'Close',
   },
+  auth: {
+    CHECKING_AUTH_STATUS: 'Checking auth status...',
+  },
   currentUserHand: {
     SHOW_HAND_CTA: 'Show Hand',
   },

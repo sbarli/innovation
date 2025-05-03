@@ -12,6 +12,7 @@ import {
   PopoverContent,
 } from '../../../../../app-core/components/gluestack/popover';
 import { Text } from '../../../../../app-core/components/gluestack/text';
+import { text } from '../../../../../app-core/intl/en';
 
 export const Age: FC<{ age: number }> = ({ age }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +42,7 @@ export const Age: FC<{ age: number }> = ({ age }) => {
       <PopoverContent>
         <PopoverArrow />
         <PopoverBody>
-          <Text>Highest age on board</Text>
+          <Text>{text.statsDrawer.AGE_POPOVER}</Text>
         </PopoverBody>
       </PopoverContent>
     </Popover>

@@ -13,6 +13,7 @@ import {
 } from '../../../../../app-core/components/gluestack/popover';
 import { Text } from '../../../../../app-core/components/gluestack/text';
 import { NUM_ACHIEVEMENTS_REQUIRED_TO_WIN } from '../../../../../app-core/constants/game.constants';
+import { text } from '../../../../../app-core/intl/en';
 
 export const Achievements: FC<{ totalNumAchievements: number }> = ({ totalNumAchievements }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +43,7 @@ export const Achievements: FC<{ totalNumAchievements: number }> = ({ totalNumAch
       <PopoverContent>
         <PopoverArrow />
         <PopoverBody>
-          <Text>{`Total number of achievements (age + special)`}</Text>
+          <Text>{text.statsDrawer.ACHIEVEMENTS_POPOVER}</Text>
         </PopoverBody>
       </PopoverContent>
     </Popover>

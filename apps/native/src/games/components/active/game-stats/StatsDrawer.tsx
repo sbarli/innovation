@@ -11,6 +11,7 @@ import {
 } from '../../../../app-core/components/gluestack/drawer';
 import { Heading } from '../../../../app-core/components/gluestack/heading';
 import { MenuIcon } from '../../../../app-core/components/gluestack/icon';
+import { text } from '../../../../app-core/intl/en';
 import { useGameContext } from '../../../state/GameProvider';
 
 import { SinglePlayerDetails } from './SinglePlayerDetails';
@@ -27,7 +28,7 @@ export const StatsDrawer = () => {
         }}
       >
         <ButtonIcon as={MenuIcon} className="text-typography-500" />
-        <ButtonText>Stats</ButtonText>
+        <ButtonText>{text.statsDrawer.STATS_HEADER}</ButtonText>
       </Button>
       <Drawer
         isOpen={showDrawer}
@@ -40,7 +41,7 @@ export const StatsDrawer = () => {
         <DrawerBackdrop />
         <DrawerContent>
           <DrawerHeader>
-            <Heading size="2xl">Player Stats</Heading>
+            <Heading size="2xl">{text.statsDrawer.PLAYER_STATS_HEADER}</Heading>
           </DrawerHeader>
           <DrawerBody>
             {players && hands
@@ -61,7 +62,7 @@ export const StatsDrawer = () => {
               }}
               className="flex-1"
             >
-              <ButtonText>Close</ButtonText>
+              <ButtonText>{text.common.CLOSE}</ButtonText>
             </Button>
           </DrawerFooter>
         </DrawerContent>
