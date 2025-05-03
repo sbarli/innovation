@@ -12,7 +12,7 @@ export const HomeScreen = () => {
     <>
       <StatusBar style="auto" />
       <Box className="items-center">
-        <Link href={Routes.AUTH} asChild>
+        <Link href={Routes.AUTH.path} asChild>
           <Button
             size="md"
             variant="solid"
@@ -25,7 +25,7 @@ export const HomeScreen = () => {
         </Link>
         <CreateRoomCTA />
         <JoinRoomCTA />
-        <Link href={Routes.TRAINING} asChild>
+        <Link href={Routes.TRAINING.path} asChild>
           <Button
             size="md"
             variant="outline"

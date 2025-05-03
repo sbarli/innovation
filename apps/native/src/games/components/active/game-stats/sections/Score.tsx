@@ -12,6 +12,7 @@ import {
   PopoverContent,
 } from '../../../../../app-core/components/gluestack/popover';
 import { Text } from '../../../../../app-core/components/gluestack/text';
+import { text } from '../../../../../app-core/intl/en';
 
 export const Score: FC<{ score: number }> = ({ score }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +42,7 @@ export const Score: FC<{ score: number }> = ({ score }) => {
       <PopoverContent>
         <PopoverArrow />
         <PopoverBody>
-          <Text>Current score</Text>
+          <Text>{text.statsDrawer.SCORE_POPOVER}</Text>
         </PopoverBody>
       </PopoverContent>
     </Popover>

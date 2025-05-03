@@ -13,9 +13,19 @@ export interface ICardAgeBackProps {
 export const CardAgeBack = ({ age }: ICardAgeBackProps) => {
   return (
     <Box
-      className={` borderColor-${CARD_BACK_COLOR_LIGHT} bg-${CARD_BACK_BORDER_COLOR_LIGHT} rounded-2xl h-7 w-7 items-center justify-center border-1 `}
+      style={{
+        borderColor: CARD_BACK_COLOR_LIGHT,
+        backgroundColor: CARD_BACK_BORDER_COLOR_LIGHT,
+      }}
+      className={` rounded-2xl h-7 w-7 items-center justify-center border-1 `}
     >
-      <Text size="md" className={` color-${CARD_BACK_COLOR_DARK} text-center font-extrabold `}>
+      <Text
+        size="md"
+        style={{
+          color: CARD_BACK_COLOR_DARK,
+        }}
+        className={` text-center font-extrabold `}
+      >
         {age}
       </Text>
     </Box>

@@ -12,6 +12,7 @@ import {
   PopoverContent,
 } from '../../../../../app-core/components/gluestack/popover';
 import { Text } from '../../../../../app-core/components/gluestack/text';
+import { text } from '../../../../../app-core/intl/en';
 
 export const Hand: FC<{ numCardsInHand: number }> = ({ numCardsInHand }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +42,7 @@ export const Hand: FC<{ numCardsInHand: number }> = ({ numCardsInHand }) => {
       <PopoverContent>
         <PopoverArrow />
         <PopoverBody>
-          <Text>Num cards in hand</Text>
+          <Text>{text.statsDrawer.HAND_POPOVER}</Text>
         </PopoverBody>
       </PopoverContent>
     </Popover>

@@ -95,7 +95,7 @@ export const useLeaveRoom = ({
     );
     socket?.on(SocketEvent.CLOSE_ROOM_SUCCESS, () => {
       setErrorMsg('');
-      router.push(Routes.HOME);
+      router.push(Routes.HOME.path);
     });
     socket?.on(SocketEvent.CLOSE_ROOM_ERROR, (error: SocketEventError) => {
       setErrorMsg(error.message);

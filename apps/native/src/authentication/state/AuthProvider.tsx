@@ -83,7 +83,7 @@ export function AuthProvider(props: PropsWithChildren) {
     setUser(undefined);
     setIsAuthenticated(undefined);
     disconnectUserFromSocket();
-    router.push(Routes.AUTH);
+    router.push(Routes.AUTH.path);
   }, []);
 
   const authCallback = useCallback(

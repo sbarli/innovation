@@ -8,7 +8,7 @@ export default function Auth() {
   const trainingMode = !!process.env['EXPO_PUBLIC_TRAINING_MODE_ENABLED'];
   // Easy redirect when training
   if (trainingMode) {
-    return <Redirect href={Routes.TRAINING} />;
+    return <Redirect href={Routes.TRAINING.path} />;
   }
   return <AuthScreen />;
 }

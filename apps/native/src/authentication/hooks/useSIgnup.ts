@@ -22,7 +22,7 @@ export const useSignup = (authCallback: AuthCallbackFn) => {
             success: true,
             user: data?.signup?.user,
           }).then(() => {
-            router.replace(Routes.HOME);
+            router.replace(Routes.HOME.path);
           });
         } else {
           authCallback({

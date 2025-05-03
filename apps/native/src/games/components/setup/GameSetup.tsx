@@ -21,7 +21,7 @@ export const GameSetup: FC = () => {
   const { user } = useAuthContext();
   const { gameId, hands, players } = useGameContext();
   const { socket } = useSocketContext();
-  const { currentPlayerGameData } = useCurrentPlayerGameData();
+  const currentPlayerGameData = useCurrentPlayerGameData();
 
   const toast = useToast();
 

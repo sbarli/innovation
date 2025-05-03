@@ -7,11 +7,12 @@ import { Text } from '../../../app-core/components/gluestack/text';
 import { useCurrentPlayerGameData } from '../../hooks/useCurrentPlayerGameData';
 import { useGameContext } from '../../state/GameProvider';
 
+import { CurrentUserHand } from './current-user-hand/CurrentUserHand';
 import { StatsDrawer } from './game-stats/StatsDrawer';
 
 export const ActiveGame: FC = () => {
   const { metadata } = useGameContext();
-  const { currentPlayerGameData } = useCurrentPlayerGameData();
+  const currentPlayerGameData = useCurrentPlayerGameData();
 
   if (!currentPlayerGameData || metadata?.stage !== GameStage.ACTIVE) {
     return (
@@ -25,6 +26,7 @@ export const ActiveGame: FC = () => {
     <Box>
       <StatsDrawer />
       <Text>WELCOME TO THE ACTIVE GAME!!</Text>
+      <CurrentUserHand />
     </Box>
   );
 };

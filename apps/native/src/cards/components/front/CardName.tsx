@@ -16,9 +16,13 @@ export interface ICardNameProps {
 export const CardName = ({ color, name }: ICardNameProps) => {
   return (
     <Box
-      className={` borderColor-${BORDER_COLOR_LIGHT} bg-${secondaryCardColorMap[color]} px-5 py-1 border-1 `}
+      style={{
+        backgroundColor: secondaryCardColorMap[color],
+        borderColor: BORDER_COLOR_LIGHT,
+      }}
+      className={` px-5 py-1 border-1 `}
     >
-      <Text size="sm" isTruncated className={` color-${TEXT_COLOR_LIGHT} m-[0px] `}>
+      <Text size="sm" isTruncated style={{ color: TEXT_COLOR_LIGHT }} className={` m-[0px] `}>
         {name}
       </Text>
     </Box>

@@ -24,7 +24,7 @@ export const JoinRoomCTA = () => {
     setShowModal(false);
     updateCurrentRoomId(roomId);
     router.push({
-      pathname: Routes.ROOM,
+      pathname: Routes.ROOM.path,
       params: { roomId },
     });
   };

@@ -19,12 +19,12 @@ export default function Game() {
   }, [gameId]);
 
   if (!gameId || typeof gameId !== 'string') {
-    return <Redirect href={Routes.HOME} />;
+    return <Redirect href={Routes.HOME.path} />;
   }
 
   return (
     <>
-      <HeaderNoNav title="Game Start" />
+      <HeaderNoNav title={Routes.GAME.name} />
       <GameScreen />
     </>
   );

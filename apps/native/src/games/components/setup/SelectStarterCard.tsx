@@ -16,7 +16,7 @@ export const SelectStarterCard: FC = () => {
   const { cards } = useCardsContext();
   const { currentRoomId } = useRoomContext();
   const { socket } = useSocketContext();
-  const { currentPlayerGameData } = useCurrentPlayerGameData();
+  const currentPlayerGameData = useCurrentPlayerGameData();
   const { loading: meldingInProgress, error: meldingError, meldCardFromHand } = useMeldCard();
 
   const [selectedCardRef, setSelectedCardRef] = useState<string>('');

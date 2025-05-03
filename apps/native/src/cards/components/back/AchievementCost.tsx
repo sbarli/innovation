@@ -15,9 +15,19 @@ export const AchievementCost = ({ age }: IAchievementCostProps) => {
   }
   return (
     <Box
-      className={` borderColor-${CARD_BACK_COLOR_DARK} bg-${CARD_BACK_COLOR_LIGHT} rounded-full border-1 h-5 w-5 items-center justify-center `}
+      style={{
+        borderColor: CARD_BACK_COLOR_DARK,
+        backgroundColor: CARD_BACK_COLOR_LIGHT,
+      }}
+      className={` rounded-full border-1 h-5 w-5 items-center justify-center `}
     >
-      <Text size="xs" className={` color-${CARD_BACK_COLOR_DARK} text-center font-semibold `}>
+      <Text
+        size="xs"
+        style={{
+          color: CARD_BACK_COLOR_DARK,
+        }}
+        className={` text-center font-semibold `}
+      >
         {cost}
       </Text>
     </Box>
