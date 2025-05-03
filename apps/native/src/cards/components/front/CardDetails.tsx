@@ -23,7 +23,10 @@ export const CardDetails = ({ card }: ICardDetailsProps) => {
   const colorEnum = card.color as Color;
   return (
     <Box
-      className={` bg-${primaryCardColorMap[card.color as Color]} p-3.5 rounded-md w-full min-h-48 justify-between `}
+      style={{
+        backgroundColor: primaryCardColorMap[card.color as Color],
+      }}
+      className="p-3.5 rounded-md w-full min-h-48 justify-between"
     >
       <HStack className="justify-between w-full">
         <ResourceSpace cardColor={colorEnum} resource={resourceSpace1} />

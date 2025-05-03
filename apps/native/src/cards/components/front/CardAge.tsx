@@ -16,9 +16,13 @@ export interface ICardAgeProps {
 export const CardAge = ({ color, age }: ICardAgeProps) => {
   return (
     <Box
-      className={` borderColor-${BORDER_COLOR_LIGHT} bg-${secondaryCardColorMap[color]} p-1 rounded-full border-1 h-7 w-7 `}
+      style={{
+        borderColor: BORDER_COLOR_LIGHT,
+        backgroundColor: secondaryCardColorMap[color],
+      }}
+      className="p-1 rounded-full border-1 h-7 w-7"
     >
-      <Text size="sm" className={` color-${TEXT_COLOR_LIGHT} text-center `}>
+      <Text size="sm" style={{ color: TEXT_COLOR_LIGHT }} className="text-center">
         {age}
       </Text>
     </Box>

@@ -18,9 +18,12 @@ export interface IDogmaEffectProps {
 export const DogmaEffect = ({ color, effectDescription, isDemand = false }: IDogmaEffectProps) => {
   return (
     <Box
-      className={` ${isDemand ? secondaryCardColorMap[color] : tertiaryCardColorMap[color]} py-1 px-3 mx-2 `}
+      style={{
+        backgroundColor: isDemand ? secondaryCardColorMap[color] : tertiaryCardColorMap[color],
+      }}
+      className={` py-1 px-3 mx-2 `}
     >
-      <Text size="sm" className={` ${isDemand ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK} `}>
+      <Text size="sm" style={{ color: isDemand ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK }}>
         {effectDescription}
       </Text>
     </Box>

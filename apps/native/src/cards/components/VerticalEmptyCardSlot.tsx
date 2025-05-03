@@ -7,7 +7,11 @@ import {
 export const VerticalEmptyCardSlot = () => {
   return (
     <Box
-      className={` borderColor-${CARD_BACK_COLOR_LIGHT} bg-${CARD_BACK_BORDER_COLOR_LIGHT} p-2 rounded-md border-dashed border-2 w-32 h-48 justify-between `}
+      style={{
+        backgroundColor: CARD_BACK_COLOR_LIGHT,
+        borderColor: CARD_BACK_BORDER_COLOR_LIGHT,
+      }}
+      className={` p-2 rounded-md border-dashed border-2 w-32 h-48 justify-between `}
     />
   );
 };

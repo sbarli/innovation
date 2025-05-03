@@ -31,10 +31,17 @@ export interface IResourceSpaceProps {
 export const ResourceSpace = ({ cardColor, resource }: IResourceSpaceProps) => {
   return (
     <Box
-      className={` ${resource ? resourceColorMap[resource] : 'bg-black'} borderColor-${secondaryCardColorMap[cardColor]} border-2 w-8 h-8 `}
+      style={{
+        backgroundColor: resource ? resourceColorMap[resource] : 'black',
+        borderColor: secondaryCardColorMap[cardColor],
+      }}
+      className={` border-2 w-8 h-8 `}
     >
       <Box
-        className={` borderColor-${BORDER_COLOR_LIGHT} border-1 w-full h-full items-center justify-center `}
+        style={{
+          borderColor: BORDER_COLOR_LIGHT,
+        }}
+        className={` border-1 w-full h-full items-center justify-center `}
       >
         {resource ? (
           <Image
