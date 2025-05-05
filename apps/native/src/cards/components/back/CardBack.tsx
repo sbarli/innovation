@@ -1,4 +1,4 @@
-import { ageStringToAgeNameMap, cardAgeToAgeStringMap } from '@inno/constants';
+import { AgeDataByAgeNum, AgeNum } from '@inno/constants';
 
 import { Box } from '../../../app-core/components/gluestack/box';
 import { HStack } from '../../../app-core/components/gluestack/hstack';
@@ -13,12 +13,11 @@ import { AchievementCost } from './AchievementCost';
 import { CardAgeBack } from './CardAgeBack';
 
 export interface ICardBackProps {
-  age: number;
+  age: AgeNum;
 }
 
 export const CardBack = ({ age }: ICardBackProps) => {
-  const ageStr = cardAgeToAgeStringMap[age];
-  const ageName = ageStringToAgeNameMap[ageStr];
+  const ageDataItem = AgeDataByAgeNum[age];
   return (
     <Box
       style={{
@@ -54,10 +53,10 @@ export const CardBack = ({ age }: ICardBackProps) => {
           }}
           className={` font-bold self-center `}
         >
-          {ageName}
+          {ageDataItem.name}
         </Text>
         <Box className="pb-3 pr-2 self-end">
-          <AchievementCost age={ageStr} />
+          <AchievementCost cost={ageDataItem.costToAchieve} />
         </Box>
       </Box>
     </Box>

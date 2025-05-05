@@ -2,6 +2,8 @@ import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Schema as MongooseSchema } from 'mongoose';
 
+import { Age } from '@inno/constants';
+
 @Schema({ _id: false })
 @ObjectType()
 @InputType('AgeAchievementsInput')
@@ -11,61 +13,61 @@ export class AgeAchievements {
     ref: 'Card',
   })
   @Field(() => ID)
-  ONE!: string;
+  [Age.ONE]!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  TWO!: string;
+  [Age.TWO]!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  THREE!: string;
+  [Age.THREE]!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  FOUR!: string;
+  [Age.FOUR]!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  FIVE!: string;
+  [Age.FIVE]!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  SIX!: string;
+  [Age.SIX]!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  SEVEN!: string;
+  [Age.SEVEN]!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  EIGHT!: string;
+  [Age.EIGHT]!: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Card',
   })
   @Field(() => ID)
-  NINE!: string;
+  [Age.NINE]!: string;
 }

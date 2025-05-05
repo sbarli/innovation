@@ -1,36 +1,38 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
+import { Age } from '@inno/constants';
+
 import { CardIdAndRef } from './cardId-and-ref.dto';
 
 @ObjectType()
 export class CardIdAndRefByAge {
   @Field(() => [CardIdAndRef])
-  ONE!: CardIdAndRef[];
+  [Age.ONE]!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  TWO!: CardIdAndRef[];
+  [Age.TWO]!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  THREE!: CardIdAndRef[];
+  [Age.THREE]!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  FOUR!: CardIdAndRef[];
+  [Age.FOUR]!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  FIVE!: CardIdAndRef[];
+  [Age.FIVE]!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  SIX!: CardIdAndRef[];
+  [Age.SIX]!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  SEVEN!: CardIdAndRef[];
+  [Age.SEVEN]!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  EIGHT!: CardIdAndRef[];
+  [Age.EIGHT]!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  NINE!: CardIdAndRef[];
+  [Age.NINE]!: CardIdAndRef[];
 
   @Field(() => [CardIdAndRef])
-  TEN!: CardIdAndRef[];
+  [Age.TEN]!: CardIdAndRef[];
 }

@@ -1,36 +1,36 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
-import { AgeString } from '@inno/constants';
+import { Age } from '@inno/constants';
 
 @ObjectType()
 export class CardRefsByAge {
   @Field(() => [String])
-  [AgeString.ONE]!: string[]; // NOTE: need the ! due to this: https://github.com/Microsoft/TypeScript-Vue-Starter/issues/36#issuecomment-371434263
+  [Age.ONE]!: string[]; // NOTE: need the ! due to this: https://github.com/Microsoft/TypeScript-Vue-Starter/issues/36#issuecomment-371434263
 
   @Field(() => [String])
-  [AgeString.TWO]!: string[];
+  [Age.TWO]!: string[];
 
   @Field(() => [String])
-  [AgeString.THREE]!: string[];
+  [Age.THREE]!: string[];
 
   @Field(() => [String])
-  [AgeString.FOUR]!: string[];
+  [Age.FOUR]!: string[];
 
   @Field(() => [String])
-  [AgeString.FIVE]!: string[];
+  [Age.FIVE]!: string[];
 
   @Field(() => [String])
-  [AgeString.SIX]!: string[];
+  [Age.SIX]!: string[];
 
   @Field(() => [String])
-  [AgeString.SEVEN]!: string[];
+  [Age.SEVEN]!: string[];
 
   @Field(() => [String])
-  [AgeString.EIGHT]!: string[];
+  [Age.EIGHT]!: string[];
 
   @Field(() => [String])
-  [AgeString.NINE]!: string[];
+  [Age.NINE]!: string[];
 
   @Field(() => [String])
-  [AgeString.TEN]!: string[];
+  [Age.TEN]!: string[];
 }

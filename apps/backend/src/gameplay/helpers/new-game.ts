@@ -1,4 +1,4 @@
-import { AgeString, ages } from '@inno/constants';
+import { Age, AgeData } from '@inno/constants';
 import { shuffleArray } from '@inno/utils';
 
 import { CardRefsByAge } from 'src/cards/dto/card-refs-by-age.dto';
@@ -10,16 +10,15 @@ export type TPlayerStarterHands = {
 };
 
 export const cloneDeck = (baseDeck: Deck): Deck => {
-  return Object.keys(baseDeck).reduce((acc, age) => {
-    acc[age as AgeString] = [...baseDeck[age as AgeString]];
+  return Object.keys(baseDeck).reduce((acc, age: unknown) => {
+    acc[age as Age] = [...baseDeck[age as Age]];
     return acc;
   }, {} as Deck);
 };
 
 export const shuffleDeck = (cardRefsByAge: CardRefsByAge): Deck =>
-  Object.keys(cardRefsByAge).reduce((acc, ageString) => {
-    const age = ageString as AgeString;
-    acc[age] = shuffleArray(cardRefsByAge[age]) as string[];
+  Object.keys(cardRefsByAge).reduce((acc, age: unknown) => {
+    acc[age as Age] = shuffleArray(cardRefsByAge[age as Age]) as string[];
     return acc;
   }, {} as Deck);
 
@@ -27,13 +26,13 @@ export const pickAgeAchievements = (
   currentDeck: Deck
 ): { ageAchievements: AgeAchievements; deckMinusAchievements: Deck } => {
   const deckMinusAchievements = cloneDeck(currentDeck);
-  const ageAchievements = ages.reduce((acc, age) => {
-    if (age !== AgeString.TEN) {
-      const cardId = deckMinusAchievements[age].shift();
+  const ageAchievements = AgeData.reduce((acc, ageItem) => {
+    if (ageItem.str !== Age.TEN) {
+      const cardId = deckMinusAchievements[ageItem.str].shift();
       if (!cardId) {
         throw new Error('Missing cardId for age achievements draw');
       }
-      acc[age] = cardId;
+      acc[ageItem.str] = cardId;
     }
     return acc;
   }, {} as AgeAchievements);
@@ -51,7 +50,7 @@ export const selectStarterHandsForPlayers = (
   }, {} as TPlayerStarterHands);
   for (let i = 0; i < 2; i++) {
     Object.keys(playerStarterHands).forEach((playerId) => {
-      const cardId = deckMinusStarterHands[AgeString.ONE].shift();
+      const cardId = deckMinusStarterHands[Age.ONE].shift();
       if (!cardId) {
         throw new Error('Missing cardId for starter hands draw');
       }

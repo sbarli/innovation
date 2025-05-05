@@ -1,4 +1,4 @@
-import { GameStage } from '@inno/constants';
+import { Age, GameStage } from '@inno/constants';
 
 import { MOCK_ROOM_ID } from 'src/rooms/__mocks__/room.mock';
 import { MOCK_USER_ID, MOCK_USER_ID_2 } from 'src/users/__mocks__/user.mock';
@@ -17,15 +17,15 @@ export const MOCK_GAME_INPUT: CreateGameInput = {
   playerRefs: [MOCK_USER_ID, MOCK_USER_ID_2],
   deck: MOCK_DECK,
   ageAchievements: {
-    ONE: '6435a7d5dd31b5790f7bc58a',
-    TWO: '6435a7d5dd31b5790f7bc59b',
-    THREE: '6435a7d5dd31b5790f7bc5a4',
-    FOUR: '6435a7d5dd31b5790f7bc5ad',
-    FIVE: '6435a7d5dd31b5790f7bc5bb',
-    SIX: '6435a7d5dd31b5790f7bc5bf',
-    SEVEN: '6435a7d5dd31b5790f7bc5ce',
-    EIGHT: '6435a7d5dd31b5790f7bc5d3',
-    NINE: '6435a7d5dd31b5790f7bc5e4',
+    [Age.ONE]: '6435a7d5dd31b5790f7bc58a',
+    [Age.TWO]: '6435a7d5dd31b5790f7bc59b',
+    [Age.THREE]: '6435a7d5dd31b5790f7bc5a4',
+    [Age.FOUR]: '6435a7d5dd31b5790f7bc5ad',
+    [Age.FIVE]: '6435a7d5dd31b5790f7bc5bb',
+    [Age.SIX]: '6435a7d5dd31b5790f7bc5bf',
+    [Age.SEVEN]: '6435a7d5dd31b5790f7bc5ce',
+    [Age.EIGHT]: '6435a7d5dd31b5790f7bc5d3',
+    [Age.NINE]: '6435a7d5dd31b5790f7bc5e4',
   },
 };
 
@@ -40,15 +40,15 @@ export const MOCK_GAME: Game = {
   playerRefs: [MOCK_USER_ID, MOCK_USER_ID_2],
   deck: MOCK_DECK,
   ageAchievements: {
-    ONE: '6435a7d5dd31b5790f7bc58a',
-    TWO: '6435a7d5dd31b5790f7bc59b',
-    THREE: '6435a7d5dd31b5790f7bc5a4',
-    FOUR: '6435a7d5dd31b5790f7bc5ad',
-    FIVE: '6435a7d5dd31b5790f7bc5bb',
-    SIX: '6435a7d5dd31b5790f7bc5bf',
-    SEVEN: '6435a7d5dd31b5790f7bc5ce',
-    EIGHT: '6435a7d5dd31b5790f7bc5d3',
-    NINE: '6435a7d5dd31b5790f7bc5e4',
+    [Age.ONE]: '6435a7d5dd31b5790f7bc58a',
+    [Age.TWO]: '6435a7d5dd31b5790f7bc59b',
+    [Age.THREE]: '6435a7d5dd31b5790f7bc5a4',
+    [Age.FOUR]: '6435a7d5dd31b5790f7bc5ad',
+    [Age.FIVE]: '6435a7d5dd31b5790f7bc5bb',
+    [Age.SIX]: '6435a7d5dd31b5790f7bc5bf',
+    [Age.SEVEN]: '6435a7d5dd31b5790f7bc5ce',
+    [Age.EIGHT]: '6435a7d5dd31b5790f7bc5d3',
+    [Age.NINE]: '6435a7d5dd31b5790f7bc5e4',
   },
   winnerRef: undefined,
 };
