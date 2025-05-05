@@ -1,3 +1,5 @@
+import { Resource } from '@inno/constants';
+
 // eslint-disable-next-line import/no-default-export
 export default [
   {
@@ -5,7 +7,7 @@ export default [
     name: 'Writing',
     age: 1,
     color: 'blue',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -16,9 +18,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -36,7 +38,7 @@ export default [
     name: 'Clothing',
     age: 1,
     color: 'green',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -47,9 +49,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'leaves',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -76,7 +78,7 @@ export default [
     name: 'Masonry',
     age: 1,
     color: 'yellow',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 3,
       crowns: 0,
@@ -86,10 +88,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'castles',
+      resourceSpace1: Resource.CASTLES,
       resourceSpace2: null,
-      resourceSpace3: 'castles',
-      resourceSpace4: 'castles',
+      resourceSpace3: Resource.CASTLES,
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -108,7 +110,7 @@ export default [
     name: 'Metalworking',
     age: 1,
     color: 'red',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 3,
       crowns: 0,
@@ -118,10 +120,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'castles',
-      resourceSpace2: 'castles',
+      resourceSpace1: Resource.CASTLES,
+      resourceSpace2: Resource.CASTLES,
       resourceSpace3: null,
-      resourceSpace4: 'castles',
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -140,7 +142,7 @@ export default [
     name: 'Code of Laws',
     age: 1,
     color: 'purple',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -151,9 +153,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'leaves',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -172,7 +174,7 @@ export default [
     name: 'Sailing',
     age: 1,
     color: 'green',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -182,10 +184,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'crowns',
-      resourceSpace2: 'crowns',
+      resourceSpace1: Resource.CROWNS,
+      resourceSpace2: Resource.CROWNS,
       resourceSpace3: null,
-      resourceSpace4: 'leaves',
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -203,7 +205,7 @@ export default [
     name: 'Pottery',
     age: 1,
     color: 'blue',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -214,9 +216,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'leaves',
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -243,7 +245,7 @@ export default [
     name: 'Oars',
     age: 1,
     color: 'red',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 2,
       crowns: 1,
@@ -253,10 +255,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'castles',
-      resourceSpace2: 'crowns',
+      resourceSpace1: Resource.CASTLES,
+      resourceSpace2: Resource.CROWNS,
       resourceSpace3: null,
-      resourceSpace4: 'castles',
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -283,7 +285,7 @@ export default [
     name: 'Archery',
     age: 1,
     color: 'red',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 2,
       crowns: 0,
@@ -293,10 +295,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'castles',
-      resourceSpace2: 'lightbulbs',
+      resourceSpace1: Resource.CASTLES,
+      resourceSpace2: Resource.LIGHTBULBS,
       resourceSpace3: null,
-      resourceSpace4: 'castles',
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -315,7 +317,7 @@ export default [
     name: 'Agriculture',
     age: 1,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -326,9 +328,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'leaves',
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -347,7 +349,7 @@ export default [
     name: 'Mysticism',
     age: 1,
     color: 'purple',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 3,
       crowns: 0,
@@ -358,9 +360,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'castles',
-      resourceSpace3: 'castles',
-      resourceSpace4: 'castles',
+      resourceSpace2: Resource.CASTLES,
+      resourceSpace3: Resource.CASTLES,
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -379,7 +381,7 @@ export default [
     name: 'City States',
     age: 1,
     color: 'purple',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 1,
       crowns: 2,
@@ -390,9 +392,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'castles',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -411,7 +413,7 @@ export default [
     name: 'Domestication',
     age: 1,
     color: 'yellow',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 2,
       crowns: 1,
@@ -421,10 +423,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'castles',
-      resourceSpace2: 'crowns',
+      resourceSpace1: Resource.CASTLES,
+      resourceSpace2: Resource.CROWNS,
       resourceSpace3: null,
-      resourceSpace4: 'castles',
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -442,7 +444,7 @@ export default [
     name: 'Tools',
     age: 1,
     color: 'blue',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 1,
       crowns: 0,
@@ -453,9 +455,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
-      resourceSpace4: 'castles',
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -481,7 +483,7 @@ export default [
     name: 'The Wheel',
     age: 1,
     color: 'green',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 3,
       crowns: 0,
@@ -492,9 +494,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'castles',
-      resourceSpace3: 'castles',
-      resourceSpace4: 'castles',
+      resourceSpace2: Resource.CASTLES,
+      resourceSpace3: Resource.CASTLES,
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -512,7 +514,7 @@ export default [
     name: 'Currency',
     age: 2,
     color: 'green',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -522,10 +524,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'leaves',
-      resourceSpace2: 'crowns',
+      resourceSpace1: Resource.LEAVES,
+      resourceSpace2: Resource.CROWNS,
       resourceSpace3: null,
-      resourceSpace4: 'crowns',
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -544,7 +546,7 @@ export default [
     name: 'Canal Building',
     age: 2,
     color: 'yellow',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -555,9 +557,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -576,7 +578,7 @@ export default [
     name: 'Monotheism',
     age: 2,
     color: 'purple',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 3,
       crowns: 0,
@@ -587,9 +589,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'castles',
-      resourceSpace3: 'castles',
-      resourceSpace4: 'castles',
+      resourceSpace2: Resource.CASTLES,
+      resourceSpace3: Resource.CASTLES,
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -616,7 +618,7 @@ export default [
     name: 'Road Building',
     age: 2,
     color: 'red',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 3,
       crowns: 0,
@@ -626,10 +628,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'castles',
-      resourceSpace2: 'castles',
+      resourceSpace1: Resource.CASTLES,
+      resourceSpace2: Resource.CASTLES,
       resourceSpace3: null,
-      resourceSpace4: 'castles',
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -648,7 +650,7 @@ export default [
     name: 'Construction',
     age: 2,
     color: 'red',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 3,
       crowns: 0,
@@ -658,10 +660,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'castles',
+      resourceSpace1: Resource.CASTLES,
       resourceSpace2: null,
-      resourceSpace3: 'castles',
-      resourceSpace4: 'castles',
+      resourceSpace3: Resource.CASTLES,
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -688,7 +690,7 @@ export default [
     name: 'Fermenting',
     age: 2,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 1,
       crowns: 0,
@@ -698,10 +700,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'leaves',
-      resourceSpace2: 'leaves',
+      resourceSpace1: Resource.LEAVES,
+      resourceSpace2: Resource.LEAVES,
       resourceSpace3: null,
-      resourceSpace4: 'castles',
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -719,7 +721,7 @@ export default [
     name: 'Calendar',
     age: 2,
     color: 'blue',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -730,9 +732,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'lightbulbs',
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.LIGHTBULBS,
     },
     dogmaEffects: [
       {
@@ -750,7 +752,7 @@ export default [
     name: 'Philosophy',
     age: 2,
     color: 'purple',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -761,9 +763,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
-      resourceSpace4: 'lightbulbs',
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
+      resourceSpace4: Resource.LIGHTBULBS,
     },
     dogmaEffects: [
       {
@@ -789,7 +791,7 @@ export default [
     name: 'Mathematics',
     age: 2,
     color: 'blue',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -800,9 +802,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'lightbulbs',
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.LIGHTBULBS,
     },
     dogmaEffects: [
       {
@@ -821,7 +823,7 @@ export default [
     name: 'Mapmaking',
     age: 2,
     color: 'green',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 1,
       crowns: 2,
@@ -832,9 +834,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'castles',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -861,7 +863,7 @@ export default [
     name: 'Paper',
     age: 3,
     color: 'green',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -872,9 +874,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -900,7 +902,7 @@ export default [
     name: 'Engineering',
     age: 3,
     color: 'red',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 2,
       crowns: 0,
@@ -910,10 +912,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'castles',
+      resourceSpace1: Resource.CASTLES,
       resourceSpace2: null,
-      resourceSpace3: 'lightbulbs',
-      resourceSpace4: 'castles',
+      resourceSpace3: Resource.LIGHTBULBS,
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -940,7 +942,7 @@ export default [
     name: 'Translation',
     age: 3,
     color: 'blue',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 3,
@@ -951,9 +953,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -980,7 +982,7 @@ export default [
     name: 'Feudalism',
     age: 3,
     color: 'purple',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 2,
       crowns: 0,
@@ -991,9 +993,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'castles',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'castles',
+      resourceSpace2: Resource.CASTLES,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -1020,7 +1022,7 @@ export default [
     name: 'Machinery',
     age: 3,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 1,
       crowns: 0,
@@ -1030,10 +1032,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'leaves',
-      resourceSpace2: 'leaves',
+      resourceSpace1: Resource.LEAVES,
+      resourceSpace2: Resource.LEAVES,
       resourceSpace3: null,
-      resourceSpace4: 'castles',
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -1061,7 +1063,7 @@ export default [
     name: 'Medicine',
     age: 3,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -1071,9 +1073,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'crowns',
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'leaves',
+      resourceSpace1: Resource.CROWNS,
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.LEAVES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -1093,7 +1095,7 @@ export default [
     name: 'Optics',
     age: 3,
     color: 'red',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 3,
@@ -1103,9 +1105,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'crowns',
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'crowns',
+      resourceSpace1: Resource.CROWNS,
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.CROWNS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -1125,7 +1127,7 @@ export default [
     name: 'Compass',
     age: 3,
     color: 'green',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -1136,9 +1138,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'leaves',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -1157,7 +1159,7 @@ export default [
     name: 'Education',
     age: 3,
     color: 'purple',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1167,9 +1169,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'lightbulbs',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
+      resourceSpace1: Resource.LIGHTBULBS,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -1189,7 +1191,7 @@ export default [
     name: 'Alchemy',
     age: 3,
     color: 'blue',
-    dogmaResource: 'castles',
+    dogmaResource: Resource.CASTLES,
     resourceTotals: {
       castles: 2,
       crowns: 0,
@@ -1200,9 +1202,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'castles',
-      resourceSpace4: 'castles',
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.CASTLES,
+      resourceSpace4: Resource.CASTLES,
     },
     dogmaEffects: [
       {
@@ -1229,7 +1231,7 @@ export default [
     name: 'Gunpowder',
     age: 4,
     color: 'red',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -1240,9 +1242,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'factories',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -1269,7 +1271,7 @@ export default [
     name: 'Invention',
     age: 4,
     color: 'green',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1280,9 +1282,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
-      resourceSpace4: 'factories',
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -1310,7 +1312,7 @@ export default [
     name: 'Colonialism',
     age: 4,
     color: 'red',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1321,9 +1323,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'lightbulbs',
-      resourceSpace4: 'factories',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.LIGHTBULBS,
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -1341,7 +1343,7 @@ export default [
     name: 'Reformation',
     age: 4,
     color: 'purple',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1351,10 +1353,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'leaves',
-      resourceSpace2: 'leaves',
+      resourceSpace1: Resource.LEAVES,
+      resourceSpace2: Resource.LEAVES,
       resourceSpace3: null,
-      resourceSpace4: 'leaves',
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -1380,7 +1382,7 @@ export default [
     name: 'Anatomy',
     age: 4,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1390,9 +1392,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'leaves',
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'leaves',
+      resourceSpace1: Resource.LEAVES,
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.LEAVES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -1412,7 +1414,7 @@ export default [
     name: 'Enterprise',
     age: 4,
     color: 'purple',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 3,
@@ -1423,9 +1425,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -1452,7 +1454,7 @@ export default [
     name: 'Perspective',
     age: 4,
     color: 'yellow',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1463,9 +1465,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
-      resourceSpace4: 'leaves',
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -1484,7 +1486,7 @@ export default [
     name: 'Navigation',
     age: 4,
     color: 'green',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 3,
@@ -1495,9 +1497,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -1516,7 +1518,7 @@ export default [
     name: 'Printing Press',
     age: 4,
     color: 'blue',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -1527,9 +1529,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -1556,7 +1558,7 @@ export default [
     name: 'Experimentation',
     age: 4,
     color: 'blue',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1567,9 +1569,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
-      resourceSpace4: 'lightbulbs',
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
+      resourceSpace4: Resource.LIGHTBULBS,
     },
     dogmaEffects: [
       {
@@ -1587,7 +1589,7 @@ export default [
     name: 'Astronomy',
     age: 5,
     color: 'purple',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -1597,9 +1599,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'crowns',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
+      resourceSpace1: Resource.CROWNS,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -1628,7 +1630,7 @@ export default [
     name: 'Measurement',
     age: 5,
     color: 'green',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1638,9 +1640,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'lightbulbs',
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'lightbulbs',
+      resourceSpace1: Resource.LIGHTBULBS,
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.LIGHTBULBS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -1660,7 +1662,7 @@ export default [
     name: 'Statistics',
     age: 5,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1670,9 +1672,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'leaves',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'leaves',
+      resourceSpace1: Resource.LEAVES,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LEAVES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -1699,7 +1701,7 @@ export default [
     name: 'Chemistry',
     age: 5,
     color: 'blue',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1709,9 +1711,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'factories',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'factories',
+      resourceSpace1: Resource.FACTORIES,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.FACTORIES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -1739,7 +1741,7 @@ export default [
     name: 'Coal',
     age: 5,
     color: 'red',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1749,9 +1751,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'factories',
-      resourceSpace2: 'factories',
-      resourceSpace3: 'factories',
+      resourceSpace1: Resource.FACTORIES,
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.FACTORIES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -1787,7 +1789,7 @@ export default [
     name: 'The Pirate Code',
     age: 5,
     color: 'red',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -1797,9 +1799,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'crowns',
-      resourceSpace2: 'factories',
-      resourceSpace3: 'crowns',
+      resourceSpace1: Resource.CROWNS,
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.CROWNS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -1828,7 +1830,7 @@ export default [
     name: 'Steam Engine',
     age: 5,
     color: 'yellow',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -1839,9 +1841,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'factories',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -1859,7 +1861,7 @@ export default [
     name: 'Banking',
     age: 5,
     color: 'green',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -1869,10 +1871,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'factories',
-      resourceSpace2: 'crowns',
+      resourceSpace1: Resource.FACTORIES,
+      resourceSpace2: Resource.CROWNS,
       resourceSpace3: null,
-      resourceSpace4: 'crowns',
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -1899,7 +1901,7 @@ export default [
     name: 'Physics',
     age: 5,
     color: 'blue',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1909,9 +1911,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'factories',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
+      resourceSpace1: Resource.FACTORIES,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -1931,7 +1933,7 @@ export default [
     name: 'Societies',
     age: 5,
     color: 'purple',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -1941,10 +1943,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'crowns',
+      resourceSpace1: Resource.CROWNS,
       resourceSpace2: null,
-      resourceSpace3: 'lightbulbs',
-      resourceSpace4: 'crowns',
+      resourceSpace3: Resource.LIGHTBULBS,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -1963,7 +1965,7 @@ export default [
     name: 'Atomic Theory',
     age: 6,
     color: 'blue',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -1973,9 +1975,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'lightbulbs',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
+      resourceSpace1: Resource.LIGHTBULBS,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2002,7 +2004,7 @@ export default [
     name: 'Emancipation',
     age: 6,
     color: 'purple',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2012,9 +2014,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'factories',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'factories',
+      resourceSpace1: Resource.FACTORIES,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.FACTORIES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2042,7 +2044,7 @@ export default [
     name: 'Vaccination',
     age: 6,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2052,9 +2054,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'leaves',
-      resourceSpace2: 'factories',
-      resourceSpace3: 'leaves',
+      resourceSpace1: Resource.LEAVES,
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.LEAVES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2082,7 +2084,7 @@ export default [
     name: 'Classification',
     age: 6,
     color: 'green',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2092,9 +2094,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'lightbulbs',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
+      resourceSpace1: Resource.LIGHTBULBS,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2114,7 +2116,7 @@ export default [
     name: 'Metric System',
     age: 6,
     color: 'green',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -2125,9 +2127,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -2154,7 +2156,7 @@ export default [
     name: 'Encyclopedia',
     age: 6,
     color: 'blue',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 3,
@@ -2165,9 +2167,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -2186,7 +2188,7 @@ export default [
     name: 'Machine Tools',
     age: 6,
     color: 'red',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2196,10 +2198,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'factories',
-      resourceSpace2: 'factories',
+      resourceSpace1: Resource.FACTORIES,
+      resourceSpace2: Resource.FACTORIES,
       resourceSpace3: null,
-      resourceSpace4: 'factories',
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -2217,7 +2219,7 @@ export default [
     name: 'Industrialization',
     age: 6,
     color: 'red',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -2227,9 +2229,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'crowns',
-      resourceSpace2: 'factories',
-      resourceSpace3: 'factories',
+      resourceSpace1: Resource.CROWNS,
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.FACTORIES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2256,7 +2258,7 @@ export default [
     name: 'Democracy',
     age: 6,
     color: 'purple',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -2266,9 +2268,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'crowns',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
+      resourceSpace1: Resource.CROWNS,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2288,7 +2290,7 @@ export default [
     name: 'Canning',
     age: 6,
     color: 'yellow',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2299,9 +2301,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'factories',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -2328,7 +2330,7 @@ export default [
     name: 'Combustion',
     age: 7,
     color: 'red',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -2338,9 +2340,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'crowns',
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'factories',
+      resourceSpace1: Resource.CROWNS,
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.FACTORIES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2368,7 +2370,7 @@ export default [
     name: 'Bicycle',
     age: 7,
     color: 'green',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -2378,9 +2380,9 @@ export default [
       timepieces: 1,
     },
     resourceSpaces: {
-      resourceSpace1: 'crowns',
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'timepieces',
+      resourceSpace1: Resource.CROWNS,
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.TIMEPIECES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2400,7 +2402,7 @@ export default [
     name: 'Evolution',
     age: 7,
     color: 'blue',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2410,9 +2412,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'lightbulbs',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
+      resourceSpace1: Resource.LIGHTBULBS,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2432,7 +2434,7 @@ export default [
     name: 'Sanitation',
     age: 7,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2442,10 +2444,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'leaves',
-      resourceSpace2: 'leaves',
+      resourceSpace1: Resource.LEAVES,
+      resourceSpace2: Resource.LEAVES,
       resourceSpace3: null,
-      resourceSpace4: 'leaves',
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -2464,7 +2466,7 @@ export default [
     name: 'Explosives',
     age: 7,
     color: 'red',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2475,9 +2477,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'factories',
-      resourceSpace4: 'factories',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.FACTORIES,
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -2496,7 +2498,7 @@ export default [
     name: 'Electricity',
     age: 7,
     color: 'green',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2506,10 +2508,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'lightbulbs',
-      resourceSpace2: 'factories',
+      resourceSpace1: Resource.LIGHTBULBS,
+      resourceSpace2: Resource.FACTORIES,
       resourceSpace3: null,
-      resourceSpace4: 'factories',
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -2528,7 +2530,7 @@ export default [
     name: 'Publications',
     age: 7,
     color: 'blue',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2539,9 +2541,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'lightbulbs',
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.LIGHTBULBS,
     },
     dogmaEffects: [
       {
@@ -2567,7 +2569,7 @@ export default [
     name: 'Lighting',
     age: 7,
     color: 'purple',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2578,9 +2580,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'leaves',
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -2599,7 +2601,7 @@ export default [
     name: 'Railroad',
     age: 7,
     color: 'purple',
-    dogmaResource: 'timepieces',
+    dogmaResource: Resource.TIMEPIECES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2609,9 +2611,9 @@ export default [
       timepieces: 2,
     },
     resourceSpaces: {
-      resourceSpace1: 'timepieces',
-      resourceSpace2: 'factories',
-      resourceSpace3: 'timepieces',
+      resourceSpace1: Resource.TIMEPIECES,
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.TIMEPIECES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2638,7 +2640,7 @@ export default [
     name: 'Refrigeration',
     age: 7,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -2649,9 +2651,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -2677,7 +2679,7 @@ export default [
     name: 'Antibiotics',
     age: 8,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2687,9 +2689,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'leaves',
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'leaves',
+      resourceSpace1: Resource.LEAVES,
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.LEAVES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2709,7 +2711,7 @@ export default [
     name: 'Mobility',
     age: 8,
     color: 'red',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2720,9 +2722,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'factories',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -2741,7 +2743,7 @@ export default [
     name: 'Flight',
     age: 8,
     color: 'red',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -2751,10 +2753,10 @@ export default [
       timepieces: 1,
     },
     resourceSpaces: {
-      resourceSpace1: 'crowns',
+      resourceSpace1: Resource.CROWNS,
       resourceSpace2: null,
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'crowns',
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -2781,7 +2783,7 @@ export default [
     name: 'Rocketry',
     age: 8,
     color: 'blue',
-    dogmaResource: 'timepieces',
+    dogmaResource: Resource.TIMEPIECES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2791,9 +2793,9 @@ export default [
       timepieces: 3,
     },
     resourceSpaces: {
-      resourceSpace1: 'timepieces',
-      resourceSpace2: 'timepieces',
-      resourceSpace3: 'timepieces',
+      resourceSpace1: Resource.TIMEPIECES,
+      resourceSpace2: Resource.TIMEPIECES,
+      resourceSpace3: Resource.TIMEPIECES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2813,7 +2815,7 @@ export default [
     name: 'Skyscrapers',
     age: 8,
     color: 'yellow',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -2824,9 +2826,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -2845,7 +2847,7 @@ export default [
     name: 'Socialism',
     age: 8,
     color: 'purple',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2855,10 +2857,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'leaves',
+      resourceSpace1: Resource.LEAVES,
       resourceSpace2: null,
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'leaves',
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -2877,7 +2879,7 @@ export default [
     name: 'Corporations',
     age: 8,
     color: 'green',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -2888,9 +2890,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'factories',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.FACTORIES,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -2917,7 +2919,7 @@ export default [
     name: 'Mass Media',
     age: 8,
     color: 'green',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2927,10 +2929,10 @@ export default [
       timepieces: 1,
     },
     resourceSpaces: {
-      resourceSpace1: 'lightbulbs',
+      resourceSpace1: Resource.LIGHTBULBS,
       resourceSpace2: null,
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'lightbulbs',
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.LIGHTBULBS,
     },
     dogmaEffects: [
       {
@@ -2957,7 +2959,7 @@ export default [
     name: 'Empiricism',
     age: 8,
     color: 'purple',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -2967,9 +2969,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'lightbulbs',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
+      resourceSpace1: Resource.LIGHTBULBS,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -2997,7 +2999,7 @@ export default [
     name: 'Quantum Theory',
     age: 8,
     color: 'blue',
-    dogmaResource: 'timepieces',
+    dogmaResource: Resource.TIMEPIECES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3007,9 +3009,9 @@ export default [
       timepieces: 3,
     },
     resourceSpaces: {
-      resourceSpace1: 'timepieces',
-      resourceSpace2: 'timepieces',
-      resourceSpace3: 'timepieces',
+      resourceSpace1: Resource.TIMEPIECES,
+      resourceSpace2: Resource.TIMEPIECES,
+      resourceSpace3: Resource.TIMEPIECES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -3029,7 +3031,7 @@ export default [
     name: 'Computers',
     age: 9,
     color: 'blue',
-    dogmaResource: 'timepieces',
+    dogmaResource: Resource.TIMEPIECES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3039,10 +3041,10 @@ export default [
       timepieces: 2,
     },
     resourceSpaces: {
-      resourceSpace1: 'timepieces',
+      resourceSpace1: Resource.TIMEPIECES,
       resourceSpace2: null,
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'factories',
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -3069,7 +3071,7 @@ export default [
     name: 'Collaboration',
     age: 9,
     color: 'green',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 2,
@@ -3080,9 +3082,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -3109,7 +3111,7 @@ export default [
     name: 'Genetics',
     age: 9,
     color: 'blue',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3119,9 +3121,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'lightbulbs',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
+      resourceSpace1: Resource.LIGHTBULBS,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -3140,7 +3142,7 @@ export default [
     name: 'Services',
     age: 9,
     color: 'purple',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3151,9 +3153,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'leaves',
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -3172,7 +3174,7 @@ export default [
     name: 'Specialization',
     age: 9,
     color: 'purple',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3183,9 +3185,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'factories',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -3212,7 +3214,7 @@ export default [
     name: 'Suburbia',
     age: 9,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 1,
@@ -3223,9 +3225,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'leaves',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -3244,7 +3246,7 @@ export default [
     name: 'Ecology',
     age: 9,
     color: 'yellow',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3254,9 +3256,9 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'leaves',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'lightbulbs',
+      resourceSpace1: Resource.LEAVES,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.LIGHTBULBS,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -3276,7 +3278,7 @@ export default [
     name: 'Fission',
     age: 9,
     color: 'red',
-    dogmaResource: 'timepieces',
+    dogmaResource: Resource.TIMEPIECES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3287,9 +3289,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'timepieces',
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'timepieces',
+      resourceSpace2: Resource.TIMEPIECES,
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.TIMEPIECES,
     },
     dogmaEffects: [
       {
@@ -3316,7 +3318,7 @@ export default [
     name: 'Satellites',
     age: 9,
     color: 'green',
-    dogmaResource: 'timepieces',
+    dogmaResource: Resource.TIMEPIECES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3327,9 +3329,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'timepieces',
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'timepieces',
+      resourceSpace2: Resource.TIMEPIECES,
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.TIMEPIECES,
     },
     dogmaEffects: [
       {
@@ -3364,7 +3366,7 @@ export default [
     name: 'Composites',
     age: 9,
     color: 'red',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3374,10 +3376,10 @@ export default [
       timepieces: 0,
     },
     resourceSpaces: {
-      resourceSpace1: 'factories',
-      resourceSpace2: 'factories',
+      resourceSpace1: Resource.FACTORIES,
+      resourceSpace2: Resource.FACTORIES,
       resourceSpace3: null,
-      resourceSpace4: 'factories',
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -3396,7 +3398,7 @@ export default [
     name: 'Robotics',
     age: 10,
     color: 'red',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3407,9 +3409,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'factories',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -3428,7 +3430,7 @@ export default [
     name: 'Bioengineering',
     age: 10,
     color: 'blue',
-    dogmaResource: 'timepieces',
+    dogmaResource: Resource.TIMEPIECES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3438,9 +3440,9 @@ export default [
       timepieces: 2,
     },
     resourceSpaces: {
-      resourceSpace1: 'lightbulbs',
-      resourceSpace2: 'timepieces',
-      resourceSpace3: 'timepieces',
+      resourceSpace1: Resource.LIGHTBULBS,
+      resourceSpace2: Resource.TIMEPIECES,
+      resourceSpace3: Resource.TIMEPIECES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -3469,7 +3471,7 @@ export default [
     name: 'Databases',
     age: 10,
     color: 'green',
-    dogmaResource: 'timepieces',
+    dogmaResource: Resource.TIMEPIECES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3480,9 +3482,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'timepieces',
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'timepieces',
+      resourceSpace2: Resource.TIMEPIECES,
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.TIMEPIECES,
     },
     dogmaEffects: [
       {
@@ -3500,7 +3502,7 @@ export default [
     name: 'Miniaturization',
     age: 10,
     color: 'red',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3511,9 +3513,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'lightbulbs',
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.LIGHTBULBS,
     },
     dogmaEffects: [
       {
@@ -3532,7 +3534,7 @@ export default [
     name: 'Software',
     age: 10,
     color: 'blue',
-    dogmaResource: 'timepieces',
+    dogmaResource: Resource.TIMEPIECES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3542,9 +3544,9 @@ export default [
       timepieces: 3,
     },
     resourceSpaces: {
-      resourceSpace1: 'timepieces',
-      resourceSpace2: 'timepieces',
-      resourceSpace3: 'timepieces',
+      resourceSpace1: Resource.TIMEPIECES,
+      resourceSpace2: Resource.TIMEPIECES,
+      resourceSpace3: Resource.TIMEPIECES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -3572,7 +3574,7 @@ export default [
     name: 'Self Service',
     age: 10,
     color: 'green',
-    dogmaResource: 'crowns',
+    dogmaResource: Resource.CROWNS,
     resourceTotals: {
       castles: 0,
       crowns: 3,
@@ -3583,9 +3585,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'crowns',
-      resourceSpace3: 'crowns',
-      resourceSpace4: 'crowns',
+      resourceSpace2: Resource.CROWNS,
+      resourceSpace3: Resource.CROWNS,
+      resourceSpace4: Resource.CROWNS,
     },
     dogmaEffects: [
       {
@@ -3612,7 +3614,7 @@ export default [
     name: 'A.I.',
     age: 10,
     color: 'purple',
-    dogmaResource: 'lightbulbs',
+    dogmaResource: Resource.LIGHTBULBS,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3622,9 +3624,9 @@ export default [
       timepieces: 1,
     },
     resourceSpaces: {
-      resourceSpace1: 'lightbulbs',
-      resourceSpace2: 'lightbulbs',
-      resourceSpace3: 'timepieces',
+      resourceSpace1: Resource.LIGHTBULBS,
+      resourceSpace2: Resource.LIGHTBULBS,
+      resourceSpace3: Resource.TIMEPIECES,
       resourceSpace4: null,
     },
     dogmaEffects: [
@@ -3652,7 +3654,7 @@ export default [
     name: 'Stem Cells',
     age: 10,
     color: 'yellow',
-    dogmaResource: 'leaves',
+    dogmaResource: Resource.LEAVES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3663,9 +3665,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'leaves',
-      resourceSpace3: 'leaves',
-      resourceSpace4: 'leaves',
+      resourceSpace2: Resource.LEAVES,
+      resourceSpace3: Resource.LEAVES,
+      resourceSpace4: Resource.LEAVES,
     },
     dogmaEffects: [
       {
@@ -3684,7 +3686,7 @@ export default [
     name: 'Globalization',
     age: 10,
     color: 'yellow',
-    dogmaResource: 'factories',
+    dogmaResource: Resource.FACTORIES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3695,9 +3697,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'factories',
-      resourceSpace3: 'factories',
-      resourceSpace4: 'factories',
+      resourceSpace2: Resource.FACTORIES,
+      resourceSpace3: Resource.FACTORIES,
+      resourceSpace4: Resource.FACTORIES,
     },
     dogmaEffects: [
       {
@@ -3724,7 +3726,7 @@ export default [
     name: 'The Internet',
     age: 10,
     color: 'purple',
-    dogmaResource: 'timepieces',
+    dogmaResource: Resource.TIMEPIECES,
     resourceTotals: {
       castles: 0,
       crowns: 0,
@@ -3735,9 +3737,9 @@ export default [
     },
     resourceSpaces: {
       resourceSpace1: null,
-      resourceSpace2: 'timepieces',
-      resourceSpace3: 'timepieces',
-      resourceSpace4: 'lightbulbs',
+      resourceSpace2: Resource.TIMEPIECES,
+      resourceSpace3: Resource.TIMEPIECES,
+      resourceSpace4: Resource.LIGHTBULBS,
     },
     dogmaEffects: [
       {
