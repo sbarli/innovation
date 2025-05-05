@@ -152,7 +152,7 @@ export enum Resource {
   TIMEPIECES = 'timepieces',
 }
 
-export type ResourceTotals = Record<ResourceId, number>;
+export type ResourceTotals = Record<Resource, number>;
 
 export type PossibleActions = {
   draw: Nullable<Age>;
@@ -160,8 +160,6 @@ export type PossibleActions = {
   dogma: string[];
   achieve: string[];
 };
-
-export type ResourceId = keyof typeof Resource;
 
 export type PlayerMetadata = {
   age: IAgeDataItem;

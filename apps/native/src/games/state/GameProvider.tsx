@@ -101,6 +101,7 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
       return {};
     }
     const allPlayerData = formatPlayers({
+      ageAchievementData: ageAchievements,
       cards,
       deck: data.getGame.deck,
       playersGameData: data.getDetailsByGame,
@@ -121,7 +122,7 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
       return acc;
     }, {} as Boards);
     return { players, hands, boards };
-  }, [cards, data?.getDetailsByGame, data?.getGame?.deck]);
+  }, [ageAchievements, cards, data?.getDetailsByGame, data?.getGame?.deck]);
 
   const haveNecessaryGameData = useMemo(() => {
     if (

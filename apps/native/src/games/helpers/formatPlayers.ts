@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// TODO: REMOVE ^^
-import { AgeDataByAgeNum, AgeNum, IAgeDataItem } from '@inno/constants';
-import { BoardFragment, DeckFragment, PlayerGameDetailsFragment } from '@inno/gql';
+import { AgeDataByAgeNum, AgeDataByAgeStr, AgeNum, IAgeDataItem, Resource } from '@inno/constants';
+import { Card, DeckFragment, PlayerGameDetailsFragment, SplayOption } from '@inno/gql';
 
 import {
+  AgeAchievementKey,
+  AgeAchievements,
   Board,
   Cards,
   Deck,
@@ -17,16 +17,67 @@ import { whichDrawPile } from '../../deck/helpers/whichDrawPile';
 
 import { recurseRemoveTypename } from './recurseRemoveTypename';
 
-const calculateResourceTotals = (playerBoard: BoardFragment, cards: Cards): ResourceTotals => {
-  // TODO: add real logic
-  return {
-    CASTLES: 0,
-    CROWNS: 0,
-    LEAVES: 0,
-    LIGHTBULBS: 0,
-    FACTORIES: 0,
-    TIMEPIECES: 0,
+const calculateResourceTotals = (playerBoard: Board, cards: Cards): ResourceTotals => {
+  const totals = {
+    [Resource.CASTLES]: 0,
+    [Resource.CROWNS]: 0,
+    [Resource.LEAVES]: 0,
+    [Resource.LIGHTBULBS]: 0,
+    [Resource.FACTORIES]: 0,
+    [Resource.TIMEPIECES]: 0,
   };
+  const addToTotals = (card: Card, side?: SplayOption | null) => {
+    switch (side) {
+      // Resource space 4 = exposed resource when splayed LEFT
+      case SplayOption.Left:
+        if (card.resourceSpaces.resourceSpace4) {
+          totals[card.resourceSpaces.resourceSpace4 as Resource] += 1;
+        }
+        break;
+      // Resource spaces 1 & 2 = exposed resource when splayed RIGHT
+      case SplayOption.Right:
+        if (card.resourceSpaces.resourceSpace1) {
+          totals[card.resourceSpaces.resourceSpace1 as Resource] += 1;
+        }
+        if (card.resourceSpaces.resourceSpace2) {
+          totals[card.resourceSpaces.resourceSpace2 as Resource] += 1;
+        }
+        break;
+      // Resource spaces 2, 3, & 4 = exposed resource when splayed UP
+      case SplayOption.Up:
+        if (card.resourceSpaces.resourceSpace2) {
+          totals[card.resourceSpaces.resourceSpace2 as Resource] += 1;
+        }
+        if (card.resourceSpaces.resourceSpace3) {
+          totals[card.resourceSpaces.resourceSpace3 as Resource] += 1;
+        }
+        if (card.resourceSpaces.resourceSpace4) {
+          totals[card.resourceSpaces.resourceSpace4 as Resource] += 1;
+        }
+        break;
+      // NOT SPLAYED, ADD ALL RESOURCE TOTALS
+      default:
+        totals[Resource.CASTLES] += card.resourceTotals[Resource.CASTLES];
+        totals[Resource.CROWNS] += card.resourceTotals[Resource.CROWNS];
+        totals[Resource.LEAVES] += card.resourceTotals[Resource.LEAVES];
+        totals[Resource.LIGHTBULBS] += card.resourceTotals[Resource.LIGHTBULBS];
+        totals[Resource.FACTORIES] += card.resourceTotals[Resource.FACTORIES];
+        totals[Resource.TIMEPIECES] += card.resourceTotals[Resource.TIMEPIECES];
+    }
+  };
+  Object.keys(playerBoard).forEach((color) => {
+    const pile = playerBoard[color as keyof Board];
+    if (!pile?.cardRefs?.length) {
+      return;
+    }
+    const topCard = cards[pile.cardRefs[0]];
+    addToTotals(topCard);
+    if (pile.splayed) {
+      const remainingCardsInPile = pile.cardRefs.slice(1).map((cardId) => cards[cardId]);
+      remainingCardsInPile.forEach((card) => addToTotals(card, pile.splayed));
+    }
+  });
+  return totals;
 };
 const calculatePlayerAge = (playerBoard: Board, cards: Cards): IAgeDataItem => {
   const DEFAULT_AGE: AgeNum = 1;
@@ -47,64 +98,143 @@ const calculatePlayerScore = (playerScorePile: string[], cards: Cards): number =
     return curScore;
   }, 0);
 };
+const determineCardsAvailableToDogma = (playerBoard: Board, cards: Cards): string[] => {
+  const cardIdsOnTopOfBoard = Object.keys(playerBoard).reduce((acc, color) => {
+    const maybeCardId = playerBoard[color as keyof Board]?.cardRefs?.[0];
+    if (maybeCardId && cards[maybeCardId]) {
+      acc.push(maybeCardId);
+    }
+    return acc;
+  }, [] as string[]);
+  return cardIdsOnTopOfBoard;
+};
+const determineAvailableAgeAchievements = (
+  playerAge: IAgeDataItem,
+  playerScore: number,
+  ageAchievementData?: AgeAchievements
+): AgeAchievementKey[] => {
+  if (!ageAchievementData) {
+    return [];
+  }
+  const possibleAchivements = [
+    AgeAchievementKey.ONE,
+    AgeAchievementKey.TWO,
+    AgeAchievementKey.THREE,
+    AgeAchievementKey.FOUR,
+    AgeAchievementKey.FIVE,
+    AgeAchievementKey.SIX,
+    AgeAchievementKey.SEVEN,
+    AgeAchievementKey.EIGHT,
+    AgeAchievementKey.NINE,
+  ];
 
-const determinePlayerPossibleActions = (
-  playerData: PlayerGameDetailsFragment,
-  age: IAgeDataItem,
-  cards: Cards,
-  deck: Deck,
-  score: number
-): PossibleActions => {
+  return possibleAchivements.reduce((acc, achKey) => {
+    // REQUIREMENTS:
+    //  - achievement has a cost (i.e. not TEN age)
+    //  - achievement not yet claimed
+    //  - player is at least of age
+    //  - player has enough score
+    const achAgeNum = AgeDataByAgeStr[achKey].num;
+    const achCost = AgeDataByAgeStr[achKey].costToAchieve;
+    if (
+      achCost &&
+      !ageAchievementData[achKey].claimedBy &&
+      playerAge.num >= achAgeNum &&
+      playerScore >= achCost
+    ) {
+      acc.push(achKey);
+    }
+
+    return acc;
+  }, [] as AgeAchievementKey[]);
+};
+
+const determinePlayerPossibleActions = ({
+  age,
+  ageAchievementData,
+  cards,
+  deck,
+  playerData,
+  score,
+}: {
+  age: IAgeDataItem;
+  ageAchievementData?: AgeAchievements;
+  cards: Cards;
+  deck: Deck;
+  playerData: PlayerGameDetailsFragment;
+  score: number;
+}): PossibleActions => {
   return {
     draw: whichDrawPile({ deck, currentPlayerAge: age.str }),
-    meld: [],
-    dogma: [],
-    achieve: [],
+    meld: playerData.hand,
+    dogma: determineCardsAvailableToDogma(playerData.board, cards),
+    achieve: determineAvailableAgeAchievements(age, score, ageAchievementData),
   };
 };
 
-const formatPlayerMetadata = (
-  playerData: PlayerGameDetailsFragment,
-  cards: Cards,
-  deck: Deck
-): PlayerMetadata => {
+const formatPlayerMetadata = ({
+  ageAchievementData,
+  cards,
+  deck,
+  playerData,
+}: {
+  ageAchievementData?: AgeAchievements;
+  cards: Cards;
+  deck: Deck;
+  playerData: PlayerGameDetailsFragment;
+}): PlayerMetadata => {
   const age = calculatePlayerAge(recurseRemoveTypename(playerData.board), cards);
   const score = calculatePlayerScore(playerData.scorePile, cards);
   return {
     age,
     score,
-    resourceTotals: calculateResourceTotals(playerData.board, cards),
-    possibleActions: determinePlayerPossibleActions(playerData, age, cards, deck, score),
+    resourceTotals: calculateResourceTotals(recurseRemoveTypename(playerData.board), cards),
+    possibleActions: determinePlayerPossibleActions({
+      ageAchievementData,
+      playerData,
+      age,
+      cards,
+      deck,
+      score,
+    }),
     numAchievements: playerData.ageAchievements.length,
     numSpecialAchievements: playerData.specialAchievements.length,
   };
 };
 
-const formatPlayer = (
-  playerData: PlayerGameDetailsFragment,
-  cards: Cards,
-  deck: Deck
-): Player & { hand: Hand; board: Board } => {
+const formatPlayer = ({
+  ageAchievementData,
+  cards,
+  deck,
+  playerData,
+}: {
+  ageAchievementData?: AgeAchievements;
+  cards: Cards;
+  deck: Deck;
+  playerData: PlayerGameDetailsFragment;
+}): Player & { hand: Hand; board: Board } => {
   return {
     playerId: playerData.playerRef,
     detailsRecordRef: playerData._id,
     username: playerData.username ?? 'Unnamed user',
     hand: playerData.hand,
     board: recurseRemoveTypename(playerData.board),
-    metadata: formatPlayerMetadata(playerData, cards, deck),
+    metadata: formatPlayerMetadata({ ageAchievementData, playerData, cards, deck }),
   };
 };
 
 export const formatPlayers = ({
+  ageAchievementData,
   cards,
   deck,
   playersGameData,
 }: {
+  ageAchievementData?: AgeAchievements;
   cards: Cards;
   deck: DeckFragment;
   playersGameData: PlayerGameDetailsFragment[];
 }): Array<Player & { hand: Hand; board: Board }> => {
   return playersGameData.map((playerData) =>
-    formatPlayer(playerData, cards, recurseRemoveTypename(deck))
+    formatPlayer({ ageAchievementData, playerData, cards, deck: recurseRemoveTypename(deck) })
   );
 };
