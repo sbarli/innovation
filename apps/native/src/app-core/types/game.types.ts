@@ -1,4 +1,4 @@
-import { ActionNumber, AgeString, GameStage, Nullable } from '@inno/constants';
+import { ActionNumber, Age, GameStage, IAgeDataItem, Nullable } from '@inno/constants';
 import { BoardPile as GQLBoardPile, Board as GQLBoard, Deck as GQLDeck, Card } from '@inno/gql';
 
 export enum AgeAchievementKey {
@@ -155,15 +155,16 @@ export enum Resource {
 export type ResourceTotals = Record<ResourceId, number>;
 
 export type PossibleActions = {
-  draw: Nullable<AgeString>;
+  draw: Nullable<Age>;
   meld: string[];
   dogma: string[];
+  achieve: string[];
 };
 
 export type ResourceId = keyof typeof Resource;
 
 export type PlayerMetadata = {
-  age: number;
+  age: IAgeDataItem;
   score: number;
   resourceTotals: ResourceTotals;
   possibleActions: PossibleActions;
@@ -173,7 +174,9 @@ export type PlayerMetadata = {
 
 export type BoardPile = Omit<GQLBoardPile, '__typename'>;
 
-export type Board = Record<keyof Omit<GQLBoard, '__typename'>, BoardPile>;
+export type BoardKey = keyof Omit<GQLBoard, '__typename'>;
+
+export type Board = Record<BoardKey, BoardPile>;
 
 export type Boards = Record<string, Board>;
 

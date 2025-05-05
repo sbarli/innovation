@@ -1,7 +1,9 @@
+import { Age } from '@inno/constants';
+
 import { Deck } from '../schemas/deck.schema';
 
 export const MOCK_DECK: Deck = {
-  ONE: [
+  [Age.ONE]: [
     '6435a7d5dd31b5790f7bc587',
     '6435a7d5dd31b5790f7bc58e',
     '6435a7d5dd31b5790f7bc58d',
@@ -13,7 +15,7 @@ export const MOCK_DECK: Deck = {
     '6435a7d5dd31b5790f7bc591',
     '6435a7d5dd31b5790f7bc588',
   ],
-  TWO: [
+  [Age.TWO]: [
     '6435a7d5dd31b5790f7bc599',
     '6435a7d5dd31b5790f7bc59a',
     '6435a7d5dd31b5790f7bc59d',
@@ -24,7 +26,7 @@ export const MOCK_DECK: Deck = {
     '6435a7d5dd31b5790f7bc598',
     '6435a7d5dd31b5790f7bc59e',
   ],
-  THREE: [
+  [Age.THREE]: [
     '6435a7d5dd31b5790f7bc5a0',
     '6435a7d5dd31b5790f7bc5a7',
     '6435a7d5dd31b5790f7bc5a1',
@@ -35,7 +37,7 @@ export const MOCK_DECK: Deck = {
     '6435a7d5dd31b5790f7bc5a2',
     '6435a7d5dd31b5790f7bc5a8',
   ],
-  FOUR: [
+  [Age.FOUR]: [
     '6435a7d5dd31b5790f7bc5af',
     '6435a7d5dd31b5790f7bc5b1',
     '6435a7d5dd31b5790f7bc5aa',
@@ -46,7 +48,7 @@ export const MOCK_DECK: Deck = {
     '6435a7d5dd31b5790f7bc5ac',
     '6435a7d5dd31b5790f7bc5b0',
   ],
-  FIVE: [
+  [Age.FIVE]: [
     '6435a7d5dd31b5790f7bc5b5',
     '6435a7d5dd31b5790f7bc5bc',
     '6435a7d5dd31b5790f7bc5ba',
@@ -57,7 +59,7 @@ export const MOCK_DECK: Deck = {
     '6435a7d5dd31b5790f7bc5b8',
     '6435a7d5dd31b5790f7bc5b4',
   ],
-  SIX: [
+  [Age.SIX]: [
     '6435a7d5dd31b5790f7bc5c0',
     '6435a7d5dd31b5790f7bc5c4',
     '6435a7d5dd31b5790f7bc5c1',
@@ -68,7 +70,7 @@ export const MOCK_DECK: Deck = {
     '6435a7d5dd31b5790f7bc5be',
     '6435a7d5dd31b5790f7bc5c7',
   ],
-  SEVEN: [
+  [Age.SEVEN]: [
     '6435a7d5dd31b5790f7bc5d0',
     '6435a7d5dd31b5790f7bc5cd',
     '6435a7d5dd31b5790f7bc5d1',
@@ -79,7 +81,7 @@ export const MOCK_DECK: Deck = {
     '6435a7d5dd31b5790f7bc5c8',
     '6435a7d5dd31b5790f7bc5cf',
   ],
-  EIGHT: [
+  [Age.EIGHT]: [
     '6435a7d5dd31b5790f7bc5d9',
     '6435a7d5dd31b5790f7bc5d4',
     '6435a7d5dd31b5790f7bc5d6',
@@ -90,7 +92,7 @@ export const MOCK_DECK: Deck = {
     '6435a7d5dd31b5790f7bc5d7',
     '6435a7d5dd31b5790f7bc5d2',
   ],
-  NINE: [
+  [Age.NINE]: [
     '6435a7d5dd31b5790f7bc5dc',
     '6435a7d5dd31b5790f7bc5e1',
     '6435a7d5dd31b5790f7bc5e0',
@@ -101,7 +103,7 @@ export const MOCK_DECK: Deck = {
     '6435a7d5dd31b5790f7bc5e2',
     '6435a7d5dd31b5790f7bc5e3',
   ],
-  TEN: [
+  [Age.TEN]: [
     '6435a7d5dd31b5790f7bc5e7',
     '6435a7d5dd31b5790f7bc5ef',
     '6435a7d5dd31b5790f7bc5e9',

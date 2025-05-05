@@ -2,7 +2,7 @@ import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Schema as MongooseSchema } from 'mongoose';
 
-import { AgeString } from '@inno/constants';
+import { Age } from '@inno/constants';
 
 @Schema({ _id: false })
 @ObjectType()
@@ -14,7 +14,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.ONE]!: string[];
+  [Age.ONE]!: string[];
 
   @Prop({
     required: true,
@@ -22,7 +22,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.TWO]!: string[];
+  [Age.TWO]!: string[];
 
   @Prop({
     required: true,
@@ -30,7 +30,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.THREE]!: string[];
+  [Age.THREE]!: string[];
 
   @Prop({
     required: true,
@@ -38,7 +38,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.FOUR]!: string[];
+  [Age.FOUR]!: string[];
 
   @Prop({
     required: true,
@@ -46,7 +46,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.FIVE]!: string[];
+  [Age.FIVE]!: string[];
 
   @Prop({
     required: true,
@@ -54,7 +54,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.SIX]!: string[];
+  [Age.SIX]!: string[];
 
   @Prop({
     required: true,
@@ -62,7 +62,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.SEVEN]!: string[];
+  [Age.SEVEN]!: string[];
 
   @Prop({
     required: true,
@@ -70,7 +70,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.EIGHT]!: string[];
+  [Age.EIGHT]!: string[];
 
   @Prop({
     required: true,
@@ -78,7 +78,7 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.NINE]!: string[];
+  [Age.NINE]!: string[];
 
   @Prop({
     required: true,
@@ -86,5 +86,5 @@ export class Deck {
     ref: 'Card',
   })
   @Field(() => [ID])
-  [AgeString.TEN]!: string[];
+  [Age.TEN]!: string[];
 }

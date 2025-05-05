@@ -1,4 +1,6 @@
-export enum AgeString {
+import { Nullable } from './typeUtils';
+
+export enum Age {
   ONE = 'ONE',
   TWO = 'TWO',
   THREE = 'THREE',
@@ -11,44 +13,43 @@ export enum AgeString {
   TEN = 'TEN',
 }
 
-export enum AgeName {
-  PREHISTORY = 'PREHISTORY',
-  CLASSICAL = 'CLASSICAL',
-  MEDIEVAL = 'MEDIEVAL',
-  RENAISSANCE = 'RENAISSANCE',
-  EXPLORATION = 'EXPLORATION',
-  ENLIGHTENMENT = 'ENLIGHTENMENT',
-  ROMANCE = 'ROMANCE',
-  MODERN = 'MODERN',
-  POSTMODERN = 'POSTMODERN',
-  INFORMATION = 'INFORMATION',
+export enum AgeNum {
+  ONE = 1,
+  TWO = 2,
+  THREE = 3,
+  FOUR = 4,
+  FIVE = 5,
+  SIX = 6,
+  SEVEN = 7,
+  EIGHT = 8,
+  NINE = 9,
+  TEN = 10,
 }
 
-export const ages = [
-  AgeString.ONE,
-  AgeString.TWO,
-  AgeString.THREE,
-  AgeString.FOUR,
-  AgeString.FIVE,
-  AgeString.SIX,
-  AgeString.SEVEN,
-  AgeString.EIGHT,
-  AgeString.NINE,
-  AgeString.TEN,
-];
+export enum AgeName {
+  ONE = 'PREHISTORY',
+  TWO = 'CLASSICAL',
+  THREE = 'MEDIEVAL',
+  FOUR = 'RENAISSANCE',
+  FIVE = 'EXPLORATION',
+  SIX = 'ENLIGHTENMENT',
+  SEVEN = 'ROMANCE',
+  EIGHT = 'MODERN',
+  NINE = 'POSTMODERN',
+  TEN = 'INFORMATION',
+}
 
-export const cardAgeToAgeStringMap: { [key: string]: AgeString } = {
-  1: AgeString.ONE,
-  2: AgeString.TWO,
-  3: AgeString.THREE,
-  4: AgeString.FOUR,
-  5: AgeString.FIVE,
-  6: AgeString.SIX,
-  7: AgeString.SEVEN,
-  8: AgeString.EIGHT,
-  9: AgeString.NINE,
-  10: AgeString.TEN,
-};
+export enum AgeAchievementCost {
+  ONE = 5,
+  TWO = 10,
+  THREE = 15,
+  FOUR = 20,
+  FIVE = 25,
+  SIX = 30,
+  SEVEN = 35,
+  EIGHT = 40,
+  NINE = 45,
+}
 
 export enum Resource {
   CASTLES = 'castles',
@@ -67,40 +68,85 @@ export enum Color {
   YELLOW = 'yellow',
 }
 
-export const ageStringToAgeNumberMap: { [key in AgeString]: number } = {
-  [AgeString.ONE]: 1,
-  [AgeString.TWO]: 2,
-  [AgeString.THREE]: 3,
-  [AgeString.FOUR]: 4,
-  [AgeString.FIVE]: 5,
-  [AgeString.SIX]: 6,
-  [AgeString.SEVEN]: 7,
-  [AgeString.EIGHT]: 8,
-  [AgeString.NINE]: 9,
-  [AgeString.TEN]: 10,
-};
+export interface IAgeDataItem {
+  num: AgeNum;
+  str: Age;
+  name: AgeName;
+  costToAchieve: Nullable<number>;
+}
 
-export const ageStringToAgeNameMap: { [key in AgeString]: AgeName } = {
-  [AgeString.ONE]: AgeName.PREHISTORY,
-  [AgeString.TWO]: AgeName.CLASSICAL,
-  [AgeString.THREE]: AgeName.MEDIEVAL,
-  [AgeString.FOUR]: AgeName.RENAISSANCE,
-  [AgeString.FIVE]: AgeName.EXPLORATION,
-  [AgeString.SIX]: AgeName.ENLIGHTENMENT,
-  [AgeString.SEVEN]: AgeName.ROMANCE,
-  [AgeString.EIGHT]: AgeName.MODERN,
-  [AgeString.NINE]: AgeName.POSTMODERN,
-  [AgeString.TEN]: AgeName.INFORMATION,
-};
+export const AgeData: IAgeDataItem[] = [
+  {
+    num: AgeNum.ONE,
+    str: Age.ONE,
+    name: AgeName[Age.ONE],
+    costToAchieve: AgeAchievementCost[Age.ONE],
+  },
+  {
+    num: AgeNum.TWO,
+    str: Age.TWO,
+    name: AgeName[Age.TWO],
+    costToAchieve: AgeAchievementCost[Age.TWO],
+  },
+  {
+    num: AgeNum.THREE,
+    str: Age.THREE,
+    name: AgeName[Age.THREE],
+    costToAchieve: AgeAchievementCost[Age.THREE],
+  },
+  {
+    num: AgeNum.FOUR,
+    str: Age.FOUR,
+    name: AgeName[Age.FOUR],
+    costToAchieve: AgeAchievementCost[Age.FOUR],
+  },
+  {
+    num: AgeNum.FIVE,
+    str: Age.FIVE,
+    name: AgeName[Age.FIVE],
+    costToAchieve: AgeAchievementCost[Age.FIVE],
+  },
+  {
+    num: AgeNum.SIX,
+    str: Age.SIX,
+    name: AgeName[Age.SIX],
+    costToAchieve: AgeAchievementCost[Age.SIX],
+  },
+  {
+    num: AgeNum.SEVEN,
+    str: Age.SEVEN,
+    name: AgeName[Age.SEVEN],
+    costToAchieve: AgeAchievementCost[Age.SEVEN],
+  },
+  {
+    num: AgeNum.EIGHT,
+    str: Age.EIGHT,
+    name: AgeName[Age.EIGHT],
+    costToAchieve: AgeAchievementCost[Age.EIGHT],
+  },
+  {
+    num: AgeNum.NINE,
+    str: Age.NINE,
+    name: AgeName[Age.NINE],
+    costToAchieve: AgeAchievementCost[Age.NINE],
+  },
+  {
+    num: AgeNum.TEN,
+    str: Age.TEN,
+    name: AgeName[Age.TEN],
+    costToAchieve: null,
+  },
+];
 
-export const ageCostToAchieveMap: { [key in AgeString]?: number } = {
-  [AgeString.ONE]: 5,
-  [AgeString.TWO]: 10,
-  [AgeString.THREE]: 15,
-  [AgeString.FOUR]: 20,
-  [AgeString.FIVE]: 25,
-  [AgeString.SIX]: 30,
-  [AgeString.SEVEN]: 35,
-  [AgeString.EIGHT]: 40,
-  [AgeString.NINE]: 45,
-};
+export type TAgeDataByAgeStr = { [key in Age]: IAgeDataItem };
+export type TAgeDataByAgeNum = { [key in AgeNum]: IAgeDataItem };
+
+export const AgeDataByAgeStr: TAgeDataByAgeStr = AgeData.reduce((acc, item) => {
+  acc[item.str] = item;
+  return acc;
+}, {} as TAgeDataByAgeStr);
+
+export const AgeDataByAgeNum: TAgeDataByAgeNum = AgeData.reduce((acc, item) => {
+  acc[item.num] = item;
+  return acc;
+}, {} as TAgeDataByAgeNum);

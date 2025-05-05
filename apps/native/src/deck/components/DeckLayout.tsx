@@ -1,6 +1,6 @@
 import { FlatList, ListRenderItemInfo } from 'react-native';
 
-import { AgeString, ageStringToAgeNumberMap } from '@inno/constants';
+import { Age, AgeDataByAgeStr } from '@inno/constants';
 
 import { BadgeType, CountBadge } from '../../app-core/components/CountBadge';
 import { MaybePressable } from '../../app-core/components/MaybePressable';
@@ -9,7 +9,7 @@ import { VerticalEmptyCardSlot } from '../../cards/components/VerticalEmptyCardS
 import { CardBack } from '../../cards/components/back/CardBack';
 
 export interface IDeckPileMetadata {
-  age: AgeString;
+  age: Age;
   numCardsInPile: number;
   availableToDraw: boolean;
   onDraw?(): void;
@@ -26,7 +26,7 @@ export const DeckLayout = ({ deckMetadata }: IDeckLayoutProps) => {
     <FlatList
       data={deckMetadata}
       renderItem={({ item: pile }: ListRenderItemInfo<IDeckPileMetadata>) => {
-        const ageNum = ageStringToAgeNumberMap[pile.age];
+        const ageNum = AgeDataByAgeStr[pile.age].num;
         return pile.numCardsInPile ? (
           <MaybePressable
             handlePress={pile.availableToDraw && pile.onDraw ? pile.onDraw : undefined}

@@ -1,4 +1,4 @@
-import { AgeString } from '@inno/constants';
+import { Age } from '@inno/constants';
 
 import { MOCK_CARD_REFS_BY_AGE } from 'src/cards/__mocks__/cards-sorting.mock';
 import { MOCK_DECK } from 'src/games/__mocks__/deck.mock';
@@ -37,7 +37,7 @@ describe('pickAgeAchievements', () => {
 
   it('should return one card per age sorted by age', () => {
     Object.entries(ageAchievements).forEach(([age, card]) => {
-      const cardIsCorrectAge = MOCK_DECK[age as AgeString].includes(card as string);
+      const cardIsCorrectAge = MOCK_DECK[age as unknown as Age].includes(card as string);
       expect(cardIsCorrectAge).toBe(true);
     });
   });
@@ -51,13 +51,13 @@ describe('pickAgeAchievements', () => {
   });
 
   it('should not remove any TEN age cards from deck', () => {
-    expect(deckMinusAchievements.TEN).toEqual(MOCK_DECK.TEN);
+    expect(deckMinusAchievements[Age.TEN]).toEqual(MOCK_DECK[Age.TEN]);
   });
 
   it('should throw error if no achievement card available', () => {
     const output = () =>
       pickAgeAchievements({
-        ONE: [] as string[],
+        [Age.ONE]: [] as string[],
       } as Deck);
     expect(output).toThrow('Missing cardId for age achievements draw');
   });
@@ -78,7 +78,7 @@ describe('selectStarterHandsForPlayers', () => {
   it('should select ONE age cards only', () => {
     const flattenedPlayerStarterHands = Object.values(playerStarterHands).flat();
     flattenedPlayerStarterHands.forEach((card) => {
-      expect(MOCK_DECK.ONE.includes(card)).toBe(true);
+      expect(MOCK_DECK[Age.ONE].includes(card)).toBe(true);
     });
   });
 
