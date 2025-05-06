@@ -6,7 +6,8 @@ export const text = {
     CHECKING_AUTH_STATUS: 'Checking auth status...',
   },
   currentUserHand: {
-    SHOW_HAND_CTA: 'Show My Hand',
+    HAND_HEADER: 'Your Hand',
+    SHOW_HAND_CTA: 'Show Hand',
   },
   statsDrawer: {
     ACHIEVEMENTS_POPOVER: 'Total number of achievements (age + special)',
