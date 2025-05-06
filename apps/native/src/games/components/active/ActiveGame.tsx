@@ -25,7 +25,6 @@ export const ActiveGame: FC = () => {
   return (
     <Box>
       <StatsDrawer />
-      <Text>WELCOME TO THE ACTIVE GAME!!</Text>
       <CurrentUserHand />
     </Box>
   );
