@@ -28,7 +28,7 @@ export const SinglePlayerDetails: FC<ISinglePlayerDetailsProps> = ({
         }
       />
       <Hand numCardsInHand={numCardsInHand} />
-      <Age age={playerData.metadata.age} />
+      <Age age={playerData.metadata.age.num} />
     </VStack>
   );
 };
