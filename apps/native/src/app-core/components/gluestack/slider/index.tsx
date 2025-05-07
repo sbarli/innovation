@@ -1,5 +1,5 @@
 'use client';
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
@@ -150,7 +150,7 @@ const sliderFilledTrackStyle = tva({
 
 type ISliderProps = React.ComponentProps<typeof UISlider> & VariantProps<typeof sliderStyle>;
 
-const Slider = forwardRef<React.ComponentRef<typeof UISlider>, ISliderProps>(function Slider(
+const Slider = React.forwardRef<React.ComponentRef<typeof UISlider>, ISliderProps>(function Slider(
   { className, size = 'md', orientation = 'horizontal', isReversed = false, ...props },
   ref
 ) {
@@ -173,7 +173,7 @@ const Slider = forwardRef<React.ComponentRef<typeof UISlider>, ISliderProps>(fun
 type ISliderThumbProps = React.ComponentProps<typeof UISlider.Thumb> &
   VariantProps<typeof sliderThumbStyle>;
 
-const SliderThumb = forwardRef<React.ComponentRef<typeof UISlider.Thumb>, ISliderThumbProps>(
+const SliderThumb = React.forwardRef<React.ComponentRef<typeof UISlider.Thumb>, ISliderThumbProps>(
   function SliderThumb({ className, size, ...props }, ref) {
     const { size: parentSize } = useStyleContext(SCOPE);
 
@@ -196,7 +196,7 @@ const SliderThumb = forwardRef<React.ComponentRef<typeof UISlider.Thumb>, ISlide
 type ISliderTrackProps = React.ComponentProps<typeof UISlider.Track> &
   VariantProps<typeof sliderTrackStyle>;
 
-const SliderTrack = forwardRef<React.ComponentRef<typeof UISlider.Track>, ISliderTrackProps>(
+const SliderTrack = React.forwardRef<React.ComponentRef<typeof UISlider.Track>, ISliderTrackProps>(
   function SliderTrack({ className, ...props }, ref) {
     const { orientation: parentOrientation, size: parentSize, isReversed } = useStyleContext(SCOPE);
 
@@ -220,7 +220,7 @@ const SliderTrack = forwardRef<React.ComponentRef<typeof UISlider.Track>, ISlide
 type ISliderFilledTrackProps = React.ComponentProps<typeof UISlider.FilledTrack> &
   VariantProps<typeof sliderFilledTrackStyle>;
 
-const SliderFilledTrack = forwardRef<
+const SliderFilledTrack = React.forwardRef<
   React.ComponentRef<typeof UISlider.FilledTrack>,
   ISliderFilledTrackProps
 >(function SliderFilledTrack({ className, ...props }, ref) {

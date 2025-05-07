@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import React, { forwardRef, useMemo } from 'react';
+import React from 'react';
 
 import { createIcon, PrimitiveIcon, Svg } from '@gluestack-ui/icon';
 import { VariantProps } from '@gluestack-ui/nativewind-utils';
@@ -24,7 +23,7 @@ const iconStyle = tva({
   },
 });
 
-export const Icon = forwardRef<
+export const Icon = React.forwardRef<
   React.ComponentRef<typeof UIIcon>,
   React.ComponentPropsWithoutRef<typeof UIIcon> &
     VariantProps<typeof iconStyle> & {
@@ -72,7 +71,7 @@ const accessClassName = (style: any) => {
 
 const createIconUI = ({ ...props }: ParameterTypes) => {
   const NewUIIcon = createIcon({ Root: Svg, ...props });
-  return forwardRef<
+  return React.forwardRef<
     React.ComponentRef<typeof UIIcon>,
     React.ComponentPropsWithoutRef<typeof UIIcon> &
       VariantProps<typeof iconStyle> & {
@@ -80,7 +79,7 @@ const createIconUI = ({ ...props }: ParameterTypes) => {
         width?: number | string;
       }
   >(function UIIcon({ className, ...inComingprops }, ref) {
-    const calculateClassName = useMemo(() => {
+    const calculateClassName = React.useMemo(() => {
       return className === undefined ? accessClassName(inComingprops?.style) : className;
     }, [className, inComingprops?.style]);
     return (

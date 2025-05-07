@@ -1,5 +1,5 @@
 'use client';
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import { PrimitiveIcon, UIIcon } from '@gluestack-ui/icon';
 import { createInput } from '@gluestack-ui/input';
@@ -101,7 +101,7 @@ const inputFieldStyle = tva({
 
 type IInputProps = React.ComponentProps<typeof UIInput> &
   VariantProps<typeof inputStyle> & { className?: string };
-const Input = forwardRef<React.ComponentRef<typeof UIInput>, IInputProps>(function Input(
+const Input = React.forwardRef<React.ComponentRef<typeof UIInput>, IInputProps>(function Input(
   { className, variant = 'outline', size = 'md', ...props },
   ref
 ) {
@@ -122,7 +122,7 @@ type IInputIconProps = React.ComponentProps<typeof UIInput.Icon> &
     width?: number;
   };
 
-const InputIcon = forwardRef<React.ComponentRef<typeof UIInput.Icon>, IInputIconProps>(
+const InputIcon = React.forwardRef<React.ComponentRef<typeof UIInput.Icon>, IInputIconProps>(
   function InputIcon({ className, size, ...props }, ref) {
     const { size: parentSize } = useStyleContext(SCOPE);
 
@@ -156,7 +156,7 @@ const InputIcon = forwardRef<React.ComponentRef<typeof UIInput.Icon>, IInputIcon
 type IInputSlotProps = React.ComponentProps<typeof UIInput.Slot> &
   VariantProps<typeof inputSlotStyle> & { className?: string };
 
-const InputSlot = forwardRef<React.ComponentRef<typeof UIInput.Slot>, IInputSlotProps>(
+const InputSlot = React.forwardRef<React.ComponentRef<typeof UIInput.Slot>, IInputSlotProps>(
   function InputSlot({ className, ...props }, ref) {
     return (
       <UIInput.Slot
@@ -173,7 +173,7 @@ const InputSlot = forwardRef<React.ComponentRef<typeof UIInput.Slot>, IInputSlot
 type IInputFieldProps = React.ComponentProps<typeof UIInput.Input> &
   VariantProps<typeof inputFieldStyle> & { className?: string };
 
-const InputField = forwardRef<React.ComponentRef<typeof UIInput.Input>, IInputFieldProps>(
+const InputField = React.forwardRef<React.ComponentRef<typeof UIInput.Input>, IInputFieldProps>(
   function InputField({ className, ...props }, ref) {
     const { variant: parentVariant, size: parentSize } = useStyleContext(SCOPE);
 
