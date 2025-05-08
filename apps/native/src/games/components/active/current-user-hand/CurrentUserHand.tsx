@@ -19,7 +19,7 @@ import { useCurrentPlayerGameData } from '../../../hooks/useCurrentPlayerGameDat
 export const CurrentUserHand = () => {
   const { cards } = useCardsContext();
   const { hand = [] } = useCurrentPlayerGameData() ?? {};
-  const [showHand, setShowHand] = useState(true);
+  const [showHand, setShowHand] = useState(false);
 
   const handCloseHand = () => setShowHand(false);
 

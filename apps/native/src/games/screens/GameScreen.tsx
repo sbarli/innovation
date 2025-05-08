@@ -10,7 +10,7 @@ import { useGameContext } from '../state/GameProvider';
 export const GameScreen = () => {
   const { gameId, haveNecessaryGameData, loadingGameData, metadata } = useGameContext();
 
-  if (!haveNecessaryGameData) {
+  if (!haveNecessaryGameData && !loadingGameData) {
     return (
       <>
         <StatusBar />
@@ -24,7 +24,6 @@ export const GameScreen = () => {
     <>
       <StatusBar />
       <Box className="items-center">
-        <Text>Welcome to the Game Screen for game {gameId || '...'}</Text>
         {loadingGameData ? (
           <Box className="items-center">
             <Text>Loading data for game {gameId || '...'}</Text>
