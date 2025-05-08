@@ -1,16 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// TODO: FIX ^^
-import React, {
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-  useMemo,
-  forwardRef,
-  Children,
-  isValidElement,
-  cloneElement,
-} from 'react';
+import React, { useEffect, useState, createContext, useContext, useMemo, forwardRef } from 'react';
 
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { cssInterop } from 'nativewind';
@@ -137,7 +125,7 @@ const Grid = forwardRef<React.ComponentRef<typeof View>, IGridProps>(function Gr
 
   const itemsPerRow = useMemo(() => {
     // get the colSpan of each child
-    const colSpanArr = Children.map(children, (child: any) => {
+    const colSpanArr = React.Children.map(children, (child: any) => {
       const gridItemClassName = child?.props?._extra?.className;
 
       const colSpan2 = getBreakPointValue(
@@ -153,7 +141,7 @@ const Grid = forwardRef<React.ComponentRef<typeof View>, IGridProps>(function Gr
       return colSpan;
     });
 
-    const childrenArray = Children.toArray(children);
+    const childrenArray = React.Children.toArray(children);
 
     const rowItemsCount = arrangeChildrenIntoRows({
       childrenArray,
@@ -164,9 +152,9 @@ const Grid = forwardRef<React.ComponentRef<typeof View>, IGridProps>(function Gr
     return rowItemsCount;
   }, [responsiveNumColumns, children]);
 
-  const childrenWithProps = Children.map(children, (child, index) => {
-    if (isValidElement(child)) {
-      return cloneElement(child, { key: index });
+  const childrenWithProps = React.Children.map(children, (child, index) => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, { key: index, index: index } as any);
     }
 
     return child;
@@ -206,7 +194,7 @@ const Grid = forwardRef<React.ComponentRef<typeof View>, IGridProps>(function Gr
             props?.paddingEnd || props?.paddingRight || props?.padding || 0;
 
           const gridWidth =
-            event.nativeEvent.layout.width -
+            Math.floor(event.nativeEvent.layout.width) -
             paddingLeftToSubtract -
             paddingRightToSubtract -
             borderWidthToSubtract;
@@ -291,6 +279,7 @@ const GridItem = forwardRef<React.ComponentRef<typeof View>, IGridItemProps>(fun
 
       setFlexBasisValue(flexBasisVal);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calculatedWidth, responsiveColSpan, numColumns, columnGap, gap, flexDirection]);
 
   return (
@@ -304,6 +293,7 @@ const GridItem = forwardRef<React.ComponentRef<typeof View>, IGridItemProps>(fun
       {...props}
       style={[
         {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           flexBasis: flexBasisValue as any,
         },
         props.style,

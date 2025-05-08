@@ -1,5 +1,5 @@
 'use client';
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
@@ -24,7 +24,7 @@ const switchStyle = tva({
 });
 
 type ISwitchProps = React.ComponentProps<typeof UISwitch> & VariantProps<typeof switchStyle>;
-const Switch = forwardRef<React.ComponentRef<typeof UISwitch>, ISwitchProps>(function Switch(
+const Switch = React.forwardRef<React.ComponentRef<typeof UISwitch>, ISwitchProps>(function Switch(
   { className, size = 'md', ...props },
   ref
 ) {

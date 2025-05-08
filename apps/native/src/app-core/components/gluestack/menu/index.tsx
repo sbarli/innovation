@@ -1,5 +1,5 @@
 'use client';
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import { createMenu } from '@gluestack-ui/menu';
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
@@ -72,7 +72,7 @@ const menuItemLabelStyle = tva({
   },
 });
 
-const BackdropPressable = forwardRef<
+const BackdropPressable = React.forwardRef<
   React.ComponentRef<typeof Pressable>,
   React.ComponentPropsWithoutRef<typeof Pressable> & VariantProps<typeof menuBackdropStyle>
 >(function BackdropPressable({ className, ...props }, ref) {
@@ -91,7 +91,7 @@ type IMenuItemProps = VariantProps<typeof menuItemStyle> & {
   className?: string;
 } & React.ComponentPropsWithoutRef<typeof Pressable>;
 
-const Item = forwardRef<React.ComponentRef<typeof Pressable>, IMenuItemProps>(function Item(
+const Item = React.forwardRef<React.ComponentRef<typeof Pressable>, IMenuItemProps>(function Item(
   { className, ...props },
   ref
 ) {
@@ -106,7 +106,7 @@ const Item = forwardRef<React.ComponentRef<typeof Pressable>, IMenuItemProps>(fu
   );
 });
 
-const Separator = forwardRef<
+const Separator = React.forwardRef<
   React.ComponentRef<typeof View>,
   React.ComponentPropsWithoutRef<typeof View> & VariantProps<typeof menuSeparatorStyle>
 >(function Separator({ className, ...props }, ref) {
@@ -128,7 +128,7 @@ type IMenuProps = React.ComponentProps<typeof UIMenu> &
 type IMenuItemLabelProps = React.ComponentProps<typeof UIMenu.ItemLabel> &
   VariantProps<typeof menuItemLabelStyle> & { className?: string };
 
-const Menu = forwardRef<React.ComponentRef<typeof UIMenu>, IMenuProps>(function Menu(
+const Menu = React.forwardRef<React.ComponentRef<typeof UIMenu>, IMenuProps>(function Menu(
   { className, ...props },
   ref
 ) {
@@ -161,41 +161,42 @@ const Menu = forwardRef<React.ComponentRef<typeof UIMenu>, IMenuProps>(function 
 
 const MenuItem = UIMenu.Item;
 
-const MenuItemLabel = forwardRef<React.ComponentRef<typeof UIMenu.ItemLabel>, IMenuItemLabelProps>(
-  function MenuItemLabel(
-    {
-      className,
-      isTruncated,
-      bold,
-      underline,
-      strikeThrough,
-      size = 'md',
-      sub,
-      italic,
-      highlight,
-      ...props
-    },
-    ref
-  ) {
-    return (
-      <UIMenu.ItemLabel
-        ref={ref}
-        className={menuItemLabelStyle({
-          isTruncated,
-          bold,
-          underline,
-          strikeThrough,
-          size,
-          sub,
-          italic,
-          highlight,
-          class: className,
-        })}
-        {...props}
-      />
-    );
-  }
-);
+const MenuItemLabel = React.forwardRef<
+  React.ComponentRef<typeof UIMenu.ItemLabel>,
+  IMenuItemLabelProps
+>(function MenuItemLabel(
+  {
+    className,
+    isTruncated,
+    bold,
+    underline,
+    strikeThrough,
+    size = 'md',
+    sub,
+    italic,
+    highlight,
+    ...props
+  },
+  ref
+) {
+  return (
+    <UIMenu.ItemLabel
+      ref={ref}
+      className={menuItemLabelStyle({
+        isTruncated,
+        bold,
+        underline,
+        strikeThrough,
+        size,
+        sub,
+        italic,
+        highlight,
+        class: className,
+      })}
+      {...props}
+    />
+  );
+});
 
 const MenuSeparator = UIMenu.Separator;
 

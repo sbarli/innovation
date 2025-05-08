@@ -1,5 +1,5 @@
 'use client';
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
@@ -123,7 +123,7 @@ type IProgressProps = VariantProps<typeof progressStyle> & React.ComponentProps<
 type IProgressFilledTrackProps = VariantProps<typeof progressFilledTrackStyle> &
   React.ComponentProps<typeof UIProgress.FilledTrack>;
 
-const Progress = forwardRef<React.ComponentRef<typeof UIProgress>, IProgressProps>(
+const Progress = React.forwardRef<React.ComponentRef<typeof UIProgress>, IProgressProps>(
   function Progress({ className, size = 'md', orientation = 'horizontal', ...props }, ref) {
     return (
       <UIProgress
@@ -137,7 +137,7 @@ const Progress = forwardRef<React.ComponentRef<typeof UIProgress>, IProgressProp
   }
 );
 
-const ProgressFilledTrack = forwardRef<
+const ProgressFilledTrack = React.forwardRef<
   React.ComponentRef<typeof UIProgress.FilledTrack>,
   IProgressFilledTrackProps
 >(function ProgressFilledTrack({ className, ...props }, ref) {

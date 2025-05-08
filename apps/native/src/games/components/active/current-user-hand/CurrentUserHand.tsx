@@ -10,6 +10,7 @@ import {
   ActionsheetDragIndicatorWrapper,
 } from '../../../../app-core/components/gluestack/actionsheet';
 import { Button, ButtonText } from '../../../../app-core/components/gluestack/button';
+import { Heading } from '../../../../app-core/components/gluestack/heading';
 import { text } from '../../../../app-core/intl/en';
 import { CardFront } from '../../../../cards/components/front/CardFront';
 import { useCardsContext } from '../../../../cards/state/CardsProvider';
@@ -18,7 +19,7 @@ import { useCurrentPlayerGameData } from '../../../hooks/useCurrentPlayerGameDat
 export const CurrentUserHand = () => {
   const { cards } = useCardsContext();
   const { hand = [] } = useCurrentPlayerGameData() ?? {};
-  const [showHand, setShowHand] = useState(true);
+  const [showHand, setShowHand] = useState(false);
 
   const handCloseHand = () => setShowHand(false);
 
@@ -33,6 +34,7 @@ export const CurrentUserHand = () => {
           <ActionsheetDragIndicatorWrapper>
             <ActionsheetDragIndicator />
           </ActionsheetDragIndicatorWrapper>
+          <Heading size="lg">{text.currentUserHand.HAND_HEADER}</Heading>
           <FlatList
             data={hand}
             horizontal

@@ -1,5 +1,5 @@
 'use client';
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import { createIcon, PrimitiveIcon, IPrimitiveIcon, Svg } from '@gluestack-ui/icon';
 import { VariantProps } from '@gluestack-ui/nativewind-utils';
@@ -45,7 +45,7 @@ type IIConProps = IPrimitiveIcon &
   VariantProps<typeof iconStyle> &
   React.ComponentPropsWithoutRef<typeof UIIcon>;
 
-const Icon = forwardRef<React.ComponentRef<typeof UIIcon>, IIConProps>(function Icon(
+const Icon = React.forwardRef<React.ComponentRef<typeof UIIcon>, IIConProps>(function Icon(
   { size = 'md', className, ...props },
   ref
 ) {
@@ -70,7 +70,7 @@ const createIconUI = ({ ...props }: ParameterTypes) => {
       React.RefAttributes<React.ComponentRef<typeof Svg>>
   >;
 
-  return forwardRef<React.ComponentRef<typeof Svg>>(function UIIcon(
+  return React.forwardRef<React.ComponentRef<typeof Svg>>(function UIIcon(
     {
       className,
       size,

@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 
@@ -20,7 +20,7 @@ type IGridProps = React.ComponentPropsWithoutRef<'div'> &
     };
   };
 
-const Grid = forwardRef<HTMLDivElement, IGridProps>(function Grid(
+const Grid = React.forwardRef<HTMLDivElement, IGridProps>(function Grid(
   { className, _extra, ...props },
   ref
 ) {
@@ -44,7 +44,7 @@ type IGridItemProps = React.ComponentPropsWithoutRef<'div'> &
       className: string;
     };
   };
-const GridItem = forwardRef<HTMLDivElement, IGridItemProps>(function GridItem(
+const GridItem = React.forwardRef<HTMLDivElement, IGridItemProps>(function GridItem(
   { className, _extra, ...props },
   ref
 ) {

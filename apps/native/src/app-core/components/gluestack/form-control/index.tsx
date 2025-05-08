@@ -1,5 +1,5 @@
 'use client';
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import { createFormControl } from '@gluestack-ui/form-control';
 import { PrimitiveIcon, UIIcon } from '@gluestack-ui/icon';
@@ -211,7 +211,7 @@ const formControlLabelAstrickStyle = tva({
 type IFormControlLabelAstrickProps = React.ComponentPropsWithoutRef<typeof Text> &
   VariantProps<typeof formControlLabelAstrickStyle>;
 
-const FormControlLabelAstrick = forwardRef<
+const FormControlLabelAstrick = React.forwardRef<
   React.ComponentRef<typeof Text>,
   IFormControlLabelAstrickProps
 >(function FormControlLabelAstrick({ className, ...props }, ref) {
@@ -257,7 +257,7 @@ cssInterop(PrimitiveIcon, {
 type IFormControlProps = React.ComponentProps<typeof UIFormControl> &
   VariantProps<typeof formControlStyle>;
 
-const FormControl = forwardRef<React.ComponentRef<typeof UIFormControl>, IFormControlProps>(
+const FormControl = React.forwardRef<React.ComponentRef<typeof UIFormControl>, IFormControlProps>(
   function FormControl({ className, size = 'md', ...props }, ref) {
     return (
       <UIFormControl
@@ -273,7 +273,7 @@ const FormControl = forwardRef<React.ComponentRef<typeof UIFormControl>, IFormCo
 type IFormControlErrorProps = React.ComponentProps<typeof UIFormControl.Error> &
   VariantProps<typeof formControlErrorStyle>;
 
-const FormControlError = forwardRef<
+const FormControlError = React.forwardRef<
   React.ComponentRef<typeof UIFormControl.Error>,
   IFormControlErrorProps
 >(function FormControlError({ className, ...props }, ref) {
@@ -289,7 +289,7 @@ const FormControlError = forwardRef<
 type IFormControlErrorTextProps = React.ComponentProps<typeof UIFormControl.Error.Text> &
   VariantProps<typeof formControlErrorTextStyle>;
 
-const FormControlErrorText = forwardRef<
+const FormControlErrorText = React.forwardRef<
   React.ComponentRef<typeof UIFormControl.Error.Text>,
   IFormControlErrorTextProps
 >(function FormControlErrorText({ className, size, ...props }, ref) {
@@ -313,7 +313,7 @@ type IFormControlErrorIconProps = React.ComponentProps<typeof UIFormControl.Erro
     width?: number;
   };
 
-const FormControlErrorIcon = forwardRef<
+const FormControlErrorIcon = React.forwardRef<
   React.ComponentRef<typeof UIFormControl.Error.Icon>,
   IFormControlErrorIconProps
 >(function FormControlErrorIcon({ className, size, ...props }, ref) {
@@ -352,7 +352,7 @@ const FormControlErrorIcon = forwardRef<
 type IFormControlLabelProps = React.ComponentProps<typeof UIFormControl.Label> &
   VariantProps<typeof formControlLabelStyle>;
 
-const FormControlLabel = forwardRef<
+const FormControlLabel = React.forwardRef<
   React.ComponentRef<typeof UIFormControl.Label>,
   IFormControlLabelProps
 >(function FormControlLabel({ className, ...props }, ref) {
@@ -368,7 +368,7 @@ const FormControlLabel = forwardRef<
 type IFormControlLabelTextProps = React.ComponentProps<typeof UIFormControl.Label.Text> &
   VariantProps<typeof formControlLabelTextStyle>;
 
-const FormControlLabelText = forwardRef<
+const FormControlLabelText = React.forwardRef<
   React.ComponentRef<typeof UIFormControl.Label.Text>,
   IFormControlLabelTextProps
 >(function FormControlLabelText({ className, size, ...props }, ref) {
@@ -390,7 +390,7 @@ const FormControlLabelText = forwardRef<
 type IFormControlHelperProps = React.ComponentProps<typeof UIFormControl.Helper> &
   VariantProps<typeof formControlHelperStyle>;
 
-const FormControlHelper = forwardRef<
+const FormControlHelper = React.forwardRef<
   React.ComponentRef<typeof UIFormControl.Helper>,
   IFormControlHelperProps
 >(function FormControlHelper({ className, ...props }, ref) {
@@ -408,7 +408,7 @@ const FormControlHelper = forwardRef<
 type IFormControlHelperTextProps = React.ComponentProps<typeof UIFormControl.Helper.Text> &
   VariantProps<typeof formControlHelperTextStyle>;
 
-const FormControlHelperText = forwardRef<
+const FormControlHelperText = React.forwardRef<
   React.ComponentRef<typeof UIFormControl.Helper.Text>,
   IFormControlHelperTextProps
 >(function FormControlHelperText({ className, size, ...props }, ref) {

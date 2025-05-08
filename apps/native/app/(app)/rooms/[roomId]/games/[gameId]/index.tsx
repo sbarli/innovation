@@ -24,7 +24,7 @@ export default function Game() {
 
   return (
     <>
-      <HeaderNoNav title={Routes.GAME.name} />
+      <HeaderNoNav middleText={gameId} title={Routes.GAME.name} />
       <GameScreen />
     </>
   );

@@ -5,7 +5,9 @@ import { Box } from '../gluestack/box';
 import { Heading } from '../gluestack/heading';
 import { HStack } from '../gluestack/hstack';
 
-export const HeaderNoNav = ({ showLogout = true, title }: IHeaderProps) => {
+import { HeaderCenterText } from './HeaderCenterText';
+
+export const HeaderNoNav = ({ middleText, showLogout = true, title }: IHeaderProps) => {
   return (
     <HStack className="bg-primary-500 mb-5 py-2 pl-10 pr-8 justify-between">
       <Box className="justify-center">
@@ -13,6 +15,7 @@ export const HeaderNoNav = ({ showLogout = true, title }: IHeaderProps) => {
           {title}
         </Heading>
       </Box>
+      {middleText ? <HeaderCenterText displayText={middleText} /> : null}
       <Box className="justify-center align-center">
         <Username />
         {!!showLogout && <Logout />}

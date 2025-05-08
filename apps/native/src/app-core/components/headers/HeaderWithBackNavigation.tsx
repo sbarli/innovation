@@ -8,7 +8,13 @@ import { Heading } from '../gluestack/heading';
 import { HStack } from '../gluestack/hstack';
 import { ArrowLeftIcon } from '../gluestack/icon';
 
-export const HeaderWithBackNavigation = ({ showLogout = true, title }: IHeaderProps) => {
+import { HeaderCenterText } from './HeaderCenterText';
+
+export const HeaderWithBackNavigation = ({
+  middleText,
+  showLogout = true,
+  title,
+}: IHeaderProps) => {
   const { navigateBack } = useNavigateBack();
   return (
     <HStack className="bg-primary-500 mb-5 py-2 pl-8 pr-6 justify-between items-center">
@@ -20,6 +26,7 @@ export const HeaderWithBackNavigation = ({ showLogout = true, title }: IHeaderPr
           {title}
         </Heading>
       </HStack>
+      {middleText ? <HeaderCenterText displayText={middleText} /> : null}
       <Box className="justify-center align-center">
         <Username />
         {!!showLogout && <Logout />}
