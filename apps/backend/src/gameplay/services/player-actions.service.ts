@@ -4,6 +4,7 @@ import { GameStage } from '@inno/constants';
 import { getCatchErrorMessage } from '@inno/utils';
 
 import { CardsService } from 'src/cards/services/cards.service';
+import { UpdateGameInput } from 'src/games/dto/update-game.dto';
 import { GamesService } from 'src/games/games.service';
 import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
 import { Board } from 'src/player-game-details/schemas/board.schema';
@@ -123,6 +124,9 @@ export class PlayerActionsService {
             return true;
           }
           return false;
+        case GameStage.ACTIVE:
+        case GameStage.COMPLETE:
+          return false;
         default:
           throw new Error('Missing game stage');
       }
@@ -131,6 +135,40 @@ export class PlayerActionsService {
         `playerActionsService.meldCardFromHand: ${getCatchErrorMessage(
           error,
           'Issue melding card from hand'
+        )}`
+      );
+    }
+  }
+
+  async moveToNextGameAction({ gameId }: { gameId: string }): Promise<boolean> {
+    try {
+      const game = await this.gamesService.findGameById(gameId);
+      if (!game) {
+        throw new Error('Game not found');
+      }
+      const gameUpdates = {} as UpdateGameInput;
+      if (game.currentActionNumber === 2) {
+        gameUpdates.currentActionNumber = 1;
+        const playerRefs = game.playerRefs.map((r) => r.toString());
+        const currentPlayerIdx = playerRefs.indexOf(game.currentPlayerRef.toString());
+        const nextPlayerIdx = playerRefs.length - 1 === currentPlayerIdx ? 0 : currentPlayerIdx + 1;
+        gameUpdates.currentPlayerRef = playerRefs[nextPlayerIdx];
+      } else {
+        gameUpdates.currentActionNumber = 2;
+      }
+      const updatedGame = await this.gamesService.updateGameByRef({
+        ref: gameId,
+        gameUpdates,
+      });
+      if (!updatedGame) {
+        throw new Error('Error updating game to next action');
+      }
+      return true;
+    } catch (error) {
+      throw new Error(
+        `playerActionsService.moveToNextGameAction: ${getCatchErrorMessage(
+          error,
+          'Unknown issue updating game to next action'
         )}`
       );
     }

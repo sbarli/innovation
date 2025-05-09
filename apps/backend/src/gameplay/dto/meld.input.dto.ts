@@ -18,4 +18,7 @@ export class MeldInput {
 
   @Field(() => Boolean)
   isStarterMeld!: boolean;
+
+  @Field(() => Boolean)
+  countAsAction!: boolean;
 }

@@ -38,6 +38,7 @@ export const SelectStarterCard: FC = () => {
     }
     meldCardFromHand({
       cardId: selectedCardRef,
+      countAsAction: false,
       isStarterMeld: true,
       onSuccess: emitSocketStarterCardMeldedEvent,
     });

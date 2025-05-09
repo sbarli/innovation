@@ -124,13 +124,13 @@ describe('GameplayResolver', () => {
     });
     describe('meld', () => {
       it('should return output of running meldCardFromHand when meldType is "fromHand"', async () => {
-        const playerActionsServiceSpy = jest
+        const meldCardFromHandSpy = jest
           .spyOn(playerActionsService, 'meldCardFromHand')
           .mockResolvedValueOnce(MOCK_MELD_FROM_HAND_RESPONSE);
 
         const output = await gameplayResolver.meld(MOCK_MELD_FROM_HAND_INPUT);
 
-        expect(playerActionsServiceSpy).toHaveBeenCalledWith({
+        expect(meldCardFromHandSpy).toHaveBeenCalledWith({
           cardId: MOCK_MELD_FROM_HAND_INPUT.cardRef,
           gameId: MOCK_MELD_FROM_HAND_INPUT.gameRef,
           playerId: MOCK_MELD_FROM_HAND_INPUT.playerRef,
@@ -140,6 +140,7 @@ describe('GameplayResolver', () => {
           playerId: MOCK_MELD_FROM_HAND_INPUT.playerRef,
           updatedPlayerBoard: MOCK_MELD_FROM_HAND_RESPONSE.updatedPlayerBoard,
           metadata: {
+            currentActionUpdated: false,
             gameStageUpdated: false,
             updatedPlayerHand: MOCK_MELD_FROM_HAND_RESPONSE.updatedPlayerHand,
           },

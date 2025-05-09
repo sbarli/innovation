@@ -16,10 +16,12 @@ export const useMeldCard = () => {
 
   const meldCardFromHand = ({
     cardId,
+    countAsAction = true,
     isStarterMeld = false,
     onSuccess,
   }: {
     cardId: string;
+    countAsAction?: boolean;
     isStarterMeld?: boolean;
     onSuccess?: () => void;
   }) => {
@@ -31,6 +33,7 @@ export const useMeldCard = () => {
       variables: {
         meldInput: {
           cardRef: cardId,
+          countAsAction,
           gameRef: gameId,
           isStarterMeld,
           playerRef: user._id,

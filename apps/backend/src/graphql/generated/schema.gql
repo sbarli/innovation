@@ -215,6 +215,7 @@ input GetUserInput {
 
 input MeldInput {
   cardRef: ID!
+  countAsAction: Boolean!
   gameRef: ID!
   isStarterMeld: Boolean!
   meldType: String!
@@ -229,6 +230,8 @@ type MeldResponse {
 }
 
 type MeldResponseMetadata {
+  currentActionUpdated: Boolean!
+  gameStageUpdated: Boolean!
   updatedDeck: Deck!
   updatedPlayerHand: [ID!]!
 }

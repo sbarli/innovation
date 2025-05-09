@@ -49,6 +49,7 @@ export class GameplayResolver {
     meldInput: MeldInput
   ) {
     let gameStageUpdated = false;
+    let currentActionUpdated = false;
     if (meldInput.meldType === 'fromHand') {
       const data = await this.playerActionsService.meldCardFromHand({
         cardId: meldInput.cardRef,
@@ -60,6 +61,11 @@ export class GameplayResolver {
           gameId: meldInput.gameRef,
         });
         gameStageUpdated = movedToActive;
+      } else if (meldInput.countAsAction) {
+        const updatedToNextAction = await this.playerActionsService.moveToNextGameAction({
+          gameId: meldInput.gameRef,
+        });
+        currentActionUpdated = updatedToNextAction;
       }
       return {
         gameId: meldInput.gameRef,
@@ -68,6 +74,7 @@ export class GameplayResolver {
         metadata: {
           updatedPlayerHand: data.updatedPlayerHand,
           gameStageUpdated,
+          currentActionUpdated,
         },
       };
     }
