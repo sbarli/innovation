@@ -241,6 +241,7 @@ export type GetUserInput = {
 
 export type MeldInput = {
   cardRef: Scalars['ID']['input'];
+  countAsAction: Scalars['Boolean']['input'];
   gameRef: Scalars['ID']['input'];
   isStarterMeld: Scalars['Boolean']['input'];
   meldType: Scalars['String']['input'];
@@ -257,6 +258,8 @@ export type MeldResponse = {
 
 export type MeldResponseMetadata = {
   __typename?: 'MeldResponseMetadata';
+  currentActionUpdated: Scalars['Boolean']['output'];
+  gameStageUpdated: Scalars['Boolean']['output'];
   updatedDeck: Deck;
   updatedPlayerHand: Array<Scalars['ID']['output']>;
 };
