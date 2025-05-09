@@ -14,18 +14,18 @@ import { Heading } from '../../../../app-core/components/gluestack/heading';
 import { text } from '../../../../app-core/intl/en';
 import { CardFront } from '../../../../cards/components/front/CardFront';
 import { useCardsContext } from '../../../../cards/state/CardsProvider';
-import { useCurrentPlayerGameData } from '../../../hooks/useCurrentPlayerGameData';
+import { useUserPlayerGameData } from '../../../hooks/useUserPlayerGameData';
 
 export const CurrentUserHand = () => {
   const { cards } = useCardsContext();
-  const { hand = [] } = useCurrentPlayerGameData() ?? {};
+  const { hand = [] } = useUserPlayerGameData() ?? {};
   const [showHand, setShowHand] = useState(false);
 
   const handCloseHand = () => setShowHand(false);
 
   return (
     <>
-      <Button onPress={() => setShowHand(true)}>
+      <Button variant="outline" onPress={() => setShowHand(true)}>
         <ButtonText>{text.currentUserHand.SHOW_HAND_CTA}</ButtonText>
       </Button>
       <Actionsheet isOpen={showHand} onClose={handCloseHand}>
