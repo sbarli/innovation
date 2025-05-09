@@ -8,7 +8,7 @@ import { useToast } from '../../../app-core/components/gluestack/toast';
 import { CustomToast } from '../../../app-core/components/toasts/CustomToast';
 import { useAuthContext } from '../../../authentication/state/AuthProvider';
 import { useSocketContext } from '../../../websockets/SocketProvider';
-import { useCurrentPlayerGameData } from '../../hooks/useCurrentPlayerGameData';
+import { useUserPlayerGameData } from '../../hooks/useUserPlayerGameData';
 import { useGameContext } from '../../state/GameProvider';
 
 import { SelectStarterCard } from './SelectStarterCard';
@@ -21,7 +21,7 @@ export const GameSetup: FC = () => {
   const { user } = useAuthContext();
   const { gameId, hands, players } = useGameContext();
   const { socket } = useSocketContext();
-  const currentPlayerGameData = useCurrentPlayerGameData();
+  const userPlayerGameData = useUserPlayerGameData();
 
   const toast = useToast();
 
@@ -48,7 +48,7 @@ export const GameSetup: FC = () => {
     };
   }, [socket]);
 
-  if (!currentPlayerGameData || !hands) {
+  if (!userPlayerGameData || !hands) {
     return (
       <Box>
         <Text>Missing game data</Text>
@@ -57,7 +57,7 @@ export const GameSetup: FC = () => {
   }
 
   // TODO: memoize this
-  const currentPlayerStarterCardMelded = currentPlayerGameData.hand.length === 1;
+  const currentPlayerStarterCardMelded = userPlayerGameData.hand.length === 1;
   const playersWithStarterCardMelded = Object.keys(hands).reduce((acc, pid) => {
     if (players && hands[pid].length === 1) {
       acc.push(players[pid].username);

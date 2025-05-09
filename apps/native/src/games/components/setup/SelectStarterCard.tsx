@@ -9,14 +9,14 @@ import { CardFrontWithDetails } from '../../../cards/components/CardFrontWithDet
 import { useCardsContext } from '../../../cards/state/CardsProvider';
 import { useRoomContext } from '../../../rooms/state/RoomProvider';
 import { useSocketContext } from '../../../websockets/SocketProvider';
-import { useCurrentPlayerGameData } from '../../hooks/useCurrentPlayerGameData';
 import { useMeldCard } from '../../hooks/useMeldCard';
+import { useUserPlayerGameData } from '../../hooks/useUserPlayerGameData';
 
 export const SelectStarterCard: FC = () => {
   const { cards } = useCardsContext();
   const { currentRoomId } = useRoomContext();
   const { socket } = useSocketContext();
-  const currentPlayerGameData = useCurrentPlayerGameData();
+  const userPlayerGameData = useUserPlayerGameData();
   const { loading: meldingInProgress, error: meldingError, meldCardFromHand } = useMeldCard();
 
   const [selectedCardRef, setSelectedCardRef] = useState<string>('');
@@ -43,7 +43,7 @@ export const SelectStarterCard: FC = () => {
     });
   };
 
-  if (!currentPlayerGameData || !cards) {
+  if (!userPlayerGameData || !cards) {
     return (
       <Box>
         <Text>Missing user game data and/or cards data</Text>
@@ -56,7 +56,7 @@ export const SelectStarterCard: FC = () => {
       <Text>Here is your starter hand. Select your first card to meld.</Text>
       {!!meldingError && <Text>An error occurred while melding your card: {meldingError}</Text>}
       {!!selectedCardRef && <Text>You selected {cards[selectedCardRef].name}</Text>}
-      {currentPlayerGameData.hand.reduce((acc, cardRef) => {
+      {userPlayerGameData.hand.reduce((acc, cardRef) => {
         const card = cards[cardRef];
         if (!card) {
           return acc;
