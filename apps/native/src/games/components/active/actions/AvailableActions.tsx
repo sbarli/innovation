@@ -11,20 +11,16 @@ import { useUserPlayerGameData } from '../../../hooks/useUserPlayerGameData';
 import { useGameContext } from '../../../state/GameProvider';
 
 import { GameActionSheet } from './GameActionSheet';
+import { MeldAction } from './MeldAction';
 
 export const AvailableActions = () => {
   const { cards } = useCardsContext();
   const { metadata: gameMetadata } = useGameContext();
   const { metadata: playerMetadata, playerId } = useUserPlayerGameData() ?? {};
-  const [showMeldOptions, setShowMeldOptions] = useState(false);
   const [showDogmaOptions, setShowDogmaOptions] = useState(false);
   const [showAchieveOptions, setShowAchieveOptions] = useState(false);
 
   const possibleActions = playerMetadata?.possibleActions;
-
-  const closeMeldOptions = useCallback(() => {
-    setShowMeldOptions(false);
-  }, []);
 
   const closeDogmaOptions = useCallback(() => {
     setShowDogmaOptions(false);
@@ -43,12 +39,6 @@ export const AvailableActions = () => {
     // TODO: add draw logic
   }, [playerMetadata?.possibleActions.draw]);
 
-  const handleMeldSelection = useCallback((cardId: string) => {
-    console.log('SELECTED CARD TO MELD: ', cardId);
-    setShowMeldOptions(false);
-    // TODO: add meld logic
-  }, []);
-
   const handleDogmaSelection = useCallback((cardId: string) => {
     console.log('SELECTED CARD TO DOGMA: ', cardId);
     setShowDogmaOptions(false);
@@ -65,10 +55,6 @@ export const AvailableActions = () => {
     return null;
   }
 
-  const possibleCardsToMeld = useMemo(() => {
-    return playerMetadata.possibleActions.meld.map((cid) => cards[cid]);
-  }, [cards, playerMetadata?.possibleActions?.meld]);
-
   const possibleCardsToDogma = useMemo(() => {
     return playerMetadata.possibleActions.dogma.map((cid) => cards[cid]);
   }, [cards, playerMetadata?.possibleActions?.dogma]);
@@ -78,7 +64,6 @@ export const AvailableActions = () => {
   }, [cards, playerMetadata?.possibleActions?.achieve]);
 
   const isDrawDisabled = !possibleActions.draw;
-  const isMeldDisabled = !possibleActions.meld.length;
   const isDogmaDisabled = !possibleActions.dogma.length;
   const isAchieveDisabled = !possibleActions.achieve.length;
 
@@ -99,15 +84,7 @@ export const AvailableActions = () => {
               {text.availableActions.DRAW_CTA}
             </ButtonText>
           </Button>
-          <Button
-            className={isMeldDisabled ? disabledSolidButtonClassnames.button : ''}
-            disabled={isMeldDisabled}
-            onPress={() => setShowMeldOptions(true)}
-          >
-            <ButtonText className={isMeldDisabled ? disabledSolidButtonClassnames.buttonText : ''}>
-              {text.availableActions.MELD_CTA}
-            </ButtonText>
-          </Button>
+          <MeldAction />
           <Button
             className={isDogmaDisabled ? disabledSolidButtonClassnames.button : ''}
             disabled={isDogmaDisabled}
@@ -130,13 +107,6 @@ export const AvailableActions = () => {
           </Button>
         </HStack>
       </HStack>
-      <GameActionSheet
-        cards={possibleCardsToMeld}
-        headerText={text.availableActions.CHOOSE_CARD_TO_MELD}
-        onClose={closeMeldOptions}
-        onSelect={handleMeldSelection}
-        visible={showMeldOptions}
-      />
       <GameActionSheet
         cards={possibleCardsToDogma}
         headerText={text.availableActions.CHOOSE_CARD_TO_DOGMA}
