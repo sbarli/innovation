@@ -10,6 +10,12 @@ export class MeldResponseMetadata {
 
   @Field(() => Deck)
   updatedDeck?: Deck;
+
+  @Field(() => Boolean)
+  gameStageUpdated?: boolean;
+
+  @Field(() => Boolean)
+  currentActionUpdated?: boolean;
 }
 
 @ObjectType()

@@ -134,4 +134,20 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
       user,
     });
   }
+
+  @UseGuards(JwtWsAuthGuard)
+  @SubscribeMessage(SocketEvent.PLAYER_MELDED_CARD)
+  playerMeldedCard(
+    @CurrentUserFromRequest() user: UserWithoutPassword,
+    @MessageBody('roomId') roomId: string,
+    @MessageBody('cardName') cardName: string,
+    @ConnectedSocket() socket: Socket
+  ) {
+    return this.socketGameService.handlePlayerMeldedCard(socket, {
+      cardName,
+      roomId,
+      socketServer: this.server,
+      user,
+    });
+  }
 }
