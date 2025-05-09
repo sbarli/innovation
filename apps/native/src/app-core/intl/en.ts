@@ -14,6 +14,8 @@ export const text = {
   },
   availableActions: {
     ACHIEVE_CTA: 'Achieve',
+    ACTION_NUMBER: 'Action Number',
+    CHOOSE_AN_ACTION: 'Select an action',
     CHOOSE_CARD_TO_ACHIEVE: 'Select a card to achieve',
     CHOOSE_CARD_TO_DOGMA: 'Select a card to dogma',
     CHOOSE_CARD_TO_MELD: 'Select a card to meld',

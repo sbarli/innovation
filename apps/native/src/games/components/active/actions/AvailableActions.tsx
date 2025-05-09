@@ -1,20 +1,16 @@
 import { useCallback, useMemo, useState } from 'react';
 
+import { Box } from '../../../../app-core/components/gluestack/box';
 import { Button, ButtonText } from '../../../../app-core/components/gluestack/button';
+import { Heading } from '../../../../app-core/components/gluestack/heading';
 import { HStack } from '../../../../app-core/components/gluestack/hstack';
+import { disabledSolidButtonClassnames } from '../../../../app-core/constants/button.constants';
 import { text } from '../../../../app-core/intl/en';
 import { useCardsContext } from '../../../../cards/state/CardsProvider';
 import { useUserPlayerGameData } from '../../../hooks/useUserPlayerGameData';
 import { useGameContext } from '../../../state/GameProvider';
 
 import { GameActionSheet } from './GameActionSheet';
-
-export enum TurnAction {
-  ACHIEVE = 'ACHIEVE',
-  DOGMA = 'DOGMA',
-  DRAW = 'DRAW',
-  MELD = 'MELD',
-}
 
 export const AvailableActions = () => {
   const { cards } = useCardsContext();
@@ -65,10 +61,7 @@ export const AvailableActions = () => {
     // TODO: add achieve logic
   }, []);
 
-  if (
-    (gameMetadata?.currentPlayerId && gameMetadata.currentPlayerId !== playerId) ||
-    !possibleActions
-  ) {
+  if (!gameMetadata || gameMetadata.currentPlayerId !== playerId || !possibleActions) {
     return null;
   }
 
@@ -84,37 +77,58 @@ export const AvailableActions = () => {
     return playerMetadata.possibleActions.achieve.map((cid) => cards[cid]);
   }, [cards, playerMetadata?.possibleActions?.achieve]);
 
+  const isDrawDisabled = !possibleActions.draw;
+  const isMeldDisabled = !possibleActions.meld.length;
+  const isDogmaDisabled = !possibleActions.dogma.length;
+  const isAchieveDisabled = !possibleActions.achieve.length;
+
   return (
     <>
-      <HStack space="sm">
-        <Button
-          action={possibleActions.draw ? 'primary' : 'secondary'}
-          disabled={!possibleActions.draw}
-          onPress={handleDraw}
-        >
-          <ButtonText>{text.availableActions.DRAW_CTA}</ButtonText>
-        </Button>
-        <Button
-          action={possibleActions.meld.length ? 'primary' : 'secondary'}
-          disabled={!possibleActions.meld.length}
-          onPress={() => setShowMeldOptions(true)}
-        >
-          <ButtonText>{text.availableActions.MELD_CTA}</ButtonText>
-        </Button>
-        <Button
-          action={possibleActions.dogma.length ? 'primary' : 'secondary'}
-          disabled={!possibleActions.dogma.length}
-          onPress={() => setShowDogmaOptions(true)}
-        >
-          <ButtonText>{text.availableActions.DOGMA_CTA}</ButtonText>
-        </Button>
-        <Button
-          action={possibleActions.achieve.length ? 'primary' : 'secondary'}
-          disabled={!possibleActions.achieve.length}
-          onPress={() => setShowAchieveOptions(true)}
-        >
-          <ButtonText>{text.availableActions.ACHIEVE_CTA}</ButtonText>
-        </Button>
+      <HStack className="items-center justify-between">
+        <Heading size="md">{`${text.availableActions.ACTION_NUMBER}: ${gameMetadata?.currentActionNumber}`}</Heading>
+        <HStack space="sm" className="items-center">
+          <Box>
+            <Heading size="md">{text.availableActions.CHOOSE_AN_ACTION}</Heading>
+          </Box>
+          <Button
+            className={isDrawDisabled ? disabledSolidButtonClassnames.button : ''}
+            disabled={isDrawDisabled}
+            onPress={handleDraw}
+          >
+            <ButtonText className={isDrawDisabled ? disabledSolidButtonClassnames.buttonText : ''}>
+              {text.availableActions.DRAW_CTA}
+            </ButtonText>
+          </Button>
+          <Button
+            className={isMeldDisabled ? disabledSolidButtonClassnames.button : ''}
+            disabled={isMeldDisabled}
+            onPress={() => setShowMeldOptions(true)}
+          >
+            <ButtonText className={isMeldDisabled ? disabledSolidButtonClassnames.buttonText : ''}>
+              {text.availableActions.MELD_CTA}
+            </ButtonText>
+          </Button>
+          <Button
+            className={isDogmaDisabled ? disabledSolidButtonClassnames.button : ''}
+            disabled={isDogmaDisabled}
+            onPress={() => setShowDogmaOptions(true)}
+          >
+            <ButtonText className={isDogmaDisabled ? disabledSolidButtonClassnames.buttonText : ''}>
+              {text.availableActions.DOGMA_CTA}
+            </ButtonText>
+          </Button>
+          <Button
+            className={isAchieveDisabled ? disabledSolidButtonClassnames.button : ''}
+            disabled={isAchieveDisabled}
+            onPress={() => setShowAchieveOptions(true)}
+          >
+            <ButtonText
+              className={isAchieveDisabled ? disabledSolidButtonClassnames.buttonText : ''}
+            >
+              {text.availableActions.ACHIEVE_CTA}
+            </ButtonText>
+          </Button>
+        </HStack>
       </HStack>
       <GameActionSheet
         cards={possibleCardsToMeld}
