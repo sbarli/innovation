@@ -1,0 +1,11 @@
+mutation Draw($drawInput: DrawInput!) {
+  draw(drawInput: $drawInput) {
+    gameId
+    playerId
+    ageDrawn
+    metadata {
+      currentActionUpdated
+      gameStageUpdated
+    }
+  }
+}

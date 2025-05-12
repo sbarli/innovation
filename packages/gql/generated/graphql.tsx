@@ -214,6 +214,30 @@ export type DogmaEffect = {
   specialAchievement?: Maybe<Scalars['String']['output']>;
 };
 
+export type DrawInput = {
+  ageToDraw?: InputMaybe<Scalars['Boolean']['input']>;
+  countAsAction: Scalars['Boolean']['input'];
+  drawType: Scalars['String']['input'];
+  gameRef: Scalars['ID']['input'];
+  playerRef: Scalars['ID']['input'];
+};
+
+export type DrawResponse = {
+  __typename?: 'DrawResponse';
+  ageDrawn?: Maybe<Scalars['String']['output']>;
+  gameId: Scalars['ID']['output'];
+  metadata: DrawResponseMetadata;
+  playerId: Scalars['ID']['output'];
+};
+
+export type DrawResponseMetadata = {
+  __typename?: 'DrawResponseMetadata';
+  currentActionUpdated: Scalars['Boolean']['output'];
+  gameStageUpdated: Scalars['Boolean']['output'];
+  updatedDeck?: Maybe<Deck>;
+  updatedPlayerHand?: Maybe<Array<Scalars['ID']['output']>>;
+};
+
 export type FindOneOptionsInput = {
   searchField: Scalars['String']['input'];
   searchValue: Scalars['String']['input'];
@@ -271,6 +295,7 @@ export type Mutation = {
   createNewGame: Game;
   createPlayerGameDetails: PlayerGameDetails;
   createRoom: Room;
+  draw: DrawResponse;
   meld: MeldResponse;
   newGame: CreateNewGameResponse;
   refreshToken: AccessTokenPayload;
@@ -303,6 +328,11 @@ export type MutationCreatePlayerGameDetailsArgs = {
 
 export type MutationCreateRoomArgs = {
   newRoomData: CreateRoomInput;
+};
+
+
+export type MutationDrawArgs = {
+  drawInput: DrawInput;
 };
 
 
@@ -524,6 +554,13 @@ export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', _id: string, cardId: string, name: string, age: number, color: string, dogmaResource: string, resourceTotals: { __typename?: 'ResourceTotals', castles: number, crowns: number, leaves: number, lightbulbs: number, factories: number, timepieces: number }, resourceSpaces: { __typename?: 'ResourceSpaces', resourceSpace1?: string | null, resourceSpace2?: string | null, resourceSpace3?: string | null, resourceSpace4?: string | null }, dogmaEffects: Array<{ __typename?: 'DogmaEffect', description: string, effectTypes: Array<string>, isDemand: boolean, isOptional: boolean, repeat: boolean, specialAchievement?: string | null }> }> };
+
+export type DrawMutationVariables = Exact<{
+  drawInput: DrawInput;
+}>;
+
+
+export type DrawMutation = { __typename?: 'Mutation', draw: { __typename?: 'DrawResponse', gameId: string, playerId: string, ageDrawn?: string | null, metadata: { __typename?: 'DrawResponseMetadata', currentActionUpdated: boolean, gameStageUpdated: boolean } } };
 
 export type GetGameDataQueryVariables = Exact<{
   gameId: Scalars['ID']['input'];
@@ -951,6 +988,45 @@ export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
 export type GetAllCardsLazyQueryHookResult = ReturnType<typeof useGetAllCardsLazyQuery>;
 export type GetAllCardsSuspenseQueryHookResult = ReturnType<typeof useGetAllCardsSuspenseQuery>;
 export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
+export const DrawDocument = gql`
+    mutation Draw($drawInput: DrawInput!) {
+  draw(drawInput: $drawInput) {
+    gameId
+    playerId
+    ageDrawn
+    metadata {
+      currentActionUpdated
+      gameStageUpdated
+    }
+  }
+}
+    `;
+export type DrawMutationFn = Apollo.MutationFunction<DrawMutation, DrawMutationVariables>;
+
+/**
+ * __useDrawMutation__
+ *
+ * To run a mutation, you first call `useDrawMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDrawMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [drawMutation, { data, loading, error }] = useDrawMutation({
+ *   variables: {
+ *      drawInput: // value for 'drawInput'
+ *   },
+ * });
+ */
+export function useDrawMutation(baseOptions?: Apollo.MutationHookOptions<DrawMutation, DrawMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DrawMutation, DrawMutationVariables>(DrawDocument, options);
+      }
+export type DrawMutationHookResult = ReturnType<typeof useDrawMutation>;
+export type DrawMutationResult = Apollo.MutationResult<DrawMutation>;
+export type DrawMutationOptions = Apollo.BaseMutationOptions<DrawMutation, DrawMutationVariables>;
 export const GetGameDataDocument = gql`
     query GetGameData($gameId: ID!) {
   getGame(gameId: $gameId) {
