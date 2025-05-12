@@ -73,6 +73,7 @@ export interface IAgeDataItem {
   str: Age;
   name: AgeName;
   costToAchieve: Nullable<number>;
+  nextAge: Nullable<Age>;
 }
 
 export const AgeData: IAgeDataItem[] = [
@@ -81,60 +82,70 @@ export const AgeData: IAgeDataItem[] = [
     str: Age.ONE,
     name: AgeName[Age.ONE],
     costToAchieve: AgeAchievementCost[Age.ONE],
+    nextAge: Age.TWO,
   },
   {
     num: AgeNum.TWO,
     str: Age.TWO,
     name: AgeName[Age.TWO],
     costToAchieve: AgeAchievementCost[Age.TWO],
+    nextAge: Age.THREE,
   },
   {
     num: AgeNum.THREE,
     str: Age.THREE,
     name: AgeName[Age.THREE],
     costToAchieve: AgeAchievementCost[Age.THREE],
+    nextAge: Age.FOUR,
   },
   {
     num: AgeNum.FOUR,
     str: Age.FOUR,
     name: AgeName[Age.FOUR],
     costToAchieve: AgeAchievementCost[Age.FOUR],
+    nextAge: Age.FIVE,
   },
   {
     num: AgeNum.FIVE,
     str: Age.FIVE,
     name: AgeName[Age.FIVE],
     costToAchieve: AgeAchievementCost[Age.FIVE],
+    nextAge: Age.SIX,
   },
   {
     num: AgeNum.SIX,
     str: Age.SIX,
     name: AgeName[Age.SIX],
     costToAchieve: AgeAchievementCost[Age.SIX],
+    nextAge: Age.SEVEN,
   },
   {
     num: AgeNum.SEVEN,
     str: Age.SEVEN,
     name: AgeName[Age.SEVEN],
     costToAchieve: AgeAchievementCost[Age.SEVEN],
+    nextAge: Age.EIGHT,
   },
   {
     num: AgeNum.EIGHT,
     str: Age.EIGHT,
     name: AgeName[Age.EIGHT],
     costToAchieve: AgeAchievementCost[Age.EIGHT],
+    nextAge: Age.NINE,
   },
   {
     num: AgeNum.NINE,
     str: Age.NINE,
     name: AgeName[Age.NINE],
     costToAchieve: AgeAchievementCost[Age.NINE],
+    nextAge: Age.TEN,
   },
   {
     num: AgeNum.TEN,
     str: Age.TEN,
     name: AgeName[Age.TEN],
     costToAchieve: null,
+    nextAge: null,
   },
 ];
 

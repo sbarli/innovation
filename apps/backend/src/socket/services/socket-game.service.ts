@@ -3,6 +3,7 @@ import { WsException } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
 
 import {
+  Age,
   SocketEvent,
   SocketEventError,
   SocketEventErrorCode,
@@ -20,6 +21,10 @@ export interface IParamsWithGameId extends ISocketServiceMethodParamsWithRoomId 
 
 export interface IHandlePlayerMeldedCardParams extends ISocketServiceMethodParamsWithRoomId {
   cardName: string;
+}
+
+export interface IHandlePlayerDrewCardParams extends ISocketServiceMethodParamsWithRoomId {
+  cardAge: Age;
 }
 
 @Injectable()
@@ -167,6 +172,56 @@ export class SocketGameService {
       const errorMessage = getCatchErrorMessage(
         error,
         `Could not handle starter card meld: Unknown reason`
+      );
+      this.logger.error(errorMessage);
+      // TODO: handle error properly
+      // const errorData = new SocketEventError(SocketEventErrorCode.UNKNOWN, errorMessage);
+      // socket.emit(SocketEvent.START_GAME_ERROR, {
+      //   error: errorData,
+      // });
+      throw new WsException(errorMessage);
+    }
+  }
+
+  /**
+   * @name handlePlayerDrewCard
+   * @description handles emitting event to room notifying a player has drawn a card
+   */
+  async handlePlayerDrewCard(
+    socket: Socket,
+    { cardAge, roomId, user }: IHandlePlayerDrewCardParams
+  ) {
+    try {
+      if (!socket.rooms.has(roomId)) {
+        this.logger.error(
+          `${user._id} could not notify card drawn: User is not member of room ${roomId}`
+        );
+        const errorData = new SocketEventError(
+          SocketEventErrorCode.INVALID,
+          'User cannot emit events to room they are not a member of',
+          {
+            roomId,
+            userId: user._id,
+          }
+        );
+        return new SocketEventResponse({
+          success: false,
+          error: errorData,
+        });
+      }
+
+      socket.to(roomId).emit(SocketEvent.ROOM_CARD_DRAWN, {
+        cardAge,
+        drawnBy: {
+          userId: user._id,
+          username: user.username,
+        },
+      });
+      return new SocketEventResponse({ success: true });
+    } catch (error) {
+      const errorMessage = getCatchErrorMessage(
+        error,
+        `Could not handle starter card drawn: Unknown reason`
       );
       this.logger.error(errorMessage);
       // TODO: handle error properly

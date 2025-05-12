@@ -11,7 +11,7 @@ import {
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
 
-import { SocketEvent } from '@inno/constants';
+import { Age, SocketEvent } from '@inno/constants';
 
 import { CurrentUserFromRequest } from 'src/auth/decorators/current-user.decorator';
 import { JwtWsAuthGuard } from 'src/auth/guards/jwt-ws-auth.guard';
@@ -145,6 +145,22 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
   ) {
     return this.socketGameService.handlePlayerMeldedCard(socket, {
       cardName,
+      roomId,
+      socketServer: this.server,
+      user,
+    });
+  }
+
+  @UseGuards(JwtWsAuthGuard)
+  @SubscribeMessage(SocketEvent.PLAYER_DREW_CARD)
+  playerDrewCard(
+    @CurrentUserFromRequest() user: UserWithoutPassword,
+    @MessageBody('roomId') roomId: string,
+    @MessageBody('cardAge') cardAge: Age,
+    @ConnectedSocket() socket: Socket
+  ) {
+    return this.socketGameService.handlePlayerDrewCard(socket, {
+      cardAge,
       roomId,
       socketServer: this.server,
       user,

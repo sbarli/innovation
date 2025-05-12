@@ -5,6 +5,8 @@ import { CardsService } from 'src/cards/services/cards.service';
 
 import { CreateNewGameInput } from './dto/create-new-game.input.dto';
 import { CreateNewGameResponse } from './dto/create-new-game.output.dto';
+import { DrawInput } from './dto/draw.input.dto';
+import { DrawResponse } from './dto/draw.output.dto';
 import { MeldInput } from './dto/meld.input.dto';
 import { MeldResponse } from './dto/meld.output.dto';
 import { NewGameService } from './services/new-game.service';
@@ -78,5 +80,49 @@ export class GameplayResolver {
         },
       };
     }
+  }
+
+  @Mutation(() => DrawResponse)
+  async draw(
+    @Args('drawInput', { type: () => DrawInput })
+    drawInput: DrawInput
+  ) {
+    let gameStageUpdated = false;
+    let currentActionUpdated = false;
+    const drawData = await this.playerActionsService.drawCard({
+      gameRef: drawInput.gameRef,
+      playerRef: drawInput.playerRef,
+      specificAgeToDraw:
+        drawInput.drawType === 'specificAge' && drawInput.ageToDraw ? drawInput.ageToDraw : null,
+    });
+    if (!drawData) {
+      throw new Error('gameplayResolver.draw: ERROR: failed to draw');
+    }
+    if (drawData.isGameOver) {
+      const winnerSet = await this.playerActionsService.maybeMoveGameStage({
+        gameId: drawInput.gameRef,
+        winnerMetadata: { expectedWinnerType: 'highestScore' },
+      });
+      if (!winnerSet) {
+        throw new Error('gameplayResolver.draw: ERROR: failed to set winner');
+      }
+      gameStageUpdated = true;
+    } else if (drawInput.countAsAction) {
+      const updatedToNextAction = await this.playerActionsService.moveToNextGameAction({
+        gameId: drawInput.gameRef,
+      });
+      currentActionUpdated = updatedToNextAction;
+    }
+    return {
+      ageDrawn: drawData.ageDrawn,
+      gameId: drawInput.gameRef,
+      playerId: drawInput.playerRef,
+      metadata: {
+        updatedPlayerHand: drawData.updatedPlayerHand,
+        updatedDeck: drawData.updatedDeck,
+        gameStageUpdated,
+        currentActionUpdated,
+      },
+    };
   }
 }

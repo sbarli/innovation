@@ -23,17 +23,19 @@ export class CardsService {
     if (cardsCache) {
       return cardsCache;
     }
-    const allCards = await this.cardModel.find({});
+    const allCards = await this.cardModel.find({}).lean();
     await this.cacheManager.set(CardCacheKey.ALL_CARDS, allCards, CARDS_CACHE_TTL);
     return allCards;
   }
 
   async findManyByRef(refs: string[]): Promise<Card[]> {
-    return this.cardModel.find({
-      _id: {
-        $in: refs,
-      },
-    });
+    return this.cardModel
+      .find({
+        _id: {
+          $in: refs,
+        },
+      })
+      .lean();
   }
 
   async findOneByRef(ref: string): Promise<Nullable<Card>> {
@@ -43,7 +45,7 @@ export class CardsService {
     if (cacheValue) {
       return cacheValue;
     }
-    const card = await this.cardModel.findOne({ _id: ref });
+    const card = await this.cardModel.findOne({ _id: ref }).lean();
     await this.cacheManager.set(`${CardCacheKey.CARD_REF}-${ref}`, card, CARDS_CACHE_TTL);
     return card;
   }
@@ -55,7 +57,7 @@ export class CardsService {
     if (cacheValue) {
       return cacheValue;
     }
-    const card = this.cardModel.findOne({ cardId });
+    const card = this.cardModel.findOne({ cardId }).lean();
     await this.cacheManager.set(`${CardCacheKey.CARD_ID}-${cardId}`, card, CARDS_CACHE_TTL);
     return card;
   }
