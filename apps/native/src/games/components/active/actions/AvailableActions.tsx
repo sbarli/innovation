@@ -10,6 +10,7 @@ import { useCardsContext } from '../../../../cards/state/CardsProvider';
 import { useUserPlayerGameData } from '../../../hooks/useUserPlayerGameData';
 import { useGameContext } from '../../../state/GameProvider';
 
+import { DrawAction } from './DrawAction';
 import { GameActionSheet } from './GameActionSheet';
 import { MeldAction } from './MeldAction';
 
@@ -29,15 +30,6 @@ export const AvailableActions = () => {
   const closeAchieveOptions = useCallback(() => {
     setShowAchieveOptions(false);
   }, []);
-
-  const handleDraw = useCallback(() => {
-    if (!playerMetadata?.possibleActions.draw) {
-      console.log('UNABLE TO DRAW: no valid draw action age set');
-      return;
-    }
-    console.log('READY TO DRAW AGE: ', playerMetadata.possibleActions.draw);
-    // TODO: add draw logic
-  }, [playerMetadata?.possibleActions.draw]);
 
   const handleDogmaSelection = useCallback((cardId: string) => {
     console.log('SELECTED CARD TO DOGMA: ', cardId);
@@ -63,7 +55,6 @@ export const AvailableActions = () => {
     return playerMetadata.possibleActions.achieve.map((cid) => cards[cid]);
   }, [cards, playerMetadata?.possibleActions?.achieve]);
 
-  const isDrawDisabled = !possibleActions.draw;
   const isDogmaDisabled = !possibleActions.dogma.length;
   const isAchieveDisabled = !possibleActions.achieve.length;
 
@@ -75,15 +66,7 @@ export const AvailableActions = () => {
           <Box>
             <Heading size="md">{text.availableActions.CHOOSE_AN_ACTION}</Heading>
           </Box>
-          <Button
-            className={isDrawDisabled ? disabledSolidButtonClassnames.button : ''}
-            disabled={isDrawDisabled}
-            onPress={handleDraw}
-          >
-            <ButtonText className={isDrawDisabled ? disabledSolidButtonClassnames.buttonText : ''}>
-              {text.availableActions.DRAW_CTA}
-            </ButtonText>
-          </Button>
+          <DrawAction />
           <MeldAction />
           <Button
             className={isDogmaDisabled ? disabledSolidButtonClassnames.button : ''}

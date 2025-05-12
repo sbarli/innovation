@@ -1,19 +1,17 @@
 import { AgeDataByAgeNum, AgeDataByAgeStr, AgeNum, IAgeDataItem, Resource } from '@inno/constants';
-import { Card, DeckFragment, PlayerGameDetailsFragment, SplayOption } from '@inno/gql';
+import { Card, PlayerGameDetailsFragment, SplayOption } from '@inno/gql';
 
 import {
   AgeAchievementKey,
   AgeAchievements,
   Board,
   Cards,
-  Deck,
   Hand,
   Player,
   PlayerMetadata,
   PossibleActions,
   ResourceTotals,
 } from '../../app-core/types/game.types';
-import { whichDrawPile } from '../../deck/helpers/whichDrawPile';
 
 import { recurseRemoveTypename } from './recurseRemoveTypename';
 
@@ -153,19 +151,18 @@ const determinePlayerPossibleActions = ({
   age,
   ageAchievementData,
   cards,
-  deck,
   playerData,
   score,
 }: {
   age: IAgeDataItem;
   ageAchievementData?: AgeAchievements;
   cards: Cards;
-  deck: Deck;
   playerData: PlayerGameDetailsFragment;
   score: number;
 }): PossibleActions => {
   return {
-    draw: whichDrawPile({ deck, currentPlayerAge: age.str }),
+    // NOTE: BE handles winner scenario. draw is always a valid possible action
+    draw: true,
     meld: playerData.hand,
     dogma: determineCardsAvailableToDogma(playerData.board, cards),
     achieve: determineAvailableAgeAchievements(age, score, ageAchievementData),
@@ -175,12 +172,10 @@ const determinePlayerPossibleActions = ({
 const formatPlayerMetadata = ({
   ageAchievementData,
   cards,
-  deck,
   playerData,
 }: {
   ageAchievementData?: AgeAchievements;
   cards: Cards;
-  deck: Deck;
   playerData: PlayerGameDetailsFragment;
 }): PlayerMetadata => {
   const age = calculatePlayerAge(recurseRemoveTypename(playerData.board), cards);
@@ -194,7 +189,6 @@ const formatPlayerMetadata = ({
       playerData,
       age,
       cards,
-      deck,
       score,
     }),
     numAchievements: playerData.ageAchievements.length,
@@ -205,12 +199,10 @@ const formatPlayerMetadata = ({
 const formatPlayer = ({
   ageAchievementData,
   cards,
-  deck,
   playerData,
 }: {
   ageAchievementData?: AgeAchievements;
   cards: Cards;
-  deck: Deck;
   playerData: PlayerGameDetailsFragment;
 }): Player & { hand: Hand; board: Board } => {
   return {
@@ -219,22 +211,20 @@ const formatPlayer = ({
     username: playerData.username ?? 'Unnamed user',
     hand: playerData.hand,
     board: recurseRemoveTypename(playerData.board),
-    metadata: formatPlayerMetadata({ ageAchievementData, playerData, cards, deck }),
+    metadata: formatPlayerMetadata({ ageAchievementData, playerData, cards }),
   };
 };
 
 export const formatPlayers = ({
   ageAchievementData,
   cards,
-  deck,
   playersGameData,
 }: {
   ageAchievementData?: AgeAchievements;
   cards: Cards;
-  deck: DeckFragment;
   playersGameData: PlayerGameDetailsFragment[];
 }): Array<Player & { hand: Hand; board: Board }> => {
   return playersGameData.map((playerData) =>
-    formatPlayer({ ageAchievementData, playerData, cards, deck: recurseRemoveTypename(deck) })
+    formatPlayer({ ageAchievementData, playerData, cards })
   );
 };

@@ -17,8 +17,10 @@ import { AvailableActions } from './actions/AvailableActions';
 import { Boards } from './board/Boards';
 import { CurrentUserHand } from './current-user-hand/CurrentUserHand';
 import { StatsDrawer } from './game-stats/StatsDrawer';
+import { useActiveGameSocketListeners } from './hooks/useActiveGameSocketListeners';
 
 export const ActiveGame: FC = () => {
+  useActiveGameSocketListeners();
   const { metadata } = useGameContext();
   const userPlayerGameData = useUserPlayerGameData();
   const [showBoard, setShowBoard] = useState(true);

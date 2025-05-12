@@ -103,7 +103,6 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
     const allPlayerData = formatPlayers({
       ageAchievementData: ageAchievements,
       cards,
-      deck: data.getGame.deck,
       playersGameData: data.getDetailsByGame,
     });
     const players = allPlayerData.reduce((acc, data) => {
@@ -122,7 +121,7 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
       return acc;
     }, {} as Boards);
     return { players, hands, boards };
-  }, [ageAchievements, cards, data?.getDetailsByGame, data?.getGame?.deck]);
+  }, [ageAchievements, cards, data?.getDetailsByGame]);
 
   const haveNecessaryGameData = useMemo(() => {
     if (

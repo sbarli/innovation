@@ -155,7 +155,7 @@ export enum Resource {
 export type ResourceTotals = Record<Resource, number>;
 
 export type PossibleActions = {
-  draw: Nullable<Age>;
+  draw: boolean;
   meld: string[];
   dogma: string[];
   achieve: string[];

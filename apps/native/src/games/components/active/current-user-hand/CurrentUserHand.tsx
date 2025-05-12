@@ -21,14 +21,14 @@ export const CurrentUserHand = () => {
   const { hand = [] } = useUserPlayerGameData() ?? {};
   const [showHand, setShowHand] = useState(false);
 
-  const handCloseHand = () => setShowHand(false);
+  const handleCloseHand = () => setShowHand(false);
 
   return (
     <>
       <Button variant="outline" onPress={() => setShowHand(true)}>
         <ButtonText>{text.currentUserHand.SHOW_HAND_CTA}</ButtonText>
       </Button>
-      <Actionsheet isOpen={showHand} onClose={handCloseHand}>
+      <Actionsheet isOpen={showHand} onClose={handleCloseHand}>
         <ActionsheetBackdrop />
         <ActionsheetContent>
           <ActionsheetDragIndicatorWrapper>

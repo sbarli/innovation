@@ -55,7 +55,7 @@ export const MeldAction = () => {
       }
     );
     return () => {
-      socket?.removeListener(SocketEvent.GAME_UPDATED);
+      socket?.removeListener(SocketEvent.ROOM_STARTER_CARD_MELDED);
     };
   }, [socket]);
 
@@ -71,14 +71,14 @@ export const MeldAction = () => {
     socket.emit(SocketEvent.PLAYER_MELDED_CARD, { cardName, roomId: currentRoomId });
   };
 
-  const handleMeldSelection = useCallback((cardId: string) => {
+  const handleMeldSelection = (cardId: string) => {
     setShowMeldOptions(false);
     meldCardFromHand({
       cardId,
       countAsAction: true,
       onSuccess: () => emitCardMeldedEvent(cardId),
     });
-  }, []);
+  };
 
   if (!gameMetadata || gameMetadata.currentPlayerId !== playerId || !possibleActions) {
     return null;
