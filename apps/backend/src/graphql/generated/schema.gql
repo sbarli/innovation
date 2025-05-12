@@ -189,6 +189,28 @@ type DogmaEffect {
   specialAchievement: String
 }
 
+input DrawInput {
+  ageToDraw: Boolean
+  countAsAction: Boolean!
+  drawType: String!
+  gameRef: ID!
+  playerRef: ID!
+}
+
+type DrawResponse {
+  ageDrawn: String
+  gameId: ID!
+  metadata: DrawResponseMetadata!
+  playerId: ID!
+}
+
+type DrawResponseMetadata {
+  currentActionUpdated: Boolean!
+  gameStageUpdated: Boolean!
+  updatedDeck: Deck
+  updatedPlayerHand: [ID!]
+}
+
 input FindOneOptionsInput {
   searchField: String!
   searchValue: String!
@@ -242,6 +264,7 @@ type Mutation {
   createNewGame(newGameData: CreateGameInput!): Game!
   createPlayerGameDetails(createData: CreatePlayerGameDetailsInput!): PlayerGameDetails!
   createRoom(newRoomData: CreateRoomInput!): Room!
+  draw(drawInput: DrawInput!): DrawResponse!
   meld(meldInput: MeldInput!): MeldResponse!
   newGame(newGameDto: CreateNewGameInput!): CreateNewGameResponse!
   refreshToken: AccessTokenPayload!
