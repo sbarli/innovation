@@ -6,7 +6,6 @@ import { GluestackUIProvider } from '../src/app-core/components/gluestack/gluest
 import { SafeAreaView } from '../src/app-core/components/gluestack/safe-area-view';
 import { AuthProvider } from '../src/authentication/state/AuthProvider';
 import { GraphQLProvider } from '../src/graphql/ApolloProvider';
-import { SocketProvider } from '../src/websockets/SocketProvider';
 
 // // UGLY HACK
 // // This is a hack to make sure that the console logs are printed in the
@@ -65,13 +64,11 @@ export default function AppProvidersWrapper() {
   return (
     <GluestackUIProvider mode="light">
       <GraphQLProvider>
-        <SocketProvider>
-          <SafeAreaView>
-            <AuthProvider>
-              <Slot />
-            </AuthProvider>
-          </SafeAreaView>
-        </SocketProvider>
+        <SafeAreaView>
+          <AuthProvider>
+            <Slot />
+          </AuthProvider>
+        </SafeAreaView>
       </GraphQLProvider>
     </GluestackUIProvider>
   );

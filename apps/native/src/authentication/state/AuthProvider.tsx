@@ -14,7 +14,6 @@ import { UserWithoutPassword, useIsAuthenticatedQuery } from '@inno/gql';
 
 import { Routes } from '../../app-core/constants/navigation';
 import { StorageKeys } from '../../app-core/constants/storage.constants';
-import { useSocketContext } from '../../websockets/SocketProvider';
 import { TAuthContext, IAuthCallback } from '../auth.types';
 import { getGraphQLErrorMessage } from '../helpers/get-graphql-error-message';
 import { useLogin } from '../hooks/useLogin';
@@ -32,7 +31,6 @@ export function useAuthContext() {
 }
 
 export function AuthProvider(props: PropsWithChildren) {
-  const { connectUserToSocket, disconnectUserFromSocket } = useSocketContext();
   const { setItem: setAuthToken, removeItem: clearAuthToken } = useAsyncStorage(
     StorageKeys.AUTH_TOKEN
   );
@@ -74,7 +72,7 @@ export function AuthProvider(props: PropsWithChildren) {
       }
     };
     tryToPopulateUserFromStorage();
-  }, []);
+  }, [getStorageUser, user]);
 
   const logout = useCallback(async () => {
     await clearAuthToken();
@@ -82,9 +80,8 @@ export function AuthProvider(props: PropsWithChildren) {
     await clearStorageUser();
     setUser(undefined);
     setIsAuthenticated(undefined);
-    disconnectUserFromSocket();
     router.push(Routes.AUTH.path);
-  }, []);
+  }, [clearAuthToken, clearRefreshToken, clearStorageUser]);
 
   const authCallback = useCallback(
     async ({ authToken, refreshToken, success, user }: IAuthCallback) => {
@@ -94,7 +91,6 @@ export function AuthProvider(props: PropsWithChildren) {
       }
       if (authToken) {
         await setAuthToken(authToken);
-        connectUserToSocket(authToken, true);
       }
       if (refreshToken) {
         await setRefreshToken(refreshToken);
@@ -106,7 +102,7 @@ export function AuthProvider(props: PropsWithChildren) {
       setIsAuthenticated(true);
       return true;
     },
-    []
+    [logout, setAuthToken, setRefreshToken, setStorageUser]
   );
 
   const { error: loginError, loading: loginLoading, login } = useLogin(authCallback);
