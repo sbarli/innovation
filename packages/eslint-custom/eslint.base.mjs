@@ -4,6 +4,7 @@ import importPlugin from 'eslint-plugin-import';
 import * as pluginImportX from 'eslint-plugin-import-x';
 import onlyWarn from 'eslint-plugin-only-warn';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import * as reactHooks from 'eslint-plugin-react-hooks';
 import turboPlugin from 'eslint-plugin-turbo';
 import globals from 'globals';
 import { configs as tseslintConfigs } from 'typescript-eslint';
@@ -22,6 +23,7 @@ export default [
   importPlugin.flatConfigs.typescript,
   pluginImportX.flatConfigs.recommended,
   pluginImportX.flatConfigs.typescript,
+  reactHooks.configs['recommended-latest'],
   {
     plugins: {
       turbo: turboPlugin,
