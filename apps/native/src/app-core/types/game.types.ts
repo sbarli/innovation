@@ -1,4 +1,4 @@
-import { ActionNumber, Age, GameStage, IAgeDataItem, Nullable } from '@inno/constants';
+import { ActionNumber, GameStage, IAgeDataItem, Nullable } from '@inno/constants';
 import { BoardPile as GQLBoardPile, Board as GQLBoard, Deck as GQLDeck, Card } from '@inno/gql';
 
 export enum AgeAchievementKey {
