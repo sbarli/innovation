@@ -9,7 +9,7 @@ export const LogoutScreen = () => {
 
   useEffect(() => {
     logout();
-  }, []);
+  }, [logout]);
 
   return (
     <Center>

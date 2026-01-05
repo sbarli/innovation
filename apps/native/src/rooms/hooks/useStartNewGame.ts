@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { router, useLocalSearchParams } from 'expo-router';
 
@@ -23,17 +23,20 @@ export const useStartNewGame = ({
   const [startInProgress, setStartInProgress] = useState(false);
   const [startSuccessful, setStartSuccessful] = useState(false);
 
-  const handleRedirectToGameScreen = (gameId: string) => {
-    if (typeof roomId === 'string') {
-      router.push({
-        pathname: Routes.GAME.path,
-        params: {
-          roomId,
-          gameId,
-        },
-      });
-    }
-  };
+  const handleRedirectToGameScreen = useCallback(
+    (gameId: string) => {
+      if (typeof roomId === 'string') {
+        router.push({
+          pathname: Routes.GAME.path,
+          params: {
+            roomId,
+            gameId,
+          },
+        });
+      }
+    },
+    [roomId]
+  );
 
   const handleStartGameEvent = async ({ gameId }: NewGameMutation['newGame']) => {
     if (!socket || !socket?.connected) {
@@ -91,9 +94,10 @@ export const useStartNewGame = ({
     });
 
     return () => {
+      socket?.removeListener(SocketEvent.GAME_STARTED);
       socket?.removeListener(SocketEvent.START_GAME_ERROR);
     };
-  }, [socket]);
+  }, [handleRedirectToGameScreen, socket]);
 
   return {
     errorMsg,

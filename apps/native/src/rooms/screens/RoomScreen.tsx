@@ -62,7 +62,7 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
         }
       );
     }
-  }, [roomData?._id]);
+  }, [roomData?._id, socket]);
 
   useEffect(() => {
     socket?.on(
@@ -85,7 +85,7 @@ export const RoomScreen = ({ error, loading, refetchRoomData, roomData }: IRoomS
     return () => {
       socket?.removeListener(SocketEvent.USER_JOINED_ROOM);
     };
-  }, [socket]);
+  }, [refetchRoomData, socket, toast]);
 
   const handleStartPress = () => {
     if (!roomData?._id || !roomData?.playerRefs) {

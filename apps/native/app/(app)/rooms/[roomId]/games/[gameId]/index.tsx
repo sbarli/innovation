@@ -16,7 +16,7 @@ export default function Game() {
     if (!!gameId && typeof gameId === 'string') {
       setGameId(gameId);
     }
-  }, [gameId]);
+  }, [gameId, setGameId]);
 
   if (!gameId || typeof gameId !== 'string') {
     return <Redirect href={Routes.HOME.path} />;

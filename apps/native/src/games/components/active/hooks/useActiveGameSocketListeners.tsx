@@ -14,18 +14,22 @@ export interface IRoomCardDrawnCallbackProps {
 export const useActiveGameSocketListeners = () => {
   const { socket } = useSocketContext();
   const toast = useToast();
-  const onCardDrawn = useCallback(({ cardAge, drawnBy }: IRoomCardDrawnCallbackProps) => {
-    toast.show({
-      placement: 'top',
-      render: ({ id }) => (
-        <CustomToast
-          id={id}
-          title="Card Drawn"
-          description={`${drawnBy.username} drew from the ${cardAge} age`}
-        />
-      ),
-    });
-  }, []);
+
+  const onCardDrawn = useCallback(
+    ({ cardAge, drawnBy }: IRoomCardDrawnCallbackProps) => {
+      toast.show({
+        placement: 'top',
+        render: ({ id }) => (
+          <CustomToast
+            id={id}
+            title="Card Drawn"
+            description={`${drawnBy.username} drew from the ${cardAge} age`}
+          />
+        ),
+      });
+    },
+    [toast]
+  );
 
   useEffect(() => {
     socket?.on(SocketEvent.ROOM_CARD_DRAWN, onCardDrawn);

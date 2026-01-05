@@ -14,6 +14,7 @@ import { SocketEvent } from '@inno/constants';
 
 import { WEBSOCKET_API } from '../app-core/constants/manifest';
 import { StorageKeys } from '../app-core/constants/storage.constants';
+import { useAuthContext } from '../authentication/state/AuthProvider';
 
 export type TSocketContext = {
   socket?: Socket;
@@ -33,14 +34,20 @@ export function useSocketContext() {
 
 export function SocketProvider(props: PropsWithChildren) {
   const { getItem: getAuthToken } = useAsyncStorage(StorageKeys.AUTH_TOKEN);
+  const { user } = useAuthContext();
   const [socket, setSocket] = useState<Socket>();
+
+  const disconnectUserFromSocket = useCallback(() => {
+    socket?.disconnect();
+    socket?.removeAllListeners();
+  }, [socket]);
 
   const connectUserToSocket = useCallback(
     async (token: string, forceConnect: boolean = false) => {
+      if (socket && forceConnect) {
+        disconnectUserFromSocket();
+      }
       if (!socket || forceConnect) {
-        if (socket && forceConnect) {
-          disconnectUserFromSocket();
-        }
         const newSocket = io(WEBSOCKET_API, {
           auth: {
             token,
@@ -51,18 +58,13 @@ export function SocketProvider(props: PropsWithChildren) {
         newSocket.emit(SocketEvent.MAP_USER_TO_SOCKET);
       }
     },
-    [socket]
+    [disconnectUserFromSocket, socket]
   );
-
-  const disconnectUserFromSocket = useCallback(() => {
-    socket?.disconnect();
-    socket?.removeAllListeners();
-  }, []);
 
   useEffect(() => {
     const trySocketConnection = async () => {
       const token = await getAuthToken();
-      if (token) {
+      if (user && token) {
         connectUserToSocket(token);
       }
     };
@@ -70,7 +72,8 @@ export function SocketProvider(props: PropsWithChildren) {
     return () => {
       disconnectUserFromSocket();
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   useEffect(() => {
     socket?.on('connect', () => {

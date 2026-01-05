@@ -3,7 +3,6 @@ import { FlatList, ListRenderItemInfo } from 'react-native';
 import { Age, AgeDataByAgeStr } from '@inno/constants';
 
 import { BadgeType, CountBadge } from '../../app-core/components/CountBadge';
-import { MaybePressable } from '../../app-core/components/MaybePressable';
 import { Box } from '../../app-core/components/gluestack/box';
 import { VerticalEmptyCardSlot } from '../../cards/components/VerticalEmptyCardSlot';
 import { CardBack } from '../../cards/components/back/CardBack';
@@ -11,8 +10,6 @@ import { CardBack } from '../../cards/components/back/CardBack';
 export interface IDeckPileMetadata {
   age: Age;
   numCardsInPile: number;
-  availableToDraw: boolean;
-  onDraw?(): void;
 }
 
 export interface IDeckLayoutProps {
@@ -28,19 +25,15 @@ export const DeckLayout = ({ deckMetadata }: IDeckLayoutProps) => {
       renderItem={({ item: pile }: ListRenderItemInfo<IDeckPileMetadata>) => {
         const ageNum = AgeDataByAgeStr[pile.age].num;
         return pile.numCardsInPile ? (
-          <MaybePressable
-            handlePress={pile.availableToDraw && pile.onDraw ? pile.onDraw : undefined}
-          >
+          <Box>
             <Box>
-              <Box>
-                <CardBack age={ageNum} />
-              </Box>
-              <CountBadge
-                badgeType={pile.numCardsInPile < 3 ? BadgeType.WARNING : BadgeType.DEFAULT}
-                count={pile.numCardsInPile}
-              />
+              <CardBack age={ageNum} />
             </Box>
-          </MaybePressable>
+            <CountBadge
+              badgeType={pile.numCardsInPile < 3 ? BadgeType.WARNING : BadgeType.DEFAULT}
+              count={pile.numCardsInPile}
+            />
+          </Box>
         ) : (
           <VerticalEmptyCardSlot />
         );

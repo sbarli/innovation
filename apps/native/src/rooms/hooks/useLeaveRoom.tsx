@@ -14,11 +14,9 @@ import { useSocketContext } from '../../websockets/SocketProvider';
 export const useLeaveRoom = ({
   roomId,
   successCallback,
-  username,
 }: {
   roomId: string;
   successCallback?: () => void;
-  username: string;
 }) => {
   const { socket } = useSocketContext();
   const toast = useToast();
@@ -79,7 +77,7 @@ export const useLeaveRoom = ({
     socket?.on(
       SocketEvent.CLOSE_ROOM_IN_PROGRESS,
       ({ roomId: closedRoomId, initiatedBy }: { roomId: string; initiatedBy: string }) => {
-        if (initiatedBy !== username && closedRoomId === roomId) {
+        if (closedRoomId === roomId) {
           toast.show({
             placement: 'top',
             render: ({ id }) => (
@@ -106,7 +104,7 @@ export const useLeaveRoom = ({
       socket?.removeListener(SocketEvent.CLOSE_ROOM_IN_PROGRESS);
       socket?.removeListener(SocketEvent.CLOSE_ROOM_SUCCESS);
     };
-  }, [socket]);
+  }, [roomId, socket, toast]);
 
   return {
     errorMsg,

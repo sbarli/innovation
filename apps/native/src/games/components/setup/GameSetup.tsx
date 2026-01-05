@@ -6,7 +6,6 @@ import { Box } from '../../../app-core/components/gluestack/box';
 import { Text } from '../../../app-core/components/gluestack/text';
 import { useToast } from '../../../app-core/components/gluestack/toast';
 import { CustomToast } from '../../../app-core/components/toasts/CustomToast';
-import { useAuthContext } from '../../../authentication/state/AuthProvider';
 import { useSocketContext } from '../../../websockets/SocketProvider';
 import { useUserPlayerGameData } from '../../hooks/useUserPlayerGameData';
 import { useGameContext } from '../../state/GameProvider';
@@ -18,7 +17,6 @@ export interface IRoomStarterCardMeldedCallbackProps {
 }
 
 export const GameSetup: FC = () => {
-  const { user } = useAuthContext();
   const { gameId, hands, players } = useGameContext();
   const { socket } = useSocketContext();
   const userPlayerGameData = useUserPlayerGameData();
@@ -29,7 +27,7 @@ export const GameSetup: FC = () => {
     socket?.on(
       SocketEvent.ROOM_STARTER_CARD_MELDED,
       ({ meldedBy }: IRoomStarterCardMeldedCallbackProps) => {
-        if (gameId && user?._id && user._id !== meldedBy.userId) {
+        if (gameId) {
           toast.show({
             placement: 'top',
             render: ({ id }) => (
@@ -46,7 +44,7 @@ export const GameSetup: FC = () => {
     return () => {
       socket?.removeListener(SocketEvent.GAME_UPDATED);
     };
-  }, [socket]);
+  }, [gameId, socket, toast]);
 
   if (!userPlayerGameData || !hands) {
     return (

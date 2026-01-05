@@ -121,7 +121,7 @@ export const GameProvider = ({ children }: PropsWithChildren) => {
       return acc;
     }, {} as Boards);
     return { players, hands, boards };
-  }, [ageAchievements, cards, data?.getDetailsByGame]);
+  }, [ageAchievements, cards, data?.getDetailsByGame, data?.getGame?.deck]);
 
   const haveNecessaryGameData = useMemo(() => {
     if (

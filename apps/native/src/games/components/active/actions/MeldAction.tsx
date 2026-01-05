@@ -7,7 +7,6 @@ import { useToast } from '../../../../app-core/components/gluestack/toast';
 import { CustomToast } from '../../../../app-core/components/toasts/CustomToast';
 import { disabledSolidButtonClassnames } from '../../../../app-core/constants/button.constants';
 import { text } from '../../../../app-core/intl/en';
-import { useAuthContext } from '../../../../authentication/state/AuthProvider';
 import { useCardsContext } from '../../../../cards/state/CardsProvider';
 import { useRoomContext } from '../../../../rooms/state/RoomProvider';
 import { useSocketContext } from '../../../../websockets/SocketProvider';
@@ -23,7 +22,6 @@ export interface IRoomCardMeldedCallbackProps {
 }
 
 export const MeldAction = () => {
-  const { user } = useAuthContext();
   const { cards } = useCardsContext();
   const { currentRoomId } = useRoomContext();
   const { metadata: gameMetadata } = useGameContext();
@@ -40,24 +38,22 @@ export const MeldAction = () => {
     socket?.on(
       SocketEvent.ROOM_STARTER_CARD_MELDED,
       ({ cardName, meldedBy }: IRoomCardMeldedCallbackProps) => {
-        if (user?._id && user._id !== meldedBy.userId) {
-          toast.show({
-            placement: 'top',
-            render: ({ id }) => (
-              <CustomToast
-                id={id}
-                title="Card Melded"
-                description={`${meldedBy.username} melded ${cardName}`}
-              />
-            ),
-          });
-        }
+        toast.show({
+          placement: 'top',
+          render: ({ id }) => (
+            <CustomToast
+              id={id}
+              title="Card Melded"
+              description={`${meldedBy.username} melded ${cardName}`}
+            />
+          ),
+        });
       }
     );
     return () => {
       socket?.removeListener(SocketEvent.ROOM_STARTER_CARD_MELDED);
     };
-  }, [socket]);
+  }, [socket, toast]);
 
   const closeMeldOptions = useCallback(() => {
     setShowMeldOptions(false);
@@ -80,13 +76,13 @@ export const MeldAction = () => {
     });
   };
 
+  const possibleCardsToMeld = useMemo(() => {
+    return (playerMetadata?.possibleActions.meld ?? []).map((cid) => cards[cid]);
+  }, [cards, playerMetadata?.possibleActions?.meld]);
+
   if (!gameMetadata || gameMetadata.currentPlayerId !== playerId || !possibleActions) {
     return null;
   }
-
-  const possibleCardsToMeld = useMemo(() => {
-    return playerMetadata.possibleActions.meld.map((cid) => cards[cid]);
-  }, [cards, playerMetadata?.possibleActions?.meld]);
 
   const isMeldDisabled = !possibleActions.meld.length || meldingInProgress;
 

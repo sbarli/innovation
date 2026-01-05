@@ -6,6 +6,7 @@ import { text } from '../../src/app-core/intl/en';
 import { useAuthContext } from '../../src/authentication/state/AuthProvider';
 import { CardsProvider } from '../../src/cards/state/CardsProvider';
 import { RoomProvider } from '../../src/rooms/state/RoomProvider';
+import { SocketProvider } from '../../src/websockets/SocketProvider';
 
 // eslint-disable-next-line import/no-default-export
 export default function AuthWrapper() {
@@ -25,10 +26,12 @@ export default function AuthWrapper() {
     return <Redirect href={Routes.AUTH.path} />;
   }
   return (
-    <CardsProvider>
-      <RoomProvider>
-        <Slot />
-      </RoomProvider>
-    </CardsProvider>
+    <SocketProvider>
+      <CardsProvider>
+        <RoomProvider>
+          <Slot />
+        </RoomProvider>
+      </CardsProvider>
+    </SocketProvider>
   );
 }

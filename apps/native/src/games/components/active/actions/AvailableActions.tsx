@@ -43,17 +43,17 @@ export const AvailableActions = () => {
     // TODO: add achieve logic
   }, []);
 
-  if (!gameMetadata || gameMetadata.currentPlayerId !== playerId || !possibleActions) {
-    return null;
-  }
-
   const possibleCardsToDogma = useMemo(() => {
-    return playerMetadata.possibleActions.dogma.map((cid) => cards[cid]);
+    return (playerMetadata?.possibleActions.dogma ?? []).map((cid) => cards[cid]);
   }, [cards, playerMetadata?.possibleActions?.dogma]);
 
   const possibleCardsToAchieve = useMemo(() => {
-    return playerMetadata.possibleActions.achieve.map((cid) => cards[cid]);
+    return (playerMetadata?.possibleActions.achieve ?? []).map((cid) => cards[cid]);
   }, [cards, playerMetadata?.possibleActions?.achieve]);
+
+  if (!gameMetadata || gameMetadata.currentPlayerId !== playerId || !possibleActions) {
+    return null;
+  }
 
   const isDogmaDisabled = !possibleActions.dogma.length;
   const isAchieveDisabled = !possibleActions.achieve.length;
