@@ -7,6 +7,7 @@ import { GameStage } from '@inno/constants';
 import { Box } from '../../../app-core/components/gluestack/box';
 import { Button, ButtonText } from '../../../app-core/components/gluestack/button';
 import { Divider } from '../../../app-core/components/gluestack/divider';
+import { Heading } from '../../../app-core/components/gluestack/heading';
 import { HStack } from '../../../app-core/components/gluestack/hstack';
 import { Text } from '../../../app-core/components/gluestack/text';
 import { text } from '../../../app-core/intl/en';
@@ -21,7 +22,7 @@ import { useActiveGameSocketListeners } from './hooks/useActiveGameSocketListene
 
 export const ActiveGame: FC = () => {
   useActiveGameSocketListeners();
-  const { metadata } = useGameContext();
+  const { metadata, players } = useGameContext();
   const userPlayerGameData = useUserPlayerGameData();
   const [showBoard, setShowBoard] = useState(true);
 
@@ -42,14 +43,16 @@ export const ActiveGame: FC = () => {
     <Box className="w-full pl-[25px] pr-[25px]">
       <HStack space="md" className="justify-between">
         <StatsDrawer />
-        <HStack space="md" className="justify-between">
-          <CurrentUserHand />
-          <Button variant="outline" size="md" onPress={toggleBoardVisibility} className="w-md">
-            <ButtonText>
-              {showBoard ? text.common.HIDE : text.common.SHOW} {text.activeGame.BOARDS}
-            </ButtonText>
-          </Button>
-        </HStack>
+        {metadata.currentPlayerId !== userPlayerGameData.playerId ? (
+          <Box className="align-center justify-center">
+            <Heading size="md">{`${players?.[metadata.currentPlayerId].username} is taking their turn...`}</Heading>
+          </Box>
+        ) : (
+          <Box className="align-center justify-center">
+            <Heading size="md">{`It's your turn. Choose an action below...`}</Heading>
+          </Box>
+        )}
+        <CurrentUserHand />
       </HStack>
       <Divider className="my-5" />
       {userIsCurrentPlayer ? (
@@ -58,6 +61,13 @@ export const ActiveGame: FC = () => {
           <Divider className="my-5" />
         </>
       ) : null}
+      <Box className="flex-row mb-5">
+        <Button variant="outline" size="md" onPress={toggleBoardVisibility} className="w-md">
+          <ButtonText>
+            {showBoard ? text.common.HIDE : text.common.SHOW} {text.activeGame.BOARDS}
+          </ButtonText>
+        </Button>
+      </Box>
       <ScrollView>
         <Boards visible={showBoard} />
       </ScrollView>
