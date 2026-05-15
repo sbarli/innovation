@@ -43,7 +43,7 @@
     "bcrypt": "^5.1.1",
     "cache-manager": "^6.4.2",
     "graphql": "^16.8.1",
-    "mongoose": "^7.0.3",
+    "mongoose": "^7.8.9",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
