@@ -1,5 +1,0 @@
-mutation AddPlayerToRoom($roomId: String!) {
-  addPlayerToRoom(roomId: $roomId) {
-    ...RoomData
-  }
-}

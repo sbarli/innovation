@@ -1,64 +1,49 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalDependencies": [
-    "**/.env.*local"
-  ],
+  "globalDependencies": ["**/.env.*local", "**/.env"],
   "tasks": {
     "build": {
-      "outputs": [
-        "dist/**",
-        ".next/**",
-        "!.next/cache/**"
-      ],
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
     },
     "dev": {
       "cache": false,
-      "persistent": true,
-      "interactive": true
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "lint:fix": {
+      "cache": false
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "clean": {
+      "cache": false
     },
     "@inno/backend#build": {
-      "dependsOn": [
-        "^@inno/utils#build",
-        "^@inno/constants#build"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
     },
     "@inno/backend#dev": {
       "cache": false,
       "persistent": true,
-      "dependsOn": [
-        "^@inno/utils#build",
-        "^@inno/constants#build"
-      ]
-    },
-    "@inno/constants#build": {},
-    "@inno/gql#build": {},
-    "@inno/mocks#build": {
-      "dependsOn": [
-        "^@inno/gql#build"
-      ]
+      "dependsOn": ["@inno/constants#build", "@inno/db-schema#build", "@inno/api-contracts#build", "@inno/utils#build"]
     },
     "@inno/native#dev": {
       "cache": false,
       "persistent": true,
-      "interactive": true,
-      "dependsOn": [
-        "^@inno/constants#build",
-        "^@inno/gql#build",
-        "^@inno/mocks#build",
-        "^@inno/utils#build"
-      ]
+      "dependsOn": ["@inno/constants#build", "@inno/api-contracts#build", "@inno/ui#build", "@inno/utils#build"]
     },
-    "@inno/utils#build": {},
-    "lint": {},
-    "lint:eslint": {},
-    "lint:fix": {},
-    "test": {},
-    "clean": {
-      "cache": false
-    }
+    "@inno/constants#build": {},
+    "@inno/db-schema#build": {},
+    "@inno/api-contracts#build": {},
+    "@inno/ui#build": {},
+    "@inno/utils#build": {}
   }
 }

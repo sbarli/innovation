@@ -1,4 +1,5 @@
-export const getCatchErrorMessage = (error: unknown, fallback: string = 'Unknown error') => {
+export const getCatchErrorMessage = (error: unknown, fallback = 'An unexpected error occurred'): string => {
   if (error instanceof Error) return error.message;
+  if (typeof error === 'string') return error;
   return fallback;
 };

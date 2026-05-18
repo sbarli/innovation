@@ -1,5 +1,0 @@
-query GetRoomsForPlayer {
-  getRoomsForPlayer {
-    ...RoomData
-  }
-}

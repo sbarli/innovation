@@ -1,24 +1,11 @@
 import { Module } from '@nestjs/common';
-
-import { GameplayModule } from 'src/gameplay/gameplay.module';
-import { GamesModule } from 'src/games/games.module';
-import { RoomsModule } from 'src/rooms/rooms.module';
-
-import { SocketBaseService } from './services/socket-base.service';
+import { SocketGateway } from './socket.gateway';
 import { SocketGameService } from './services/socket-game.service';
 import { SocketRoomService } from './services/socket-room.service';
 import { SocketUsersService } from './services/socket-users.service';
-import { SocketGateway } from './socket.gateway';
 
 @Module({
-  imports: [GameplayModule, GamesModule, RoomsModule],
-  providers: [
-    SocketGateway,
-    SocketBaseService,
-    SocketGameService,
-    SocketRoomService,
-    SocketUsersService,
-  ],
+  providers: [SocketGateway, SocketUsersService, SocketRoomService, SocketGameService],
+  exports: [SocketUsersService, SocketRoomService, SocketGameService],
 })
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class SocketModule {}

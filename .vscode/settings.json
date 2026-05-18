@@ -16,7 +16,8 @@
     "editor.formatOnSave": true
   },
   "search.exclude": {
-    "**/.yarn": true,
+    "**/node_modules": true,
+    "**/.turbo": true,
     "**/.pnp.*": true
   },
   "typescript.enablePromptUseWorkspaceTsdk": true

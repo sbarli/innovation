@@ -1,8 +1,0 @@
-fragment ResourceSpaces on Card {
-  resourceSpaces {
-    resourceSpace1
-    resourceSpace2
-    resourceSpace3
-    resourceSpace4
-  }
-}

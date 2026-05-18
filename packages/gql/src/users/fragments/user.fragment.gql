@@ -1,5 +1,0 @@
-fragment UserDetails on UserWithoutPassword {
-  _id
-  username
-  email
-}

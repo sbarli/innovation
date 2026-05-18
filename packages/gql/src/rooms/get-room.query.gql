@@ -1,5 +1,0 @@
-query GetRoom($roomId: String!) {
-  getRoom(roomId: $roomId) {
-    ...RoomData
-  }
-}

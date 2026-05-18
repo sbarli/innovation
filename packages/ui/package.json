@@ -1,0 +1,29 @@
+{
+  "name": "@inno/ui",
+  "version": "0.0.1",
+  "description": "Shared Tamagui UI components",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@tamagui/core": "2.0.0-rc.42",
+    "react": "^19.0.0",
+    "react-native": "^0.83.0",
+    "tamagui": "2.0.0-rc.42"
+  },
+  "devDependencies": {
+    "@tamagui/core": "2.0.0-rc.42",
+    "@types/react": "~19.2.6",
+    "@types/react-native": "~0.73.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "react-native": "0.83.9",
+    "tamagui": "2.0.0-rc.42",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.8.3"
+  }
+}

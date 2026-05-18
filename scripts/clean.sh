@@ -6,14 +6,14 @@ turbo clean
 echo '  ...removing .turbo...'
 rm -rf .turbo
 
-echo '  ...clearing yarn cache...'
-yarn cache clean
+echo '  ...pruning pnpm store...'
+pnpm store prune
 
 echo '  ...clearing watchman...'
 watchman watch-del-all
 
 echo '  ...cleaning git...'
-git clean -dfx
+git clean -xdf
 
 echo '  ...cleaning native caches...'
 cd apps/native

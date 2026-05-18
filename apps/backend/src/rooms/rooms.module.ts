@@ -1,16 +1,12 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-
-import { UsersModule } from 'src/users/users.module';
-
-import { RoomsResolver } from './rooms.resolver';
+import { AuthModule } from '../auth/auth.module';
+import { RoomsController } from './rooms.controller';
 import { RoomsService } from './rooms.service';
-import { Room, RoomSchema } from './schemas/room.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Room.name, schema: RoomSchema }]), UsersModule],
-  providers: [RoomsService, RoomsResolver],
+  imports: [AuthModule],
+  controllers: [RoomsController],
+  providers: [RoomsService],
   exports: [RoomsService],
 })
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class RoomsModule {}

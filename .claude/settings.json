@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import json,sys; versions=json.load\\(sys.stdin\\); print\\([v for v in versions if v.startswith\\('0.7'\\)][-5:]\\)\")",
+      "Bash(python3 -c \"import json; data=json.load\\(open\\('/Users/sbarli/dev/repos/innovation/docs/innovation_db.cards.json'\\)\\); print\\(f'Total cards: {len\\(data\\)}'\\); print\\('Sample keys:', list\\(data[0].keys\\(\\)\\)\\)\")",
+      "Bash(mkdir -p /Users/sbarli/dev/repos/innovation/apps/native/app/\\\\\\(app\\\\\\)/\\\\\\(home\\\\\\) && mkdir -p /Users/sbarli/dev/repos/innovation/apps/native/app/\\\\\\(app\\\\\\)/rooms/\\\\[roomId\\\\]/game/\\\\[gameId\\\\] && mkdir -p /Users/sbarli/dev/repos/innovation/apps/native/src/rooms && mkdir -p /Users/sbarli/dev/repos/innovation/apps/native/src/games && mkdir -p /Users/sbarli/dev/repos/innovation/apps/native/src/cards)",
+      "Bash(pnpm --filter @inno/native list @expo/metro-runtime expo-linking react-native-web)",
+      "Bash(pnpm view *)",
+      "Bash(pnpm --filter @inno/ui typecheck)",
+      "Bash(pnpm --filter @inno/api-contracts typecheck)",
+      "Bash(pnpm --filter @inno/constants typecheck)",
+      "Bash(npx eslint *)"
+    ],
+    "additionalDirectories": [
+      "/Users/sbarli/dev/repos/innovation/apps/native/app/(app)/rooms/[roomId]/game"
+    ],
+    "allowedTools": [
+      "Bash(pnpm:*)",
+      "Glob",
+      "Grep",
+      "LS",
+      "Read",
+      "WebFetch",
+      "WebSearch"
+    ]
+  }
+}

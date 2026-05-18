@@ -1,5 +1,0 @@
-query GetGame($gameId: ID!) {
-  getGame(gameId: $gameId) {
-    ...Game
-  }
-}

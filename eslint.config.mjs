@@ -1,4 +1,4 @@
-import baseConfig from "@inno/eslint-custom/eslint.base.mjs";
+import baseConfig from "@inno/eslint-custom";
 
 /** @type {import("eslint").Linter.Config[]} */
 export default [...baseConfig];

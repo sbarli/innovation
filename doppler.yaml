@@ -5,4 +5,3 @@ setup:
   - project: backend
     config: dev
     path: ./apps/backend/
-  

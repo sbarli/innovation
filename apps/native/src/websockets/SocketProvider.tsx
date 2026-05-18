@@ -1,99 +1,52 @@
-import {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import { Socket, io } from 'socket.io-client';
-
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { io, type Socket } from 'socket.io-client';
 import { SocketEvent } from '@inno/constants';
+import { useSupabase } from '../supabase/SupabaseProvider';
 
-import { WEBSOCKET_API } from '../app-core/constants/manifest';
-import { StorageKeys } from '../app-core/constants/storage.constants';
-import { useAuthContext } from '../authentication/state/AuthProvider';
-
-export type TSocketContext = {
-  socket?: Socket;
-  connectUserToSocket: (token: string, forceConnect: boolean) => void;
-  disconnectUserFromSocket: () => void;
-};
-
-const SocketContext = createContext<TSocketContext | null>(null);
-
-export function useSocketContext() {
-  const value = useContext(SocketContext);
-  if (!value) {
-    throw new Error('useSocketContext must be wrapped in a <SocketProvider />');
-  }
-  return value;
+interface SocketContextValue {
+  socket: Socket | null;
+  connected: boolean;
 }
 
-export function SocketProvider(props: PropsWithChildren) {
-  const { getItem: getAuthToken } = useAsyncStorage(StorageKeys.AUTH_TOKEN);
-  const { user } = useAuthContext();
-  const [socket, setSocket] = useState<Socket>();
+const SocketContext = createContext<SocketContextValue>({ socket: null, connected: false });
 
-  const disconnectUserFromSocket = useCallback(() => {
-    socket?.disconnect();
-    socket?.removeAllListeners();
-  }, [socket]);
-
-  const connectUserToSocket = useCallback(
-    async (token: string, forceConnect: boolean = false) => {
-      if (socket && forceConnect) {
-        disconnectUserFromSocket();
-      }
-      if (!socket || forceConnect) {
-        const newSocket = io(WEBSOCKET_API, {
-          auth: {
-            token,
-          },
-        });
-        setSocket(newSocket);
-        // enable BE to map user to socketId
-        newSocket.emit(SocketEvent.MAP_USER_TO_SOCKET);
-      }
-    },
-    [disconnectUserFromSocket, socket]
-  );
+export function SocketProvider({ children }: { children: React.ReactNode }) {
+  const { session } = useSupabase();
+  const socketRef = useRef<Socket | null>(null);
+  const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const trySocketConnection = async () => {
-      const token = await getAuthToken();
-      if (user && token) {
-        connectUserToSocket(token);
-      }
-    };
-    trySocketConnection();
+    if (!session?.access_token) {
+      socketRef.current?.disconnect();
+      socketRef.current = null;
+      setConnected(false);
+      return;
+    }
+
+    const socket = io(process.env['EXPO_PUBLIC_WEBSOCKET_URL'] ?? 'http://localhost:8080', {
+      auth: { token: session.access_token },
+      transports: ['websocket'],
+    });
+
+    socket.on('connect', () => {
+      setConnected(true);
+      socket.emit(SocketEvent.MAP_USER_TO_SOCKET);
+    });
+
+    socket.on('disconnect', () => setConnected(false));
+
+    socketRef.current = socket;
+
     return () => {
-      disconnectUserFromSocket();
+      socket.disconnect();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  useEffect(() => {
-    socket?.on('connect', () => {
-      console.log('SOCKET CONNECTED');
-    });
-    socket?.on('disconnect', () => {
-      console.log('SOCKET DISCONNECTED');
-      setSocket(undefined);
-    });
-  }, [socket]);
+  }, [session?.access_token]);
 
   return (
-    <SocketContext.Provider
-      value={{
-        socket,
-        connectUserToSocket,
-        disconnectUserFromSocket,
-      }}
-    >
-      {props.children}
+    <SocketContext.Provider value={{ socket: socketRef.current, connected }}>
+      {children}
     </SocketContext.Provider>
   );
 }
+
+export const useSocket = () => useContext(SocketContext);

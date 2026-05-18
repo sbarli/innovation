@@ -1,7 +1,0 @@
-fragment AuthResponseData on AuthResponse { 
-  authToken
-  refreshToken
-  user {
-    ...UserDetails
-  }
-}

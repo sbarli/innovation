@@ -1,14 +1,14 @@
 {
-  "extends": "tsconfig/base.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "tsconfig/nestjs.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "incremental": true,
     "outDir": "./dist",
-    "target": "es2017",
+    "incremental": true,
+    "baseUrl": "./",
+    "paths": {
+      "@inno/*": ["../../packages/*/src"]
+    }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

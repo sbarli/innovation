@@ -1,44 +1,43 @@
 name: BACKEND_CI
- 
+
 on:
   push:
-    branches: ["main"]
-    paths: 
+    branches: ['main']
+    paths:
       - 'apps/backend/**'
+      - 'packages/api-contracts/**'
       - 'packages/constants/**'
+      - 'packages/db-schema/**'
       - 'packages/utils/**'
   pull_request:
     types: [opened, synchronize]
- 
+
 jobs:
   build:
     name: Build and Test Backend App
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    # To use Remote Caching, uncomment the next lines and follow the steps below.
-    # env:
-    #  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-    #  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
- 
+
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          fetch-depth: 2
- 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22.14.0
-          cache: 'yarn'
- 
+          node-version-file: '.nvmrc'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Install dependencies
-        run: yarn
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm turbo run typecheck --filter=@inno/backend...
 
       - name: Build
-        run: yarn turbo run @inno/backend#build
+        run: pnpm turbo run build --filter=@inno/backend...
 
       - name: Test
-        run: yarn turbo run test --filter="[HEAD^1]"
- 
- 
+        run: pnpm turbo run test --filter=@inno/backend...

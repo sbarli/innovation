@@ -1,8 +1,0 @@
-fragment ResourceTotals on ResourceTotals {
-  castles
-  crowns
-  leaves
-  lightbulbs
-  factories
-  timepieces
-}

@@ -1,169 +1,85 @@
-import { Logger, UseGuards } from '@nestjs/common';
 import {
-  WebSocketGateway,
   OnGatewayConnection,
-  WebSocketServer,
   OnGatewayDisconnect,
   OnGatewayInit,
-  ConnectedSocket,
   SubscribeMessage,
-  MessageBody,
+  WebSocketGateway,
+  WebSocketServer,
 } from '@nestjs/websockets';
-import { Socket } from 'socket.io';
-
-import { Age, SocketEvent } from '@inno/constants';
-
-import { CurrentUserFromRequest } from 'src/auth/decorators/current-user.decorator';
-import { JwtWsAuthGuard } from 'src/auth/guards/jwt-ws-auth.guard';
-import { UserWithoutPassword } from 'src/users/schemas/user.schema';
-
-import { SocketBaseService } from './services/socket-base.service';
-import { SocketGameService } from './services/socket-game.service';
+import { Logger } from '@nestjs/common';
+import type { Server, Socket } from 'socket.io';
+import { ConfigService } from '@nestjs/config';
+import * as jwt from 'jsonwebtoken';
+import { SocketEvent } from '@inno/constants';
 import { SocketRoomService } from './services/socket-room.service';
 import { SocketUsersService } from './services/socket-users.service';
 
-@WebSocketGateway({
-  cors: {
-    origin: '*',
-  },
-})
+@WebSocketGateway({ cors: { origin: '*' } })
 export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
-  // NOTE: this has to be delcared for websockets to work, but isn't necessary to use 🤷🏼‍♂️
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  @WebSocketServer() private server!: Socket;
-  private logger: Logger = new Logger('SocketGateway');
+  private readonly logger = new Logger(SocketGateway.name);
+
+  @WebSocketServer()
+  server!: Server;
 
   constructor(
-    private readonly socketBaseService: SocketBaseService,
-    private readonly socketGameService: SocketGameService,
+    private readonly configService: ConfigService,
+    private readonly socketUsersService: SocketUsersService,
     private readonly socketRoomService: SocketRoomService,
-    private readonly socketUsersService: SocketUsersService
   ) {}
 
-  afterInit() {
-    this.logger.log('initialized');
+  afterInit(): void {
+    this.logger.log('WebSocket gateway initialized');
   }
 
-  handleDisconnect(@ConnectedSocket() socket: Socket) {
-    this.logger.log(`Client disconnected: ${socket.id}`);
+  handleConnection(client: Socket): void {
+    const token = client.handshake.auth?.['token'] as string | undefined;
+    if (!token) {
+      client.disconnect(true);
+      return;
+    }
+
+    const secret = this.configService.get<string>('SUPABASE_JWT_SECRET');
+    if (!secret) { client.disconnect(true); return; }
+
+    try {
+      const payload = jwt.verify(token, secret) as jwt.JwtPayload;
+      client.data['user'] = { userId: payload['sub'] as string, email: payload['email'] as string };
+      this.logger.log(`Client connected: ${client.id}`);
+    } catch {
+      client.disconnect(true);
+    }
   }
 
-  handleConnection(@ConnectedSocket() socket: Socket) {
-    return this.socketBaseService.handleConnection(socket, { socketServer: this.server });
+  handleDisconnect(client: Socket): void {
+    this.socketUsersService.removeSocket(client.id);
+    this.logger.log(`Client disconnected: ${client.id}`);
   }
 
-  @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.MAP_USER_TO_SOCKET)
-  mapUserToSocket(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketUsersService.handleSocketToUserMap(socket, {
-      user,
-    });
+  handleMapUser(client: Socket): void {
+    const user = client.data['user'] as { userId: string } | undefined;
+    if (user) {
+      this.socketUsersService.mapUserToSocket(user.userId, client.id);
+    }
   }
 
-  @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.JOIN_ROOM)
-  joinRoom(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @MessageBody('roomId') roomId: string,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketRoomService.handleJoinRoom(socket, {
+  handleJoinRoom(client: Socket, roomId: string): void {
+    this.socketRoomService.joinRoom(client, roomId);
+    this.socketRoomService.broadcastToRoom(this.server, roomId, SocketEvent.USER_JOINED_ROOM, {
+      userId: (client.data['user'] as { userId: string } | undefined)?.userId,
       roomId,
-      socketServer: this.server,
-      user,
     });
   }
 
-  @UseGuards(JwtWsAuthGuard)
-  @SubscribeMessage(SocketEvent.GET_ROOM_METADATA)
-  getRoomMetadata(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @MessageBody('roomId') roomId: string
-  ) {
-    return this.socketRoomService.handleGetRoomMetadata({
-      roomId,
-      socketServer: this.server,
-      user,
-    });
-  }
-
-  @UseGuards(JwtWsAuthGuard)
   @SubscribeMessage(SocketEvent.CLOSE_ROOM)
-  closeRoom(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @MessageBody('roomId') roomId: string,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketRoomService.handleCloseRoom(socket, {
-      roomId,
-      socketServer: this.server,
-      user,
-    });
+  handleCloseRoom(client: Socket, roomId: string): void {
+    this.socketRoomService.broadcastToRoom(this.server, roomId, SocketEvent.USER_LEFT_ROOM, { roomId });
+    this.socketRoomService.leaveRoom(client, roomId);
   }
 
-  @UseGuards(JwtWsAuthGuard)
-  @SubscribeMessage(SocketEvent.START_GAME)
-  startGame(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @MessageBody('gameId') gameId: string,
-    @MessageBody('roomId') roomId: string,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketGameService.handleStartGame(socket, {
-      gameId,
-      roomId,
-      socketServer: this.server,
-      user,
-    });
-  }
-
-  @UseGuards(JwtWsAuthGuard)
-  @SubscribeMessage(SocketEvent.STARTER_CARD_MELDED)
-  starterCardMelded(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @MessageBody('roomId') roomId: string,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketGameService.handleStarterCardMelded(socket, {
-      roomId,
-      socketServer: this.server,
-      user,
-    });
-  }
-
-  @UseGuards(JwtWsAuthGuard)
-  @SubscribeMessage(SocketEvent.PLAYER_MELDED_CARD)
-  playerMeldedCard(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @MessageBody('roomId') roomId: string,
-    @MessageBody('cardName') cardName: string,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketGameService.handlePlayerMeldedCard(socket, {
-      cardName,
-      roomId,
-      socketServer: this.server,
-      user,
-    });
-  }
-
-  @UseGuards(JwtWsAuthGuard)
-  @SubscribeMessage(SocketEvent.PLAYER_DREW_CARD)
-  playerDrewCard(
-    @CurrentUserFromRequest() user: UserWithoutPassword,
-    @MessageBody('roomId') roomId: string,
-    @MessageBody('cardAge') cardAge: Age,
-    @ConnectedSocket() socket: Socket
-  ) {
-    return this.socketGameService.handlePlayerDrewCard(socket, {
-      cardAge,
-      roomId,
-      socketServer: this.server,
-      user,
-    });
+  @SubscribeMessage(SocketEvent.GET_ROOM_METADATA)
+  handleGetRoomMetadata(client: Socket, roomId: string): void {
+    client.emit(SocketEvent.GET_ROOM_METADATA, { roomId });
   }
 }

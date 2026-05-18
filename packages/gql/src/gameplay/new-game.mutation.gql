@@ -1,5 +1,0 @@
-mutation NewGame($newGameDto: CreateNewGameInput!) {
-  newGame(newGameDto: $newGameDto) {
-    gameId
-  }
-}

@@ -1,5 +1,0 @@
-query IsAuthenticated {
-  isAuthenticated { 
-    ...UserDetails
-  }
-}

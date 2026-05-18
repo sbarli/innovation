@@ -1,0 +1,15 @@
+{
+  "name": "@inno/db",
+  "version": "0.0.1",
+  "description": "Supabase CLI, migrations, and seeds for the Innovation game database",
+  "private": true,
+  "scripts": {
+    "start": "supabase start",
+    "stop": "supabase stop",
+    "db:reset:seeds": "node ./scripts/db-seed-reset.mjs",
+    "db:reset:ci": "node ./scripts/db-seed-reset.mjs --empty-generated"
+  },
+  "devDependencies": {
+    "supabase": "^2.84.5"
+  }
+}

@@ -1,109 +1,110 @@
 import { Injectable } from '@nestjs/common';
-
-import { GameStage } from '@inno/constants';
-import { getCatchErrorMessage } from '@inno/utils';
-
-import { CardRefsByAge } from 'src/cards/dto/card-refs-by-age.dto';
-import { GamesService } from 'src/games/games.service';
-import { AgeAchievements } from 'src/games/schemas/age-achievements.schema';
-import { Deck } from 'src/games/schemas/deck.schema';
-import { PlayerGameDetailsService } from 'src/player-game-details/player-game-details.service';
-import { PlayerGameDetails } from 'src/player-game-details/schemas/player-game-details.schema';
-
-import { CreateGameInput } from '../../games/schemas/game.schema';
-import { CreateNewGameResponse } from '../dto/create-new-game.output.dto';
-import { createBaseBoard } from '../helpers/board';
-import {
-  TPlayerStarterHands,
-  pickAgeAchievements,
-  selectStarterHandsForPlayers,
-  shuffleDeck,
-} from '../helpers/new-game';
-
-export type TNewGameSetup = {
-  deck: Deck;
-  ageAchievements: AgeAchievements;
-  playerStarterHands: TPlayerStarterHands;
-};
-
-interface IStartGameProps {
-  roomRef: string;
-  playerRefs: string[];
-  starterDeck: Deck;
-  ageAchievements: AgeAchievements;
-  playerStarterHands: TPlayerStarterHands;
-}
+import * as schema from '@inno/db-schema';
+import type { AgeAchievements, Board, ColorPile, Deck, TypedCard } from '@inno/db-schema';
+import { Color } from '@inno/constants';
+import { shuffleArray } from '@inno/utils';
+import { DbService } from '../../db/db.service';
+import { CardsService } from '../../cards/cards.service';
+import type { FullGameState } from '../../games/games.service';
+import { GamesService } from '../../games/games.service';
 
 @Injectable()
 export class NewGameService {
   constructor(
-    private playerGameDetailsService: PlayerGameDetailsService,
-    private gamesService: GamesService
+    private readonly dbService: DbService,
+    private readonly cardsService: CardsService,
+    private readonly gamesService: GamesService,
   ) {}
 
-  getGameSetup(cardRefsByAge: CardRefsByAge, playerRefs: string[]): TNewGameSetup {
-    // create starter deck (shuffle each age)
-    const starterDeck = shuffleDeck(cardRefsByAge);
+  async createGame(roomId: string, playerIds: [string, string]): Promise<FullGameState> {
+    const allCards = await this.cardsService.findAll();
+    const deck = this.initializeDeck(allCards);
+    const ageAchievements = this.selectAgeAchievements(deck);
+    const { deck: updatedDeck, hands } = this.dealStarterHands(deck, playerIds);
 
-    // select age Achievements (remove from starter deck)
-    const { ageAchievements, deckMinusAchievements } = pickAgeAchievements(starterDeck);
+    const gameId = await this.dbService.withInnoRole(async (tx) => {
+      const emptyBoard = this.emptyBoard();
+      const [game] = await tx
+        .insert(schema.games)
+        .values({
+          roomId,
+          stage: 'active',
+          currentPlayerId: playerIds[0],
+          currentActionNumber: 1,
+          deck: updatedDeck as unknown as typeof schema.games.$inferInsert['deck'],
+          ageAchievements: ageAchievements as unknown as typeof schema.games.$inferInsert['ageAchievements'],
+        })
+        .returning({ id: schema.games.id });
 
-    // select player starting hands (2 cards x n players) (remove from current deck)
-    const { playerStarterHands, deckMinusStarterHands } = selectStarterHandsForPlayers(
-      deckMinusAchievements,
-      playerRefs
-    );
+      for (const playerId of playerIds) {
+        await tx.insert(schema.playerGameDetails).values({
+          gameId: game.id,
+          playerId,
+          board: emptyBoard as unknown as typeof schema.playerGameDetails.$inferInsert['board'],
+          hand: hands[playerId] ?? [],
+        });
+      }
 
-    return {
-      deck: deckMinusStarterHands,
-      ageAchievements: ageAchievements,
-      playerStarterHands,
-    };
+      return game.id;
+    });
+
+    const state = await this.gamesService.findByIdOrThrow(gameId);
+    return state;
   }
 
-  async newGame({
-    roomRef,
-    playerRefs,
-    starterDeck,
-    ageAchievements,
-    playerStarterHands,
-  }: IStartGameProps): Promise<CreateNewGameResponse> {
-    try {
-      // create game
-      const newGameData: CreateGameInput = {
-        roomRef,
-        currentActionNumber: 2,
-        currentPlayerRef: playerRefs[0],
-        stage: GameStage.SETUP,
-        playerRefs,
-        deck: starterDeck,
-        ageAchievements: ageAchievements,
-      };
-      const newGameFromDb = await this.gamesService.create(newGameData);
-
-      // // create player game details
-      const playerGameDetailsData: Omit<PlayerGameDetails, '_id'>[] = playerRefs.map((ref) => ({
-        playerRef: ref,
-        gameRef: newGameFromDb._id,
-        board: createBaseBoard(),
-        ageAchievements: [],
-        hand: playerStarterHands[ref],
-        scorePile: [],
-        specialAchievements: [],
-      }));
-      // TODO: do we need to have any other checks that this was successful?
-      await Promise.all(
-        playerGameDetailsData.map((pgd) => this.playerGameDetailsService.create(pgd))
-      );
-
-      // return newly created game and game details (per player)
-      return {
-        gameId: newGameFromDb._id,
-      };
-    } catch (error) {
-      throw new Error(
-        getCatchErrorMessage(error) ?? 'newGameService.startGame: Unable to start game'
-      );
+  private initializeDeck(allCards: TypedCard[]): Deck {
+    const byAge: Record<number, string[]> = {};
+    for (const card of allCards) {
+      if (!byAge[card.age]) byAge[card.age] = [];
+      byAge[card.age].push(card.cardId);
     }
+    const deck: Deck = {};
+    for (const [age, cardIds] of Object.entries(byAge)) {
+      deck[age] = shuffleArray(cardIds);
+    }
+    return deck;
+  }
+
+  private selectAgeAchievements(deck: Deck): AgeAchievements {
+    const achievements: AgeAchievements = {};
+    for (let age = 1; age <= 9; age++) {
+      const pile = deck[String(age)];
+      if (pile && pile.length > 0) {
+        achievements[String(age)] = pile[0];
+        deck[String(age)] = pile.slice(1);
+      } else {
+        achievements[String(age)] = null;
+      }
+    }
+    return achievements;
+  }
+
+  private dealStarterHands(
+    deck: Deck,
+    playerIds: [string, string],
+  ): { deck: Deck; hands: Record<string, string[]> } {
+    const hands: Record<string, string[]> = { [playerIds[0]]: [], [playerIds[1]]: [] };
+    const age1Pile = [...(deck['1'] ?? [])];
+
+    for (const playerId of playerIds) {
+      for (let i = 0; i < 2; i++) {
+        const card = age1Pile.shift();
+        if (card) hands[playerId].push(card);
+      }
+    }
+
+    deck['1'] = age1Pile;
+    return { deck, hands };
+  }
+
+  private emptyBoard(): Board {
+    const emptyPile = (): ColorPile => ({ cards: [], splay: null });
+    return {
+      [Color.BLUE]: emptyPile(),
+      [Color.GREEN]: emptyPile(),
+      [Color.PURPLE]: emptyPile(),
+      [Color.RED]: emptyPile(),
+      [Color.YELLOW]: emptyPile(),
+    };
   }
 }

@@ -1,56 +1,27 @@
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { GraphQLModule } from '@nestjs/graphql';
-import { MongooseModule } from '@nestjs/mongoose';
-
-import { mongoConfig } from './app.config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { CardsModule } from './cards/cards.module';
-import { DEFAULT_CACHE_TTL } from './constants/cache.constants';
+import { DbModule } from './db/db.module';
 import { GameplayModule } from './gameplay/gameplay.module';
 import { GamesModule } from './games/games.module';
-import { GqlConfigService } from './graphql/gql-config.service';
-import { PlayerGameDetailsModule } from './player-game-details/player-game-details.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { SocketModule } from './socket/socket.module';
 import { UsersModule } from './users/users.module';
+import { HealthController } from './health.controller';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: ['.env'],
-      isGlobal: true,
-    }),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule.forFeature(mongoConfig)],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGO_URL'),
-      }),
-    }),
-    GraphQLModule.forRootAsync<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      useClass: GqlConfigService,
-    }),
-    CacheModule.register({
-      isGlobal: true,
-      ttl: DEFAULT_CACHE_TTL,
-    }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env.local' }),
+    DbModule,
     AuthModule,
     UsersModule,
-    SocketModule,
     CardsModule,
-    GamesModule,
-    PlayerGameDetailsModule,
-    GameplayModule,
     RoomsModule,
+    GamesModule,
+    GameplayModule,
+    SocketModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [HealthController],
 })
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class AppModule {}

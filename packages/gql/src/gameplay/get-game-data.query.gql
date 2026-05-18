@@ -1,8 +1,0 @@
-query GetGameData($gameId: ID!) {
-  getGame(gameId: $gameId) {
-    ...Game
-  }
-  getDetailsByGame(gameRef: $gameId) {
-    ...PlayerGameDetails
-  }
-}

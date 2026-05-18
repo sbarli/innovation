@@ -6,17 +6,22 @@ export enum SocketEventErrorCode {
 }
 
 export class SocketEventError {
-  constructor(
-    public errorCode: SocketEventErrorCode,
-    public message: string,
-    public data?: unknown
-  ) {}
+  errorCode: SocketEventErrorCode;
+  message: string;
+  data?: unknown | undefined;
+
+  constructor(errorCode: SocketEventErrorCode, message: string, data?: unknown | undefined) {
+    this.errorCode = errorCode;
+    this.message = message;
+    this.data = data;
+  }
 }
 
 export class SocketEventResponse {
-  public success: boolean;
-  public data?: unknown;
-  public error?: SocketEventError;
+  success: boolean;
+  data?: unknown;
+  error?: SocketEventError;
+
   constructor(responseData: { success: boolean; data?: unknown; error?: SocketEventError }) {
     this.success = responseData.success;
     this.data = responseData.data;
@@ -25,12 +30,9 @@ export class SocketEventResponse {
 }
 
 export enum SocketEvent {
-  // server-emitted events
   CLOSE_ROOM_ERROR = 'closeRoomError',
   JOIN_ROOM_ERROR = 'joinRoomError',
   START_GAME_ERROR = 'startGameError',
-
-  // client-Emitted Events
   CLOSE_ROOM = 'closeRoom',
   GET_ROOM_METADATA = 'getRoomMetadata',
   JOIN_ROOM = 'joinRoom',
@@ -39,8 +41,6 @@ export enum SocketEvent {
   PLAYER_MELDED_CARD = 'playerMeldedCard',
   START_GAME = 'startGame',
   STARTER_CARD_MELDED = 'starterCardMelded',
-
-  // event emitted to rooms
   CLOSE_ROOM_IN_PROGRESS = 'closeRoomInProgress',
   CLOSE_ROOM_SUCCESS = 'closeRoomSuccess',
   GAME_STARTED = 'gameStarted',

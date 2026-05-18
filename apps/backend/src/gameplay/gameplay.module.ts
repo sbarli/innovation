@@ -1,20 +1,25 @@
 import { Module } from '@nestjs/common';
-
-import { CardsModule } from 'src/cards/cards.module';
-import { GamesModule } from 'src/games/games.module';
-import { PlayerGameDetailsModule } from 'src/player-game-details/player-game-details.module';
-import { RoomsModule } from 'src/rooms/rooms.module';
-import { UsersModule } from 'src/users/users.module';
-
-import { GameplayResolver } from './gameplay.resolver';
+import { AuthModule } from '../auth/auth.module';
+import { CardsModule } from '../cards/cards.module';
+import { GamesModule } from '../games/games.module';
+import { RoomsModule } from '../rooms/rooms.module';
+import { SocketModule } from '../socket/socket.module';
+import { GameplayController } from './gameplay.controller';
 import { NewGameService } from './services/new-game.service';
 import { PlayerActionsService } from './services/player-actions.service';
-import { VaildationService } from './services/validation.service';
+import { ResourcesService } from './services/resources.service';
+import { ValidationService } from './services/validation.service';
+import { WinnerService } from './services/winner.service';
 
 @Module({
-  imports: [UsersModule, CardsModule, GamesModule, PlayerGameDetailsModule, RoomsModule],
-  providers: [VaildationService, PlayerActionsService, NewGameService, GameplayResolver],
-  exports: [PlayerActionsService],
+  imports: [AuthModule, CardsModule, GamesModule, RoomsModule, SocketModule],
+  controllers: [GameplayController],
+  providers: [
+    NewGameService,
+    PlayerActionsService,
+    ResourcesService,
+    ValidationService,
+    WinnerService,
+  ],
 })
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class GameplayModule {}

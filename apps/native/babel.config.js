@@ -1,25 +1,19 @@
 module.exports = function (api) {
   api.cache(true);
-  api.cache(true);
   return {
-    presets: [
-      [
-        'babel-preset-expo',
-        {
-          jsxImportSource: 'nativewind',
-        },
-      ],
-      'nativewind/babel',
-    ],
+    presets: ['babel-preset-expo'],
     plugins: [
+      ['babel-plugin-transform-tamagui', { components: ['tamagui'], config: './tamagui.config.ts' }],
       [
         'module-resolver',
         {
           root: ['./'],
-
           alias: {
-            '@': './',
-            'tailwind.config': './tailwind.config.js',
+            '@': './src',
+            '@inno/constants': '../../packages/constants/src',
+            '@inno/api-contracts': '../../packages/api-contracts/src',
+            '@inno/ui': '../../packages/ui/src',
+            '@inno/utils': '../../packages/utils/src',
           },
         },
       ],

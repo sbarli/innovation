@@ -1,5 +1,0 @@
-mutation CreateRoom($newRoomData: CreateRoomInput!) {
-  createRoom(newRoomData: $newRoomData) {
-    ...RoomData
-  }
-}

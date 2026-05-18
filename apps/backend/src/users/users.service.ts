@@ -1,64 +1,59 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-
-import { getCatchErrorMessage } from '@inno/utils';
-
-import { CreateUserInput } from './dto/create-user.dto';
-import { FindUsersInput } from './dto/find-users.dto';
-import { isMongoDuplicateKeyError } from './helpers/mongo-validation';
-import { User, UserDocument } from './schemas/user.schema';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import * as schema from '@inno/db-schema';
+import type { User } from '@inno/db-schema';
+import { eq } from 'drizzle-orm';
+import { DbService } from '../db/db.service';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  constructor(private readonly dbService: DbService) {}
 
-  async getUsernameByRef(ref: string): Promise<string> {
-    try {
-      const user = await this.userModel.findById(ref);
-      if (!user?.username) {
-        throw new Error('usersService.getUsernameByRef -> username not found');
+  async createProfile(supabaseUserId: string, username: string): Promise<User> {
+    return this.dbService.withInnoRole(async (tx) => {
+      const existing = await tx
+        .select()
+        .from(schema.users)
+        .where(eq(schema.users.username, username))
+        .limit(1);
+
+      if (existing.length > 0) {
+        throw new ConflictException(`Username "${username}" is already taken`);
       }
-      return user.username;
-    } catch (error) {
-      throw new Error(
-        getCatchErrorMessage(error ?? 'usersService.findUsers -> Failed to find users')
-      );
-    }
+
+      const [user] = await tx
+        .insert(schema.users)
+        .values({ id: supabaseUserId, username })
+        .returning();
+
+      return user;
+    });
   }
 
-  async findUserByRef(ref: string): Promise<User | undefined | null> {
-    return this.userModel.findById(ref);
+  async findById(id: string): Promise<User | null> {
+    return this.dbService.withInnoRole(async (tx) => {
+      const [user] = await tx
+        .select()
+        .from(schema.users)
+        .where(eq(schema.users.id, id))
+        .limit(1);
+      return user ?? null;
+    });
   }
 
-  async findUserByEmail(email: string): Promise<User | undefined | null> {
-    return this.userModel.findOne({ email });
+  async findByUsername(username: string): Promise<User | null> {
+    return this.dbService.withInnoRole(async (tx) => {
+      const [user] = await tx
+        .select()
+        .from(schema.users)
+        .where(eq(schema.users.username, username))
+        .limit(1);
+      return user ?? null;
+    });
   }
 
-  async findUsers(searchData: FindUsersInput): Promise<User[]> {
-    const fieldName = searchData.searchField === 'ref' ? '_id' : searchData.searchField;
-    try {
-      return this.userModel.find({
-        [fieldName]: { $in: searchData.searchValues },
-      });
-    } catch (error) {
-      throw new Error(
-        getCatchErrorMessage(error ?? 'usersService.findUsers -> Failed to find users')
-      );
-    }
-  }
-
-  async createUser(newUserData: CreateUserInput): Promise<User> {
-    try {
-      return this.userModel.create(newUserData);
-    } catch (error) {
-      const catchErrorMessage =
-        getCatchErrorMessage(error) ?? 'usersService.createUser -> Unable to create new user';
-      throw new Error(
-        isMongoDuplicateKeyError(catchErrorMessage)
-          ? 'usersService.createUser -> Unable to create new user, user already exists with this email'
-          : catchErrorMessage
-      );
-    }
+  async findByIdOrThrow(id: string): Promise<User> {
+    const user = await this.findById(id);
+    if (!user) throw new NotFoundException(`User ${id} not found`);
+    return user;
   }
 }

@@ -1,12 +1,12 @@
 {
-  "extends": "expo/tsconfig.base",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "tsconfig/expo.json",
   "compilerOptions": {
-    "strict": true,
-    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "lib": ["ES2022", "DOM"],
     "paths": {
-      "tailwind.config": [
-        "./tailwind.config.js"
-      ]
+      "@/*": ["./src/*"],
+      "@inno/*": ["../../packages/*/src"]
     }
   },
   "include": [
@@ -14,13 +14,8 @@
     "src/**/*.tsx",
     "app/**/*.ts",
     "app/**/*.tsx",
-    "components/**/*.ts",
-    "components/**/*.tsx",
-    "nativewind-env.d.ts",
+    "expo-env.d.ts",
     "index.js"
   ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "exclude": ["node_modules", "dist"]
 }
