@@ -1,4 +1,5 @@
 module.exports = {
+  passWithNoTests: true,
   moduleFileExtensions: ['js', 'json', 'ts'],
   rootDir: 'src',
   testRegex: '.*\\.spec\\.ts$',
