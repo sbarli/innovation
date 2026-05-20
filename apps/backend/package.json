@@ -7,8 +7,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "start:dev": "nest start --watch",
-    "start:prod": "node dist/main",
+    "dev": "doppler run --project backend --config dev -- nest start --watch",
+    "start": "doppler run --project backend --config prod -- node dist/main",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint \"{src}/**/*.ts\"",
     "test": "jest"

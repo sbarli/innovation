@@ -33,17 +33,12 @@
     "@inno/backend#dev": {
       "cache": false,
       "persistent": true,
-      "dependsOn": ["@inno/constants#build", "@inno/db-schema#build", "@inno/api-contracts#build", "@inno/utils#build"]
+      "dependsOn": ["^build"]
     },
     "@inno/native#dev": {
       "cache": false,
       "persistent": true,
-      "dependsOn": ["@inno/constants#build", "@inno/api-contracts#build", "@inno/ui#build", "@inno/utils#build"]
-    },
-    "@inno/constants#build": {},
-    "@inno/db-schema#build": {},
-    "@inno/api-contracts#build": {},
-    "@inno/ui#build": {},
-    "@inno/utils#build": {}
+      "dependsOn": ["^build"]
+    }
   }
 }

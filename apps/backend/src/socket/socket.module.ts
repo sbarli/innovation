@@ -6,6 +6,6 @@ import { SocketUsersService } from './services/socket-users.service';
 
 @Module({
   providers: [SocketGateway, SocketUsersService, SocketRoomService, SocketGameService],
-  exports: [SocketUsersService, SocketRoomService, SocketGameService],
+  exports: [SocketGateway, SocketUsersService, SocketRoomService, SocketGameService],
 })
 export class SocketModule {}

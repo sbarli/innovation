@@ -3,7 +3,7 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      ['babel-plugin-transform-tamagui', { components: ['tamagui'], config: './tamagui.config.ts' }],
+      ['@tamagui/babel-plugin', { components: ['tamagui'], config: './tamagui.config.ts' }],
       [
         'module-resolver',
         {

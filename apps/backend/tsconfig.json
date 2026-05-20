@@ -4,10 +4,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "incremental": true,
-    "baseUrl": "./",
-    "paths": {
-      "@inno/*": ["../../packages/*/src"]
-    }
+    "baseUrl": "./"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

@@ -3,10 +3,17 @@
   "extends": "tsconfig/expo.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["ES2022", "DOM"],
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@inno/*": ["../../packages/*/src"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@inno/*": [
+        "../../packages/*/src"
+      ]
     }
   },
   "include": [
@@ -14,8 +21,10 @@
     "src/**/*.tsx",
     "app/**/*.ts",
     "app/**/*.tsx",
-    "expo-env.d.ts",
     "index.js"
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

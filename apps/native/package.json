@@ -6,11 +6,11 @@
   "private": true,
   "main": "expo-router/entry",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "dev": "expo start",
+    "start": "doppler run --project native --config dev -- expo start",
+    "android": "doppler run --project native --config dev -- expo start --android",
+    "ios": "doppler run --project native --config dev -- expo start --ios",
+    "web": "doppler run --project native --config dev -- expo start --web",
+    "dev": "doppler run --project native --config dev -- expo start",
     "build": "echo 'Use EAS Build for production builds'",
     "typecheck": "tsc --noEmit"
   },
@@ -30,6 +30,7 @@
     "@ts-rest/react-query": "^3.51.0",
     "@expo/metro-runtime": "~55.0.3",
     "expo": "~55.0.0",
+    "expo-font": "~55.0.7",
     "expo-linking": "~55.0.3",
     "expo-router": "~55.0.0",
     "expo-secure-store": "~14.0.1",
@@ -45,6 +46,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "babel-plugin-module-resolver": "^5.0.2",
     "@inno/eslint-custom": "workspace:*",
     "@tamagui/babel-plugin": "2.0.0-rc.42",
     "@tamagui/vite-plugin": "2.0.0-rc.42",

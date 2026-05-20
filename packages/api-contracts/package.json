@@ -3,10 +3,17 @@
   "version": "0.0.1",
   "description": "ts-rest API contract definitions shared between backend and frontend",
   "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "scripts": {
+    "build": "tsc -b",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

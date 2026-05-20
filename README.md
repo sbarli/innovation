@@ -66,7 +66,7 @@ See [Secret Variables](#secret-variables) below for the variables that must exis
 ```bash
 cd packages/db
 pnpm start          # starts local Supabase stack (requires Docker)
-pnpm db:reset       # applies migrations + seeds test data
+pnpm db:reset:seeds       # applies migrations + seeds test data
 ```
 
 - **Supabase Studio:** <http://localhost:54323>
@@ -75,7 +75,7 @@ pnpm db:reset       # applies migrations + seeds test data
 ### 4. Run the backend
 
 ```bash
-doppler run --project backend --config dev -- pnpm dev:backend
+pnpm dev:backend
 ```
 
 Server starts on `http://localhost:8080`. `GET /health` returns 200 when ready.
@@ -83,7 +83,7 @@ Server starts on `http://localhost:8080`. `GET /health` returns 200 when ready.
 ### 5. Run the Expo app
 
 ```bash
-doppler run --project native --config dev -- pnpm dev:native
+pnpm dev:native
 ```
 
 Press `i` for iOS simulator, `a` for Android emulator, `w` for web.
