@@ -1,97 +1,233 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { ResourceIcon, IllustrationCell } from '@inno/ui';
+import { cardColors, CardColor, surface, semantic } from '@inno/ui';
+import { card as cardDim, radius } from '@inno/ui';
 
-const COLOR_BG: Record<string, string> = {
-  blue: '#dbeafe',
-  red: '#fee2e2',
-  green: '#dcfce7',
-  purple: '#f3e8ff',
-  yellow: '#fef9c3',
-};
-
-const COLOR_BORDER: Record<string, string> = {
-  blue: '#3b82f6',
-  red: '#ef4444',
-  green: '#22c55e',
-  purple: '#a855f7',
-  yellow: '#eab308',
-};
+// Icon position layout for a landscape card:
+//
+//  ┌────────────────────────────────┐
+//  │ [TL]          card name    age │  ← top row
+//  │         dogma content          │
+//  │ [BL]   [BC]   [BR]            │  ← bottom row
+//  └────────────────────────────────┘
+//
+// Splay reveal:
+//   right-splay peek: left strip → TL + BL (2 icons)
+//   left-splay peek:  right strip → BR     (1 icon)
+//   up-splay peek:    bottom strip → BL + BC + BR (3 icons)
 
 interface ResourceSpaces {
-  resourceSpace1: string | null;
-  resourceSpace2: string | null;
-  resourceSpace3: string | null;
-  resourceSpace4: string | null;
+  resourceSpace1: string | null; // TL
+  resourceSpace2: string | null; // BL
+  resourceSpace3: string | null; // BC
+  resourceSpace4: string | null; // BR
 }
 
-interface CardFrontProps {
+export interface CardFrontProps {
   cardId: string;
   name: string;
   age: number;
   color: string;
   dogmaResource: string;
   resourceSpaces: ResourceSpaces;
-  compact?: boolean;
+  /** 'full' = standalone / hand view, 'compact' = pile thumbnail */
+  variant?: 'full' | 'compact';
+  selected?: boolean;
 }
 
-export function CardFront({ cardId, name, age, color, dogmaResource, resourceSpaces, compact }: CardFrontProps) {
-  const bg = COLOR_BG[color] ?? '#f9fafb';
-  const border = COLOR_BORDER[color] ?? '#9ca3af';
-  const spaces = [resourceSpaces.resourceSpace1, resourceSpaces.resourceSpace2, resourceSpaces.resourceSpace3, resourceSpaces.resourceSpace4];
+export function CardFront({
+  name,
+  age,
+  color,
+  dogmaResource,
+  resourceSpaces,
+  variant = 'full',
+  selected = false,
+}: CardFrontProps) {
+  const palette = cardColors[color as CardColor] ?? {
+    base: semantic.inkMuted,
+    tint: surface.linenAlt,
+    border: semantic.border,
+    text: semantic.ink,
+  };
 
-  if (compact) {
+  const { tl, bl, bc, br } = {
+    tl: resourceSpaces.resourceSpace1,
+    bl: resourceSpaces.resourceSpace2,
+    bc: resourceSpaces.resourceSpace3,
+    br: resourceSpaces.resourceSpace4,
+  };
+
+  if (variant === 'compact') {
     return (
-      <View style={[styles.compact, { backgroundColor: bg, borderColor: border }]}>
-        <Text style={styles.compactAge}>{age}</Text>
-        <Text style={styles.compactName} numberOfLines={1}>{name}</Text>
+      <View
+        style={[
+          styles.compact,
+          { borderColor: palette.border, backgroundColor: palette.tint },
+          selected && styles.selectedRing,
+        ]}
+      >
+        <View style={[styles.compactStripe, { backgroundColor: palette.base }]} />
+        <Text style={[styles.compactAge, { color: palette.text }]}>{age}</Text>
+        <Text style={[styles.compactName, { color: palette.text }]} numberOfLines={1}>
+          {name}
+        </Text>
       </View>
     );
   }
 
+  const iconSize = 'sm';
+
   return (
-    <View style={[styles.card, { backgroundColor: bg, borderColor: border }]}>
-      <View style={styles.header}>
-        <Text style={styles.age}>{age}</Text>
-        <Text style={styles.resource}>{dogmaResource[0].toUpperCase()}</Text>
-      </View>
-      <Text style={styles.name} numberOfLines={2}>{name}</Text>
-      <View style={styles.spaces}>
-        {spaces.map((s, i) => (
-          <View key={i} style={styles.space}>
-            <Text style={styles.spaceText}>{s ? s[0].toUpperCase() : '◻'}</Text>
+    <View
+      style={[
+        styles.card,
+        { borderColor: selected ? palette.base : palette.border },
+        selected && styles.selectedRing,
+      ]}
+    >
+      {/* Color stripe across the top */}
+      <View style={[styles.stripe, { backgroundColor: palette.base }]} />
+
+      {/* Card body */}
+      <View style={[styles.body, { backgroundColor: palette.tint }]}>
+        {/* Top row: TL icon + card name + age */}
+        <View style={styles.topRow}>
+          <View style={styles.tlCell}>
+            {tl ? (
+              <ResourceIcon resource={tl} color={color as CardColor} size={iconSize} />
+            ) : (
+              <IllustrationCell size={iconSize} />
+            )}
           </View>
-        ))}
+          <Text style={[styles.cardName, { color: palette.text }]} numberOfLines={2}>
+            {name}
+          </Text>
+          <Text style={[styles.ageNum, { color: palette.base }]}>{age}</Text>
+        </View>
+
+        {/* Dogma resource indicator */}
+        <View style={styles.dogmaRow}>
+          <ResourceIcon resource={dogmaResource} color={color as CardColor} size="sm" />
+          <Text style={[styles.dogmaLabel, { color: palette.text }]}>
+            {dogmaResource}
+          </Text>
+        </View>
+
+        {/* Bottom row: BL · BC · BR icons */}
+        <View style={styles.bottomRow}>
+          <View style={styles.iconCell}>
+            {bl ? (
+              <ResourceIcon resource={bl} color={color as CardColor} size={iconSize} />
+            ) : (
+              <IllustrationCell size={iconSize} />
+            )}
+          </View>
+          <View style={styles.iconCell}>
+            {bc ? (
+              <ResourceIcon resource={bc} color={color as CardColor} size={iconSize} />
+            ) : (
+              <IllustrationCell size={iconSize} />
+            )}
+          </View>
+          <View style={styles.iconCell}>
+            {br ? (
+              <ResourceIcon resource={br} color={color as CardColor} size={iconSize} />
+            ) : (
+              <IllustrationCell size={iconSize} />
+            )}
+          </View>
+        </View>
       </View>
-      <Text style={styles.cardId} numberOfLines={1}>{cardId}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    width: 80,
-    height: 112,
-    borderRadius: 6,
-    borderWidth: 2,
-    padding: 6,
+    width: cardDim.handWidth,
+    height: cardDim.handHeight,
+    borderRadius: cardDim.radius,
+    borderWidth: cardDim.borderWidth,
+    overflow: 'hidden',
+    backgroundColor: surface.cardWhite,
+  },
+  stripe: {
+    height: cardDim.colorStripeHeight,
+    width: '100%',
+  },
+  body: {
+    flex: 1,
+    padding: 8,
     justifyContent: 'space-between',
   },
-  compact: {
-    width: 48,
-    height: 64,
-    borderRadius: 4,
-    borderWidth: 1,
-    padding: 4,
-    justifyContent: 'space-between',
+  topRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 6,
+  },
+  tlCell: {
+    flexShrink: 0,
+  },
+  cardName: {
+    flex: 1,
+    fontSize: 12,
+    fontWeight: '600',
+    lineHeight: 15,
+  },
+  ageNum: {
+    fontSize: 20,
+    fontWeight: '700',
+    lineHeight: 22,
+    flexShrink: 0,
+  },
+  dogmaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  dogmaLabel: {
+    fontSize: 9,
+    fontWeight: '500',
+    opacity: 0.7,
+    textTransform: 'capitalize',
+  },
+  bottomRow: {
+    flexDirection: 'row',
+    gap: 6,
     alignItems: 'center',
   },
-  header: { flexDirection: 'row', justifyContent: 'space-between' },
-  age: { fontSize: 14, fontWeight: 'bold', color: '#111827' },
-  resource: { fontSize: 12, color: '#6b7280' },
-  name: { fontSize: 10, fontWeight: '600', color: '#111827', flex: 1 },
-  spaces: { flexDirection: 'row', gap: 2 },
-  space: { width: 14, height: 14, backgroundColor: 'rgba(0,0,0,0.08)', borderRadius: 2, justifyContent: 'center', alignItems: 'center' },
-  spaceText: { fontSize: 8, color: '#374151' },
-  cardId: { fontSize: 7, color: '#9ca3af' },
-  compactAge: { fontSize: 16, fontWeight: 'bold', color: '#111827' },
-  compactName: { fontSize: 8, color: '#374151' },
+  iconCell: {
+    // each cell: either icon or illustration placeholder
+  },
+  selectedRing: {
+    borderWidth: 2.5,
+  },
+  // Compact variant
+  compact: {
+    width: cardDim.compactWidth,
+    height: cardDim.compactHeight,
+    borderRadius: radius.sm,
+    borderWidth: 1.5,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  compactStripe: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 3,
+  },
+  compactAge: {
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  compactName: {
+    fontSize: 7,
+    fontWeight: '500',
+    textAlign: 'center',
+    paddingHorizontal: 2,
+  },
 });

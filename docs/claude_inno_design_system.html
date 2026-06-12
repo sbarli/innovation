@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=1440"/>
+  <title>Inno — Design System</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,16,400;0,16,500;0,16,600;1,16,400;1,16,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="styles/tokens.css?v=8"/>
+  <link rel="stylesheet" href="styles/base.css?v=8"/>
+  <link rel="stylesheet" href="styles/sections.css?v=8"/>
+  <link rel="stylesheet" href="styles/card.css?v=8"/>
+  <link rel="stylesheet" href="styles/tableau.css?v=8"/>
+  <link rel="stylesheet" href="styles/ui.css?v=8"/>
+  <link rel="stylesheet" href="styles/motion.css?v=8"/>
+
+  <!-- React + Babel -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <nav class="nav" data-screen-label="00 Nav">
+    <div class="nav-brand"><span class="seal">I</span><span>Inno</span></div>
+    <div class="nav-meta">
+      <span>Design System · v0.3</span>
+      <span>Gameplay</span>
+      <div class="theme-toggle">
+        <button class="is-active" data-mode="light">Light</button>
+        <button data-mode="dark">Dark</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============================ HERO ============================ -->
+    <header class="hero" data-screen-label="01 Hero">
+      <div class="hero-eyebrow"><span class="dot"></span> Inno · A digital adaptation of <em>Innovation</em> · v0.3</div>
+      <h1>A civilization,<br/><em>played in cards.</em></h1>
+      <p class="hero-sub">
+        A design system for the digital adaptation of <em>Innovation</em>. Cards are landscape with the
+        four-icon topology from the physical game so splay mechanics map cleanly. Tablet-first, light
+        and dark, warm tabletop linens with archival warmth.
+      </p>
+      <dl class="hero-meta">
+        <div><dt>Platforms</dt><dd>iPad · Android tablet · Web</dd></div>
+        <div><dt>Type</dt><dd>Newsreader · Spectral</dd></div>
+        <div><dt>Themes</dt><dd>Light · Dark</dd></div>
+        <div><dt>Scope</dt><dd>Gameplay surfaces</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 — TYPE -->
+    <section class="section" data-screen-label="02 Type">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <span class="num">§ 01 — Type & voice</span>
+            <h2>A literary serif for play.<br/><em>A neutral sans for everything else.</em></h2>
+          </div>
+          <p class="blurb">
+            Newsreader for display, Spectral for body — cards and tableau feel like printed artifacts.
+            A clean sans takes over for lobbies, settings, and form chrome.
+          </p>
+        </div>
+        <div class="mount" data-mount="type-specimen"></div>
+      </div>
+    </section>
+
+    <!-- 02 — COLOR -->
+    <section class="section section-alt" data-screen-label="03 Color">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <span class="num">§ 02 — Color</span>
+            <h2>Five colors of civilization.<br/><em>Ten ages of history.</em></h2>
+          </div>
+          <p class="blurb">
+            The original five card colors stay recognizable but sit slightly under, like aged ink on
+            parchment. Each pairs with a soft tint for dogma backgrounds and tints the empty-pile state.
+          </p>
+        </div>
+        <div class="mount" data-mount="color-set"></div>
+      </div>
+    </section>
+
+    <!-- 03 — ICONS -->
+    <section class="section" data-screen-label="04 Icons">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <span class="num">§ 03 — Iconography</span>
+            <h2>Six dogma marks,<br/><em>contained in a hex.</em></h2>
+          </div>
+          <p class="blurb">
+            Castle, crown, leaf, lamp, factory, clock — the six icons that drive sharing, demanding,
+            and defending. Filled silhouettes inside a solid hex container; legible from 14 to 72 px.
+          </p>
+        </div>
+        <div class="mount" data-mount="icons"></div>
+      </div>
+    </section>
+
+    <!-- 04 — CARD ANATOMY -->
+    <section class="section section-alt" data-screen-label="05 Card anatomy">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <span class="num">§ 04 — Card · anatomy</span>
+            <h2>Landscape.<br/><em>Four icons. One illustration.</em></h2>
+          </div>
+          <p class="blurb">
+            Cards are horizontal, matching the physical game. The four icon positions —
+            <strong>TL · BL · BC · BR</strong> — are the ones splaying reveals: 1 icon when splayed
+            left, 2 when right, 3 when up. One position holds the illustration (varies by color).
+          </p>
+        </div>
+        <div class="mount" data-mount="card-anatomy"></div>
+      </div>
+    </section>
+
+    <!-- 05 — CARDS GRID -->
+    <section class="section" data-screen-label="06 Cards">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <span class="num">§ 05 — Card · examples</span>
+            <h2>Four innovations,<br/><em>from four colors, four ages.</em></h2>
+          </div>
+          <p class="blurb">
+            Writing (purple), Oars (red, with a demand block), Perspective (yellow), and Atomic Theory
+            (blue). The color stripe identifies the stack; soft fills tint each dogma row.
+          </p>
+        </div>
+        <div class="mount" data-mount="card-showcase"></div>
+      </div>
+    </section>
+
+    <!-- 05b — CARD BACK -->
+    <section class="section section-alt" data-screen-label="07 Card back">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <span class="num">§ 05b — Card · back</span>
+            <h2>Ten ages,<br/><em>ten backs.</em></h2>
+          </div>
+          <p class="blurb">
+            Supply piles and the score pile show the card's back. Each back carries the age
+            numeral, the age name, and — for ages 1–9 — the score threshold needed to claim
+            that age's achievement (5 × age). Age 10 has no standard achievement.
+          </p>
+        </div>
+        <div class="mount" data-mount="card-backs"></div>
+      </div>
+    </section>
+
+    <!-- 06 — SPLAY STATES -->
+    <section class="section section-alt" data-screen-label="08 Splay">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <span class="num">§ 06 — Splay states</span>
+            <h2>How splaying reveals icons.<br/><em>One stack, four configurations.</em></h2>
+          </div>
+          <p class="blurb">
+            The same three-card blue stack in each splay state. The strip width of each peek-out matches
+            one icon-cell, so the resource count stays unambiguous to the player.
+          </p>
+        </div>
+        <div class="mount" data-mount="splay-states"></div>
+      </div>
+    </section>
+
+    <!-- 07 — TABLEAU -->
+    <section class="section" data-screen-label="09 Tableau">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <span class="num">§ 07 — Tableau</span>
+            <h2>Your board.<br/><em>Five lanes, one tabletop.</em></h2>
+          </div>
+          <p class="blurb">
+            Empty piles take their color's hue so the lane reads at a glance — no separate label.
+            Populated piles let the cards speak for themselves. Open problem: opposite splays
+            between neighboring lanes need a UX (focus mode on click is the leading proposal).
+          </p>
+        </div>
+        <div class="mount" data-mount="tableau"></div>
+      </div>
+    </section>
+
+    <!-- 08 — GAMEPLAY CHROME -->
+    <section class="section section-alt" data-screen-label="10 Gameplay chrome">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <span class="num">§ 08 — Gameplay chrome</span>
+            <h2>Hand, actions, score.<br/><em>The fixed elements of every turn.</em></h2>
+          </div>
+          <p class="blurb">
+            Action bar with the four actions and two pips for actions remaining. The hand fans below.
+            Score pile and achievements share a compact "pile" chrome; clicking the score pile expands
+            it to show the exact card distribution.
+          </p>
+        </div>
+        <div class="mount" data-mount="gameplay"></div>
+      </div>
+    </section>
+
+    <!-- 09 — MODALS & TOASTS -->
+    <section class="section" data-screen-label="11 Modals & toasts">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <span class="num">§ 09 — Demand modal & toasts</span>
+            <h2>Attacks, shares, alerts.<br/><em>What the server pushes.</em></h2>
+          </div>
+          <p class="blurb">
+            Demand modals interrupt and demand a decision. Toasts are passive and stack in the corner.
+            Color coding: red for demands, blue for shares, yellow for achievements, accent for your turn.
+          </p>
+        </div>
+        <div class="mount" data-mount="modals"></div>
+      </div>
+    </section>
+
+    <!-- 10 — MOTION -->
+    <section class="section section-alt" data-screen-label="12 Motion">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <span class="num">§ 10 — Motion</span>
+            <h2>How cards behave.<br/><em>Meld, splay, draw, demand.</em></h2>
+          </div>
+          <p class="blurb">
+            Four canonical motions, looped so you can read their character. Easing favors confident
+            arrivals with a touch of overshoot; demands shake briefly under a red veil.
+          </p>
+        </div>
+        <div class="mount" data-mount="motion"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div>Inno · Design System v0.3</div>
+    <div>Gameplay scope · Setup &amp; rooms to follow</div>
+    <div>Tablet first · iPad · Android · Web</div>
+  </footer>
+
+  <script src="components/sample-cards.js?v=8"></script>
+  <script type="text/babel" src="components/icons.jsx?v=8"></script>
+  <script type="text/babel" src="components/card.jsx?v=8"></script>
+  <script type="text/babel" src="components/tableau.jsx?v=8"></script>
+  <script type="text/babel" src="components/ui.jsx?v=8"></script>
+  <script type="text/babel" src="components/motion.jsx?v=8"></script>
+  <script type="text/babel" src="components/mount.jsx?v=8"></script>
+</body>
+</html>

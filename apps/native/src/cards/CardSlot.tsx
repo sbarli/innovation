@@ -1,5 +1,5 @@
 import { CardBack } from './CardBack';
-import { CardFront } from './CardFront';
+import { CardFront, CardFrontProps } from './CardFront';
 
 interface Card {
   cardId: string;
@@ -19,13 +19,14 @@ interface CardSlotProps {
   cardId: string;
   cardData?: Card;
   faceDown?: boolean;
-  compact?: boolean;
+  variant?: CardFrontProps['variant'];
+  selected?: boolean;
 }
 
-export function CardSlot({ cardData, faceDown, compact }: CardSlotProps) {
+export function CardSlot({ cardData, faceDown, variant = 'full', selected }: CardSlotProps) {
   if (faceDown || !cardData) {
     const age = cardData?.age ?? 1;
-    return <CardBack age={age} compact={compact} />;
+    return <CardBack age={age} variant={variant === 'compact' ? 'compact' : 'full'} />;
   }
   return (
     <CardFront
@@ -35,7 +36,8 @@ export function CardSlot({ cardData, faceDown, compact }: CardSlotProps) {
       color={cardData.color}
       dogmaResource={cardData.dogmaResource}
       resourceSpaces={cardData.resourceSpaces}
-      compact={compact}
+      variant={variant}
+      selected={selected}
     />
   );
 }
